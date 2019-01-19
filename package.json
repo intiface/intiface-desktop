@@ -4,6 +4,8 @@
   "description": "Desktop Intiface Application",
   "main": "index.js",
   "scripts": {
+    "build": "trash dist dist-bundle && yarn build:main",
+    "build:main": "tsc -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
