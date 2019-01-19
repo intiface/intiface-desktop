@@ -10,7 +10,7 @@
     "strictNullChecks": true,
     "noImplicitThis": true,
     "declaration": true,
-    "outDir": "./dist/main"
+    "outDir": "./dist"
   },
   "include": [
     "./src/*.ts",

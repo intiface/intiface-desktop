@@ -2,10 +2,11 @@
   "name": "intiface-desktop",
   "version": "0.0.1",
   "description": "Desktop Intiface Application",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "trash dist dist-bundle && yarn build:main",
     "build:main": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +27,7 @@
     "copyfiles": "^2.1.0",
     "jest": "^23.6.0",
     "named-pipes": "^0.0.1",
+    "protobufjs": "^6.8.8",
     "trash-cli": "^1.4.0",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.4",
@@ -33,5 +35,6 @@
     "vue-property-decorator": "^7.3.0",
     "vuetify": "^1.4.2",
     "yarn": "^1.13.0"
-  }
+  },
+  "dependencies": {}
 }
