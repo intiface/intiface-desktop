@@ -1,0 +1,15 @@
+{
+  "name": "intiface-protocols",
+  "version": "0.0.1",
+  "description": "Protocols for intiface process bindings",
+  "main": "./dist/intiface_pb.js",
+  "types": "./dist/intiface_pb.d.ts",
+  "scripts": {
+    "build": "sh build.sh"
+  },
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "google-protobuf": "^3.6.1",
+    "ts-protoc-gen": "^0.9.0"
+  }
+}

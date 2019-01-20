@@ -1,11 +1,11 @@
 syntax = "proto3";
-package buttplug_gui_protocol;
+package intiface_protocol;
 
 option csharp_namespace = "Buttplug.Server.CLI";
 
-message GuiMessage {
+message ServerProcessMessage {
 
-  message GuiLog {
+  message ProcessLog {
     string message = 1;
   };
 
@@ -36,13 +36,39 @@ message GuiMessage {
   };
 
   oneof msg {
-    GuiLog guilog = 1;
-    ProcessStarted processstarted = 2;
-    ProcessEnded processended = 3;
+    ProcessStarted processstarted = 1;
+    ProcessEnded processended = 2;
+    ProcessLog processlog = 3;
     ButtplugLog bplog = 4;
     ClientConnected clientconnected = 5;
     ClientDisconnected clientdisconnected = 6;
     DeviceConnected deviceconnected = 7;
     DeviceDisconnected devicedisconnected = 8;
   };
-}
+};
+
+message ServerFrontendMessage {
+  message StartProcess {
+  };
+
+  message StopProcess {
+  };
+
+  message StartProxy {
+  };
+
+  message StopProxy {
+  };
+
+  message UpdateConfig {
+  };
+
+  oneof msg {
+    StartProcess startprocess = 1;
+    StopProcess stopprocess = 2;
+    StartProxy startproxy = 3;
+    StopProxy stopproxy = 4;
+    UpdateConfig updateconfig = 5;
+  };
+};
+

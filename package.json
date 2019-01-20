@@ -1,39 +1,7 @@
 {
-  "name": "intiface-desktop",
-  "version": "0.0.1",
-  "description": "Desktop Intiface Application",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "trash dist dist-bundle && yarn build:main",
-    "build:main": "tsc -p tsconfig.json",
-    "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/qdot/intiface-desktop.git"
-  },
-  "author": "Kyle Machulis <kyle@nonpolynomial.com>",
-  "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/qdot/intiface-desktop/issues"
-  },
-  "homepage": "https://github.com/qdot/intiface-desktop#readme",
-  "devDependencies": {
-    "@types/jest": "^23.3.13",
-    "@types/node": "^10.12.18",
-    "buttplug": "^0.10.0",
-    "codecov": "^3.1.0",
-    "copyfiles": "^2.1.0",
-    "jest": "^23.6.0",
-    "protobufjs": "^6.8.8",
-    "trash-cli": "^1.4.0",
-    "ts-node": "^7.0.1",
-    "typescript": "^3.2.4",
-    "vue": "^2.5.22",
-    "vue-property-decorator": "^7.3.0",
-    "vuetify": "^1.4.2",
-    "yarn": "^1.13.0"
-  },
-  "dependencies": {}
+  "private": true,
+  "name": "intiface",
+  "workspaces": [
+    "packages/*"
+  ]
 }
