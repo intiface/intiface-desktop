@@ -1,4 +1,5 @@
 import * as net from "net";
+import * as child_process from "child_process";
 import * as MessageTypes from "intiface-protocols";
 import { EventEmitter } from "events";
 
@@ -19,6 +20,7 @@ export class ServerProcess extends EventEmitter {
   // IPC pipe for relaying server process status out to the frontend.
   private _frontendServer: net.Server | null = null;
   private _frontendSocket: net.Socket | null = null;
+  private _serverProcess: child_process.ChildProcess;
 
   // If we need to front the ipc server with our own websocket server, we'll
   // still need an IPC client to the server which we'll proxy through our own
@@ -39,17 +41,15 @@ export class ServerProcess extends EventEmitter {
     let pipe = "\0ButtplugPipe";
     this._frontendServer = net.createServer();
     this._frontendServer.addListener("connection", (s) => {
-      console.log("GOT CONNECTION");
       this._frontendSocket = s;
       this._frontendSocket.addListener("data", (d) => {
-        console.log("GOT MESSAGE");
         this.ParseMessage(d);
       });
     });
     // TODO Should probably await this?
     this._frontendServer.listen(pipe);
-
     // Now we start up our external process.
+    this._serverProcess = child_process.execFile("node", ["/home/qdot/code/git-projects/intiface-desktop/packages/test-process/index.js"]);
   }
 
   public StopServer() {

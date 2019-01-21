@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { IpcMain, ipcRenderer } from "electron";
-import { ServerFrontendMessage } from "intiface-protocols";
+import { ServerFrontendMessage, ServerProcessMessage } from "intiface-protocols";
 import { Component, Watch } from "vue-property-decorator";
 
 @Component({
@@ -13,6 +13,9 @@ export default class App extends Vue {
   /////////////////////////////////////
 
   public mounted() {
+    ipcRenderer.addListener("process", (event: string, args: Buffer) => {
+      console.log(ServerProcessMessage.deserializeBinary(args).toObject());
+    });
   }
 
   public sendMessage() {

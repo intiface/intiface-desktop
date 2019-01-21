@@ -5,7 +5,9 @@ import * as MessageTypes from "intiface-protocols";
 // to start, Websocket and Electron IPC.
 export abstract class ServerFrontendConnector extends EventEmitter {
   abstract Start(): void;
-  abstract SendMessageToFrontend(aMsg: MessageTypes.ServerProcessMessage): void;
+  // This will get a serialized protobuf, so just take a buffer and pass it on.
+  // We'll decode in the frontend.
+  abstract SendMessageToFrontend(aMsg: Buffer): void;
 
   // When we get something from the frontend, emit it so the server can do
   // something with it.

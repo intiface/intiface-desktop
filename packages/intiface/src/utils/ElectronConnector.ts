@@ -19,7 +19,7 @@ export class ElectronConnector extends ServerFrontendConnector
     // Nothing to actually start here.
   }
 
-  public SendMessageToFrontend(aMsg: ServerProcessMessage) {
+  public SendMessageToFrontend(aMsg: Buffer) {
     this._win.webContents.send("process", aMsg);
   }
 }
