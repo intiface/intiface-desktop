@@ -1,4 +1,5 @@
 import { ServerFrontendConnector } from "./ServerFrontendConnector";
+import * as MessageTypes from "intiface-protocols";
 
 export class ButtplugProcessServer {
   private _connector: ServerFrontendConnector;
@@ -8,18 +9,13 @@ export class ButtplugProcessServer {
     this._connector.addListener("message", this.ReceiveFrontendMessage);
   }
 
-  private ReceiveFrontendMessage(aMsg: FrontendMessage) {
-    switch (aMsg.constructor) {
-      case StartProcessMessage:
-        break;
-      case StopProcessMessage:
-        break;
-      case UpdateConfigMessage:
-        break;
-      case StartProxyMessage:
-        break;
-      case StopProxyMessage:
-        break;
+  private ReceiveFrontendMessage(aMsg: MessageTypes.ServerFrontendMessage) {
+    // TODO Feels like there should be a better way to do this :c
+    if (aMsg.hasStartprocess) {
+    } else if (aMsg.hasStopprocess) {
+    } else if (aMsg.hasStartproxy) {
+    } else if (aMsg.hasStopproxy) {
+    } else if (aMsg.hasUpdateconfig) {
     }
   }
 }
