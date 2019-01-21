@@ -11,7 +11,7 @@ async function genPBuf() {
   const pbversion = pjson.devDependencies["google-protobuf"].substring(1);
   const protoc_dir = `./protoc-${pbversion}`;
   const protoc_bin = `${protoc_dir}/bin/protoc`;
-  const out_dir="./dist";
+  const out_dir="./protocols";
   const protoc_gen_ts_path="../../node_modules/.bin/protoc-gen-ts";
   let res;
 

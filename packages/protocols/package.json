@@ -2,10 +2,10 @@
   "name": "intiface-protocols",
   "version": "0.0.1",
   "description": "Protocols for intiface process bindings",
-  "main": "./dist/intiface_pb.js",
-  "types": "./dist/intiface_pb.d.ts",
+  "main": "./protocols/intiface_pb.js",
+  "types": "./protocols/intiface_pb.d.ts",
   "scripts": {
-    "build": "sh build.sh"
+    "build": "node index.js"
   },
   "license": "BSD-3-Clause",
   "devDependencies": {
