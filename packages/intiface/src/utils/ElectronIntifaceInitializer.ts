@@ -3,13 +3,13 @@ import {
 } from "electron";
 import {
   ButtplugProcessServer
-} from 'intiface-process-server';
+} from "intiface-process-server";
 import {
-  ElectronConnector
-} from './ElectronConnector';
+  ElectronServerConnector
+} from "./ElectronServerConnector";
 
 let intiface_server: ButtplugProcessServer;
 
-export function SetupElectronIntiface(aWin: BrowserWindow) {
-  intiface_server = new ButtplugProcessServer(new ElectronConnector(aWin));
+export function SetupElectronIntifaceServer(aWin: BrowserWindow) {
+  intiface_server = new ButtplugProcessServer(new ElectronServerConnector(aWin));
 }

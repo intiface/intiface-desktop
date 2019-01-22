@@ -1,12 +1,12 @@
-import { ServerFrontendConnector } from "./ServerFrontendConnector";
+import { ServerConnector } from "./ServerConnector";
 import * as MessageTypes from "intiface-protocols";
 import { ServerProcess } from "./ServerProcess";
 
 export class ButtplugProcessServer {
-  private _connector: ServerFrontendConnector;
+  private _connector: ServerConnector;
   private _process: ServerProcess | null;
 
-  public constructor(aConnector: ServerFrontendConnector) {
+  public constructor(aConnector: ServerConnector) {
     this._connector = aConnector;
     this._connector.addListener("message", (msg) => this.ReceiveFrontendMessage(msg));
   }

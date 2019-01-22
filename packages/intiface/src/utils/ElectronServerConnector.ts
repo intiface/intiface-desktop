@@ -1,8 +1,8 @@
-import { ServerFrontendConnector } from "intiface-process-server";
+import { ServerConnector } from "intiface-process-server";
 import { IpcMain, IpcRenderer, BrowserWindow, ipcMain } from "electron";
 import { ServerFrontendMessage, ServerProcessMessage } from "intiface-protocols";
 
-export class ElectronConnector extends ServerFrontendConnector
+export class ElectronServerConnector extends ServerConnector
 {
   private _win: BrowserWindow;
 

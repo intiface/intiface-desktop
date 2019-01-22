@@ -1,2 +1,2 @@
-export * from "./ServerFrontendConnector";
+export * from "./ServerConnector";
 export * from "./ButtplugProcessServer";

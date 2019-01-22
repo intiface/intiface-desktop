@@ -1,9 +1,10 @@
 import { EventEmitter } from "events";
 import * as MessageTypes from "intiface-protocols";
 
-// Responsible for linking the frontend and server. Will have at least 2 flavors
-// to start, Websocket and Electron IPC.
-export abstract class ServerFrontendConnector extends EventEmitter {
+// Responsible for the server communicating with the frontend, in the server
+// process/scope. Will have at least 2 flavors to start, Websocket and Electron
+// IPC.
+export abstract class ServerConnector extends EventEmitter {
   abstract Start(): void;
   // This will get a serialized protobuf, so just take a buffer and pass it on.
   // We'll decode in the frontend.
