@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { ServerFrontendMessage, ServerProcessMessage } from "intiface-protocols";
-import { Component, Watch } from "vue-property-decorator";
+import { Component, Watch, Prop } from "vue-property-decorator";
 import { FrontendConnector } from './utils/FrontendConnector';
 
 @Component({
@@ -9,6 +9,15 @@ import { FrontendConnector } from './utils/FrontendConnector';
 })
 export default class App extends Vue {
   private _connector: FrontendConnector | null = null;
+  private menuList = [
+    { title: 'Server', icon: 'dashboard', path: 'server' },
+    { title: 'Proxy', icon: 'settings_cell', path: 'proxy' },
+    { title: 'Devices', icon: 'device_hub', path: 'devices' },
+    { title: 'Settings', icon: 'settings', path: 'settings' },
+    { title: 'About', icon: 'info', path: 'about' },
+  ];
+  private mini = true;
+  private drawer = true;
 
   /////////////////////////////////////
   // Component and UI methods

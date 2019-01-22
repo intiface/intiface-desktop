@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import ServerPanel from './components/ServerPanel/ServerPanel';
+import AboutPanel from './components/AboutPanel/AboutPanel';
+import SettingsPanel from './components/SettingsPanel/SettingsPanel';
 
 Vue.use(Router);
 
@@ -11,15 +13,21 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+    },
+    {
+      path: '/server',
+      name: 'Server',
+      component: ServerPanel
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: SettingsPanel
     },
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: AboutPanel
     },
   ],
 });
