@@ -1,7 +1,6 @@
 # Intiface Application
 
-[![Appveyor (Windows) build status](https://ci.appveyor.com/api/projects/status/9eorg584nam87bb2/branch/master?svg=true)](https://ci.appveyor.com/project/qdot/intiface-desktop/branch/master)
-[![Travis (Linux/macOS) build Status](https://travis-ci.org/intiface/intiface-desktop.svg?branch=master)](https://travis-ci.org/intiface/intiface-desktop)
+[![Build Status](https://dev.azure.com/nplabs/intiface/_apis/build/status/intiface.intiface-desktop?branchName=master)](https://dev.azure.com/nplabs/intiface/_build/latest?definitionId=1&branchName=master)
 
 [![Patreon donate button](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://www.patreon.com/qdot)
 [![Discourse Forum](https://img.shields.io/badge/discourse-forum-blue.svg)](https://metafetish.club)
