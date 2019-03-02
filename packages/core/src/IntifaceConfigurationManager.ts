@@ -1,17 +1,14 @@
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
-import * as fs from "fs";
+import { EventEmitter } from "events";
 
-export class IntifaceConfigurationManager {
-  private _config: IntifaceConfiguration = new IntifaceConfiguration();
+export abstract class IntifaceConfigurationManager extends EventEmitter {
+  protected _config: IntifaceConfiguration = new IntifaceConfiguration();
 
   public get Config() {
     return this._config;
   }
 
-  public Load(aConfigPath: string) {
-  }
+  public abstract Load();
 
-  public Save(aConfigPath: string) {
-    fs.writeFileSync(aConfigPath, JSON.stringify(this._config));
-  }
+  public abstract Save();
 }

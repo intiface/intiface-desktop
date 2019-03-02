@@ -2,15 +2,32 @@ import { BackendConnector } from "./BackendConnector";
 import { IntifaceProtocols } from "intiface-protocols";
 import { ServerProcess } from "./ServerProcess";
 import { IntifaceConfigurationManager } from "./IntifaceConfigurationManager";
+import * as fs from "fs";
+import { IntifaceConfigurationFileManager } from "./IntifaceConfigurationFileManager";
 
+// The link between whatever our frontend is (Electron, express, etc) and our
+// Buttplug server process. This will handle loading/saving our configuration
+// file, bringing up/shutting down processes, etc...
+//
+// This module will need to exist in whatever the parent process of our setup
+// is, i.e. the process that can actually touch files and network. It will
+// communicate with the GUI via a specialized FrondendConnector class.
 export class ButtplugProcessManager {
+
+  private _defaultConfigPath: string = "~/.buttplugrc";
   private _connector: BackendConnector;
   private _process: ServerProcess | null;
-  private _config: IntifaceConfigurationManager = new IntifaceConfigurationManager();
+  private _config: IntifaceConfigurationManager;
 
   public constructor(aConnector: BackendConnector) {
     this._connector = aConnector;
-    this._config.Load("~/.buttplugrc");
+    if (fs.existsSync(this._defaultConfigPath)) {
+      this._config =
+        new IntifaceConfigurationFileManager(IntifaceConfigurationFileManager.DEFAULT_CONFIG_PATH);
+      this._config.Load();
+    } else {
+      this._config.Save();
+    }
     this._connector.addListener("message", (msg) => this.ReceiveFrontendMessage(msg));
   }
 
@@ -28,8 +45,8 @@ export class ButtplugProcessManager {
     } else if (aMsg.startproxy !== null) {
     } else if (aMsg.stopproxy !== null) {
     } else if (aMsg.updateconfig !== null) {
-      this._config.Config.Load(aMsg.updateconfig!.configuration!);
-      this._config.Save("~/.buttplugrc");
+      this._config.Config.Load(JSON.parse(aMsg.updateconfig!.configuration!));
+      this._config.Save();
     }
   }
 }
