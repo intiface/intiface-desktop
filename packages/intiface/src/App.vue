@@ -29,6 +29,7 @@
           v-for="item in menuList"
           :key="item.title"
           :to="item.path"
+          @click="currentItem = item"
         >
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -40,6 +41,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
+    <v-toolbar app>{{ currentItem.title }}</v-toolbar>
     <v-content fill-height>
       <router-view></router-view>
     </v-content>

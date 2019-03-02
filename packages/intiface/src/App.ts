@@ -16,6 +16,7 @@ export default class App extends Vue {
     { title: 'Settings', icon: 'settings', path: 'settings' },
     { title: 'About', icon: 'info', path: 'about' },
   ];
+  private currentItem = this.menuList[0];
   private mini = true;
   private drawer = true;
 

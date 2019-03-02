@@ -8,9 +8,11 @@ export default class ServerPanel extends Vue {
   private serverRunning: boolean = false;
   private useWebsockets: boolean = false;
   private pipeName: string = "ButtplugPipe";
+  private serverStates: string[] = ["Start Server", "Stop Server"];
 
-  mounted() {
-    console.log("Mounted server panel");
+  private ToggleServer() {
+    this.serverRunning = !this.serverRunning;
+    this.serverRunning ? this.$emit("startserver") : this.$emit("stopserver");
   }
 
   // TODO Pipe name validator
