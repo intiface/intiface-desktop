@@ -4,4 +4,3 @@ import { Component } from "vue-property-decorator";
 @Component({})
 export default class AboutPanel extends Vue {
 }
-

@@ -19,4 +19,3 @@ export default class ServerPanel extends Vue {
 
   // TODO Websocket address validator
 }
-

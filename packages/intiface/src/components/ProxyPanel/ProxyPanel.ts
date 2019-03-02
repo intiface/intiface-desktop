@@ -7,4 +7,3 @@ import { Component } from "vue-property-decorator";
 })
 export default class ProxyPanel extends Vue {
 }
-

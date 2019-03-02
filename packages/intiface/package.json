@@ -10,6 +10,8 @@
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
+    "tslint": "tslint --project tsconfig.json --outputAbsolutePaths -c ../../tslint.json \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "tslint:fix": "tslint --project tsconfig.json --outputAbsolutePaths -c ../../tslint.json --fix semicolon,comma,no-var-keyword,ordered-imports \"src/**/*.ts\" \"tests/**/*.ts\"",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {

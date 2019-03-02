@@ -33,7 +33,7 @@ export default class App extends Vue {
       const mod = await import("./utils/ElectronFrontendConnector");
       this._connector = new mod.ElectronFrontendConnector();
     } else {
-      if (this.$route.query["websocket"]) {
+      if (this.$route.query.websocket) {
         const mod = await import("./utils/WebsocketFrontendConnector");
         this._connector = new mod.WebsocketFrontendConnector();
       } else {

@@ -5,21 +5,21 @@ import { IntifaceConfiguration } from "./IntifaceConfiguration";
 // Sends messages from the frontend/GUI to the backend/server process.
 export abstract class FrontendConnector extends EventEmitter {
 
+  public get Config() {
+    return this._config;
+  }
+
   private _config: IntifaceConfiguration = new IntifaceConfiguration();
 
   protected constructor() {
     super();
   }
 
+  public abstract SendMessage(aMsg: IntifaceProtocols.ServerFrontendMessage): void;
+
   protected EmitServerMessage(aMsg: IntifaceProtocols.ServerProcessMessage) {
     this.emit("backendmessage", aMsg);
   }
-
-  public get Config() {
-    return this._config;
-  }
-
-  public abstract SendMessage(aMsg: IntifaceProtocols.ServerFrontendMessage): void;
 
   protected ProcessMessage(aMsg: IntifaceProtocols.ServerProcessMessage) {
     if (aMsg.configuration !== null) {

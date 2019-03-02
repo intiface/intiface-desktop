@@ -12,7 +12,7 @@ export class ElectronServerConnector extends BackendConnector {
   public constructor(aWin: BrowserWindow) {
     super();
     this._win = aWin;
-    ipcMain.addListener('frontend', (event: string, arg: Buffer) => {
+    ipcMain.addListener("frontend", (event: string, arg: Buffer) => {
       this.emit("message", IntifaceProtocols.ServerFrontendMessage.decode(arg));
     });
   }

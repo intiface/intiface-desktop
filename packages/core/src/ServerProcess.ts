@@ -30,7 +30,7 @@ export class ServerProcess extends EventEmitter {
 
   public constructor() {
     super();
-    process.on('SIGTERM', () => {
+    process.on("SIGTERM", () => {
       this.ShutdownServer();
     });
   }
