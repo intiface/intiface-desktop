@@ -5,16 +5,10 @@
   "main": "./protocols/intiface_pb.js",
   "types": "./protocols/intiface_pb.d.ts",
   "scripts": {
-    "build": "node index.js"
+    "build": "pbjs -t json-module -w commonjs -o protocols/intiface_pb.js intiface.proto && pbjs -t static-module intiface.proto | pbts -o protocols/intiface_pb.d.ts -"
   },
   "license": "BSD-3-Clause",
-  "devDependencies": {
-    "google-protobuf": "^3.6.1",
-    "ts-protoc-gen": "^0.9.0"
-  },
   "dependencies": {
-    "@types/google-protobuf": "^3.2.7",
-    "request": "^2.88.0",
-    "unzip": "^0.1.11"
+    "protobufjs": "^6.8.8"
   }
 }

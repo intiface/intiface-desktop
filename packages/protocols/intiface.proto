@@ -3,36 +3,52 @@ package intiface_protocol;
 
 option csharp_namespace = "Buttplug.Server.CLI";
 
+// Messages that go from parent process to child interface/gui.
 message ServerProcessMessage {
 
+  // Status messages from the server process
   message ProcessLog {
     string message = 1;
   };
 
+  // Notifies frontend that server process is up and running
   message ProcessStarted {
   };
-
+  
+  // Notifies frontend that server process has ended
   message ProcessEnded {
   };
 
+  // Buttplug protocol log message from server process
   message ButtplugLog {
     string message = 1;
   };
 
+  // Notification that a client has connected to the server process
   message ClientConnected {
     string client_name = 1;
   };
 
+  // Notification that a client has disconnected from the server
+  // process.
   message ClientDisconnected {
   };
 
+  // Notification that the server has connected to a device.
   message DeviceConnected {
     string device_name = 1;
     uint32 device_id = 2;
   };
 
+  // Notification that the server has disconnected from a device.
   message DeviceDisconnected {
     uint32 device_id = 1;
+  };
+
+  // Sends full configuration file to the child process, usually on
+  // startup to seed initial config information.
+  message Configuration {
+    string configuration = 1;
   };
 
   oneof msg {
@@ -44,23 +60,32 @@ message ServerProcessMessage {
     ClientDisconnected clientdisconnected = 6;
     DeviceConnected deviceconnected = 7;
     DeviceDisconnected devicedisconnected = 8;
+    Configuration configuration = 9;
   };
 };
 
+// Messages that go from child interface/gui to parent process.
 message ServerFrontendMessage {
+  // Requests server start a new process.
   message StartProcess {
   };
 
+  // Requests server stop current process.
   message StopProcess {
   };
-
+  
+  // Requests server starts listening on Buttplug proxy ports.
   message StartProxy {
   };
 
+  // Requests server stops listening on Buttplug proxy ports.
   message StopProxy {
   };
 
+  // Sends full configuration file to parent process, on each change,
+  // in order for it to be saved to disk.
   message UpdateConfig {
+    string configuration = 1;
   };
 
   oneof msg {
