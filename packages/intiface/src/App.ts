@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { IntifaceProtocols } from "intiface-protocols";
 import { Component, Watch, Prop } from "vue-property-decorator";
-import { FrontendConnector } from "./utils/FrontendConnector";
+import { FrontendConnector } from "intiface-core-library";
 
 @Component({
   components: {

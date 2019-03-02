@@ -1,4 +1,4 @@
-import { ServerConnector } from "intiface-core-library";
+import { BackendConnector } from "intiface-core-library";
 import { IpcMain, IpcRenderer, BrowserWindow, ipcMain } from "electron";
 import { IntifaceProtocols } from "intiface-protocols";
 
@@ -6,7 +6,7 @@ import { IntifaceProtocols } from "intiface-protocols";
 // Electron. This is the class that will handle anything that needs to happen on
 // the system side of things, including file loading/saving, network access,
 // etc.
-export class ElectronServerConnector extends ServerConnector {
+export class ElectronServerConnector extends BackendConnector {
   private _win: BrowserWindow;
 
   public constructor(aWin: BrowserWindow) {

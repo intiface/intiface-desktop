@@ -79,6 +79,6 @@ export class ServerProcess extends EventEmitter {
       this.ShutdownServer();
     }
     console.log(msg);
-    this.emit("processmessage", aData);
+    this.emit("processmessage", msg);
   }
 }

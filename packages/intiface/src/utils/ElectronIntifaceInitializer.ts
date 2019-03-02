@@ -1,9 +1,9 @@
 import { BrowserWindow } from "electron";
-import { ButtplugProcessServer } from "intiface-core-library";
+import { ButtplugProcessManager } from "intiface-core-library";
 import { ElectronServerConnector } from "./ElectronServerConnector";
 
-let _intifaceServer: ButtplugProcessServer;
+let _intifaceServer: ButtplugProcessManager;
 
 export function SetupElectronIntifaceServer(aWin: BrowserWindow) {
-  _intifaceServer = new ButtplugProcessServer(new ElectronServerConnector(aWin));
+  _intifaceServer = new ButtplugProcessManager(new ElectronServerConnector(aWin));
 }

@@ -1,4 +1,4 @@
-import { FrontendConnector } from "./FrontendConnector";
+import { FrontendConnector } from "intiface-core-library";
 import { IntifaceProtocols } from "intiface-protocols";
 import { ipcRenderer } from "electron";
 

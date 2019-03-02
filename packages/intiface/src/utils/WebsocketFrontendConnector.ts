@@ -1,4 +1,4 @@
-import { FrontendConnector } from "./FrontendConnector";
+import { FrontendConnector } from "intiface-core-library";
 import { IntifaceProtocols } from "intiface-protocols";
 
 export class WebsocketFrontendConnector extends FrontendConnector {
