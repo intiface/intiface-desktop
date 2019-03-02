@@ -1,5 +1,5 @@
 import { FrontendConnector } from "./FrontendConnector";
-import { ServerFrontendMessage, ServerProcessMessage } from "intiface-protocols";
+import { IntifaceProtocols } from "intiface-protocols";
 
 export class WebsocketFrontendConnector extends FrontendConnector {
 
@@ -7,6 +7,6 @@ export class WebsocketFrontendConnector extends FrontendConnector {
     super();
   }
 
-  public SendMessage(aMsg: ServerFrontendMessage) {
+  public SendMessage(aMsg: IntifaceProtocols.ServerFrontendMessage) {
   }
 }

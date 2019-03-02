@@ -1,7 +1,10 @@
 import { EventEmitter } from "events";
-import { ServerFrontendMessage, ServerProcessMessage } from "intiface-protocols";
+import { IntifaceProtocols } from "intiface-protocols";
+import { IntifaceConfiguration } from "./IntifaceConfiguration";
 
 export abstract class FrontendConnector extends EventEmitter {
+
+  private _config: IntifaceConfiguration = new IntifaceConfiguration();
 
   protected constructor() {
     super();
@@ -11,5 +14,13 @@ export abstract class FrontendConnector extends EventEmitter {
     //this.emit("server", )
   }
 
-  public abstract SendMessage(aMsg: ServerFrontendMessage): void;
+  public get Config() {
+    return this._config;
+  }
+
+  public abstract SendMessage(aMsg: IntifaceProtocols.ServerFrontendMessage): void;
+
+  protected ProcessMessage(aMsg: Buffer) {
+    
+  }
 }

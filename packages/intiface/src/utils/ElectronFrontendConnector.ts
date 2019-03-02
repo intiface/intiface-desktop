@@ -1,5 +1,5 @@
 import { FrontendConnector } from "./FrontendConnector";
-import { ServerFrontendMessage, ServerProcessMessage } from "intiface-protocols";
+import { IntifaceProtocols } from "intiface-protocols";
 import { ipcRenderer } from "electron";
 
 // The frontend side of the Frontend/Server connector pair for Electron. This
@@ -10,11 +10,11 @@ export class ElectronFrontendConnector extends FrontendConnector {
   public constructor() {
     super();
     ipcRenderer.addListener("process", (event: string, args: Buffer) => {
-      console.log(ServerProcessMessage.deserializeBinary(args).toObject());
+      console.log(IntifaceProtocols.ServerProcessMessage.decode(args));
     });
   }
 
-  public SendMessage(aMsg: ServerFrontendMessage) {
-    ipcRenderer.send("frontend", aMsg.serializeBinary());
+  public SendMessage(aMsg: IntifaceProtocols.ServerFrontendMessage) {
+    ipcRenderer.send("frontend", IntifaceProtocols.ServerFrontendMessage.encode(aMsg));
   }
 }
