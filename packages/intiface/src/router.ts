@@ -17,17 +17,17 @@ export default new Router({
     {
       path: '/server',
       name: 'Server',
-      component: ServerPanel
+      component: ServerPanel,
     },
     {
       path: '/settings',
       name: 'Settings',
-      component: SettingsPanel
+      component: SettingsPanel,
     },
     {
       path: '/about',
       name: 'about',
-      component: AboutPanel
+      component: AboutPanel,
     },
   ],
 });
