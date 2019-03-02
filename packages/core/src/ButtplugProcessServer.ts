@@ -1,5 +1,5 @@
 import { ServerConnector } from "./ServerConnector";
-import * as MessageTypes from "intiface-protocols";
+import { IntifaceProtocols } from "intiface-protocols";
 import { ServerProcess } from "./ServerProcess";
 
 export class ButtplugProcessServer {
@@ -11,9 +11,9 @@ export class ButtplugProcessServer {
     this._connector.addListener("message", (msg) => this.ReceiveFrontendMessage(msg));
   }
 
-  private ReceiveFrontendMessage(aMsg: MessageTypes.ServerFrontendMessage) {
+  private ReceiveFrontendMessage(aMsg: IntifaceProtocols.ServerFrontendMessage) {
     // TODO Feels like there should be a better way to do this :c
-    if (aMsg.hasStartprocess) {
+    if (aMsg.startprocess !== null) {
       this._process = new ServerProcess();
       // Process message just hands the raw Protobuf buffer through so we don't
       // have to reencode it.
@@ -21,10 +21,10 @@ export class ButtplugProcessServer {
         this._connector.SendMessageToFrontend(aMsg);
       });
       this._process.RunServer();
-    } else if (aMsg.hasStopprocess) {
-    } else if (aMsg.hasStartproxy) {
-    } else if (aMsg.hasStopproxy) {
-    } else if (aMsg.hasUpdateconfig) {
+    } else if (aMsg.stopprocess !== null) {
+    } else if (aMsg.startproxy !== null) {
+    } else if (aMsg.stopproxy !== null) {
+    } else if (aMsg.updateconfig !== null) {
     }
   }
 }

@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import * as MessageTypes from "intiface-protocols";
+import { IntifaceProtocols } from "intiface-protocols";
 
 // Responsible for the server communicating with the frontend, in the server
 // process/scope. Will have at least 2 flavors to start, Websocket and Electron
@@ -12,7 +12,7 @@ export abstract class ServerConnector extends EventEmitter {
 
   // When we get something from the frontend, emit it so the server can do
   // something with it.
-  protected ReceiveMessageFromFrontend(aMsg: MessageTypes.ServerFrontendMessage) {
+  protected ReceiveMessageFromFrontend(aMsg: IntifaceProtocols.ServerFrontendMessage) {
     this.emit("message", aMsg);
   }
 };

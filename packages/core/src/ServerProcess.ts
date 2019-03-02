@@ -1,6 +1,7 @@
 import * as net from "net";
 import * as child_process from "child_process";
-import * as MessageTypes from "intiface-protocols";
+
+import { IntifaceProtocols } from "intiface-protocols";
 import { EventEmitter } from "events";
 
 // Handles execution and lifetime of server processes, as well as translation of
@@ -27,8 +28,7 @@ export class ServerProcess extends EventEmitter {
   // websocket. Mmmm, overly complicated.
   private _ipcClient: net.Socket;
 
-  public constructor()
-  {
+  public constructor() {
     super();
     process.on('SIGTERM', () => {
       this.ShutdownServer();
@@ -38,7 +38,7 @@ export class ServerProcess extends EventEmitter {
   public RunServer() {
     // First, we set up our incoming pipe to receive GUI info from the CLI
     // process
-    let pipe = "\0ButtplugPipe";
+    const pipe = "\0ButtplugPipe";
     this._frontendServer = net.createServer();
     this._frontendServer.addListener("connection", (s) => {
       this._frontendSocket = s;
@@ -72,13 +72,13 @@ export class ServerProcess extends EventEmitter {
   private ParseMessage(aData: Buffer) {
     // TODO Sucks that we'll have to parse this twice, once here and once in the
     // frontend. Not sure how to serialize to frontend and not lose typing tho.
-    let msg = MessageTypes.ServerProcessMessage.deserializeBinary(aData);
-    if (msg.hasProcessended) {
+    const msg = IntifaceProtocols.ServerProcessMessage.decode(aData);
+    if (msg.processended !== null) {
       // Process will not send messages after this, shut down listener. This is
       // the only type of message the server currently needs to care about.
       this.ShutdownServer();
     }
-    console.log(msg.toObject());
+    console.log(msg);
     this.emit("processmessage", aData);
   }
 }
