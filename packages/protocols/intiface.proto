@@ -1,5 +1,5 @@
 syntax = "proto3";
-package intiface_protocol;
+package IntifaceProtocols;
 
 option csharp_namespace = "Buttplug.Server.CLI";
 

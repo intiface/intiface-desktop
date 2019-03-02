@@ -5,7 +5,7 @@ var $protobuf = require("protobufjs/light");
 
 var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $protobuf.Root()))
 .addJSON({
-  intiface_protocol: {
+  IntifaceProtocols: {
     options: {
       csharp_namespace: "Buttplug.Server.CLI"
     },
