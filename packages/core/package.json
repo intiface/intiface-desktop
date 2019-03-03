@@ -2,7 +2,7 @@
   "name": "intiface-core-library",
   "version": "0.0.1",
   "description": "Desktop Intiface Application - Core Library",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "build": "trash dist dist-bundle && yarn build:main",
     "build:main": "tsc -p tsconfig.json",

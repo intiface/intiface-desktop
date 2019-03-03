@@ -7,14 +7,21 @@ import { ipcRenderer } from "electron";
 // update the UI.
 export class ElectronFrontendConnector extends FrontendConnector {
 
-  public constructor() {
+  public static Create(): ElectronFrontendConnector {
+    const connector = new ElectronFrontendConnector();
+    connector.Ready();
+    return connector;
+  }
+
+  protected constructor() {
     super();
-    ipcRenderer.addListener("process", (event: string, args: Buffer) => {
-      console.log(IntifaceProtocols.ServerProcessMessage.decode(args));
+    ipcRenderer.addListener("backend", (event: string, args: Buffer) => {
+      const msg = IntifaceProtocols.ServerBackendMessage.decode(args);
+      this.ProcessMessage(msg);
     });
   }
 
-  public SendMessage(aMsg: IntifaceProtocols.ServerFrontendMessage) {
-    ipcRenderer.send("frontend", IntifaceProtocols.ServerFrontendMessage.encode(aMsg));
+  protected SendMessageInternal(aMsg: Buffer) {
+    ipcRenderer.send("frontend", aMsg);
   }
 }

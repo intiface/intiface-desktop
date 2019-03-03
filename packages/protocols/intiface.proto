@@ -4,7 +4,7 @@ package IntifaceProtocols;
 option csharp_namespace = "Buttplug.Server.CLI";
 
 // Messages that go from parent process to child interface/gui.
-message ServerProcessMessage {
+message ServerBackendMessage {
 
   // Status messages from the server process
   message ProcessLog {
@@ -66,6 +66,12 @@ message ServerProcessMessage {
 
 // Messages that go from child interface/gui to parent process.
 message ServerFrontendMessage {
+  // Sent from frontend to backend when frontend is considered to be
+  // up and running. Will cause backend to respond by sending
+  // configuration.
+  message Ready {
+  };
+  
   // Requests server start a new process.
   message StartProcess {
   };
@@ -89,11 +95,12 @@ message ServerFrontendMessage {
   };
 
   oneof msg {
-    StartProcess startprocess = 1;
-    StopProcess stopprocess = 2;
-    StartProxy startproxy = 3;
-    StopProxy stopproxy = 4;
-    UpdateConfig updateconfig = 5;
+    Ready ready = 1;
+    StartProcess startprocess = 2;
+    StopProcess stopprocess = 3;
+    StartProxy startproxy = 4;
+    StopProxy stopproxy = 5;
+    UpdateConfig updateconfig = 6;
   };
 };
 

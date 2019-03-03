@@ -1,11 +1,13 @@
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
 import { IntifaceConfigurationManager } from "./IntifaceConfigurationManager";
 import * as fs from "fs";
+import * as os from "os";
+import * as path from "path";
 
 export class IntifaceConfigurationFileManager extends IntifaceConfigurationManager {
 
   // This is definitely going to need to be something different for windows.
-  public static DEFAULT_CONFIG_PATH = "~/.buttplugrc";
+  public static DEFAULT_CONFIG_PATH = path.join(os.homedir(), ".buttplugrc");
 
   private _configPath: string;
 
@@ -31,6 +33,6 @@ export class IntifaceConfigurationFileManager extends IntifaceConfigurationManag
   }
 
   public Save() {
-    fs.writeFileSync(this._configPath, JSON.stringify(this._config));
+    fs.writeFileSync(this._configPath, JSON.stringify(this._config), { flag: "w+", encoding: "utf-8" });
   }
 }

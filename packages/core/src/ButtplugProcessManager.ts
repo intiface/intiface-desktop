@@ -21,9 +21,9 @@ export class ButtplugProcessManager {
 
   public constructor(aConnector: BackendConnector) {
     this._connector = aConnector;
+    this._config =
+      new IntifaceConfigurationFileManager(IntifaceConfigurationFileManager.DEFAULT_CONFIG_PATH);
     if (fs.existsSync(this._defaultConfigPath)) {
-      this._config =
-        new IntifaceConfigurationFileManager(IntifaceConfigurationFileManager.DEFAULT_CONFIG_PATH);
       this._config.Load();
     } else {
       this._config.Save();
@@ -37,13 +37,19 @@ export class ButtplugProcessManager {
       this._process = new ServerProcess();
       // Process message just hands the raw Protobuf buffer through so we don't
       // have to reencode it.
-      this._process.addListener("processmessage", (aProcessMsg: IntifaceProtocols.ServerProcessMessage) => {
+      this._process.addListener("processmessage", (aProcessMsg: IntifaceProtocols.ServerBackendMessage) => {
         this._connector.SendMessage(aProcessMsg);
       });
       this._process.RunServer();
     } else if (aMsg.stopprocess !== null) {
     } else if (aMsg.startproxy !== null) {
-    } else if (aMsg.stopproxy !== null) {
+    } else if (aMsg.ready !== null) {
+      const msg = IntifaceProtocols.ServerBackendMessage.create({
+        configuration: IntifaceProtocols.ServerBackendMessage.Configuration.create({
+          configuration: JSON.stringify(this._config.Config),
+        }),
+      });
+      this._connector.SendMessage(msg);
     } else if (aMsg.updateconfig !== null) {
       this._config.Config.Load(JSON.parse(aMsg.updateconfig!.configuration!));
       this._config.Save();

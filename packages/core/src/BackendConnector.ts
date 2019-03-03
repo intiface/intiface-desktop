@@ -9,18 +9,15 @@ export abstract class BackendConnector extends EventEmitter {
     super();
   }
 
-  // Establishes a connection, if required.
-  public abstract Start(): void;
-
-  public SendMessage(aMsg: IntifaceProtocols.ServerProcessMessage) {
-    this.SendMessageToFrontend(Buffer.from(IntifaceProtocols.ServerProcessMessage.encode(aMsg).finish()));
+  public SendMessage(aMsg: IntifaceProtocols.ServerBackendMessage) {
+    this.SendMessageInternal(Buffer.from(IntifaceProtocols.ServerBackendMessage.encode(aMsg).finish()));
   }
 
-  protected abstract SendMessageToFrontend(aMsg: Buffer): void;
+  protected abstract SendMessageInternal(aMsg: Buffer): void;
 
   // When we get something from the frontend, emit it so the server can do
   // something with it.
-  protected ReceiveMessageFromFrontend(aMsg: IntifaceProtocols.ServerFrontendMessage) {
+  protected ProcessMessage(aMsg: IntifaceProtocols.ServerFrontendMessage) {
     this.emit("message", aMsg);
   }
 }

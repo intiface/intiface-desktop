@@ -6,22 +6,18 @@ import { IntifaceProtocols } from "intiface-protocols";
 // Electron. This is the class that will handle anything that needs to happen on
 // the system side of things, including file loading/saving, network access,
 // etc.
-export class ElectronServerConnector extends BackendConnector {
+export class ElectronBackendConnector extends BackendConnector {
   private _win: BrowserWindow;
 
   public constructor(aWin: BrowserWindow) {
     super();
     this._win = aWin;
     ipcMain.addListener("frontend", (event: string, arg: Buffer) => {
-      this.emit("message", IntifaceProtocols.ServerFrontendMessage.decode(arg));
+      this.ProcessMessage(IntifaceProtocols.ServerFrontendMessage.decode(arg));
     });
   }
 
-  public Start() {
-    // Nothing to actually start here.
-  }
-
-  public SendMessageToFrontend(aMsg: Buffer) {
-    this._win.webContents.send("process", aMsg);
+  public SendMessageInternal(aMsg: Buffer) {
+    this._win.webContents.send("backend", aMsg);
   }
 }

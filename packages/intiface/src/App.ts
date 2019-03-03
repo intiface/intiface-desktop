@@ -31,7 +31,7 @@ export default class App extends Vue {
     // if/else block as you would a #ifdef/#else in C.
     if (WEBPACK_ELECTRON) {
       const mod = await import("./utils/ElectronFrontendConnector");
-      this._connector = new mod.ElectronFrontendConnector();
+      this._connector = mod.ElectronFrontendConnector.Create();
     } else {
       if (this.$route.query.websocket) {
         const mod = await import("./utils/WebsocketFrontendConnector");

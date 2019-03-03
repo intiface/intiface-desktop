@@ -2,148 +2,148 @@ import * as $protobuf from "protobufjs";
 /** Namespace IntifaceProtocols. */
 export namespace IntifaceProtocols {
 
-    /** Properties of a ServerProcessMessage. */
-    interface IServerProcessMessage {
+    /** Properties of a ServerBackendMessage. */
+    interface IServerBackendMessage {
 
-        /** ServerProcessMessage processstarted */
-        processstarted?: (IntifaceProtocols.ServerProcessMessage.IProcessStarted|null);
+        /** ServerBackendMessage processstarted */
+        processstarted?: (IntifaceProtocols.ServerBackendMessage.IProcessStarted|null);
 
-        /** ServerProcessMessage processended */
-        processended?: (IntifaceProtocols.ServerProcessMessage.IProcessEnded|null);
+        /** ServerBackendMessage processended */
+        processended?: (IntifaceProtocols.ServerBackendMessage.IProcessEnded|null);
 
-        /** ServerProcessMessage processlog */
-        processlog?: (IntifaceProtocols.ServerProcessMessage.IProcessLog|null);
+        /** ServerBackendMessage processlog */
+        processlog?: (IntifaceProtocols.ServerBackendMessage.IProcessLog|null);
 
-        /** ServerProcessMessage bplog */
-        bplog?: (IntifaceProtocols.ServerProcessMessage.IButtplugLog|null);
+        /** ServerBackendMessage bplog */
+        bplog?: (IntifaceProtocols.ServerBackendMessage.IButtplugLog|null);
 
-        /** ServerProcessMessage clientconnected */
-        clientconnected?: (IntifaceProtocols.ServerProcessMessage.IClientConnected|null);
+        /** ServerBackendMessage clientconnected */
+        clientconnected?: (IntifaceProtocols.ServerBackendMessage.IClientConnected|null);
 
-        /** ServerProcessMessage clientdisconnected */
-        clientdisconnected?: (IntifaceProtocols.ServerProcessMessage.IClientDisconnected|null);
+        /** ServerBackendMessage clientdisconnected */
+        clientdisconnected?: (IntifaceProtocols.ServerBackendMessage.IClientDisconnected|null);
 
-        /** ServerProcessMessage deviceconnected */
-        deviceconnected?: (IntifaceProtocols.ServerProcessMessage.IDeviceConnected|null);
+        /** ServerBackendMessage deviceconnected */
+        deviceconnected?: (IntifaceProtocols.ServerBackendMessage.IDeviceConnected|null);
 
-        /** ServerProcessMessage devicedisconnected */
-        devicedisconnected?: (IntifaceProtocols.ServerProcessMessage.IDeviceDisconnected|null);
+        /** ServerBackendMessage devicedisconnected */
+        devicedisconnected?: (IntifaceProtocols.ServerBackendMessage.IDeviceDisconnected|null);
 
-        /** ServerProcessMessage configuration */
-        configuration?: (IntifaceProtocols.ServerProcessMessage.IConfiguration|null);
+        /** ServerBackendMessage configuration */
+        configuration?: (IntifaceProtocols.ServerBackendMessage.IConfiguration|null);
     }
 
-    /** Represents a ServerProcessMessage. */
-    class ServerProcessMessage implements IServerProcessMessage {
+    /** Represents a ServerBackendMessage. */
+    class ServerBackendMessage implements IServerBackendMessage {
 
         /**
-         * Constructs a new ServerProcessMessage.
+         * Constructs a new ServerBackendMessage.
          * @param [properties] Properties to set
          */
-        constructor(properties?: IntifaceProtocols.IServerProcessMessage);
+        constructor(properties?: IntifaceProtocols.IServerBackendMessage);
 
-        /** ServerProcessMessage processstarted. */
-        public processstarted?: (IntifaceProtocols.ServerProcessMessage.IProcessStarted|null);
+        /** ServerBackendMessage processstarted. */
+        public processstarted?: (IntifaceProtocols.ServerBackendMessage.IProcessStarted|null);
 
-        /** ServerProcessMessage processended. */
-        public processended?: (IntifaceProtocols.ServerProcessMessage.IProcessEnded|null);
+        /** ServerBackendMessage processended. */
+        public processended?: (IntifaceProtocols.ServerBackendMessage.IProcessEnded|null);
 
-        /** ServerProcessMessage processlog. */
-        public processlog?: (IntifaceProtocols.ServerProcessMessage.IProcessLog|null);
+        /** ServerBackendMessage processlog. */
+        public processlog?: (IntifaceProtocols.ServerBackendMessage.IProcessLog|null);
 
-        /** ServerProcessMessage bplog. */
-        public bplog?: (IntifaceProtocols.ServerProcessMessage.IButtplugLog|null);
+        /** ServerBackendMessage bplog. */
+        public bplog?: (IntifaceProtocols.ServerBackendMessage.IButtplugLog|null);
 
-        /** ServerProcessMessage clientconnected. */
-        public clientconnected?: (IntifaceProtocols.ServerProcessMessage.IClientConnected|null);
+        /** ServerBackendMessage clientconnected. */
+        public clientconnected?: (IntifaceProtocols.ServerBackendMessage.IClientConnected|null);
 
-        /** ServerProcessMessage clientdisconnected. */
-        public clientdisconnected?: (IntifaceProtocols.ServerProcessMessage.IClientDisconnected|null);
+        /** ServerBackendMessage clientdisconnected. */
+        public clientdisconnected?: (IntifaceProtocols.ServerBackendMessage.IClientDisconnected|null);
 
-        /** ServerProcessMessage deviceconnected. */
-        public deviceconnected?: (IntifaceProtocols.ServerProcessMessage.IDeviceConnected|null);
+        /** ServerBackendMessage deviceconnected. */
+        public deviceconnected?: (IntifaceProtocols.ServerBackendMessage.IDeviceConnected|null);
 
-        /** ServerProcessMessage devicedisconnected. */
-        public devicedisconnected?: (IntifaceProtocols.ServerProcessMessage.IDeviceDisconnected|null);
+        /** ServerBackendMessage devicedisconnected. */
+        public devicedisconnected?: (IntifaceProtocols.ServerBackendMessage.IDeviceDisconnected|null);
 
-        /** ServerProcessMessage configuration. */
-        public configuration?: (IntifaceProtocols.ServerProcessMessage.IConfiguration|null);
+        /** ServerBackendMessage configuration. */
+        public configuration?: (IntifaceProtocols.ServerBackendMessage.IConfiguration|null);
 
-        /** ServerProcessMessage msg. */
+        /** ServerBackendMessage msg. */
         public msg?: ("processstarted"|"processended"|"processlog"|"bplog"|"clientconnected"|"clientdisconnected"|"deviceconnected"|"devicedisconnected"|"configuration");
 
         /**
-         * Creates a new ServerProcessMessage instance using the specified properties.
+         * Creates a new ServerBackendMessage instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns ServerProcessMessage instance
+         * @returns ServerBackendMessage instance
          */
-        public static create(properties?: IntifaceProtocols.IServerProcessMessage): IntifaceProtocols.ServerProcessMessage;
+        public static create(properties?: IntifaceProtocols.IServerBackendMessage): IntifaceProtocols.ServerBackendMessage;
 
         /**
-         * Encodes the specified ServerProcessMessage message. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.verify|verify} messages.
-         * @param message ServerProcessMessage message or plain object to encode
+         * Encodes the specified ServerBackendMessage message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.verify|verify} messages.
+         * @param message ServerBackendMessage message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: IntifaceProtocols.IServerProcessMessage, writer?: $protobuf.Writer): $protobuf.Writer;
+        public static encode(message: IntifaceProtocols.IServerBackendMessage, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
-         * Encodes the specified ServerProcessMessage message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.verify|verify} messages.
-         * @param message ServerProcessMessage message or plain object to encode
+         * Encodes the specified ServerBackendMessage message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.verify|verify} messages.
+         * @param message ServerBackendMessage message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: IntifaceProtocols.IServerProcessMessage, writer?: $protobuf.Writer): $protobuf.Writer;
+        public static encodeDelimited(message: IntifaceProtocols.IServerBackendMessage, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
-         * Decodes a ServerProcessMessage message from the specified reader or buffer.
+         * Decodes a ServerBackendMessage message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns ServerProcessMessage
+         * @returns ServerBackendMessage
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerProcessMessage;
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage;
 
         /**
-         * Decodes a ServerProcessMessage message from the specified reader or buffer, length delimited.
+         * Decodes a ServerBackendMessage message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns ServerProcessMessage
+         * @returns ServerBackendMessage
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerProcessMessage;
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage;
 
         /**
-         * Verifies a ServerProcessMessage message.
+         * Verifies a ServerBackendMessage message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a ServerProcessMessage message from a plain object. Also converts values to their respective internal types.
+         * Creates a ServerBackendMessage message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns ServerProcessMessage
+         * @returns ServerBackendMessage
          */
-        public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerProcessMessage;
+        public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage;
 
         /**
-         * Creates a plain object from a ServerProcessMessage message. Also converts values to other types if specified.
-         * @param message ServerProcessMessage
+         * Creates a plain object from a ServerBackendMessage message. Also converts values to other types if specified.
+         * @param message ServerBackendMessage
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: IntifaceProtocols.ServerProcessMessage, options?: $protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: IntifaceProtocols.ServerBackendMessage, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this ServerProcessMessage to JSON.
+         * Converts this ServerBackendMessage to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
     }
 
-    namespace ServerProcessMessage {
+    namespace ServerBackendMessage {
 
         /** Properties of a ProcessLog. */
         interface IProcessLog {
@@ -159,7 +159,7 @@ export namespace IntifaceProtocols {
              * Constructs a new ProcessLog.
              * @param [properties] Properties to set
              */
-            constructor(properties?: IntifaceProtocols.ServerProcessMessage.IProcessLog);
+            constructor(properties?: IntifaceProtocols.ServerBackendMessage.IProcessLog);
 
             /** ProcessLog message. */
             public message: string;
@@ -169,23 +169,23 @@ export namespace IntifaceProtocols {
              * @param [properties] Properties to set
              * @returns ProcessLog instance
              */
-            public static create(properties?: IntifaceProtocols.ServerProcessMessage.IProcessLog): IntifaceProtocols.ServerProcessMessage.ProcessLog;
+            public static create(properties?: IntifaceProtocols.ServerBackendMessage.IProcessLog): IntifaceProtocols.ServerBackendMessage.ProcessLog;
 
             /**
-             * Encodes the specified ProcessLog message. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ProcessLog.verify|verify} messages.
+             * Encodes the specified ProcessLog message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.ProcessLog.verify|verify} messages.
              * @param message ProcessLog message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encode(message: IntifaceProtocols.ServerProcessMessage.IProcessLog, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encode(message: IntifaceProtocols.ServerBackendMessage.IProcessLog, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
-             * Encodes the specified ProcessLog message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ProcessLog.verify|verify} messages.
+             * Encodes the specified ProcessLog message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.ProcessLog.verify|verify} messages.
              * @param message ProcessLog message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encodeDelimited(message: IntifaceProtocols.ServerProcessMessage.IProcessLog, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encodeDelimited(message: IntifaceProtocols.ServerBackendMessage.IProcessLog, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
              * Decodes a ProcessLog message from the specified reader or buffer.
@@ -195,7 +195,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerProcessMessage.ProcessLog;
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage.ProcessLog;
 
             /**
              * Decodes a ProcessLog message from the specified reader or buffer, length delimited.
@@ -204,7 +204,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerProcessMessage.ProcessLog;
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage.ProcessLog;
 
             /**
              * Verifies a ProcessLog message.
@@ -218,7 +218,7 @@ export namespace IntifaceProtocols {
              * @param object Plain object
              * @returns ProcessLog
              */
-            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerProcessMessage.ProcessLog;
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage.ProcessLog;
 
             /**
              * Creates a plain object from a ProcessLog message. Also converts values to other types if specified.
@@ -226,7 +226,7 @@ export namespace IntifaceProtocols {
              * @param [options] Conversion options
              * @returns Plain object
              */
-            public static toObject(message: IntifaceProtocols.ServerProcessMessage.ProcessLog, options?: $protobuf.IConversionOptions): { [k: string]: any };
+            public static toObject(message: IntifaceProtocols.ServerBackendMessage.ProcessLog, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
             /**
              * Converts this ProcessLog to JSON.
@@ -246,30 +246,30 @@ export namespace IntifaceProtocols {
              * Constructs a new ProcessStarted.
              * @param [properties] Properties to set
              */
-            constructor(properties?: IntifaceProtocols.ServerProcessMessage.IProcessStarted);
+            constructor(properties?: IntifaceProtocols.ServerBackendMessage.IProcessStarted);
 
             /**
              * Creates a new ProcessStarted instance using the specified properties.
              * @param [properties] Properties to set
              * @returns ProcessStarted instance
              */
-            public static create(properties?: IntifaceProtocols.ServerProcessMessage.IProcessStarted): IntifaceProtocols.ServerProcessMessage.ProcessStarted;
+            public static create(properties?: IntifaceProtocols.ServerBackendMessage.IProcessStarted): IntifaceProtocols.ServerBackendMessage.ProcessStarted;
 
             /**
-             * Encodes the specified ProcessStarted message. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ProcessStarted.verify|verify} messages.
+             * Encodes the specified ProcessStarted message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.ProcessStarted.verify|verify} messages.
              * @param message ProcessStarted message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encode(message: IntifaceProtocols.ServerProcessMessage.IProcessStarted, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encode(message: IntifaceProtocols.ServerBackendMessage.IProcessStarted, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
-             * Encodes the specified ProcessStarted message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ProcessStarted.verify|verify} messages.
+             * Encodes the specified ProcessStarted message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.ProcessStarted.verify|verify} messages.
              * @param message ProcessStarted message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encodeDelimited(message: IntifaceProtocols.ServerProcessMessage.IProcessStarted, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encodeDelimited(message: IntifaceProtocols.ServerBackendMessage.IProcessStarted, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
              * Decodes a ProcessStarted message from the specified reader or buffer.
@@ -279,7 +279,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerProcessMessage.ProcessStarted;
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage.ProcessStarted;
 
             /**
              * Decodes a ProcessStarted message from the specified reader or buffer, length delimited.
@@ -288,7 +288,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerProcessMessage.ProcessStarted;
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage.ProcessStarted;
 
             /**
              * Verifies a ProcessStarted message.
@@ -302,7 +302,7 @@ export namespace IntifaceProtocols {
              * @param object Plain object
              * @returns ProcessStarted
              */
-            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerProcessMessage.ProcessStarted;
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage.ProcessStarted;
 
             /**
              * Creates a plain object from a ProcessStarted message. Also converts values to other types if specified.
@@ -310,7 +310,7 @@ export namespace IntifaceProtocols {
              * @param [options] Conversion options
              * @returns Plain object
              */
-            public static toObject(message: IntifaceProtocols.ServerProcessMessage.ProcessStarted, options?: $protobuf.IConversionOptions): { [k: string]: any };
+            public static toObject(message: IntifaceProtocols.ServerBackendMessage.ProcessStarted, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
             /**
              * Converts this ProcessStarted to JSON.
@@ -330,30 +330,30 @@ export namespace IntifaceProtocols {
              * Constructs a new ProcessEnded.
              * @param [properties] Properties to set
              */
-            constructor(properties?: IntifaceProtocols.ServerProcessMessage.IProcessEnded);
+            constructor(properties?: IntifaceProtocols.ServerBackendMessage.IProcessEnded);
 
             /**
              * Creates a new ProcessEnded instance using the specified properties.
              * @param [properties] Properties to set
              * @returns ProcessEnded instance
              */
-            public static create(properties?: IntifaceProtocols.ServerProcessMessage.IProcessEnded): IntifaceProtocols.ServerProcessMessage.ProcessEnded;
+            public static create(properties?: IntifaceProtocols.ServerBackendMessage.IProcessEnded): IntifaceProtocols.ServerBackendMessage.ProcessEnded;
 
             /**
-             * Encodes the specified ProcessEnded message. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ProcessEnded.verify|verify} messages.
+             * Encodes the specified ProcessEnded message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.ProcessEnded.verify|verify} messages.
              * @param message ProcessEnded message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encode(message: IntifaceProtocols.ServerProcessMessage.IProcessEnded, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encode(message: IntifaceProtocols.ServerBackendMessage.IProcessEnded, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
-             * Encodes the specified ProcessEnded message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ProcessEnded.verify|verify} messages.
+             * Encodes the specified ProcessEnded message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.ProcessEnded.verify|verify} messages.
              * @param message ProcessEnded message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encodeDelimited(message: IntifaceProtocols.ServerProcessMessage.IProcessEnded, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encodeDelimited(message: IntifaceProtocols.ServerBackendMessage.IProcessEnded, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
              * Decodes a ProcessEnded message from the specified reader or buffer.
@@ -363,7 +363,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerProcessMessage.ProcessEnded;
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage.ProcessEnded;
 
             /**
              * Decodes a ProcessEnded message from the specified reader or buffer, length delimited.
@@ -372,7 +372,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerProcessMessage.ProcessEnded;
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage.ProcessEnded;
 
             /**
              * Verifies a ProcessEnded message.
@@ -386,7 +386,7 @@ export namespace IntifaceProtocols {
              * @param object Plain object
              * @returns ProcessEnded
              */
-            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerProcessMessage.ProcessEnded;
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage.ProcessEnded;
 
             /**
              * Creates a plain object from a ProcessEnded message. Also converts values to other types if specified.
@@ -394,7 +394,7 @@ export namespace IntifaceProtocols {
              * @param [options] Conversion options
              * @returns Plain object
              */
-            public static toObject(message: IntifaceProtocols.ServerProcessMessage.ProcessEnded, options?: $protobuf.IConversionOptions): { [k: string]: any };
+            public static toObject(message: IntifaceProtocols.ServerBackendMessage.ProcessEnded, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
             /**
              * Converts this ProcessEnded to JSON.
@@ -417,7 +417,7 @@ export namespace IntifaceProtocols {
              * Constructs a new ButtplugLog.
              * @param [properties] Properties to set
              */
-            constructor(properties?: IntifaceProtocols.ServerProcessMessage.IButtplugLog);
+            constructor(properties?: IntifaceProtocols.ServerBackendMessage.IButtplugLog);
 
             /** ButtplugLog message. */
             public message: string;
@@ -427,23 +427,23 @@ export namespace IntifaceProtocols {
              * @param [properties] Properties to set
              * @returns ButtplugLog instance
              */
-            public static create(properties?: IntifaceProtocols.ServerProcessMessage.IButtplugLog): IntifaceProtocols.ServerProcessMessage.ButtplugLog;
+            public static create(properties?: IntifaceProtocols.ServerBackendMessage.IButtplugLog): IntifaceProtocols.ServerBackendMessage.ButtplugLog;
 
             /**
-             * Encodes the specified ButtplugLog message. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ButtplugLog.verify|verify} messages.
+             * Encodes the specified ButtplugLog message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.ButtplugLog.verify|verify} messages.
              * @param message ButtplugLog message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encode(message: IntifaceProtocols.ServerProcessMessage.IButtplugLog, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encode(message: IntifaceProtocols.ServerBackendMessage.IButtplugLog, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
-             * Encodes the specified ButtplugLog message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ButtplugLog.verify|verify} messages.
+             * Encodes the specified ButtplugLog message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.ButtplugLog.verify|verify} messages.
              * @param message ButtplugLog message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encodeDelimited(message: IntifaceProtocols.ServerProcessMessage.IButtplugLog, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encodeDelimited(message: IntifaceProtocols.ServerBackendMessage.IButtplugLog, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
              * Decodes a ButtplugLog message from the specified reader or buffer.
@@ -453,7 +453,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerProcessMessage.ButtplugLog;
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage.ButtplugLog;
 
             /**
              * Decodes a ButtplugLog message from the specified reader or buffer, length delimited.
@@ -462,7 +462,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerProcessMessage.ButtplugLog;
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage.ButtplugLog;
 
             /**
              * Verifies a ButtplugLog message.
@@ -476,7 +476,7 @@ export namespace IntifaceProtocols {
              * @param object Plain object
              * @returns ButtplugLog
              */
-            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerProcessMessage.ButtplugLog;
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage.ButtplugLog;
 
             /**
              * Creates a plain object from a ButtplugLog message. Also converts values to other types if specified.
@@ -484,7 +484,7 @@ export namespace IntifaceProtocols {
              * @param [options] Conversion options
              * @returns Plain object
              */
-            public static toObject(message: IntifaceProtocols.ServerProcessMessage.ButtplugLog, options?: $protobuf.IConversionOptions): { [k: string]: any };
+            public static toObject(message: IntifaceProtocols.ServerBackendMessage.ButtplugLog, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
             /**
              * Converts this ButtplugLog to JSON.
@@ -507,7 +507,7 @@ export namespace IntifaceProtocols {
              * Constructs a new ClientConnected.
              * @param [properties] Properties to set
              */
-            constructor(properties?: IntifaceProtocols.ServerProcessMessage.IClientConnected);
+            constructor(properties?: IntifaceProtocols.ServerBackendMessage.IClientConnected);
 
             /** ClientConnected clientName. */
             public clientName: string;
@@ -517,23 +517,23 @@ export namespace IntifaceProtocols {
              * @param [properties] Properties to set
              * @returns ClientConnected instance
              */
-            public static create(properties?: IntifaceProtocols.ServerProcessMessage.IClientConnected): IntifaceProtocols.ServerProcessMessage.ClientConnected;
+            public static create(properties?: IntifaceProtocols.ServerBackendMessage.IClientConnected): IntifaceProtocols.ServerBackendMessage.ClientConnected;
 
             /**
-             * Encodes the specified ClientConnected message. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ClientConnected.verify|verify} messages.
+             * Encodes the specified ClientConnected message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.ClientConnected.verify|verify} messages.
              * @param message ClientConnected message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encode(message: IntifaceProtocols.ServerProcessMessage.IClientConnected, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encode(message: IntifaceProtocols.ServerBackendMessage.IClientConnected, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
-             * Encodes the specified ClientConnected message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ClientConnected.verify|verify} messages.
+             * Encodes the specified ClientConnected message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.ClientConnected.verify|verify} messages.
              * @param message ClientConnected message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encodeDelimited(message: IntifaceProtocols.ServerProcessMessage.IClientConnected, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encodeDelimited(message: IntifaceProtocols.ServerBackendMessage.IClientConnected, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
              * Decodes a ClientConnected message from the specified reader or buffer.
@@ -543,7 +543,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerProcessMessage.ClientConnected;
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage.ClientConnected;
 
             /**
              * Decodes a ClientConnected message from the specified reader or buffer, length delimited.
@@ -552,7 +552,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerProcessMessage.ClientConnected;
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage.ClientConnected;
 
             /**
              * Verifies a ClientConnected message.
@@ -566,7 +566,7 @@ export namespace IntifaceProtocols {
              * @param object Plain object
              * @returns ClientConnected
              */
-            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerProcessMessage.ClientConnected;
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage.ClientConnected;
 
             /**
              * Creates a plain object from a ClientConnected message. Also converts values to other types if specified.
@@ -574,7 +574,7 @@ export namespace IntifaceProtocols {
              * @param [options] Conversion options
              * @returns Plain object
              */
-            public static toObject(message: IntifaceProtocols.ServerProcessMessage.ClientConnected, options?: $protobuf.IConversionOptions): { [k: string]: any };
+            public static toObject(message: IntifaceProtocols.ServerBackendMessage.ClientConnected, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
             /**
              * Converts this ClientConnected to JSON.
@@ -594,30 +594,30 @@ export namespace IntifaceProtocols {
              * Constructs a new ClientDisconnected.
              * @param [properties] Properties to set
              */
-            constructor(properties?: IntifaceProtocols.ServerProcessMessage.IClientDisconnected);
+            constructor(properties?: IntifaceProtocols.ServerBackendMessage.IClientDisconnected);
 
             /**
              * Creates a new ClientDisconnected instance using the specified properties.
              * @param [properties] Properties to set
              * @returns ClientDisconnected instance
              */
-            public static create(properties?: IntifaceProtocols.ServerProcessMessage.IClientDisconnected): IntifaceProtocols.ServerProcessMessage.ClientDisconnected;
+            public static create(properties?: IntifaceProtocols.ServerBackendMessage.IClientDisconnected): IntifaceProtocols.ServerBackendMessage.ClientDisconnected;
 
             /**
-             * Encodes the specified ClientDisconnected message. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ClientDisconnected.verify|verify} messages.
+             * Encodes the specified ClientDisconnected message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.ClientDisconnected.verify|verify} messages.
              * @param message ClientDisconnected message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encode(message: IntifaceProtocols.ServerProcessMessage.IClientDisconnected, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encode(message: IntifaceProtocols.ServerBackendMessage.IClientDisconnected, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
-             * Encodes the specified ClientDisconnected message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ClientDisconnected.verify|verify} messages.
+             * Encodes the specified ClientDisconnected message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.ClientDisconnected.verify|verify} messages.
              * @param message ClientDisconnected message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encodeDelimited(message: IntifaceProtocols.ServerProcessMessage.IClientDisconnected, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encodeDelimited(message: IntifaceProtocols.ServerBackendMessage.IClientDisconnected, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
              * Decodes a ClientDisconnected message from the specified reader or buffer.
@@ -627,7 +627,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerProcessMessage.ClientDisconnected;
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage.ClientDisconnected;
 
             /**
              * Decodes a ClientDisconnected message from the specified reader or buffer, length delimited.
@@ -636,7 +636,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerProcessMessage.ClientDisconnected;
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage.ClientDisconnected;
 
             /**
              * Verifies a ClientDisconnected message.
@@ -650,7 +650,7 @@ export namespace IntifaceProtocols {
              * @param object Plain object
              * @returns ClientDisconnected
              */
-            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerProcessMessage.ClientDisconnected;
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage.ClientDisconnected;
 
             /**
              * Creates a plain object from a ClientDisconnected message. Also converts values to other types if specified.
@@ -658,7 +658,7 @@ export namespace IntifaceProtocols {
              * @param [options] Conversion options
              * @returns Plain object
              */
-            public static toObject(message: IntifaceProtocols.ServerProcessMessage.ClientDisconnected, options?: $protobuf.IConversionOptions): { [k: string]: any };
+            public static toObject(message: IntifaceProtocols.ServerBackendMessage.ClientDisconnected, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
             /**
              * Converts this ClientDisconnected to JSON.
@@ -684,7 +684,7 @@ export namespace IntifaceProtocols {
              * Constructs a new DeviceConnected.
              * @param [properties] Properties to set
              */
-            constructor(properties?: IntifaceProtocols.ServerProcessMessage.IDeviceConnected);
+            constructor(properties?: IntifaceProtocols.ServerBackendMessage.IDeviceConnected);
 
             /** DeviceConnected deviceName. */
             public deviceName: string;
@@ -697,23 +697,23 @@ export namespace IntifaceProtocols {
              * @param [properties] Properties to set
              * @returns DeviceConnected instance
              */
-            public static create(properties?: IntifaceProtocols.ServerProcessMessage.IDeviceConnected): IntifaceProtocols.ServerProcessMessage.DeviceConnected;
+            public static create(properties?: IntifaceProtocols.ServerBackendMessage.IDeviceConnected): IntifaceProtocols.ServerBackendMessage.DeviceConnected;
 
             /**
-             * Encodes the specified DeviceConnected message. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.DeviceConnected.verify|verify} messages.
+             * Encodes the specified DeviceConnected message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.DeviceConnected.verify|verify} messages.
              * @param message DeviceConnected message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encode(message: IntifaceProtocols.ServerProcessMessage.IDeviceConnected, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encode(message: IntifaceProtocols.ServerBackendMessage.IDeviceConnected, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
-             * Encodes the specified DeviceConnected message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.DeviceConnected.verify|verify} messages.
+             * Encodes the specified DeviceConnected message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.DeviceConnected.verify|verify} messages.
              * @param message DeviceConnected message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encodeDelimited(message: IntifaceProtocols.ServerProcessMessage.IDeviceConnected, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encodeDelimited(message: IntifaceProtocols.ServerBackendMessage.IDeviceConnected, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
              * Decodes a DeviceConnected message from the specified reader or buffer.
@@ -723,7 +723,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerProcessMessage.DeviceConnected;
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage.DeviceConnected;
 
             /**
              * Decodes a DeviceConnected message from the specified reader or buffer, length delimited.
@@ -732,7 +732,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerProcessMessage.DeviceConnected;
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage.DeviceConnected;
 
             /**
              * Verifies a DeviceConnected message.
@@ -746,7 +746,7 @@ export namespace IntifaceProtocols {
              * @param object Plain object
              * @returns DeviceConnected
              */
-            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerProcessMessage.DeviceConnected;
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage.DeviceConnected;
 
             /**
              * Creates a plain object from a DeviceConnected message. Also converts values to other types if specified.
@@ -754,7 +754,7 @@ export namespace IntifaceProtocols {
              * @param [options] Conversion options
              * @returns Plain object
              */
-            public static toObject(message: IntifaceProtocols.ServerProcessMessage.DeviceConnected, options?: $protobuf.IConversionOptions): { [k: string]: any };
+            public static toObject(message: IntifaceProtocols.ServerBackendMessage.DeviceConnected, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
             /**
              * Converts this DeviceConnected to JSON.
@@ -777,7 +777,7 @@ export namespace IntifaceProtocols {
              * Constructs a new DeviceDisconnected.
              * @param [properties] Properties to set
              */
-            constructor(properties?: IntifaceProtocols.ServerProcessMessage.IDeviceDisconnected);
+            constructor(properties?: IntifaceProtocols.ServerBackendMessage.IDeviceDisconnected);
 
             /** DeviceDisconnected deviceId. */
             public deviceId: number;
@@ -787,23 +787,23 @@ export namespace IntifaceProtocols {
              * @param [properties] Properties to set
              * @returns DeviceDisconnected instance
              */
-            public static create(properties?: IntifaceProtocols.ServerProcessMessage.IDeviceDisconnected): IntifaceProtocols.ServerProcessMessage.DeviceDisconnected;
+            public static create(properties?: IntifaceProtocols.ServerBackendMessage.IDeviceDisconnected): IntifaceProtocols.ServerBackendMessage.DeviceDisconnected;
 
             /**
-             * Encodes the specified DeviceDisconnected message. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.DeviceDisconnected.verify|verify} messages.
+             * Encodes the specified DeviceDisconnected message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.DeviceDisconnected.verify|verify} messages.
              * @param message DeviceDisconnected message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encode(message: IntifaceProtocols.ServerProcessMessage.IDeviceDisconnected, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encode(message: IntifaceProtocols.ServerBackendMessage.IDeviceDisconnected, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
-             * Encodes the specified DeviceDisconnected message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.DeviceDisconnected.verify|verify} messages.
+             * Encodes the specified DeviceDisconnected message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.DeviceDisconnected.verify|verify} messages.
              * @param message DeviceDisconnected message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encodeDelimited(message: IntifaceProtocols.ServerProcessMessage.IDeviceDisconnected, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encodeDelimited(message: IntifaceProtocols.ServerBackendMessage.IDeviceDisconnected, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
              * Decodes a DeviceDisconnected message from the specified reader or buffer.
@@ -813,7 +813,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerProcessMessage.DeviceDisconnected;
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage.DeviceDisconnected;
 
             /**
              * Decodes a DeviceDisconnected message from the specified reader or buffer, length delimited.
@@ -822,7 +822,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerProcessMessage.DeviceDisconnected;
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage.DeviceDisconnected;
 
             /**
              * Verifies a DeviceDisconnected message.
@@ -836,7 +836,7 @@ export namespace IntifaceProtocols {
              * @param object Plain object
              * @returns DeviceDisconnected
              */
-            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerProcessMessage.DeviceDisconnected;
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage.DeviceDisconnected;
 
             /**
              * Creates a plain object from a DeviceDisconnected message. Also converts values to other types if specified.
@@ -844,7 +844,7 @@ export namespace IntifaceProtocols {
              * @param [options] Conversion options
              * @returns Plain object
              */
-            public static toObject(message: IntifaceProtocols.ServerProcessMessage.DeviceDisconnected, options?: $protobuf.IConversionOptions): { [k: string]: any };
+            public static toObject(message: IntifaceProtocols.ServerBackendMessage.DeviceDisconnected, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
             /**
              * Converts this DeviceDisconnected to JSON.
@@ -867,7 +867,7 @@ export namespace IntifaceProtocols {
              * Constructs a new Configuration.
              * @param [properties] Properties to set
              */
-            constructor(properties?: IntifaceProtocols.ServerProcessMessage.IConfiguration);
+            constructor(properties?: IntifaceProtocols.ServerBackendMessage.IConfiguration);
 
             /** Configuration configuration. */
             public configuration: string;
@@ -877,23 +877,23 @@ export namespace IntifaceProtocols {
              * @param [properties] Properties to set
              * @returns Configuration instance
              */
-            public static create(properties?: IntifaceProtocols.ServerProcessMessage.IConfiguration): IntifaceProtocols.ServerProcessMessage.Configuration;
+            public static create(properties?: IntifaceProtocols.ServerBackendMessage.IConfiguration): IntifaceProtocols.ServerBackendMessage.Configuration;
 
             /**
-             * Encodes the specified Configuration message. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.Configuration.verify|verify} messages.
+             * Encodes the specified Configuration message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.Configuration.verify|verify} messages.
              * @param message Configuration message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encode(message: IntifaceProtocols.ServerProcessMessage.IConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encode(message: IntifaceProtocols.ServerBackendMessage.IConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
-             * Encodes the specified Configuration message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.Configuration.verify|verify} messages.
+             * Encodes the specified Configuration message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.Configuration.verify|verify} messages.
              * @param message Configuration message or plain object to encode
              * @param [writer] Writer to encode to
              * @returns Writer
              */
-            public static encodeDelimited(message: IntifaceProtocols.ServerProcessMessage.IConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
+            public static encodeDelimited(message: IntifaceProtocols.ServerBackendMessage.IConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
 
             /**
              * Decodes a Configuration message from the specified reader or buffer.
@@ -903,7 +903,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerProcessMessage.Configuration;
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage.Configuration;
 
             /**
              * Decodes a Configuration message from the specified reader or buffer, length delimited.
@@ -912,7 +912,7 @@ export namespace IntifaceProtocols {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerProcessMessage.Configuration;
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage.Configuration;
 
             /**
              * Verifies a Configuration message.
@@ -926,7 +926,7 @@ export namespace IntifaceProtocols {
              * @param object Plain object
              * @returns Configuration
              */
-            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerProcessMessage.Configuration;
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage.Configuration;
 
             /**
              * Creates a plain object from a Configuration message. Also converts values to other types if specified.
@@ -934,7 +934,7 @@ export namespace IntifaceProtocols {
              * @param [options] Conversion options
              * @returns Plain object
              */
-            public static toObject(message: IntifaceProtocols.ServerProcessMessage.Configuration, options?: $protobuf.IConversionOptions): { [k: string]: any };
+            public static toObject(message: IntifaceProtocols.ServerBackendMessage.Configuration, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
             /**
              * Converts this Configuration to JSON.
@@ -946,6 +946,9 @@ export namespace IntifaceProtocols {
 
     /** Properties of a ServerFrontendMessage. */
     interface IServerFrontendMessage {
+
+        /** ServerFrontendMessage ready */
+        ready?: (IntifaceProtocols.ServerFrontendMessage.IReady|null);
 
         /** ServerFrontendMessage startprocess */
         startprocess?: (IntifaceProtocols.ServerFrontendMessage.IStartProcess|null);
@@ -972,6 +975,9 @@ export namespace IntifaceProtocols {
          */
         constructor(properties?: IntifaceProtocols.IServerFrontendMessage);
 
+        /** ServerFrontendMessage ready. */
+        public ready?: (IntifaceProtocols.ServerFrontendMessage.IReady|null);
+
         /** ServerFrontendMessage startprocess. */
         public startprocess?: (IntifaceProtocols.ServerFrontendMessage.IStartProcess|null);
 
@@ -988,7 +994,7 @@ export namespace IntifaceProtocols {
         public updateconfig?: (IntifaceProtocols.ServerFrontendMessage.IUpdateConfig|null);
 
         /** ServerFrontendMessage msg. */
-        public msg?: ("startprocess"|"stopprocess"|"startproxy"|"stopproxy"|"updateconfig");
+        public msg?: ("ready"|"startprocess"|"stopprocess"|"startproxy"|"stopproxy"|"updateconfig");
 
         /**
          * Creates a new ServerFrontendMessage instance using the specified properties.
@@ -1062,6 +1068,90 @@ export namespace IntifaceProtocols {
     }
 
     namespace ServerFrontendMessage {
+
+        /** Properties of a Ready. */
+        interface IReady {
+        }
+
+        /** Represents a Ready. */
+        class Ready implements IReady {
+
+            /**
+             * Constructs a new Ready.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.ServerFrontendMessage.IReady);
+
+            /**
+             * Creates a new Ready instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns Ready instance
+             */
+            public static create(properties?: IntifaceProtocols.ServerFrontendMessage.IReady): IntifaceProtocols.ServerFrontendMessage.Ready;
+
+            /**
+             * Encodes the specified Ready message. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.Ready.verify|verify} messages.
+             * @param message Ready message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.ServerFrontendMessage.IReady, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified Ready message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.Ready.verify|verify} messages.
+             * @param message Ready message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.ServerFrontendMessage.IReady, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a Ready message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns Ready
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerFrontendMessage.Ready;
+
+            /**
+             * Decodes a Ready message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns Ready
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerFrontendMessage.Ready;
+
+            /**
+             * Verifies a Ready message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a Ready message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns Ready
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerFrontendMessage.Ready;
+
+            /**
+             * Creates a plain object from a Ready message. Also converts values to other types if specified.
+             * @param message Ready
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.ServerFrontendMessage.Ready, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this Ready to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
 
         /** Properties of a StartProcess. */
         interface IStartProcess {

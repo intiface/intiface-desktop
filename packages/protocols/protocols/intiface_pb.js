@@ -10,7 +10,7 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
       csharp_namespace: "Buttplug.Server.CLI"
     },
     nested: {
-      ServerProcessMessage: {
+      ServerBackendMessage: {
         oneofs: {
           msg: {
             oneof: [
@@ -132,6 +132,7 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
         oneofs: {
           msg: {
             oneof: [
+              "ready",
               "startprocess",
               "stopprocess",
               "startproxy",
@@ -141,28 +142,35 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           }
         },
         fields: {
+          ready: {
+            type: "Ready",
+            id: 1
+          },
           startprocess: {
             type: "StartProcess",
-            id: 1
+            id: 2
           },
           stopprocess: {
             type: "StopProcess",
-            id: 2
+            id: 3
           },
           startproxy: {
             type: "StartProxy",
-            id: 3
+            id: 4
           },
           stopproxy: {
             type: "StopProxy",
-            id: 4
+            id: 5
           },
           updateconfig: {
             type: "UpdateConfig",
-            id: 5
+            id: 6
           }
         },
         nested: {
+          Ready: {
+            fields: {}
+          },
           StartProcess: {
             fields: {}
           },

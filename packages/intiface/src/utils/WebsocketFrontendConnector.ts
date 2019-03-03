@@ -7,6 +7,6 @@ export class WebsocketFrontendConnector extends FrontendConnector {
     super();
   }
 
-  public SendMessage(aMsg: IntifaceProtocols.ServerFrontendMessage) {
+  protected SendMessageInternal(aMsg: IntifaceProtocols.ServerFrontendMessage) {
   }
 }

@@ -72,7 +72,7 @@ export class ServerProcess extends EventEmitter {
   private ParseMessage(aData: Buffer) {
     // TODO Sucks that we'll have to parse this twice, once here and once in the
     // frontend. Not sure how to serialize to frontend and not lose typing tho.
-    const msg = IntifaceProtocols.ServerProcessMessage.decode(aData);
+    const msg = IntifaceProtocols.ServerBackendMessage.decode(aData);
     if (msg.processended !== null) {
       // Process will not send messages after this, shut down listener. This is
       // the only type of message the server currently needs to care about.
