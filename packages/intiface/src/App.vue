@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app dark v-if="loaded">
     <v-navigation-drawer
       v-model="drawer"
       hide-overlay
@@ -43,7 +43,7 @@
     </v-navigation-drawer>
     <v-toolbar app>{{ currentItem.title }}</v-toolbar>
     <v-content fill-height>
-      <router-view></router-view>
+      <router-view :config="connector.Config"></router-view>
     </v-content>
   </v-app>
 </template>

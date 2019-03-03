@@ -20,6 +20,7 @@ export class IntifaceConfigurationFileManager extends IntifaceConfigurationManag
     } else {
       // If we have a file already, but can't read/write, just throw.
       fs.accessSync(this._configPath, fs.constants.R_OK | fs.constants.W_OK);
+      this.Load();
     }
   }
 

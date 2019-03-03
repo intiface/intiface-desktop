@@ -8,7 +8,7 @@
     >
       <v-list-tile>
         <v-list-tile-action>
-          <v-checkbox v-model="useIPC" :disabled="serverRunning"></v-checkbox>
+          <v-checkbox v-model="config.ListenOnIpcServer" :disabled="serverRunning"></v-checkbox>
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title>IPC</v-list-tile-title>
@@ -17,7 +17,7 @@
       </v-list-tile>
       <v-list-tile>
         <v-list-tile-action>
-          <v-checkbox v-model="useWebsockets" :disabled="serverRunning"></v-checkbox>
+          <v-checkbox v-model="config.ListenOnWebsocketServer" :disabled="serverRunning"></v-checkbox>
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title>Websockets</v-list-tile-title>
@@ -45,7 +45,7 @@
             </v-list-tile>
             <v-list-tile>
               <v-list-tile-content>
-                <v-text-field label="Pipe Name" placeholder="ButtplugPipe" v-model="pipeName" clearable :disabled="serverRunning"></v-text-field>
+                <v-text-field label="Pipe Name" placeholder="ButtplugPipe" v-model="config.IpcServerPipeName" clearable :disabled="serverRunning"></v-text-field>
               </v-list-tile-content>
             </v-list-tile>
           </v-list-group>

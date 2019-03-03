@@ -23,11 +23,6 @@ export class ButtplugProcessManager {
     this._connector = aConnector;
     this._config =
       new IntifaceConfigurationFileManager(IntifaceConfigurationFileManager.DEFAULT_CONFIG_PATH);
-    if (fs.existsSync(this._defaultConfigPath)) {
-      this._config.Load();
-    } else {
-      this._config.Save();
-    }
     this._connector.addListener("message", (msg) => this.ReceiveFrontendMessage(msg));
   }
 
@@ -53,6 +48,8 @@ export class ButtplugProcessManager {
     } else if (aMsg.updateconfig !== null) {
       this._config.Config.Load(JSON.parse(aMsg.updateconfig!.configuration!));
       this._config.Save();
+    } else {
+      console.log(`Message has no payload! ${aMsg}`);
     }
   }
 }

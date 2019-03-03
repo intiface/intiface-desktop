@@ -18,6 +18,7 @@ export default new Router({
       path: "/server",
       name: "Server",
       component: ServerPanel,
+      props: true,
     },
     {
       path: "/settings",

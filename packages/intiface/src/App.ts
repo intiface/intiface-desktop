@@ -8,7 +8,7 @@ import { FrontendConnector } from "intiface-core-library";
   },
 })
 export default class App extends Vue {
-  private _connector: FrontendConnector | null = null;
+  private connector: FrontendConnector | null = null;
   private menuList = [
     { title: "Server", icon: "cloud_circle", path: "server" },
     { title: "Proxy", icon: "settings_cell", path: "proxy" },
@@ -19,6 +19,7 @@ export default class App extends Vue {
   private currentItem = this.menuList[0];
   private mini = true;
   private drawer = true;
+  private loaded = false;
 
   /////////////////////////////////////
   // Component and UI methods
@@ -31,11 +32,14 @@ export default class App extends Vue {
     // if/else block as you would a #ifdef/#else in C.
     if (WEBPACK_ELECTRON) {
       const mod = await import("./utils/ElectronFrontendConnector");
-      this._connector = mod.ElectronFrontendConnector.Create();
+      this.connector = mod.ElectronFrontendConnector.Create();
+      this.connector.addListener("message", () => {
+        this.loaded = true;
+      });
     } else {
       if (this.$route.query.websocket) {
         const mod = await import("./utils/WebsocketFrontendConnector");
-        this._connector = new mod.WebsocketFrontendConnector();
+        this.connector = new mod.WebsocketFrontendConnector();
       } else {
         // TODO Create dummy/test connector for instances where we don"t have a
         // websocket to connect to.
@@ -45,11 +49,11 @@ export default class App extends Vue {
   }
 
   public sendMessage() {
-    if (this._connector === null) {
+    if (this.connector === null) {
       return;
     }
     const msg = new IntifaceProtocols.ServerFrontendMessage();
     msg.startprocess = new IntifaceProtocols.ServerFrontendMessage.StartProcess();
-    this._connector.SendMessage(msg);
+    this.connector.SendMessage(msg);
   }
 }

@@ -1,7 +1,9 @@
-export class IntifaceConfiguration {
+import { EventEmitter } from "events";
+
+export class IntifaceConfiguration extends EventEmitter {
   private serverName: string = "Buttplug Server";
   private serverMaxPingTime: number = 0;
-  private ipcServerPortName: string = "ButtplugPort";
+  private ipcServerPipeName: string = "ButtplugPort";
   private listenOnIpcServer: boolean = false;
   private listenOnWebsocketServer: boolean = false;
   private listenOnProxyServer: boolean = false;
@@ -26,6 +28,7 @@ export class IntifaceConfiguration {
 
   set ServerName(aName: string) {
     this.serverName = aName;
+    this.emit("update");
   }
 
   get ServerMaxPingTime(): number {
@@ -37,14 +40,16 @@ export class IntifaceConfiguration {
       throw new Error("Ping must be >= 0.");
     }
     this.serverMaxPingTime = aPing;
+    this.emit("update");
   }
 
-  get IpcServerPortName(): string {
-    return this.ipcServerPortName;
+  get IpcServerPipeName(): string {
+    return this.ipcServerPipeName;
   }
 
-  set IpcServerPortName(aName: string) {
-    this.ipcServerPortName = aName;
+  set IpcServerPipeName(aName: string) {
+    this.ipcServerPipeName = aName;
+    this.emit("update");
   }
 
   get ListenOnIpcServer(): boolean {
@@ -53,6 +58,7 @@ export class IntifaceConfiguration {
 
   set ListenOnIpcServer(aShouldListen: boolean) {
     this.listenOnIpcServer = aShouldListen;
+    this.emit("update");
   }
 
   get ListenOnWebsocketServer(): boolean {
@@ -61,6 +67,7 @@ export class IntifaceConfiguration {
 
   set ListenOnWebsocketServer(aShouldListen: boolean) {
     this.listenOnWebsocketServer = aShouldListen;
+    this.emit("update");
   }
 
   get ListenOnProxyServer(): boolean {
@@ -69,6 +76,7 @@ export class IntifaceConfiguration {
 
   set ListenOnProxyServer(aShouldListen: boolean) {
     this.listenOnProxyServer = aShouldListen;
+    this.emit("update");
   }
 
   get CheckForDeviceListUpdates(): boolean {
@@ -77,6 +85,7 @@ export class IntifaceConfiguration {
 
   set CheckForDeviceListUpdates(aCheck: boolean) {
     this.checkForDeviceListUpdates = aCheck;
+    this.emit("update");
   }
 
   get WebsocketServerInsecurePort(): number {
@@ -88,6 +97,7 @@ export class IntifaceConfiguration {
       throw new Error("Invalid network port number.");
     }
     this.websocketServerInsecurePort = aPort;
+    this.emit("update");
   }
 
   get WebsocketServerSecurePort(): number {
@@ -99,6 +109,7 @@ export class IntifaceConfiguration {
       throw new Error("Invalid network port number.");
     }
     this.websocketServerSecurePort = aPort;
+    this.emit("update");
   }
 
   get ProxyServerPort(): number {
@@ -110,5 +121,6 @@ export class IntifaceConfiguration {
       throw new Error("Invalid network port number.");
     }
     this.proxyServerPort = aPort;
+    this.emit("update");
   }
 }

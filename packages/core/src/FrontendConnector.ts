@@ -1,13 +1,17 @@
 import { EventEmitter } from "events";
 import { IntifaceProtocols } from "intiface-protocols";
 import { IntifaceConfigurationEventManager } from "./IntifaceConfigurationEventManager";
+import { IntifaceConfiguration } from "./IntifaceConfiguration";
 
 // Sends messages from the frontend/GUI to the backend/server process.
 export abstract class FrontendConnector extends EventEmitter {
 
-  public get Config() {
+  public get Config(): IntifaceConfiguration | null {
+    if (this._config === null) {
+      return null;
+    }
     // This can be null up until we receive a configuration from the parent process.
-    return this._config;
+    return this._config!.Config;
   }
 
   private _config: IntifaceConfigurationEventManager | null = null;
@@ -30,7 +34,7 @@ export abstract class FrontendConnector extends EventEmitter {
   }
 
   protected EmitServerMessage(aMsg: IntifaceProtocols.ServerBackendMessage) {
-    this.emit("backendmessage", aMsg);
+    this.emit("message", aMsg);
   }
 
   protected ProcessMessage(aMsg: IntifaceProtocols.ServerBackendMessage) {
@@ -39,14 +43,16 @@ export abstract class FrontendConnector extends EventEmitter {
       // the config file was loaded and we need to overwrite our current state
       // with that.
       this._config = new IntifaceConfigurationEventManager(JSON.parse(aMsg.configuration!.configuration!));
-      console.log("Received configuration object");
       // Any time the configuration is saved, throw it at the backend so we can
       // update settings and save the file.
       this._config.addListener("configsaved", (aConfig: string) => {
-        const configMsg = IntifaceProtocols.ServerFrontendMessage.UpdateConfig.create();
-        configMsg.configuration = aConfig;
+        const configMsg = IntifaceProtocols.ServerFrontendMessage.create({
+          updateconfig: IntifaceProtocols.ServerFrontendMessage.UpdateConfig.create({ configuration: aConfig }),
+        });
         this.SendMessage(configMsg);
       });
     }
+    // Always emit after we're done, just in case extra things need to be done otherwise.
+    this.EmitServerMessage(aMsg);
   }
 }

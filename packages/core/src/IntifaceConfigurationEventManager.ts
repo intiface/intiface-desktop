@@ -9,6 +9,10 @@ export class IntifaceConfigurationEventManager extends IntifaceConfigurationMana
   public constructor(aConfigObj: object) {
     super();
     this._config.Load(aConfigObj);
+    // Any time a setter runs successfully, save.
+    this._config.addListener("update", () => {
+      this.Save();
+    });
   }
 
   public get Config() {

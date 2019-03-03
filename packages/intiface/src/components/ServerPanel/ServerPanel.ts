@@ -1,13 +1,13 @@
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
+import { IntifaceConfiguration } from "intiface-core-library";
 
 @Component({})
 export default class ServerPanel extends Vue {
 
-  private useIPC: boolean = false;
+  @Prop()
+  private config!: IntifaceConfiguration;
   private serverRunning: boolean = false;
-  private useWebsockets: boolean = false;
-  private pipeName: string = "ButtplugPipe";
   private serverStates: string[] = ["Start Server", "Stop Server"];
 
   private ToggleServer() {
