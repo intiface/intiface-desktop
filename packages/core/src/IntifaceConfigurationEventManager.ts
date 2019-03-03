@@ -1,4 +1,3 @@
-import { IntifaceConfiguration } from "./IntifaceConfiguration";
 import { IntifaceConfigurationManager } from "./IntifaceConfigurationManager";
 
 export class IntifaceConfigurationEventManager extends IntifaceConfigurationManager {
