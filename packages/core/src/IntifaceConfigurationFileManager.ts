@@ -1,19 +1,23 @@
-import { IntifaceConfiguration } from "./IntifaceConfiguration";
 import { IntifaceConfigurationManager } from "./IntifaceConfigurationManager";
+import { IntifaceUtils } from "./Utils";
 import * as fs from "fs";
-import * as os from "os";
 import * as path from "path";
 
 export class IntifaceConfigurationFileManager extends IntifaceConfigurationManager {
 
-  // This is definitely going to need to be something different for windows.
-  public static DEFAULT_CONFIG_PATH = path.join(os.homedir(), ".buttplugrc");
+  public static DEFAULT_CONFIG_FILE_NAME = "intiface.config.json";
+  public static DEFAULT_CONFIG_FILE_PATH = path.join(IntifaceUtils.UserConfigDirectory,
+                                                     IntifaceConfigurationFileManager.DEFAULT_CONFIG_FILE_NAME);
 
   private _configPath: string;
 
-  public constructor(aConfigPath: string = IntifaceConfigurationFileManager.DEFAULT_CONFIG_PATH) {
+  public constructor(aConfigPath: string = IntifaceConfigurationFileManager.DEFAULT_CONFIG_FILE_PATH) {
     super();
+    if (!fs.existsSync(IntifaceUtils.UserConfigDirectory)) {
+      fs.mkdirSync(IntifaceUtils.UserConfigDirectory);
+    }
     this._configPath = aConfigPath;
+    console.log(this._configPath);
     // If we don't have a configuration file yet, make one now.
     if (!fs.existsSync(this._configPath)) {
       this.Save();

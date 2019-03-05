@@ -4,6 +4,7 @@ import { ServerProcess } from "./ServerProcess";
 import { IntifaceConfigurationManager } from "./IntifaceConfigurationManager";
 import * as fs from "fs";
 import { IntifaceConfigurationFileManager } from "./IntifaceConfigurationFileManager";
+import { IntifaceUtils } from "./Utils";
 
 // The link between whatever our frontend is (Electron, express, etc) and our
 // Buttplug server process. This will handle loading/saving our configuration
@@ -14,7 +15,6 @@ import { IntifaceConfigurationFileManager } from "./IntifaceConfigurationFileMan
 // communicate with the GUI via a specialized FrondendConnector class.
 export class ButtplugProcessManager {
 
-  private _defaultConfigPath: string = "~/.buttplugrc";
   private _connector: BackendConnector;
   private _process: ServerProcess | null;
   private _config: IntifaceConfigurationManager;
@@ -22,7 +22,7 @@ export class ButtplugProcessManager {
   public constructor(aConnector: BackendConnector) {
     this._connector = aConnector;
     this._config =
-      new IntifaceConfigurationFileManager(IntifaceConfigurationFileManager.DEFAULT_CONFIG_PATH);
+      new IntifaceConfigurationFileManager();
     this._connector.addListener("message", (msg) => this.ReceiveFrontendMessage(msg));
   }
 
@@ -30,8 +30,6 @@ export class ButtplugProcessManager {
     // TODO Feels like there should be a better way to do this :c
     if (aMsg.startprocess !== null) {
       this._process = new ServerProcess();
-      // Process message just hands the raw Protobuf buffer through so we don't
-      // have to reencode it.
       this._process.addListener("processmessage", (aProcessMsg: IntifaceProtocols.ServerBackendMessage) => {
         this._connector.SendMessage(aProcessMsg);
       });
