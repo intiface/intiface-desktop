@@ -17,7 +17,6 @@ export class IntifaceConfigurationFileManager extends IntifaceConfigurationManag
       fs.mkdirSync(IntifaceUtils.UserConfigDirectory);
     }
     this._configPath = aConfigPath;
-    console.log(this._configPath);
     // If we don't have a configuration file yet, make one now.
     if (!fs.existsSync(this._configPath)) {
       this.Save();

@@ -49,7 +49,8 @@ export class ServerProcess extends EventEmitter {
     // TODO Should probably await this?
     this._frontendServer.listen(pipe);
     // Now we start up our external process.
-    this._serverProcess = child_process.execFile("node", ["/home/qdot/code/git-projects/intiface-desktop/packages/test-process/index.js"]);
+    this._serverProcess =
+      child_process.execFile("node", ["/home/qdot/code/git-projects/intiface-desktop/packages/test-process/index.js"]);
   }
 
   public StopServer() {
