@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/qdot/intiface-desktop#readme",
   "dependencies": {
+    "@octokit/rest": "^16.16.4",
+    "axios": "^0.18.0",
     "buttplug": "^0.10.0",
     "intiface-protocols": "*",
     "protobufjs": "^6.8.8",
