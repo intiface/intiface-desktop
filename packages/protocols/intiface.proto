@@ -14,6 +14,11 @@ message ServerBackendMessage {
   // Notifies frontend that server process is up and running
   message ProcessStarted {
   };
+
+  // Notifies frontend that server process is up and running
+  message ProcessError {
+    string message = 1;
+  };
   
   // Notifies frontend that server process has ended
   message ProcessEnded {
@@ -53,14 +58,15 @@ message ServerBackendMessage {
 
   oneof msg {
     ProcessStarted processstarted = 1;
-    ProcessEnded processended = 2;
-    ProcessLog processlog = 3;
-    ButtplugLog bplog = 4;
-    ClientConnected clientconnected = 5;
-    ClientDisconnected clientdisconnected = 6;
-    DeviceConnected deviceconnected = 7;
-    DeviceDisconnected devicedisconnected = 8;
-    Configuration configuration = 9;
+    ProcessError processerror = 2;
+    ProcessEnded processended = 3;
+    ProcessLog processlog = 4;
+    ButtplugLog bplog = 5;
+    ClientConnected clientconnected = 6;
+    ClientDisconnected clientdisconnected = 7;
+    DeviceConnected deviceconnected = 8;
+    DeviceDisconnected devicedisconnected = 9;
+    Configuration configuration = 10;
   };
 };
 

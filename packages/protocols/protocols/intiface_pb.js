@@ -15,6 +15,7 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           msg: {
             oneof: [
               "processstarted",
+              "processerror",
               "processended",
               "processlog",
               "bplog",
@@ -31,37 +32,41 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
             type: "ProcessStarted",
             id: 1
           },
+          processerror: {
+            type: "ProcessError",
+            id: 2
+          },
           processended: {
             type: "ProcessEnded",
-            id: 2
+            id: 3
           },
           processlog: {
             type: "ProcessLog",
-            id: 3
+            id: 4
           },
           bplog: {
             type: "ButtplugLog",
-            id: 4
+            id: 5
           },
           clientconnected: {
             type: "ClientConnected",
-            id: 5
+            id: 6
           },
           clientdisconnected: {
             type: "ClientDisconnected",
-            id: 6
+            id: 7
           },
           deviceconnected: {
             type: "DeviceConnected",
-            id: 7
+            id: 8
           },
           devicedisconnected: {
             type: "DeviceDisconnected",
-            id: 8
+            id: 9
           },
           configuration: {
             type: "Configuration",
-            id: 9
+            id: 10
           }
         },
         nested: {
@@ -75,6 +80,14 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           },
           ProcessStarted: {
             fields: {}
+          },
+          ProcessError: {
+            fields: {
+              message: {
+                type: "string",
+                id: 1
+              }
+            }
           },
           ProcessEnded: {
             fields: {}
