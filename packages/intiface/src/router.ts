@@ -12,10 +12,6 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-    },
-    {
-      path: "/server",
       name: "Server",
       component: ServerPanel,
       props: true,
