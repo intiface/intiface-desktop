@@ -1,4 +1,7 @@
 import { EventEmitter } from "events";
+import * as os from "os";
+
+export type ButtplugEngineType = "buttplug-js" | "buttplug-csharp";
 
 export class IntifaceConfiguration extends EventEmitter {
   private serverName: string = "Buttplug Server";
@@ -7,14 +10,22 @@ export class IntifaceConfiguration extends EventEmitter {
   private listenOnIpcServer: boolean = false;
   private listenOnWebsocketServer: boolean = false;
   private listenOnProxyServer: boolean = false;
-  private checkForDeviceListUpdates: boolean = true;
   // private deviceListUpdateURL: string;
   private websocketServerInsecurePort: number = 12345;
   private websocketServerSecurePort: number = 12346;
   private proxyServerPort: number = 12347;
+  private engine: ButtplugEngineType = os.platform() === "win32" ? "buttplug-csharp" : "buttplug-js";
+  private usePrereleaseEngine: boolean = false;
+  private currentEngineVersion: string = "";
+  private currentDeviceFileVersion: string = "";
+  private checkForDeviceListUpdates: boolean = true;
+  private checkForEngineUpdates: boolean = true;
 
   public Load(aConfigObj: object) {
     for (const propName of Object.getOwnPropertyNames(aConfigObj)) {
+      // If we find keys we don't know what to do with, error. If we have keys
+      // that aren't in the file, that's fine. This is also where conversion
+      // code will need to go if we ever change configuration value names/types.
       if (Object.keys(this).indexOf(propName) === -1) {
         throw new Error(`Unknown property ${propName}`);
       }
@@ -79,15 +90,6 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
-  get CheckForDeviceListUpdates(): boolean {
-    return this.CheckForDeviceListUpdates;
-  }
-
-  set CheckForDeviceListUpdates(aCheck: boolean) {
-    this.checkForDeviceListUpdates = aCheck;
-    this.emit("update");
-  }
-
   get WebsocketServerInsecurePort(): number {
     return this.websocketServerInsecurePort;
   }
@@ -121,6 +123,60 @@ export class IntifaceConfiguration extends EventEmitter {
       throw new Error("Invalid network port number.");
     }
     this.proxyServerPort = aPort;
+    this.emit("update");
+  }
+
+  get Engine(): ButtplugEngineType {
+    return this.engine;
+  }
+
+  set Engine(aEngine: ButtplugEngineType) {
+    this.engine = aEngine;
+    this.emit("update");
+  }
+
+  get CurrentEngineVersion(): string {
+    return this.currentEngineVersion;
+  }
+
+  set CurrentEngineVersion(aVersion: string) {
+    this.currentEngineVersion = aVersion;
+    this.emit("update");
+  }
+
+  get CurrentDeviceFileVersion(): string {
+    return this.currentDeviceFileVersion;
+  }
+
+  set CurrentDeviceFileVersion(aVersion: string) {
+    this.currentDeviceFileVersion = aVersion;
+    this.emit("update");
+  }
+
+  get UsePrereleaseEngine(): boolean {
+    return this.usePrereleaseEngine;
+  }
+
+  set UsePrereleaseEngine(aUse: boolean) {
+    this.usePrereleaseEngine = aUse;
+    this.emit("update");
+  }
+
+  get CheckForDeviceListUpdates(): boolean {
+    return this.checkForDeviceListUpdates;
+  }
+
+  set CheckForDeviceListUpdates(aCheck: boolean) {
+    this.checkForDeviceListUpdates = aCheck;
+    this.emit("update");
+  }
+
+  get CheckForEngineUpdates(): boolean {
+    return this.checkForEngineUpdates;
+  }
+
+  set CheckForEngineUpdates(aCheck: boolean) {
+    this.checkForEngineUpdates = aCheck;
     this.emit("update");
   }
 }
