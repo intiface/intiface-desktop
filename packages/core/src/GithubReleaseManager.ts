@@ -99,11 +99,27 @@ export class GithubReleaseManager extends EventEmitter {
         "Content-Type": "application/octet-stream",
       },
     });
-    // Should this be async'd? It could freeze up on slow drives.
+    // TODO this Should be async'd. It could freeze up on slow drives.
     fs.writeFileSync(aOutputName, file.data);
   }
 
   private async DownloadLatestEnginePrereleaseVersion(): Promise<void> {
+    const releaseTags = await this._client.repos.listTags({ owner: GithubReleaseManager.REPO_OWNER,
+                                                            repo: this._engine });
+
+    let tagHash: string | null = null;
+    for (const tag of releaseTags.data) {
+      if (tag.name !== GithubReleaseManager.PRERELEASE_TAG) {
+        continue;
+      }
+      tagHash = tag.commit.sha;
+    }
+    if (!tagHash) {
+      // If we don't have a tag hash, this means we've somehow managed to blow
+      // away our prerelease tag. That's *bad*.
+      throw new Error(`Cannot get hash for prerelease tag on engine ${this._engine}`);
+    }
+
     const releaseInfo = await this._client.repos.getReleaseByTag({ owner: GithubReleaseManager.REPO_OWNER,
                                                                    repo: this._engine,
                                                                    tag: GithubReleaseManager.PRERELEASE_TAG });
@@ -121,9 +137,12 @@ export class GithubReleaseManager extends EventEmitter {
     const engineFile = path.join(IntifaceUtils.UserConfigDirectory, "engine.zip");
     await this.DownloadFile(releaseUrl, engineFile);
     await this.UnzipEngine(engineFile);
+
+    this._config.CurrentEngineVersion = tagHash;
   }
 
   private async UnzipEngine(aEngineFile: string): Promise<void> {
+    // TODO None of this should be sync calls, use utils.promisify
     if (!fs.existsSync(aEngineFile)) {
       throw new Error(`Engine file path ${aEngineFile} does not exist.`);
     }
@@ -135,6 +154,8 @@ export class GithubReleaseManager extends EventEmitter {
     fs.createReadStream(aEngineFile)
       .pipe(unzipper.Extract({ path: engineDirectory }));
     fs.unlinkSync(aEngineFile);
+
+    // TODO Should download some sort of checksum to check against.
   }
 
   private async CheckForNewEnginePrereleaseVersion(): Promise<boolean> {
