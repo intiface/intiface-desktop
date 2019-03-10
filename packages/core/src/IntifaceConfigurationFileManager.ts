@@ -2,6 +2,7 @@ import { IntifaceConfigurationManager } from "./IntifaceConfigurationManager";
 import { IntifaceUtils } from "./Utils";
 import * as fs from "fs";
 import * as path from "path";
+import { promisify } from "util";
 
 export class IntifaceConfigurationFileManager extends IntifaceConfigurationManager {
 
@@ -9,34 +10,48 @@ export class IntifaceConfigurationFileManager extends IntifaceConfigurationManag
   public static DEFAULT_CONFIG_FILE_PATH = path.join(IntifaceUtils.UserConfigDirectory,
                                                      IntifaceConfigurationFileManager.DEFAULT_CONFIG_FILE_NAME);
 
-  private _configPath: string;
+  public static async Create(aConfigPath: string = IntifaceConfigurationFileManager.DEFAULT_CONFIG_FILE_PATH)
+  : Promise<IntifaceConfigurationFileManager> {
+    const mgr = new IntifaceConfigurationFileManager(aConfigPath);
 
-  public constructor(aConfigPath: string = IntifaceConfigurationFileManager.DEFAULT_CONFIG_FILE_PATH) {
-    super();
-    if (!fs.existsSync(IntifaceUtils.UserConfigDirectory)) {
-      fs.mkdirSync(IntifaceUtils.UserConfigDirectory);
+    const exists = promisify(fs.exists);
+    const mkdir = promisify(fs.mkdir);
+    const access = promisify(fs.access);
+
+    if (!(await exists(IntifaceUtils.UserConfigDirectory))) {
+      await mkdir(IntifaceUtils.UserConfigDirectory);
     }
-    this._configPath = aConfigPath;
     // If we don't have a configuration file yet, make one now.
-    if (!fs.existsSync(this._configPath)) {
-      this.Save();
+    if (!await exists(aConfigPath)) {
+      await mgr.Save();
     } else {
       // If we have a file already, but can't read/write, just throw.
-      fs.accessSync(this._configPath, fs.constants.R_OK | fs.constants.W_OK);
-      this.Load();
+      await access(aConfigPath, fs.constants.R_OK | fs.constants.W_OK);
+      await mgr.Load();
     }
+
+    return mgr;
+  }
+
+  private _configPath: string;
+
+  protected constructor(aConfigPath: string) {
+    super();
+    this._configPath = aConfigPath;
   }
 
   public get Config() {
     return this._config;
   }
 
-  public Load() {
-    const configStr = fs.readFileSync(this._configPath, { encoding: "utf-8" });
+  public async Load() {
+    const readFile = promisify(fs.readFile);
+    const configStr = await readFile(this._configPath, { encoding: "utf-8" });
     this._config.Load(JSON.parse(configStr));
   }
 
-  public Save() {
-    fs.writeFileSync(this._configPath, JSON.stringify(this._config), { flag: "w+", encoding: "utf-8" });
+  public async Save() {
+    const writeFile = promisify(fs.writeFile);
+    await writeFile(this._configPath, JSON.stringify(this._config), { flag: "w+", encoding: "utf-8" });
   }
 }

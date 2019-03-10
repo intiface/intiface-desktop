@@ -15,14 +15,18 @@ import { IntifaceUtils } from "./Utils";
 // communicate with the GUI via a specialized FrondendConnector class.
 export class ButtplugProcessManager {
 
+  public static async Create(aConnector: BackendConnector): Promise<ButtplugProcessManager> {
+    const config = await IntifaceConfigurationFileManager.Create();
+    return new ButtplugProcessManager(aConnector, config);
+  }
+
   private _connector: BackendConnector;
   private _process: ServerProcess | null;
   private _config: IntifaceConfigurationManager;
 
-  public constructor(aConnector: BackendConnector) {
+  protected constructor(aConnector: BackendConnector, aConfig: IntifaceConfigurationFileManager) {
     this._connector = aConnector;
-    this._config =
-      new IntifaceConfigurationFileManager();
+    this._config = aConfig;
     this._connector.addListener("message", (msg) => this.ReceiveFrontendMessage(msg));
   }
 
