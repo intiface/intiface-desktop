@@ -12,4 +12,11 @@ export class IntifaceUtils {
       return process.env.XDG_CONFIG_HOME || path.join(home, ".config", "Intiface");
     }
   }
+
+  public static MakePromise(): [Promise<void>, () => void, (err: Error) => void] {
+    let res;
+    let rej;
+    const p = new Promise<void>((r, e) => { res = r; rej = e; });
+    return [p, res, rej];
+  }
 }

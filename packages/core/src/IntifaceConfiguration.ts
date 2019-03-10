@@ -17,7 +17,7 @@ export class IntifaceConfiguration extends EventEmitter {
   private engine: ButtplugEngineType = os.platform() === "win32" ? "buttplug-csharp" : "buttplug-js";
   private usePrereleaseEngine: boolean = false;
   private currentEngineVersion: string = "";
-  private currentDeviceFileVersion: string = "";
+  private currentDeviceFileVersion: number = 0;
   private checkForDeviceListUpdates: boolean = true;
   private checkForEngineUpdates: boolean = true;
 
@@ -144,11 +144,11 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
-  get CurrentDeviceFileVersion(): string {
+  get CurrentDeviceFileVersion(): number {
     return this.currentDeviceFileVersion;
   }
 
-  set CurrentDeviceFileVersion(aVersion: string) {
+  set CurrentDeviceFileVersion(aVersion: number) {
     this.currentDeviceFileVersion = aVersion;
     this.emit("update");
   }
