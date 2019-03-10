@@ -24,10 +24,10 @@
   "homepage": "https://github.com/qdot/intiface-desktop#readme",
   "dependencies": {
     "@octokit/rest": "^16.16.4",
-    "axios": "^0.18.0",
     "buttplug": "^0.10.0",
     "intiface-protocols": "*",
     "protobufjs": "^6.8.8",
+    "request": "^2.88.0",
     "rimraf": "^2.6.3",
     "semver": "^5.6.0",
     "unzipper": "^0.9.11",
@@ -52,6 +52,7 @@
     "collectCoverage": true
   },
   "devDependencies": {
+    "@types/request": "^2.48.1",
     "@types/rimraf": "^2.0.2",
     "@types/semver": "^5.5.0",
     "@types/unzipper": "^0.9.1"

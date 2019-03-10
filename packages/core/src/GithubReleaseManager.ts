@@ -5,8 +5,8 @@ import * as semver from "semver";
 import * as path from "path";
 import * as unzipper from "unzipper";
 import * as rimraf from "rimraf";
+import * as request from "request";
 import { IntifaceUtils } from "./Utils";
-import Axios from "axios";
 import { EventEmitter } from "events";
 import { IntifaceConfiguration, ButtplugEngineType } from "./IntifaceConfiguration";
 
@@ -75,7 +75,7 @@ export class GithubReleaseManager extends EventEmitter {
 
   public async DownloadLatestEngineVersion(): Promise<void> {
     //if (this._shouldUsePrerelease) {
-      return await this.DownloadLatestEnginePrereleaseVersion();
+    return await this.DownloadLatestEnginePrereleaseVersion();
     //}
   }
 
@@ -92,15 +92,35 @@ export class GithubReleaseManager extends EventEmitter {
   }
 
   private async DownloadFile(aUrl: string, aOutputName: string): Promise<void> {
-    const file = await Axios.get(aUrl, {
-      responseType: "arraybuffer",
-      method: "get",
-      headers: {
-        "Content-Type": "application/octet-stream",
-      },
-    });
-    // TODO this Should be async'd. It could freeze up on slow drives.
-    fs.writeFileSync(aOutputName, file.data);
+
+    // Variable to save downloading progress
+    let receivedBytes = 0;
+    let totalBytes = 0;
+
+    const outStream = fs.createWriteStream(aOutputName);
+    let res;
+    let rej;
+    const p = new Promise<void>((r, e) => { res = r; rej = e; });
+
+    request
+      .get(aUrl)
+      .on("error", (err) => {
+        rej(err);
+      })
+      .on("response", (data) => {
+        totalBytes = parseInt(data.headers["content-length"]!, 10);
+      })
+      .on("data", (chunk) => {
+        receivedBytes += chunk.length;
+        if (receivedBytes === totalBytes) {
+          res();
+        }
+        this.emit("progress", {
+          receivedBytes,
+          totalBytes,
+        });
+      }).pipe(outStream);
+    return p;
   }
 
   private async DownloadLatestEnginePrereleaseVersion(): Promise<void> {
