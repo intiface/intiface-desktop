@@ -18,8 +18,7 @@ export class IntifaceConfiguration extends EventEmitter {
   private usePrereleaseEngine: boolean = false;
   private currentEngineVersion: string = "";
   private currentDeviceFileVersion: number = 0;
-  private checkForDeviceListUpdates: boolean = true;
-  private checkForEngineUpdates: boolean = true;
+  private automaticallyCheckForUpdates: boolean = true;
 
   public Load(aConfigObj: object) {
     for (const propName of Object.getOwnPropertyNames(aConfigObj)) {
@@ -162,21 +161,12 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
-  get CheckForDeviceListUpdates(): boolean {
-    return this.checkForDeviceListUpdates;
+  get AutomaticallyCheckForUpdates(): boolean {
+    return this.automaticallyCheckForUpdates;
   }
 
-  set CheckForDeviceListUpdates(aCheck: boolean) {
-    this.checkForDeviceListUpdates = aCheck;
-    this.emit("update");
-  }
-
-  get CheckForEngineUpdates(): boolean {
-    return this.checkForEngineUpdates;
-  }
-
-  set CheckForEngineUpdates(aCheck: boolean) {
-    this.checkForEngineUpdates = aCheck;
+  set AutomaticallyCheckForUpdates(aCheck: boolean) {
+    this.automaticallyCheckForUpdates = aCheck;
     this.emit("update");
   }
 }
