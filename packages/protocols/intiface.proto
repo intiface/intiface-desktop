@@ -56,6 +56,18 @@ message ServerBackendMessage {
     string configuration = 1;
   };
 
+  message UpdatesAvailable {
+    bool application = 1;
+    bool device_file = 2;
+    bool engine = 3;
+  };
+
+  message DownloadProgress {
+    uint32 bytes_received = 1;
+    uint32 bytes_total = 2;
+    string error = 3;
+  };
+
   oneof msg {
     ProcessStarted processstarted = 1;
     ProcessError processerror = 2;
@@ -67,6 +79,8 @@ message ServerBackendMessage {
     DeviceConnected deviceconnected = 8;
     DeviceDisconnected devicedisconnected = 9;
     Configuration configuration = 10;
+    UpdatesAvailable updatesavailable = 11;
+    DownloadProgress downloadprogress = 12;
   };
 };
 
@@ -100,6 +114,15 @@ message ServerFrontendMessage {
     string configuration = 1;
   };
 
+  message CheckForUpdates {
+  };
+
+  message UpdateEngine {
+  };
+
+  message UpdateDeviceFile {
+  };
+
   oneof msg {
     Ready ready = 1;
     StartProcess startprocess = 2;
@@ -107,6 +130,9 @@ message ServerFrontendMessage {
     StartProxy startproxy = 4;
     StopProxy stopproxy = 5;
     UpdateConfig updateconfig = 6;
+    CheckForUpdates checkforupdates = 7;
+    UpdateEngine updateengine = 8;
+    UpdateDeviceFile updatedevicefile = 9;
   };
 };
 

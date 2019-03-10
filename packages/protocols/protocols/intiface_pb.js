@@ -23,7 +23,9 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
               "clientdisconnected",
               "deviceconnected",
               "devicedisconnected",
-              "configuration"
+              "configuration",
+              "updatesavailable",
+              "downloadprogress"
             ]
           }
         },
@@ -67,6 +69,14 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           configuration: {
             type: "Configuration",
             id: 10
+          },
+          updatesavailable: {
+            type: "UpdatesAvailable",
+            id: 11
+          },
+          downloadprogress: {
+            type: "DownloadProgress",
+            id: 12
           }
         },
         nested: {
@@ -138,6 +148,38 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
                 id: 1
               }
             }
+          },
+          UpdatesAvailable: {
+            fields: {
+              application: {
+                type: "bool",
+                id: 1
+              },
+              deviceFile: {
+                type: "bool",
+                id: 2
+              },
+              engine: {
+                type: "bool",
+                id: 3
+              }
+            }
+          },
+          DownloadProgress: {
+            fields: {
+              bytesReceived: {
+                type: "uint32",
+                id: 1
+              },
+              bytesTotal: {
+                type: "uint32",
+                id: 2
+              },
+              error: {
+                type: "string",
+                id: 3
+              }
+            }
           }
         }
       },
@@ -150,7 +192,10 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
               "stopprocess",
               "startproxy",
               "stopproxy",
-              "updateconfig"
+              "updateconfig",
+              "checkforupdates",
+              "updateengine",
+              "updatedevicefile"
             ]
           }
         },
@@ -178,6 +223,18 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           updateconfig: {
             type: "UpdateConfig",
             id: 6
+          },
+          checkforupdates: {
+            type: "CheckForUpdates",
+            id: 7
+          },
+          updateengine: {
+            type: "UpdateEngine",
+            id: 8
+          },
+          updatedevicefile: {
+            type: "UpdateDeviceFile",
+            id: 9
           }
         },
         nested: {
@@ -203,6 +260,15 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
                 id: 1
               }
             }
+          },
+          CheckForUpdates: {
+            fields: {}
+          },
+          UpdateEngine: {
+            fields: {}
+          },
+          UpdateDeviceFile: {
+            fields: {}
           }
         }
       }

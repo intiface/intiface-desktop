@@ -34,6 +34,12 @@ export namespace IntifaceProtocols {
 
         /** ServerBackendMessage configuration */
         configuration?: (IntifaceProtocols.ServerBackendMessage.IConfiguration|null);
+
+        /** ServerBackendMessage updatesavailable */
+        updatesavailable?: (IntifaceProtocols.ServerBackendMessage.IUpdatesAvailable|null);
+
+        /** ServerBackendMessage downloadprogress */
+        downloadprogress?: (IntifaceProtocols.ServerBackendMessage.IDownloadProgress|null);
     }
 
     /** Represents a ServerBackendMessage. */
@@ -75,8 +81,14 @@ export namespace IntifaceProtocols {
         /** ServerBackendMessage configuration. */
         public configuration?: (IntifaceProtocols.ServerBackendMessage.IConfiguration|null);
 
+        /** ServerBackendMessage updatesavailable. */
+        public updatesavailable?: (IntifaceProtocols.ServerBackendMessage.IUpdatesAvailable|null);
+
+        /** ServerBackendMessage downloadprogress. */
+        public downloadprogress?: (IntifaceProtocols.ServerBackendMessage.IDownloadProgress|null);
+
         /** ServerBackendMessage msg. */
-        public msg?: ("processstarted"|"processerror"|"processended"|"processlog"|"bplog"|"clientconnected"|"clientdisconnected"|"deviceconnected"|"devicedisconnected"|"configuration");
+        public msg?: ("processstarted"|"processerror"|"processended"|"processlog"|"bplog"|"clientconnected"|"clientdisconnected"|"deviceconnected"|"devicedisconnected"|"configuration"|"updatesavailable"|"downloadprogress");
 
         /**
          * Creates a new ServerBackendMessage instance using the specified properties.
@@ -1038,6 +1050,210 @@ export namespace IntifaceProtocols {
              */
             public toJSON(): { [k: string]: any };
         }
+
+        /** Properties of an UpdatesAvailable. */
+        interface IUpdatesAvailable {
+
+            /** UpdatesAvailable application */
+            application?: (boolean|null);
+
+            /** UpdatesAvailable deviceFile */
+            deviceFile?: (boolean|null);
+
+            /** UpdatesAvailable engine */
+            engine?: (boolean|null);
+        }
+
+        /** Represents an UpdatesAvailable. */
+        class UpdatesAvailable implements IUpdatesAvailable {
+
+            /**
+             * Constructs a new UpdatesAvailable.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.ServerBackendMessage.IUpdatesAvailable);
+
+            /** UpdatesAvailable application. */
+            public application: boolean;
+
+            /** UpdatesAvailable deviceFile. */
+            public deviceFile: boolean;
+
+            /** UpdatesAvailable engine. */
+            public engine: boolean;
+
+            /**
+             * Creates a new UpdatesAvailable instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns UpdatesAvailable instance
+             */
+            public static create(properties?: IntifaceProtocols.ServerBackendMessage.IUpdatesAvailable): IntifaceProtocols.ServerBackendMessage.UpdatesAvailable;
+
+            /**
+             * Encodes the specified UpdatesAvailable message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.UpdatesAvailable.verify|verify} messages.
+             * @param message UpdatesAvailable message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.ServerBackendMessage.IUpdatesAvailable, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified UpdatesAvailable message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.UpdatesAvailable.verify|verify} messages.
+             * @param message UpdatesAvailable message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.ServerBackendMessage.IUpdatesAvailable, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an UpdatesAvailable message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns UpdatesAvailable
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage.UpdatesAvailable;
+
+            /**
+             * Decodes an UpdatesAvailable message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns UpdatesAvailable
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage.UpdatesAvailable;
+
+            /**
+             * Verifies an UpdatesAvailable message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an UpdatesAvailable message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns UpdatesAvailable
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage.UpdatesAvailable;
+
+            /**
+             * Creates a plain object from an UpdatesAvailable message. Also converts values to other types if specified.
+             * @param message UpdatesAvailable
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.ServerBackendMessage.UpdatesAvailable, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this UpdatesAvailable to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a DownloadProgress. */
+        interface IDownloadProgress {
+
+            /** DownloadProgress bytesReceived */
+            bytesReceived?: (number|null);
+
+            /** DownloadProgress bytesTotal */
+            bytesTotal?: (number|null);
+
+            /** DownloadProgress error */
+            error?: (string|null);
+        }
+
+        /** Represents a DownloadProgress. */
+        class DownloadProgress implements IDownloadProgress {
+
+            /**
+             * Constructs a new DownloadProgress.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.ServerBackendMessage.IDownloadProgress);
+
+            /** DownloadProgress bytesReceived. */
+            public bytesReceived: number;
+
+            /** DownloadProgress bytesTotal. */
+            public bytesTotal: number;
+
+            /** DownloadProgress error. */
+            public error: string;
+
+            /**
+             * Creates a new DownloadProgress instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns DownloadProgress instance
+             */
+            public static create(properties?: IntifaceProtocols.ServerBackendMessage.IDownloadProgress): IntifaceProtocols.ServerBackendMessage.DownloadProgress;
+
+            /**
+             * Encodes the specified DownloadProgress message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.DownloadProgress.verify|verify} messages.
+             * @param message DownloadProgress message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.ServerBackendMessage.IDownloadProgress, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified DownloadProgress message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.DownloadProgress.verify|verify} messages.
+             * @param message DownloadProgress message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.ServerBackendMessage.IDownloadProgress, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a DownloadProgress message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns DownloadProgress
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage.DownloadProgress;
+
+            /**
+             * Decodes a DownloadProgress message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns DownloadProgress
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage.DownloadProgress;
+
+            /**
+             * Verifies a DownloadProgress message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a DownloadProgress message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns DownloadProgress
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage.DownloadProgress;
+
+            /**
+             * Creates a plain object from a DownloadProgress message. Also converts values to other types if specified.
+             * @param message DownloadProgress
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.ServerBackendMessage.DownloadProgress, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this DownloadProgress to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
     }
 
     /** Properties of a ServerFrontendMessage. */
@@ -1060,6 +1276,15 @@ export namespace IntifaceProtocols {
 
         /** ServerFrontendMessage updateconfig */
         updateconfig?: (IntifaceProtocols.ServerFrontendMessage.IUpdateConfig|null);
+
+        /** ServerFrontendMessage checkforupdates */
+        checkforupdates?: (IntifaceProtocols.ServerFrontendMessage.ICheckForUpdates|null);
+
+        /** ServerFrontendMessage updateengine */
+        updateengine?: (IntifaceProtocols.ServerFrontendMessage.IUpdateEngine|null);
+
+        /** ServerFrontendMessage updatedevicefile */
+        updatedevicefile?: (IntifaceProtocols.ServerFrontendMessage.IUpdateDeviceFile|null);
     }
 
     /** Represents a ServerFrontendMessage. */
@@ -1089,8 +1314,17 @@ export namespace IntifaceProtocols {
         /** ServerFrontendMessage updateconfig. */
         public updateconfig?: (IntifaceProtocols.ServerFrontendMessage.IUpdateConfig|null);
 
+        /** ServerFrontendMessage checkforupdates. */
+        public checkforupdates?: (IntifaceProtocols.ServerFrontendMessage.ICheckForUpdates|null);
+
+        /** ServerFrontendMessage updateengine. */
+        public updateengine?: (IntifaceProtocols.ServerFrontendMessage.IUpdateEngine|null);
+
+        /** ServerFrontendMessage updatedevicefile. */
+        public updatedevicefile?: (IntifaceProtocols.ServerFrontendMessage.IUpdateDeviceFile|null);
+
         /** ServerFrontendMessage msg. */
-        public msg?: ("ready"|"startprocess"|"stopprocess"|"startproxy"|"stopproxy"|"updateconfig");
+        public msg?: ("ready"|"startprocess"|"stopprocess"|"startproxy"|"stopproxy"|"updateconfig"|"checkforupdates"|"updateengine"|"updatedevicefile");
 
         /**
          * Creates a new ServerFrontendMessage instance using the specified properties.
@@ -1670,6 +1904,258 @@ export namespace IntifaceProtocols {
 
             /**
              * Converts this UpdateConfig to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a CheckForUpdates. */
+        interface ICheckForUpdates {
+        }
+
+        /** Represents a CheckForUpdates. */
+        class CheckForUpdates implements ICheckForUpdates {
+
+            /**
+             * Constructs a new CheckForUpdates.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.ServerFrontendMessage.ICheckForUpdates);
+
+            /**
+             * Creates a new CheckForUpdates instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns CheckForUpdates instance
+             */
+            public static create(properties?: IntifaceProtocols.ServerFrontendMessage.ICheckForUpdates): IntifaceProtocols.ServerFrontendMessage.CheckForUpdates;
+
+            /**
+             * Encodes the specified CheckForUpdates message. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.CheckForUpdates.verify|verify} messages.
+             * @param message CheckForUpdates message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.ServerFrontendMessage.ICheckForUpdates, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified CheckForUpdates message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.CheckForUpdates.verify|verify} messages.
+             * @param message CheckForUpdates message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.ServerFrontendMessage.ICheckForUpdates, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a CheckForUpdates message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns CheckForUpdates
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerFrontendMessage.CheckForUpdates;
+
+            /**
+             * Decodes a CheckForUpdates message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns CheckForUpdates
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerFrontendMessage.CheckForUpdates;
+
+            /**
+             * Verifies a CheckForUpdates message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a CheckForUpdates message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns CheckForUpdates
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerFrontendMessage.CheckForUpdates;
+
+            /**
+             * Creates a plain object from a CheckForUpdates message. Also converts values to other types if specified.
+             * @param message CheckForUpdates
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.ServerFrontendMessage.CheckForUpdates, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this CheckForUpdates to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of an UpdateEngine. */
+        interface IUpdateEngine {
+        }
+
+        /** Represents an UpdateEngine. */
+        class UpdateEngine implements IUpdateEngine {
+
+            /**
+             * Constructs a new UpdateEngine.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.ServerFrontendMessage.IUpdateEngine);
+
+            /**
+             * Creates a new UpdateEngine instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns UpdateEngine instance
+             */
+            public static create(properties?: IntifaceProtocols.ServerFrontendMessage.IUpdateEngine): IntifaceProtocols.ServerFrontendMessage.UpdateEngine;
+
+            /**
+             * Encodes the specified UpdateEngine message. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.UpdateEngine.verify|verify} messages.
+             * @param message UpdateEngine message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.ServerFrontendMessage.IUpdateEngine, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified UpdateEngine message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.UpdateEngine.verify|verify} messages.
+             * @param message UpdateEngine message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.ServerFrontendMessage.IUpdateEngine, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an UpdateEngine message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns UpdateEngine
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerFrontendMessage.UpdateEngine;
+
+            /**
+             * Decodes an UpdateEngine message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns UpdateEngine
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerFrontendMessage.UpdateEngine;
+
+            /**
+             * Verifies an UpdateEngine message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an UpdateEngine message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns UpdateEngine
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerFrontendMessage.UpdateEngine;
+
+            /**
+             * Creates a plain object from an UpdateEngine message. Also converts values to other types if specified.
+             * @param message UpdateEngine
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.ServerFrontendMessage.UpdateEngine, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this UpdateEngine to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of an UpdateDeviceFile. */
+        interface IUpdateDeviceFile {
+        }
+
+        /** Represents an UpdateDeviceFile. */
+        class UpdateDeviceFile implements IUpdateDeviceFile {
+
+            /**
+             * Constructs a new UpdateDeviceFile.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.ServerFrontendMessage.IUpdateDeviceFile);
+
+            /**
+             * Creates a new UpdateDeviceFile instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns UpdateDeviceFile instance
+             */
+            public static create(properties?: IntifaceProtocols.ServerFrontendMessage.IUpdateDeviceFile): IntifaceProtocols.ServerFrontendMessage.UpdateDeviceFile;
+
+            /**
+             * Encodes the specified UpdateDeviceFile message. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.UpdateDeviceFile.verify|verify} messages.
+             * @param message UpdateDeviceFile message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.ServerFrontendMessage.IUpdateDeviceFile, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified UpdateDeviceFile message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.UpdateDeviceFile.verify|verify} messages.
+             * @param message UpdateDeviceFile message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.ServerFrontendMessage.IUpdateDeviceFile, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an UpdateDeviceFile message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns UpdateDeviceFile
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerFrontendMessage.UpdateDeviceFile;
+
+            /**
+             * Decodes an UpdateDeviceFile message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns UpdateDeviceFile
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerFrontendMessage.UpdateDeviceFile;
+
+            /**
+             * Verifies an UpdateDeviceFile message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an UpdateDeviceFile message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns UpdateDeviceFile
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerFrontendMessage.UpdateDeviceFile;
+
+            /**
+             * Creates a plain object from an UpdateDeviceFile message. Also converts values to other types if specified.
+             * @param message UpdateDeviceFile
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.ServerFrontendMessage.UpdateDeviceFile, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this UpdateDeviceFile to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };
