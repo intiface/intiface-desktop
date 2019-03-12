@@ -2,9 +2,7 @@ import { BackendConnector } from "./BackendConnector";
 import { IntifaceProtocols } from "intiface-protocols";
 import { ServerProcess } from "./ServerProcess";
 import { IntifaceConfigurationManager } from "./IntifaceConfigurationManager";
-import * as fs from "fs";
 import { IntifaceConfigurationFileManager } from "./IntifaceConfigurationFileManager";
-import { IntifaceUtils } from "./Utils";
 import { GithubReleaseManager } from "./GithubReleaseManager";
 
 // The link between whatever our frontend is (Electron, express, etc) and our
@@ -69,6 +67,18 @@ export class ButtplugProcessManager {
       const ghManager = new GithubReleaseManager(this._config.Config);
       ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
       ghManager.DownloadLatestEngineVersion().then(() => {
+        ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
+        // Once we're done with a download, make sure to save our config and
+        // update our frontend.
+        this._config!.Save().then(() => {
+          console.log(this._config!.Config!.CurrentEngineVersion);
+          this.UpdateFrontendConfiguration();
+        });
+      });
+    } else if (aMsg.updatedevicefile !== null) {
+      const ghManager = new GithubReleaseManager(this._config.Config);
+      ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
+      ghManager.DownloadLatestDeviceFileVersion().then(() => {
         ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
         // Once we're done with a download, make sure to save our config and
         // update our frontend.

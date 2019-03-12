@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import router from "../../router";
-import { FrontendConnector, IntifaceConfiguration } from 'intiface-core-library';
+import { FrontendConnector, IntifaceConfiguration, IntifaceUtils } from "intiface-core-library";
 import { IntifaceProtocols } from "intiface-protocols";
 
 @Component({})
@@ -11,17 +11,47 @@ export default class SetupPanel extends Vue {
   private connector!: FrontendConnector;
   @Prop()
   private config!: IntifaceConfiguration;
-  private engineDownloadFinished: boolean = false;
   private downloadProgress: number = 0;
+
+  private downloadStarted: boolean = false;
+  private downloadFinished: boolean = false;
+
+  private downloadFinishedResolver: (() => void) | null = null;
 
   private GoToIntiface() {
     router.push("/");
   }
 
-  private StartEngineDownload() {
+  private async RunDownloads() {
+    this.downloadStarted = true;
     this.connector.addListener("message", this.UpdateDownloadProgress);
+
+    let [p, res] = IntifaceUtils.MakePromise();
+    this.downloadFinishedResolver = res;
+    this.StartEngineDownload();
+    await p;
+
+    [p, res] = IntifaceUtils.MakePromise();
+    this.downloadFinishedResolver = res;
+    this.StartDeviceFileDownload();
+    await p;
+
+    this.connector.removeListener("message", this.UpdateDownloadProgress);
+
+    this.downloadFinished = true;
+    this.downloadFinishedResolver = null;
+  }
+
+  private StartEngineDownload() {
     const msg = IntifaceProtocols.ServerFrontendMessage.create({
       updateengine: IntifaceProtocols.ServerFrontendMessage.UpdateEngine.create(),
+    });
+    this.connector.SendMessage(msg);
+  }
+
+  private StartDeviceFileDownload() {
+    const msg = IntifaceProtocols.ServerFrontendMessage.create({
+      updatedevicefile: IntifaceProtocols.ServerFrontendMessage.UpdateDeviceFile.create(),
     });
     this.connector.SendMessage(msg);
   }
@@ -31,8 +61,9 @@ export default class SetupPanel extends Vue {
       const msg = aMsg.downloadprogress!;
       this.downloadProgress = Math.ceil(((msg.bytesReceived!) / msg.bytesTotal!) * 100);
       if (msg.bytesReceived === msg.bytesTotal) {
-        this.engineDownloadFinished = true;
-        this.connector.removeListener("message", this.UpdateDownloadProgress);
+        if (this.downloadFinishedResolver !== null) {
+          this.downloadFinishedResolver();
+        }
       }
     }
   }

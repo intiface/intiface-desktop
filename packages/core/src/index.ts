@@ -6,3 +6,4 @@ export * from "./IntifaceConfigurationManager";
 export * from "./IntifaceConfigurationEventManager";
 export * from "./IntifaceConfigurationFileManager";
 export * from "./GithubReleaseManager";
+export * from "./Utils";
