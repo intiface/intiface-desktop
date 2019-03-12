@@ -26,9 +26,11 @@
     "@octokit/rest": "^16.16.4",
     "buttplug": "^0.10.0",
     "intiface-protocols": "*",
+    "opn": "^5.4.0",
     "protobufjs": "^6.8.8",
     "request": "^2.88.0",
     "rimraf": "^2.6.3",
+    "selfsigned": "^1.10.4",
     "semver": "^5.6.0",
     "unzipper": "^0.9.11",
     "ws": "^6.1.2"

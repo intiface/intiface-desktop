@@ -58,6 +58,10 @@
         <v-stepper-content step="3">
           <v-btn
             color="primary"
+            @click="StartCertServer()"
+          >Run Cert Setup</v-btn>
+          <v-btn
+            color="primary"
             @click="setupStep = 4"
           >Continue</v-btn>
         </v-stepper-content>

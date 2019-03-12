@@ -4,6 +4,8 @@ import { ServerProcess } from "./ServerProcess";
 import { IntifaceConfigurationManager } from "./IntifaceConfigurationManager";
 import { IntifaceConfigurationFileManager } from "./IntifaceConfigurationFileManager";
 import { GithubReleaseManager } from "./GithubReleaseManager";
+import { CertGenerator } from "./CertGenerator";
+import { IntifaceUtils } from "./Utils";
 
 // The link between whatever our frontend is (Electron, express, etc) and our
 // Buttplug server process. This will handle loading/saving our configuration
@@ -48,7 +50,7 @@ export class ButtplugProcessManager {
       this._connector.SendMessage(msg);
   }
 
-  private ReceiveFrontendMessage(aMsg: IntifaceProtocols.ServerFrontendMessage) {
+  private async ReceiveFrontendMessage(aMsg: IntifaceProtocols.ServerFrontendMessage) {
     // TODO Feels like there should be a better way to do this :c
     if (aMsg.startprocess !== null) {
       // this._process = new ServerProcess();
@@ -87,6 +89,16 @@ export class ButtplugProcessManager {
           this.UpdateFrontendConfiguration();
         });
       });
+    } else if (aMsg.generatecerts !== null) {
+      const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
+      await cg.GenerateCerts();
+      await cg.RunCertAcceptanceServer();
+      const msg = IntifaceProtocols.ServerBackendMessage.create({
+        certserverrunning: IntifaceProtocols.ServerBackendMessage.CertServerRunning.create({
+          insecurePort: cg.InsecurePort,
+        }),
+      });
+      this._connector.SendMessage(msg);
     } else {
       console.log(`Message has no usable payload! ${aMsg}`);
     }

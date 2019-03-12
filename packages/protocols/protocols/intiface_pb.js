@@ -25,7 +25,8 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
               "devicedisconnected",
               "configuration",
               "updatesavailable",
-              "downloadprogress"
+              "downloadprogress",
+              "certserverrunning"
             ]
           }
         },
@@ -77,6 +78,10 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           downloadprogress: {
             type: "DownloadProgress",
             id: 12
+          },
+          certserverrunning: {
+            type: "CertServerRunning",
+            id: 13
           }
         },
         nested: {
@@ -180,6 +185,14 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
                 id: 3
               }
             }
+          },
+          CertServerRunning: {
+            fields: {
+              insecurePort: {
+                type: "uint32",
+                id: 1
+              }
+            }
           }
         }
       },
@@ -195,7 +208,10 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
               "updateconfig",
               "checkforupdates",
               "updateengine",
-              "updatedevicefile"
+              "updatedevicefile",
+              "generatecerts",
+              "runcertserver",
+              "stopcertserver"
             ]
           }
         },
@@ -235,6 +251,18 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           updatedevicefile: {
             type: "UpdateDeviceFile",
             id: 9
+          },
+          generatecerts: {
+            type: "GenerateCerts",
+            id: 10
+          },
+          runcertserver: {
+            type: "RunCertServer",
+            id: 11
+          },
+          stopcertserver: {
+            type: "StopCertServer",
+            id: 12
           }
         },
         nested: {
@@ -268,6 +296,15 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
             fields: {}
           },
           UpdateDeviceFile: {
+            fields: {}
+          },
+          GenerateCerts: {
+            fields: {}
+          },
+          RunCertServer: {
+            fields: {}
+          },
+          StopCertServer: {
             fields: {}
           }
         }

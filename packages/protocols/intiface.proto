@@ -68,6 +68,10 @@ message ServerBackendMessage {
     string error = 3;
   };
 
+  message CertServerRunning {
+    uint32 insecure_port = 1;
+  };
+
   oneof msg {
     ProcessStarted processstarted = 1;
     ProcessError processerror = 2;
@@ -81,6 +85,7 @@ message ServerBackendMessage {
     Configuration configuration = 10;
     UpdatesAvailable updatesavailable = 11;
     DownloadProgress downloadprogress = 12;
+    CertServerRunning certserverrunning = 13;
   };
 };
 
@@ -123,6 +128,15 @@ message ServerFrontendMessage {
   message UpdateDeviceFile {
   };
 
+  message GenerateCerts {
+  };
+
+  message RunCertServer {
+  };
+
+  message StopCertServer {
+  };
+
   oneof msg {
     Ready ready = 1;
     StartProcess startprocess = 2;
@@ -133,6 +147,9 @@ message ServerFrontendMessage {
     CheckForUpdates checkforupdates = 7;
     UpdateEngine updateengine = 8;
     UpdateDeviceFile updatedevicefile = 9;
+    GenerateCerts generatecerts = 10;
+    RunCertServer runcertserver = 11;
+    StopCertServer stopcertserver = 12;
   };
 };
 

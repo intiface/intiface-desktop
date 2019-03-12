@@ -67,4 +67,15 @@ export default class SetupPanel extends Vue {
       }
     }
   }
+
+  private StartCertServer() {
+    let msg = IntifaceProtocols.ServerFrontendMessage.create({
+      generatecerts: IntifaceProtocols.ServerFrontendMessage.GenerateCerts.create(),
+    });
+    this.connector.SendMessage(msg);
+    msg = IntifaceProtocols.ServerFrontendMessage.create({
+      runcertserver: IntifaceProtocols.ServerFrontendMessage.RunCertServer.create(),
+    });
+    this.connector.SendMessage(msg);
+  }
 }

@@ -40,6 +40,9 @@ export namespace IntifaceProtocols {
 
         /** ServerBackendMessage downloadprogress */
         downloadprogress?: (IntifaceProtocols.ServerBackendMessage.IDownloadProgress|null);
+
+        /** ServerBackendMessage certserverrunning */
+        certserverrunning?: (IntifaceProtocols.ServerBackendMessage.ICertServerRunning|null);
     }
 
     /** Represents a ServerBackendMessage. */
@@ -87,8 +90,11 @@ export namespace IntifaceProtocols {
         /** ServerBackendMessage downloadprogress. */
         public downloadprogress?: (IntifaceProtocols.ServerBackendMessage.IDownloadProgress|null);
 
+        /** ServerBackendMessage certserverrunning. */
+        public certserverrunning?: (IntifaceProtocols.ServerBackendMessage.ICertServerRunning|null);
+
         /** ServerBackendMessage msg. */
-        public msg?: ("processstarted"|"processerror"|"processended"|"processlog"|"bplog"|"clientconnected"|"clientdisconnected"|"deviceconnected"|"devicedisconnected"|"configuration"|"updatesavailable"|"downloadprogress");
+        public msg?: ("processstarted"|"processerror"|"processended"|"processlog"|"bplog"|"clientconnected"|"clientdisconnected"|"deviceconnected"|"devicedisconnected"|"configuration"|"updatesavailable"|"downloadprogress"|"certserverrunning");
 
         /**
          * Creates a new ServerBackendMessage instance using the specified properties.
@@ -1254,6 +1260,96 @@ export namespace IntifaceProtocols {
              */
             public toJSON(): { [k: string]: any };
         }
+
+        /** Properties of a CertServerRunning. */
+        interface ICertServerRunning {
+
+            /** CertServerRunning insecurePort */
+            insecurePort?: (number|null);
+        }
+
+        /** Represents a CertServerRunning. */
+        class CertServerRunning implements ICertServerRunning {
+
+            /**
+             * Constructs a new CertServerRunning.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.ServerBackendMessage.ICertServerRunning);
+
+            /** CertServerRunning insecurePort. */
+            public insecurePort: number;
+
+            /**
+             * Creates a new CertServerRunning instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns CertServerRunning instance
+             */
+            public static create(properties?: IntifaceProtocols.ServerBackendMessage.ICertServerRunning): IntifaceProtocols.ServerBackendMessage.CertServerRunning;
+
+            /**
+             * Encodes the specified CertServerRunning message. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.CertServerRunning.verify|verify} messages.
+             * @param message CertServerRunning message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.ServerBackendMessage.ICertServerRunning, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified CertServerRunning message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerBackendMessage.CertServerRunning.verify|verify} messages.
+             * @param message CertServerRunning message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.ServerBackendMessage.ICertServerRunning, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a CertServerRunning message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns CertServerRunning
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerBackendMessage.CertServerRunning;
+
+            /**
+             * Decodes a CertServerRunning message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns CertServerRunning
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerBackendMessage.CertServerRunning;
+
+            /**
+             * Verifies a CertServerRunning message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a CertServerRunning message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns CertServerRunning
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerBackendMessage.CertServerRunning;
+
+            /**
+             * Creates a plain object from a CertServerRunning message. Also converts values to other types if specified.
+             * @param message CertServerRunning
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.ServerBackendMessage.CertServerRunning, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this CertServerRunning to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
     }
 
     /** Properties of a ServerFrontendMessage. */
@@ -1285,6 +1381,15 @@ export namespace IntifaceProtocols {
 
         /** ServerFrontendMessage updatedevicefile */
         updatedevicefile?: (IntifaceProtocols.ServerFrontendMessage.IUpdateDeviceFile|null);
+
+        /** ServerFrontendMessage generatecerts */
+        generatecerts?: (IntifaceProtocols.ServerFrontendMessage.IGenerateCerts|null);
+
+        /** ServerFrontendMessage runcertserver */
+        runcertserver?: (IntifaceProtocols.ServerFrontendMessage.IRunCertServer|null);
+
+        /** ServerFrontendMessage stopcertserver */
+        stopcertserver?: (IntifaceProtocols.ServerFrontendMessage.IStopCertServer|null);
     }
 
     /** Represents a ServerFrontendMessage. */
@@ -1323,8 +1428,17 @@ export namespace IntifaceProtocols {
         /** ServerFrontendMessage updatedevicefile. */
         public updatedevicefile?: (IntifaceProtocols.ServerFrontendMessage.IUpdateDeviceFile|null);
 
+        /** ServerFrontendMessage generatecerts. */
+        public generatecerts?: (IntifaceProtocols.ServerFrontendMessage.IGenerateCerts|null);
+
+        /** ServerFrontendMessage runcertserver. */
+        public runcertserver?: (IntifaceProtocols.ServerFrontendMessage.IRunCertServer|null);
+
+        /** ServerFrontendMessage stopcertserver. */
+        public stopcertserver?: (IntifaceProtocols.ServerFrontendMessage.IStopCertServer|null);
+
         /** ServerFrontendMessage msg. */
-        public msg?: ("ready"|"startprocess"|"stopprocess"|"startproxy"|"stopproxy"|"updateconfig"|"checkforupdates"|"updateengine"|"updatedevicefile");
+        public msg?: ("ready"|"startprocess"|"stopprocess"|"startproxy"|"stopproxy"|"updateconfig"|"checkforupdates"|"updateengine"|"updatedevicefile"|"generatecerts"|"runcertserver"|"stopcertserver");
 
         /**
          * Creates a new ServerFrontendMessage instance using the specified properties.
@@ -2156,6 +2270,258 @@ export namespace IntifaceProtocols {
 
             /**
              * Converts this UpdateDeviceFile to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a GenerateCerts. */
+        interface IGenerateCerts {
+        }
+
+        /** Represents a GenerateCerts. */
+        class GenerateCerts implements IGenerateCerts {
+
+            /**
+             * Constructs a new GenerateCerts.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.ServerFrontendMessage.IGenerateCerts);
+
+            /**
+             * Creates a new GenerateCerts instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns GenerateCerts instance
+             */
+            public static create(properties?: IntifaceProtocols.ServerFrontendMessage.IGenerateCerts): IntifaceProtocols.ServerFrontendMessage.GenerateCerts;
+
+            /**
+             * Encodes the specified GenerateCerts message. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.GenerateCerts.verify|verify} messages.
+             * @param message GenerateCerts message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.ServerFrontendMessage.IGenerateCerts, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified GenerateCerts message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.GenerateCerts.verify|verify} messages.
+             * @param message GenerateCerts message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.ServerFrontendMessage.IGenerateCerts, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a GenerateCerts message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns GenerateCerts
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerFrontendMessage.GenerateCerts;
+
+            /**
+             * Decodes a GenerateCerts message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns GenerateCerts
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerFrontendMessage.GenerateCerts;
+
+            /**
+             * Verifies a GenerateCerts message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a GenerateCerts message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns GenerateCerts
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerFrontendMessage.GenerateCerts;
+
+            /**
+             * Creates a plain object from a GenerateCerts message. Also converts values to other types if specified.
+             * @param message GenerateCerts
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.ServerFrontendMessage.GenerateCerts, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this GenerateCerts to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a RunCertServer. */
+        interface IRunCertServer {
+        }
+
+        /** Represents a RunCertServer. */
+        class RunCertServer implements IRunCertServer {
+
+            /**
+             * Constructs a new RunCertServer.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.ServerFrontendMessage.IRunCertServer);
+
+            /**
+             * Creates a new RunCertServer instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns RunCertServer instance
+             */
+            public static create(properties?: IntifaceProtocols.ServerFrontendMessage.IRunCertServer): IntifaceProtocols.ServerFrontendMessage.RunCertServer;
+
+            /**
+             * Encodes the specified RunCertServer message. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.RunCertServer.verify|verify} messages.
+             * @param message RunCertServer message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.ServerFrontendMessage.IRunCertServer, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified RunCertServer message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.RunCertServer.verify|verify} messages.
+             * @param message RunCertServer message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.ServerFrontendMessage.IRunCertServer, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a RunCertServer message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns RunCertServer
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerFrontendMessage.RunCertServer;
+
+            /**
+             * Decodes a RunCertServer message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns RunCertServer
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerFrontendMessage.RunCertServer;
+
+            /**
+             * Verifies a RunCertServer message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a RunCertServer message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns RunCertServer
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerFrontendMessage.RunCertServer;
+
+            /**
+             * Creates a plain object from a RunCertServer message. Also converts values to other types if specified.
+             * @param message RunCertServer
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.ServerFrontendMessage.RunCertServer, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this RunCertServer to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a StopCertServer. */
+        interface IStopCertServer {
+        }
+
+        /** Represents a StopCertServer. */
+        class StopCertServer implements IStopCertServer {
+
+            /**
+             * Constructs a new StopCertServer.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.ServerFrontendMessage.IStopCertServer);
+
+            /**
+             * Creates a new StopCertServer instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns StopCertServer instance
+             */
+            public static create(properties?: IntifaceProtocols.ServerFrontendMessage.IStopCertServer): IntifaceProtocols.ServerFrontendMessage.StopCertServer;
+
+            /**
+             * Encodes the specified StopCertServer message. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.StopCertServer.verify|verify} messages.
+             * @param message StopCertServer message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.ServerFrontendMessage.IStopCertServer, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified StopCertServer message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerFrontendMessage.StopCertServer.verify|verify} messages.
+             * @param message StopCertServer message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.ServerFrontendMessage.IStopCertServer, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a StopCertServer message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns StopCertServer
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerFrontendMessage.StopCertServer;
+
+            /**
+             * Decodes a StopCertServer message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns StopCertServer
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerFrontendMessage.StopCertServer;
+
+            /**
+             * Verifies a StopCertServer message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a StopCertServer message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns StopCertServer
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerFrontendMessage.StopCertServer;
+
+            /**
+             * Creates a plain object from a StopCertServer message. Also converts values to other types if specified.
+             * @param message StopCertServer
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.ServerFrontendMessage.StopCertServer, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this StopCertServer to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };
