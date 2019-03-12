@@ -18,22 +18,22 @@ function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({ width: 800, height: 600 });
 
-  SetupElectronIntifaceServer(win);
-
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    // Load the url of the dev server if in development mode
-    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
-    if (!process.env.IS_TEST) {
-      win.webContents.openDevTools();
+  SetupElectronIntifaceServer(win).then(() => {
+    if (process.env.WEBPACK_DEV_SERVER_URL) {
+      // Load the url of the dev server if in development mode
+      win!.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
+      if (!process.env.IS_TEST) {
+        win!.webContents.openDevTools();
+      }
+    } else {
+      createProtocol("app");
+      // Load the index.html when not in development
+      win!.loadURL("app://./index.html");
     }
-  } else {
-    createProtocol("app");
-    // Load the index.html when not in development
-    win.loadURL("app://./index.html");
-  }
 
-  win.on("closed", () => {
-    win = null;
+    win!.on("closed", () => {
+      win = null;
+    });
   });
 }
 

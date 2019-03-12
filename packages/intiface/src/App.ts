@@ -1,4 +1,5 @@
 import Vue from "vue";
+import router from "./router";
 import { IntifaceProtocols } from "intiface-protocols";
 import { Component, Watch, Prop } from "vue-property-decorator";
 import { FrontendConnector } from "intiface-core-library";
@@ -16,6 +17,7 @@ export default class App extends Vue {
     { title: "Settings", icon: "settings", path: "settings" },
     { title: "About", icon: "info", path: "about" },
   ];
+  private showNavBar: boolean = true;
   private currentItem = this.menuList[0];
   private mini = true;
   private drawer = true;
@@ -46,6 +48,7 @@ export default class App extends Vue {
         console.log("NO CONNECTOR");
       }
     }
+    this.connector!.addListener("message", this.checkSetup);
   }
 
   public sendMessage() {
@@ -55,5 +58,22 @@ export default class App extends Vue {
     const msg = new IntifaceProtocols.ServerFrontendMessage();
     msg.startprocess = new IntifaceProtocols.ServerFrontendMessage.StartProcess();
     this.connector.SendMessage(msg);
+  }
+
+  private checkSetup(aMsg: IntifaceProtocols.ServerBackendMessage) {
+    if (aMsg.configuration !== null) {
+      this.connector!.removeListener("message", this.checkSetup);
+      if (this.connector!.Config !== null && !this.connector!.Config.HasRunSetup) {
+        this.currentItem = { title: "Initial Setup", icon: "", path: "setup" };
+        router.push("setup");
+      }
+    }
+  }
+
+  // Not actually sure what the incoming type of the router value is, and we
+  // really just need to know the name, so make a corresponding shape.
+  @Watch("$route", { immediate: true, deep: true })
+  private toggleNav(newVal: { name: string }) {
+    this.showNavBar = newVal.name !== "setup";
   }
 }

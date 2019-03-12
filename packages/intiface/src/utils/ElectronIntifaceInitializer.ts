@@ -4,6 +4,6 @@ import { ElectronBackendConnector } from "./ElectronBackendConnector";
 
 let _intifaceServer: ButtplugProcessManager;
 
-export function SetupElectronIntifaceServer(aWin: BrowserWindow) {
-  _intifaceServer = new ButtplugProcessManager(new ElectronBackendConnector(aWin));
+export async function SetupElectronIntifaceServer(aWin: BrowserWindow) {
+  _intifaceServer = await ButtplugProcessManager.Create(new ElectronBackendConnector(aWin));
 }

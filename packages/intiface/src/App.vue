@@ -2,6 +2,7 @@
   <v-app dark v-if="loaded">
     <v-navigation-drawer
       v-model="drawer"
+      v-if="showNavBar"
       hide-overlay
       stateless
       app
@@ -43,7 +44,7 @@
     </v-navigation-drawer>
     <v-toolbar app>{{ currentItem.title }}</v-toolbar>
     <v-content fill-height>
-      <router-view :config="connector.Config"></router-view>
+      <router-view :connector="connector" :config="connector.Config"></router-view>
     </v-content>
   </v-app>
 </template>

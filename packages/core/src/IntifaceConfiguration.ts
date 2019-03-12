@@ -19,6 +19,7 @@ export class IntifaceConfiguration extends EventEmitter {
   private currentEngineVersion: string = "";
   private currentDeviceFileVersion: number = 0;
   private automaticallyCheckForUpdates: boolean = true;
+  private hasRunSetup: boolean = false;
 
   public Load(aConfigObj: object) {
     for (const propName of Object.getOwnPropertyNames(aConfigObj)) {
@@ -167,6 +168,15 @@ export class IntifaceConfiguration extends EventEmitter {
 
   set AutomaticallyCheckForUpdates(aCheck: boolean) {
     this.automaticallyCheckForUpdates = aCheck;
+    this.emit("update");
+  }
+
+  get HasRunSetup(): boolean {
+    return this.hasRunSetup;
+  }
+
+  set HasRunSetup(aHasSetup: boolean) {
+    this.hasRunSetup = aHasSetup;
     this.emit("update");
   }
 }

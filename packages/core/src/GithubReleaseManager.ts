@@ -101,7 +101,7 @@ export class GithubReleaseManager extends EventEmitter {
     return releaseVersion > this._config.CurrentDeviceFileVersion;
   }
 
-  public async DownloadLatestDeviceFileVersion(): Promise<boolean> {
+  public async DownloadLatestDeviceFileVersion(): Promise<void> {
     const releaseInfo = await this._client.repos.getLatestRelease({ owner: GithubReleaseManager.REPO_OWNER,
                                                                     repo: GithubReleaseManager.DEVICE_CONFIG_REPO });
     let downloadUrl: string | null = null;
@@ -117,7 +117,6 @@ export class GithubReleaseManager extends EventEmitter {
     const configFile = path.join(IntifaceUtils.UserConfigDirectory, GithubReleaseManager.DEVICE_CONFIG_FILENAME);
     await this.DownloadFile(downloadUrl, configFile);
     this._config.CurrentDeviceFileVersion = parseInt(releaseInfo.data.tag_name.substr(1), 10);
-    return false;
   }
 
   private async DownloadFile(aUrl: string, aOutputName: string): Promise<void> {
@@ -157,7 +156,7 @@ export class GithubReleaseManager extends EventEmitter {
     this._config.CurrentEngineVersion = releaseInfo.data.target_commitish;
   }
 
-  private async DownloadEngineRelease(aReleaseInfo: ISimplifiedOctokitAsset[]) {
+  private async DownloadEngineRelease(aReleaseInfo: ISimplifiedOctokitAsset[]): Promise<void> {
     let releaseUrl: string | null = null;
     for (const releaseAsset of aReleaseInfo) {
       if (releaseAsset.name.startsWith(this.EngineFilenamePrefix)) {
