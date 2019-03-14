@@ -25,7 +25,7 @@ describe("Connector tests", async () => {
       super();
       this._localHub = aHub;
       this._localHub.addListener("frontend", (aMsg: Buffer) => {
-        const msg = IntifaceProtocols.ServerFrontendMessage.decode(aMsg);
+        const msg = IntifaceProtocols.IntifaceFrontendMessage.decode(aMsg);
         this.ProcessMessage(msg);
       });
     }
@@ -62,7 +62,7 @@ describe("Connector tests", async () => {
     const backend = new TestBackendConnector(_hub);
     let res;
     const p = new Promise((rs) => { res = rs; });
-    backend.addListener("message", (aMsg: IntifaceProtocols.ServerFrontendMessage) => {
+    backend.addListener("message", (aMsg: IntifaceProtocols.IntifaceFrontendMessage) => {
       expect(aMsg.ready).toBeDefined();
       res();
     });

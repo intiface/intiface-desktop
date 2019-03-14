@@ -1,5 +1,5 @@
 import { BackendConnector } from "intiface-core-library";
-import { IpcMain, IpcRenderer, BrowserWindow, ipcMain } from "electron";
+import { BrowserWindow, ipcMain } from "electron";
 import { IntifaceProtocols } from "intiface-protocols";
 
 // The Main/Parent process side of the Frontend/Server connector pair for
@@ -13,7 +13,7 @@ export class ElectronBackendConnector extends BackendConnector {
     super();
     this._win = aWin;
     ipcMain.addListener("frontend", (event: string, arg: Buffer) => {
-      this.ProcessMessage(IntifaceProtocols.ServerFrontendMessage.decode(arg));
+      this.ProcessMessage(IntifaceProtocols.IntifaceFrontendMessage.decode(arg));
     });
   }
 

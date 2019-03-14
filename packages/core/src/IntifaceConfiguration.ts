@@ -1,4 +1,5 @@
 import { EventEmitter } from "events";
+import { ButtplugLogLevel } from "buttplug";
 import * as os from "os";
 
 export type ButtplugEngineType = "buttplug-js" | "buttplug-csharp";
@@ -11,8 +12,12 @@ export class IntifaceConfiguration extends EventEmitter {
   private listenOnWebsocketServer: boolean = false;
   private listenOnProxyServer: boolean = false;
   // private deviceListUpdateURL: string;
-  private websocketServerInsecurePort: number = 12345;
-  private websocketServerSecurePort: number = 12346;
+  private websocketServerAllInterfaces: boolean = false;
+  private websocketServerUseInsecurePort: boolean = false;
+  private websocketServerInsecurePort: number = 12346;
+  private websocketServerUseSecurePort: boolean = true;
+  private websocketServerSecurePort: number = 12345;
+  private serverLogLevel: ButtplugLogLevel = ButtplugLogLevel.Info;
   private proxyServerPort: number = 12347;
   private engine: ButtplugEngineType = os.platform() === "win32" ? "buttplug-csharp" : "buttplug-js";
   private usePrereleaseEngine: boolean = false;
@@ -114,6 +119,24 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
+  get WebsocketServerUseInsecurePort(): boolean {
+    return this.websocketServerUseInsecurePort;
+  }
+
+  set WebsocketServerUseInsecurePort(aUsePort: boolean) {
+    this.websocketServerUseInsecurePort = aUsePort;
+    this.emit("update");
+  }
+
+  get WebsocketServerUseSecurePort(): boolean {
+    return this.websocketServerUseSecurePort;
+  }
+
+  set WebsocketServerUseSecurePort(aUsePort: boolean) {
+    this.websocketServerUseSecurePort = aUsePort;
+    this.emit("update");
+  }
+
   get ProxyServerPort(): number {
     return this.proxyServerPort;
   }
@@ -168,6 +191,24 @@ export class IntifaceConfiguration extends EventEmitter {
 
   set AutomaticallyCheckForUpdates(aCheck: boolean) {
     this.automaticallyCheckForUpdates = aCheck;
+    this.emit("update");
+  }
+
+  get WebsocketServerAllInterfaces(): boolean {
+    return this.websocketServerAllInterfaces;
+  }
+
+  set WebsocketServerAllInterfaces(aAllInterfaces: boolean) {
+    this.websocketServerAllInterfaces = aAllInterfaces;
+    this.emit("update");
+  }
+
+  get ServerLogLevel(): ButtplugLogLevel {
+    return this.serverLogLevel;
+  }
+
+  set ServerLogLevel(aLevel: ButtplugLogLevel) {
+    this.serverLogLevel = aLevel;
     this.emit("update");
   }
 

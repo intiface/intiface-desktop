@@ -19,6 +19,7 @@ export default class SetupPanel extends Vue {
   private downloadFinishedResolver: (() => void) | null = null;
 
   private GoToIntiface() {
+    this.config.HasRunSetup = true;
     router.push("/");
   }
 
@@ -43,22 +44,22 @@ export default class SetupPanel extends Vue {
   }
 
   private StartEngineDownload() {
-    const msg = IntifaceProtocols.ServerFrontendMessage.create({
-      updateengine: IntifaceProtocols.ServerFrontendMessage.UpdateEngine.create(),
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      updateEngine: IntifaceProtocols.IntifaceFrontendMessage.UpdateEngine.create(),
     });
     this.connector.SendMessage(msg);
   }
 
   private StartDeviceFileDownload() {
-    const msg = IntifaceProtocols.ServerFrontendMessage.create({
-      updatedevicefile: IntifaceProtocols.ServerFrontendMessage.UpdateDeviceFile.create(),
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      updateDeviceFile: IntifaceProtocols.IntifaceFrontendMessage.UpdateDeviceFile.create(),
     });
     this.connector.SendMessage(msg);
   }
 
-  private UpdateDownloadProgress(aMsg: IntifaceProtocols.ServerBackendMessage) {
-    if (aMsg.downloadprogress !== null) {
-      const msg = aMsg.downloadprogress!;
+  private UpdateDownloadProgress(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
+    if (aMsg.downloadProgress !== null) {
+      const msg = aMsg.downloadProgress!;
       this.downloadProgress = Math.ceil(((msg.bytesReceived!) / msg.bytesTotal!) * 100);
       if (msg.bytesReceived === msg.bytesTotal) {
         if (this.downloadFinishedResolver !== null) {
@@ -68,13 +69,20 @@ export default class SetupPanel extends Vue {
     }
   }
 
-  private StartCertServer() {
-    let msg = IntifaceProtocols.ServerFrontendMessage.create({
-      generatecerts: IntifaceProtocols.ServerFrontendMessage.GenerateCerts.create(),
+  private async StartCertServer() {
+    const [p, res] = IntifaceUtils.MakePromise();
+    this.connector.addListener("message", (aMsg: IntifaceProtocols.IntifaceBackendMessage) => {
+      if (aMsg.certificateGenerated) {
+        res();
+      }
+    });
+    let msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      generateCertificate: IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate.create(),
     });
     this.connector.SendMessage(msg);
-    msg = IntifaceProtocols.ServerFrontendMessage.create({
-      runcertserver: IntifaceProtocols.ServerFrontendMessage.RunCertServer.create(),
+    await p;
+    msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      runCertificateAcceptanceServer: IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer.create(),
     });
     this.connector.SendMessage(msg);
   }

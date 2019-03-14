@@ -20,24 +20,24 @@ export abstract class FrontendConnector extends EventEmitter {
     super();
   }
 
-  public SendMessage(aMsg: IntifaceProtocols.ServerFrontendMessage) {
-    this.SendMessageInternal(Buffer.from(IntifaceProtocols.ServerFrontendMessage.encode(aMsg).finish()));
+  public SendMessage(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+    this.SendMessageInternal(Buffer.from(IntifaceProtocols.IntifaceFrontendMessage.encode(aMsg).finish()));
   }
 
   protected abstract SendMessageInternal(aRawMsg: Buffer): void;
 
   protected Ready() {
-    const readyMsg = IntifaceProtocols.ServerFrontendMessage.create({
-      ready: IntifaceProtocols.ServerFrontendMessage.Ready.create(),
+    const readyMsg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      ready: IntifaceProtocols.IntifaceFrontendMessage.Ready.create(),
     });
     this.SendMessage(readyMsg);
   }
 
-  protected EmitServerMessage(aMsg: IntifaceProtocols.ServerBackendMessage) {
+  protected EmitServerMessage(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
     this.emit("message", aMsg);
   }
 
-  protected ProcessMessage(aMsg: IntifaceProtocols.ServerBackendMessage) {
+  protected ProcessMessage(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
     if (aMsg.configuration !== null) {
       // If we've gotten a configuration message from the backend, that means
       // the config file was loaded and we need to overwrite our current state
@@ -46,12 +46,18 @@ export abstract class FrontendConnector extends EventEmitter {
       // Any time the configuration is saved, throw it at the backend so we can
       // update settings and save the file.
       this._config.addListener("configsaved", (aConfig: string) => {
-        const configMsg = IntifaceProtocols.ServerFrontendMessage.create({
-          updateconfig: IntifaceProtocols.ServerFrontendMessage.UpdateConfig.create({ configuration: aConfig }),
+        const configMsg = IntifaceProtocols.IntifaceFrontendMessage.create({
+          updateConfig: IntifaceProtocols.IntifaceFrontendMessage.UpdateConfig.create({ configuration: aConfig }),
         });
         this.SendMessage(configMsg);
       });
+    } else if (aMsg.serverProcessMessage !== null) {
+      const processMsg = aMsg.serverProcessMessage!;
+      if (processMsg.processLog !== null) {
+        console.log(processMsg.processLog!.message);
+      }
     }
+
     // Always emit after we're done, just in case extra things need to be done otherwise.
     this.EmitServerMessage(aMsg);
   }

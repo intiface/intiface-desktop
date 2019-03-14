@@ -6,82 +6,79 @@ var $protobuf = require("protobufjs/light");
 var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $protobuf.Root()))
 .addJSON({
   IntifaceProtocols: {
-    options: {
-      csharp_namespace: "Buttplug.Server.CLI"
-    },
     nested: {
-      ServerBackendMessage: {
+      ServerControlMessage: {
         oneofs: {
           msg: {
             oneof: [
-              "processstarted",
-              "processerror",
-              "processended",
-              "processlog",
-              "bplog",
-              "clientconnected",
-              "clientdisconnected",
-              "deviceconnected",
-              "devicedisconnected",
-              "configuration",
-              "updatesavailable",
-              "downloadprogress",
-              "certserverrunning"
+              "stop"
             ]
           }
         },
         fields: {
-          processstarted: {
+          stop: {
+            type: "Stop",
+            id: 1
+          }
+        },
+        nested: {
+          Stop: {
+            fields: {}
+          }
+        }
+      },
+      ServerProcessMessage: {
+        oneofs: {
+          msg: {
+            oneof: [
+              "processStarted",
+              "processError",
+              "processEnded",
+              "processLog",
+              "buttplugLog",
+              "clientConnected",
+              "clientDisconnected",
+              "deviceConnected",
+              "deviceDisconnected"
+            ]
+          }
+        },
+        fields: {
+          processStarted: {
             type: "ProcessStarted",
             id: 1
           },
-          processerror: {
+          processError: {
             type: "ProcessError",
             id: 2
           },
-          processended: {
+          processEnded: {
             type: "ProcessEnded",
             id: 3
           },
-          processlog: {
+          processLog: {
             type: "ProcessLog",
             id: 4
           },
-          bplog: {
+          buttplugLog: {
             type: "ButtplugLog",
             id: 5
           },
-          clientconnected: {
+          clientConnected: {
             type: "ClientConnected",
             id: 6
           },
-          clientdisconnected: {
+          clientDisconnected: {
             type: "ClientDisconnected",
             id: 7
           },
-          deviceconnected: {
+          deviceConnected: {
             type: "DeviceConnected",
             id: 8
           },
-          devicedisconnected: {
+          deviceDisconnected: {
             type: "DeviceDisconnected",
             id: 9
-          },
-          configuration: {
-            type: "Configuration",
-            id: 10
-          },
-          updatesavailable: {
-            type: "UpdatesAvailable",
-            id: 11
-          },
-          downloadprogress: {
-            type: "DownloadProgress",
-            id: 12
-          },
-          certserverrunning: {
-            type: "CertServerRunning",
-            id: 13
           }
         },
         nested: {
@@ -145,7 +142,49 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
                 id: 1
               }
             }
+          }
+        }
+      },
+      IntifaceBackendMessage: {
+        oneofs: {
+          msg: {
+            oneof: [
+              "configuration",
+              "updatesAvailable",
+              "downloadProgress",
+              "certificateAcceptanceServerRunning",
+              "certificateGenerated",
+              "serverProcessMessage"
+            ]
+          }
+        },
+        fields: {
+          configuration: {
+            type: "Configuration",
+            id: 1
           },
+          updatesAvailable: {
+            type: "UpdatesAvailable",
+            id: 2
+          },
+          downloadProgress: {
+            type: "DownloadProgress",
+            id: 3
+          },
+          certificateAcceptanceServerRunning: {
+            type: "CertificateAcceptanceServerRunning",
+            id: 4
+          },
+          certificateGenerated: {
+            type: "CertificateGenerated",
+            id: 5
+          },
+          serverProcessMessage: {
+            type: "ServerProcessMessage",
+            id: 6
+          }
+        },
+        nested: {
           Configuration: {
             fields: {
               configuration: {
@@ -186,7 +225,10 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
               }
             }
           },
-          CertServerRunning: {
+          CertificateGenerated: {
+            fields: {}
+          },
+          CertificateAcceptanceServerRunning: {
             fields: {
               insecurePort: {
                 type: "uint32",
@@ -196,22 +238,22 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           }
         }
       },
-      ServerFrontendMessage: {
+      IntifaceFrontendMessage: {
         oneofs: {
           msg: {
             oneof: [
               "ready",
-              "startprocess",
-              "stopprocess",
-              "startproxy",
-              "stopproxy",
-              "updateconfig",
-              "checkforupdates",
-              "updateengine",
-              "updatedevicefile",
-              "generatecerts",
-              "runcertserver",
-              "stopcertserver"
+              "startProcess",
+              "stopProcess",
+              "startProxy",
+              "stopProxy",
+              "updateConfig",
+              "checkForUpdates",
+              "updateEngine",
+              "updateDeviceFile",
+              "generateCertificate",
+              "runCertificateAcceptanceServer",
+              "stopCertificateAcceptanceServer"
             ]
           }
         },
@@ -220,48 +262,48 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
             type: "Ready",
             id: 1
           },
-          startprocess: {
+          startProcess: {
             type: "StartProcess",
             id: 2
           },
-          stopprocess: {
+          stopProcess: {
             type: "StopProcess",
             id: 3
           },
-          startproxy: {
+          startProxy: {
             type: "StartProxy",
             id: 4
           },
-          stopproxy: {
+          stopProxy: {
             type: "StopProxy",
             id: 5
           },
-          updateconfig: {
+          updateConfig: {
             type: "UpdateConfig",
             id: 6
           },
-          checkforupdates: {
+          checkForUpdates: {
             type: "CheckForUpdates",
             id: 7
           },
-          updateengine: {
+          updateEngine: {
             type: "UpdateEngine",
             id: 8
           },
-          updatedevicefile: {
+          updateDeviceFile: {
             type: "UpdateDeviceFile",
             id: 9
           },
-          generatecerts: {
-            type: "GenerateCerts",
+          generateCertificate: {
+            type: "GenerateCertificate",
             id: 10
           },
-          runcertserver: {
-            type: "RunCertServer",
+          runCertificateAcceptanceServer: {
+            type: "RunCertificateAcceptanceServer",
             id: 11
           },
-          stopcertserver: {
-            type: "StopCertServer",
+          stopCertificateAcceptanceServer: {
+            type: "StopCertificateAcceptanceServer",
             id: 12
           }
         },
@@ -298,13 +340,13 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           UpdateDeviceFile: {
             fields: {}
           },
-          GenerateCerts: {
+          GenerateCertificate: {
             fields: {}
           },
-          RunCertServer: {
+          RunCertificateAcceptanceServer: {
             fields: {}
           },
-          StopCertServer: {
+          StopCertificateAcceptanceServer: {
             fields: {}
           }
         }

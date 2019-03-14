@@ -7,7 +7,7 @@
       <v-layout align-center justify-center fill-width column v-if="!serverRunning">
         <v-flex>If you turn the server on,</v-flex>
         <v-flex>
-          <v-btn @click="config.ListenOnWebsocketServer = !config.ListenOnWebsocketServer">{{ config.ListenOnWebsocketServer ? 'It will listen' : 'It will not listen' }}</v-btn> for websocket connections {{ config.ListenOnWebsocketServer ? "at port" : ""  }} <v-text-field solo v-if="config.ListenOnWebsocketServer" v-model="config.WebsocketServerInsecurePort"></v-text-field>, and</v-flex>
+          <v-btn @click="config.ListenOnWebsocketServer = !config.ListenOnWebsocketServer">{{ config.ListenOnWebsocketServer ? 'It will listen' : 'It will not listen' }}</v-btn> for websocket connections {{ config.ListenOnWebsocketServer ? "at port" : ""  }} <v-text-field solo v-if="config.ListenOnWebsocketServer" v-model="config.WebsocketServerSecurePort"></v-text-field>.</v-flex>
           </v-layout>
         </v-flex>
         <v-flex>

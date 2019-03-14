@@ -23,17 +23,17 @@ export class ButtplugProcessManager {
 
   private _connector: BackendConnector;
   private _process: ServerProcess | null;
-  private _config: IntifaceConfigurationManager;
+  private _configManager: IntifaceConfigurationManager;
 
   protected constructor(aConnector: BackendConnector, aConfig: IntifaceConfigurationFileManager) {
     this._connector = aConnector;
-    this._config = aConfig;
+    this._configManager = aConfig;
     this._connector.addListener("message", (msg) => this.ReceiveFrontendMessage(msg));
   }
 
   private UpdateDownloadProgress(aProgress: any) {
-    const msg = IntifaceProtocols.ServerBackendMessage.create({
-      downloadprogress: IntifaceProtocols.ServerBackendMessage.DownloadProgress.create({
+    const msg = IntifaceProtocols.IntifaceBackendMessage.create({
+      downloadProgress: IntifaceProtocols.IntifaceBackendMessage.DownloadProgress.create({
         bytesReceived: aProgress.receivedBytes,
         bytesTotal: aProgress.totalBytes,
       }),
@@ -42,59 +42,77 @@ export class ButtplugProcessManager {
   }
 
   private UpdateFrontendConfiguration() {
-      const msg = IntifaceProtocols.ServerBackendMessage.create({
-        configuration: IntifaceProtocols.ServerBackendMessage.Configuration.create({
-          configuration: JSON.stringify(this._config.Config),
+      const msg = IntifaceProtocols.IntifaceBackendMessage.create({
+        configuration: IntifaceProtocols.IntifaceBackendMessage.Configuration.create({
+          configuration: JSON.stringify(this._configManager.Config),
         }),
       });
       this._connector.SendMessage(msg);
   }
 
-  private async ReceiveFrontendMessage(aMsg: IntifaceProtocols.ServerFrontendMessage) {
+  private async ReceiveFrontendMessage(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
     // TODO Feels like there should be a better way to do this :c
-    if (aMsg.startprocess !== null) {
-      // this._process = new ServerProcess();
-      // this._process.addListener("processmessage", (aProcessMsg: IntifaceProtocols.ServerBackendMessage) => {
-      //   this._connector.SendMessage(aProcessMsg);
-      // });
-      // this._process.RunServer();
-    } else if (aMsg.stopprocess !== null) {
-    } else if (aMsg.startproxy !== null) {
+    if (aMsg.startProcess !== null) {
+      console.log("Starting server?!");
+      this._process = new ServerProcess(this._configManager.Config);
+      this._process.addListener("process_message", (aProcessMsg: IntifaceProtocols.IntifaceBackendMessage) => {
+        this._connector.SendMessage(aProcessMsg);
+      });
+      this._process.RunServer();
+    } else if (aMsg.stopProcess !== null) {
+      if (this._process) {
+        console.log("Stopping server?!");
+        await this._process.StopServer();
+        this._process = null;
+      }
+    } else if (aMsg.startProxy !== null) {
     } else if (aMsg.ready !== null) {
       this.UpdateFrontendConfiguration();
-    } else if (aMsg.updateconfig !== null) {
-      this._config.Config.Load(JSON.parse(aMsg.updateconfig!.configuration!));
-      this._config.Save();
-    } else if (aMsg.updateengine !== null) {
-      const ghManager = new GithubReleaseManager(this._config.Config);
+    } else if (aMsg.updateConfig !== null) {
+      this._configManager.Config.Load(JSON.parse(aMsg.updateConfig!.configuration!));
+      this._configManager.Save();
+    } else if (aMsg.updateEngine !== null) {
+      const ghManager = new GithubReleaseManager(this._configManager.Config);
       ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
       ghManager.DownloadLatestEngineVersion().then(() => {
         ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
         // Once we're done with a download, make sure to save our config and
         // update our frontend.
-        this._config!.Save().then(() => {
-          console.log(this._config!.Config!.CurrentEngineVersion);
+        this._configManager!.Save().then(() => {
+          console.log(this._configManager!.Config!.CurrentEngineVersion);
           this.UpdateFrontendConfiguration();
         });
       });
-    } else if (aMsg.updatedevicefile !== null) {
-      const ghManager = new GithubReleaseManager(this._config.Config);
+    } else if (aMsg.updateDeviceFile !== null) {
+      const ghManager = new GithubReleaseManager(this._configManager.Config);
       ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
       ghManager.DownloadLatestDeviceFileVersion().then(() => {
         ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
         // Once we're done with a download, make sure to save our config and
         // update our frontend.
-        this._config!.Save().then(() => {
-          console.log(this._config!.Config!.CurrentEngineVersion);
+        this._configManager!.Save().then(() => {
+          console.log(this._configManager!.Config!.CurrentEngineVersion);
           this.UpdateFrontendConfiguration();
         });
       });
-    } else if (aMsg.generatecerts !== null) {
-      const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
-      await cg.GenerateCerts();
+    } else if (aMsg.generateCertificate !== null) {
+      const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory, this._configManager.Config);
+      if (!(await cg.HasGeneratedCerts())) {
+        await cg.GenerateCerts();
+      }
+      this._connector.SendMessage(IntifaceProtocols.IntifaceBackendMessage.create({
+        certificateGenerated: IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated.create(),
+      }));
+    } else if (aMsg.runCertificateAcceptanceServer !== null) {
+      const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory, this._configManager.Config);
+      if (!(await cg.HasGeneratedCerts())) {
+        // TODO Should probably error here
+        return;
+      }
       await cg.RunCertAcceptanceServer();
-      const msg = IntifaceProtocols.ServerBackendMessage.create({
-        certserverrunning: IntifaceProtocols.ServerBackendMessage.CertServerRunning.create({
+      const msg = IntifaceProtocols.IntifaceBackendMessage.create({
+        certificateAcceptanceServerRunning:
+        IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning.create({
           insecurePort: cg.InsecurePort,
         }),
       });

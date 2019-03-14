@@ -32,6 +32,7 @@ function createWindow() {
     }
 
     win!.on("closed", () => {
+      console.log("CLOSING WINDOW");
       win = null;
     });
   });
@@ -39,6 +40,7 @@ function createWindow() {
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
+  console.log("ALL WINDOWS CLOSED. QUITTING.");
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== "darwin") {

@@ -1,11 +1,18 @@
 syntax = "proto3";
 package IntifaceProtocols;
 
-option csharp_namespace = "Buttplug.Server.CLI";
+// This needs to stay in sync with the Buttplug Server CLI protocols.
+message ServerControlMessage {
+  message Stop {
+  };
 
-// Messages that go from parent process to child interface/gui.
-message ServerBackendMessage {
+  oneof msg {
+    Stop stop = 1;
+  }
+}
 
+// This needs to stay in sync with the Buttplug Server CLI protocols.
+message ServerProcessMessage {
   // Status messages from the server process
   message ProcessLog {
     string message = 1;
@@ -15,7 +22,7 @@ message ServerBackendMessage {
   message ProcessStarted {
   };
 
-  // Notifies frontend that server process is up and running
+  // Notifies frontend that the server process errored out
   message ProcessError {
     string message = 1;
   };
@@ -49,6 +56,22 @@ message ServerBackendMessage {
   message DeviceDisconnected {
     uint32 device_id = 1;
   };
+  
+  oneof msg {
+    ProcessStarted process_started = 1;
+    ProcessError process_error = 2;
+    ProcessEnded process_ended = 3;
+    ProcessLog process_log = 4;
+    ButtplugLog buttplug_log = 5;
+    ClientConnected client_connected = 6;
+    ClientDisconnected client_disconnected = 7;
+    DeviceConnected device_connected = 8;
+    DeviceDisconnected device_disconnected = 9;
+  };
+}
+
+// Messages that go from parent process to child interface/gui.
+message IntifaceBackendMessage {
 
   // Sends full configuration file to the child process, usually on
   // startup to seed initial config information.
@@ -68,29 +91,25 @@ message ServerBackendMessage {
     string error = 3;
   };
 
-  message CertServerRunning {
+  message CertificateGenerated {
+  }
+  
+  message CertificateAcceptanceServerRunning {
     uint32 insecure_port = 1;
   };
 
   oneof msg {
-    ProcessStarted processstarted = 1;
-    ProcessError processerror = 2;
-    ProcessEnded processended = 3;
-    ProcessLog processlog = 4;
-    ButtplugLog bplog = 5;
-    ClientConnected clientconnected = 6;
-    ClientDisconnected clientdisconnected = 7;
-    DeviceConnected deviceconnected = 8;
-    DeviceDisconnected devicedisconnected = 9;
-    Configuration configuration = 10;
-    UpdatesAvailable updatesavailable = 11;
-    DownloadProgress downloadprogress = 12;
-    CertServerRunning certserverrunning = 13;
+    Configuration configuration = 1;
+    UpdatesAvailable updates_available = 2;
+    DownloadProgress download_progress = 3;
+    CertificateAcceptanceServerRunning certificate_acceptance_server_running = 4;
+    CertificateGenerated certificate_generated = 5;
+    ServerProcessMessage server_process_message = 6;
   };
 };
 
 // Messages that go from child interface/gui to parent process.
-message ServerFrontendMessage {
+message IntifaceFrontendMessage {
   // Sent from frontend to backend when frontend is considered to be
   // up and running. Will cause backend to respond by sending
   // configuration.
@@ -128,28 +147,27 @@ message ServerFrontendMessage {
   message UpdateDeviceFile {
   };
 
-  message GenerateCerts {
+  message GenerateCertificate {
   };
 
-  message RunCertServer {
+  message RunCertificateAcceptanceServer {
   };
 
-  message StopCertServer {
+  message StopCertificateAcceptanceServer {
   };
 
   oneof msg {
     Ready ready = 1;
-    StartProcess startprocess = 2;
-    StopProcess stopprocess = 3;
-    StartProxy startproxy = 4;
-    StopProxy stopproxy = 5;
-    UpdateConfig updateconfig = 6;
-    CheckForUpdates checkforupdates = 7;
-    UpdateEngine updateengine = 8;
-    UpdateDeviceFile updatedevicefile = 9;
-    GenerateCerts generatecerts = 10;
-    RunCertServer runcertserver = 11;
-    StopCertServer stopcertserver = 12;
+    StartProcess start_process = 2;
+    StopProcess stop_process = 3;
+    StartProxy start_proxy = 4;
+    StopProxy stop_proxy = 5;
+    UpdateConfig update_config = 6;
+    CheckForUpdates check_for_updates = 7;
+    UpdateEngine update_engine = 8;
+    UpdateDeviceFile update_device_file = 9;
+    GenerateCertificate generate_certificate = 10;
+    RunCertificateAcceptanceServer run_certificate_acceptance_server = 11;
+    StopCertificateAcceptanceServer stop_certificate_acceptance_server = 12;
   };
 };
-

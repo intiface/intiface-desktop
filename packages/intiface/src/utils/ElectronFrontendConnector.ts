@@ -16,7 +16,7 @@ export class ElectronFrontendConnector extends FrontendConnector {
   protected constructor() {
     super();
     ipcRenderer.addListener("backend", (event: string, args: Buffer) => {
-      const msg = IntifaceProtocols.ServerBackendMessage.decode(args);
+      const msg = IntifaceProtocols.IntifaceBackendMessage.decode(args);
       this.ProcessMessage(msg);
     });
   }

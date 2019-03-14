@@ -51,19 +51,10 @@ export default class App extends Vue {
     this.connector!.addListener("message", this.checkSetup);
   }
 
-  public sendMessage() {
-    if (this.connector === null) {
-      return;
-    }
-    const msg = new IntifaceProtocols.ServerFrontendMessage();
-    msg.startprocess = new IntifaceProtocols.ServerFrontendMessage.StartProcess();
-    this.connector.SendMessage(msg);
-  }
-
-  private checkSetup(aMsg: IntifaceProtocols.ServerBackendMessage) {
+  private checkSetup(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
     if (aMsg.configuration !== null) {
       this.connector!.removeListener("message", this.checkSetup);
-      if (this.connector!.Config !== null && !this.connector!.Config.HasRunSetup) {
+      if (this.connector!.Config !== null && !this.connector!.Config!.HasRunSetup) {
         this.currentItem = { title: "Initial Setup", icon: "", path: "setup" };
         router.push("setup");
       }
