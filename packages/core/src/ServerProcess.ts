@@ -65,7 +65,6 @@ export class ServerProcess extends EventEmitter {
 
     const [p, res, rej] = IntifaceUtils.MakePromise();
     // Now we start up our external process.
-    console.log(args);
     this._serverProcess =
       child_process.execFile(path.join(IntifaceUtils.UserConfigDirectory, "engine", "Buttplug.Server.CLI"),
                              args,
@@ -75,12 +74,6 @@ export class ServerProcess extends EventEmitter {
                                }
                                res();
                              });
-    this._serverProcess.stdout.on("data", (out: string) => {
-      console.log(`stdout: ${out}`);
-    });
-    this._serverProcess.stderr.on("data", (out: string) => {
-      console.log(`stderr: ${out}`);
-    });
     this._serverProcess.on("exit", (code: number, signal: string) => {
       this.emit("exit", code);
     });
