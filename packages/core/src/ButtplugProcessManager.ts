@@ -53,17 +53,25 @@ export class ButtplugProcessManager {
   private async ReceiveFrontendMessage(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
     // TODO Feels like there should be a better way to do this :c
     if (aMsg.startProcess !== null) {
-      console.log("Starting server?!");
       this._process = new ServerProcess(this._configManager.Config);
       this._process.addListener("process_message", (aProcessMsg: IntifaceProtocols.IntifaceBackendMessage) => {
         this._connector.SendMessage(aProcessMsg);
       });
+      this._process.addListener("exit", () => {
+        const stopMsg = IntifaceProtocols.IntifaceBackendMessage.create({
+          serverProcessMessage: IntifaceProtocols.ServerProcessMessage.create({
+            processEnded: IntifaceProtocols.ServerProcessMessage.ProcessEnded.create(),
+          }),
+        });
+        this._connector.SendMessage(stopMsg);
+        this._process = null;
+      });
       this._process.RunServer();
     } else if (aMsg.stopProcess !== null) {
       if (this._process) {
-        console.log("Stopping server?!");
+        // This will fire the exit event, which will set the process to null and
+        // update the frontend.
         await this._process.StopServer();
-        this._process = null;
       }
     } else if (aMsg.startProxy !== null) {
     } else if (aMsg.ready !== null) {

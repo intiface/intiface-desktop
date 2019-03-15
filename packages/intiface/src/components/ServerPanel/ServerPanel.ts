@@ -15,6 +15,18 @@ export default class ServerPanel extends Vue {
   private serverRunning: boolean = false;
   private serverStates: string[] = ["Start Server", "Stop Server"];
 
+  public mounted() {
+    this.connector.addListener("message", this.ParseProcessMessage);
+  }
+
+  private ParseProcessMessage(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
+    if (aMsg.serverProcessMessage) {
+      if (aMsg.serverProcessMessage.processEnded || aMsg.serverProcessMessage.processError) {
+        this.serverRunning = false;
+      }
+    }
+  }
+
   private ToggleServer() {
     this.serverRunning = !this.serverRunning;
     if (this.serverRunning) {
