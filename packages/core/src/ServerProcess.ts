@@ -1,8 +1,6 @@
-import * as net from "net";
 import * as child_process from "child_process";
 import * as path from "path";
-import * as fs from "fs";
-import { promisify } from "util";
+import * as protobuf from "protobufjs";
 import { IntifaceProtocols } from "intiface-protocols";
 import { IntifaceUtils } from "./Utils";
 import { EventEmitter } from "events";
@@ -23,18 +21,8 @@ import { CertGenerator } from "./CertGenerator";
 // - devicedisconnected
 export class ServerProcess extends EventEmitter {
 
-  private static GUI_PIPE_NAME: string = path.join(IntifaceUtils.UserConfigDirectory, "ButtplugGUIPipe");
-
-  // IPC pipe for relaying server process status out to the frontend.
-  private _cliMessageServer: net.Server | null = null;
-  private _cliMessageClient: net.Socket | null = null;
-  private _serverProcess: child_process.ChildProcess;
+  private _serverProcess: child_process.ChildProcess | null = null;
   private _config: IntifaceConfiguration;
-
-  // If we need to front the ipc server with our own websocket server, we'll
-  // still need an IPC client to the server which we'll proxy through our own
-  // websocket. Mmmm, overly complicated.
-  private _ipcClient: net.Socket;
 
   public constructor(aConfig: IntifaceConfiguration) {
     super();
@@ -46,36 +34,34 @@ export class ServerProcess extends EventEmitter {
 
   public async RunServer() {
     const args: string[] = await this.BuildServerArguments();
-
-    this._cliMessageServer = net.createServer();
-    this._cliMessageServer.addListener("connection", (s) => {
-      this._cliMessageClient = s;
-      this._cliMessageClient.addListener("data", (d) => {
-        this.ParseMessage(d);
-      });
-    });
-
-    const exists = promisify(fs.exists);
-    const unlink = promisify(fs.unlink);
-    if (await exists(ServerProcess.GUI_PIPE_NAME)) {
-      await unlink(ServerProcess.GUI_PIPE_NAME);
-    }
-
-    this._cliMessageServer.listen(ServerProcess.GUI_PIPE_NAME);
-
+    console.log(args);
     const [p, res, rej] = IntifaceUtils.MakePromise();
     // Now we start up our external process.
     this._serverProcess =
       child_process.execFile(path.join(IntifaceUtils.UserConfigDirectory, "engine", "Buttplug.Server.CLI"),
                              args,
+                             {
+                               encoding: "binary",
+                               maxBuffer: 1024768,
+                             },
                              (error: Error, stdout: string | Buffer, stderr: string | Buffer) => {
                                if (error) {
                                  rej(error);
+                                 this._serverProcess = null;
                                }
                                res();
                              });
+    this._serverProcess.stdout!.addListener("data", (d: string) => {
+      // We'll always get strings from stdin, but we know they've been encoded
+      // binary on the other end, so we should just be able to change them to
+      // buffers here.
+      const buf = Buffer.from(d, "binary");
+      this.ParseMessages(buf);
+    });
+
     this._serverProcess.on("exit", (code: number, signal: string) => {
       this.emit("exit", code);
+      this._serverProcess = null;
     });
     await p;
   }
@@ -94,7 +80,7 @@ export class ServerProcess extends EventEmitter {
     // args.push(`--userdeviceconfig `);
     // First, we set up our incoming pipe to receive GUI info from the CLI
     // process
-    args.push(`--guipipe`, `${ServerProcess.GUI_PIPE_NAME}`);
+    args.push(`--guipipe`);
     if (this._config.ListenOnIpcServer) {
       args.push("--ipcserver");
       args.push(`--ipcpipe`, `${this._config.IpcServerPipeName}`);
@@ -122,39 +108,36 @@ export class ServerProcess extends EventEmitter {
   }
 
   private async SendMessage(aMsg: IntifaceProtocols.ServerControlMessage) {
-    if (!this._cliMessageClient) {
+    if (!this._serverProcess || !this._serverProcess.stdin) {
       // TODO Should error here.
       return;
     }
-    const buf = IntifaceProtocols.ServerControlMessage.encode(aMsg).finish();
-    this._cliMessageClient!.write(buf);
+
+    const buf = IntifaceProtocols.ServerControlMessage.encodeDelimited(aMsg).finish();
+    this._serverProcess.stdin.write(buf);
   }
 
   private ShutdownServer() {
-    // TODO Should probably await this?
-    if (this._cliMessageClient !== null) {
-      this._cliMessageClient.end();
-    }
-    if (this._cliMessageServer !== null) {
-      this._cliMessageServer.close();
-      this._cliMessageServer = null;
-    }
     // TODO Check to see if process is still alive, if it is, wait for shutdown.
   }
 
-  private ParseMessage(aData: Buffer) {
-    // TODO Sucks that we'll have to parse this twice, once here and once in the
-    // frontend. Not sure how to serialize to frontend and not lose typing tho.
-    const msg = IntifaceProtocols.ServerProcessMessage.decode(aData);
-    if (msg.processEnded !== null) {
-      // Process will not send messages after this, shut down listener. This is
-      // the only type of message the server currently needs to care about.
-      this.ShutdownServer();
+  private ParseMessages(aData: Buffer) {
+    const reader = protobuf.Reader.create(aData);
+    while (reader.pos < reader.len ) {
+      console.log(reader.pos);
+      // TODO Sucks that we'll have to parse this twice, once here and once in the
+      // frontend. Not sure how to serialize to frontend and not lose typing tho.
+      const msg = IntifaceProtocols.ServerProcessMessage.decodeDelimited(reader);
+      if (msg.processEnded !== null) {
+        // Process will not send messages after this, shut down listener. This is
+        // the only type of message the server currently needs to care about.
+        this.ShutdownServer();
+      }
+      console.log(msg);
+      const newMsg = IntifaceProtocols.IntifaceBackendMessage.create({
+        serverProcessMessage: msg,
+      });
+      this.emit("process_message", newMsg);
     }
-    console.log(msg);
-    const newMsg = IntifaceProtocols.IntifaceBackendMessage.create({
-      serverProcessMessage: msg,
-    });
-    this.emit("process_message", newMsg);
   }
 }
