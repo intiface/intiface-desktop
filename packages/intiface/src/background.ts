@@ -5,7 +5,7 @@ import {
   createProtocol,
   installVueDevtools,
 } from "vue-cli-plugin-electron-builder/lib";
-import { SetupElectronIntifaceServer } from "./utils/ElectronIntifaceInitializer";
+import { SetupElectronIntifaceServer, ShutdownElectronIntifaceServer } from "./utils/ElectronIntifaceInitializer";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Keep a global reference of the window object, if you don"t, the window will
@@ -44,6 +44,7 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
+  ShutdownElectronIntifaceServer();
 });
 
 app.on("activate", () => {

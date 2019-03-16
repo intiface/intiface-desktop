@@ -33,6 +33,13 @@ export class ButtplugProcessManager {
     this._connector.addListener("message", async (msg) => await this.ReceiveFrontendMessage(msg));
   }
 
+  public async Shutdown() {
+    if (this._process !== null) {
+      await this._process.StopServer();
+      this._process = null;
+    }
+  }
+
   private UpdateDownloadProgress(aProgress: any) {
     const msg = IntifaceProtocols.IntifaceBackendMessage.create({
       downloadProgress: IntifaceProtocols.IntifaceBackendMessage.DownloadProgress.create({

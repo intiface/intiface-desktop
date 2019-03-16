@@ -7,3 +7,7 @@ let _intifaceServer: ButtplugProcessManager;
 export async function SetupElectronIntifaceServer(aWin: BrowserWindow) {
   _intifaceServer = await ButtplugProcessManager.Create(new ElectronBackendConnector(aWin));
 }
+
+export async function ShutdownElectronIntifaceServer() {
+  await _intifaceServer.Shutdown();
+}

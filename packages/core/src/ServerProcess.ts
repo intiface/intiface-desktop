@@ -27,9 +27,7 @@ export class ServerProcess extends EventEmitter {
   public constructor(aConfig: IntifaceConfiguration) {
     super();
     this._config = aConfig;
-    process.on("beforeExit", () => {
-      this.ShutdownServer();
-    });
+    process.addListener("beforeExit", this.StopServer);
   }
 
   public async RunServer() {
@@ -67,6 +65,7 @@ export class ServerProcess extends EventEmitter {
   }
 
   public async StopServer() {
+    process.removeListener("beforeExit", this.StopServer);
     const msg = IntifaceProtocols.ServerControlMessage.create({
       stop: IntifaceProtocols.ServerControlMessage.Stop.create(),
     });
@@ -117,10 +116,6 @@ export class ServerProcess extends EventEmitter {
     this._serverProcess.stdin.write(buf);
   }
 
-  private ShutdownServer() {
-    // TODO Check to see if process is still alive, if it is, wait for shutdown.
-  }
-
   private ParseMessages(aData: Buffer) {
     const reader = protobuf.Reader.create(aData);
     while (reader.pos < reader.len ) {
@@ -131,7 +126,7 @@ export class ServerProcess extends EventEmitter {
       if (msg.processEnded !== null) {
         // Process will not send messages after this, shut down listener. This is
         // the only type of message the server currently needs to care about.
-        this.ShutdownServer();
+        this.StopServer();
       }
       console.log(msg);
       const newMsg = IntifaceProtocols.IntifaceBackendMessage.create({
