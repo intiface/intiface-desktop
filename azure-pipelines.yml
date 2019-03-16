@@ -1,10 +1,6 @@
-# Node.js
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
-- master
+  - master
+  - dev
 
 strategy:
   matrix:
@@ -23,7 +19,8 @@ steps:
   inputs:
     versionSpec: '11.x'
   displayName: 'Install Node.js'
-
 - script: |
-    yarn azure:build:all
+    yarn
+    yarn build:all
   displayName: 'yarn install and build'
+

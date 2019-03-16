@@ -2,8 +2,7 @@
   "private": true,
   "name": "intiface",
   "scripts": {
-    "azure:build:all": "yarn install && yarn build:all",
-    "build:all": "yarn workspace intiface-process-server build && yarn workspace intiface build && yarn workspace intiface electron:build"
+    "build:all": "yarn workspace core build && yarn workspace intiface electron:build"
   },
   "workspaces": [
     "packages/*"
