@@ -96,7 +96,25 @@
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-action>
-                  <v-checkbox :disabled="serverRunning"></v-checkbox>
+                  <v-checkbox v-model="config.WebsocketServerAllInterfaces" :disabled="serverRunning"></v-checkbox>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Listen on All Interfaces</v-list-tile-title>
+                  <v-list-tile-sub-title>When on, listens on all available network interfaces. Otherwise, only listens on 127.0.0.1.</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-checkbox v-model="config.WebsocketServerUseInsecurePort" :disabled="serverRunning"></v-checkbox>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Listen on Insecure Interface</v-list-tile-title>
+                  <v-list-tile-sub-title>Listen on non-SSL Interface. When using Chrome, works with https websites when Intiface is running on localhost. When using Firefox, requires turning network.websocket.allowInsecureFromHTTPS pref on to use from https websites when Intiface is running on localhost.</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-checkbox v-model="config.WebsocketServerUseSecurePort" :disabled="serverRunning"></v-checkbox>
                 </v-list-tile-action>
                 <v-list-tile-content>
                   <v-list-tile-title>SSL/TLS</v-list-tile-title>
