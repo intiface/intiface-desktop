@@ -14,26 +14,43 @@ strategy:
 pool:
   vmImage: $(imageName)
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '11.x'
-  displayName: 'Install Node.js'
-- script: |
-    yarn
-  displayName: 'yarn install'
-- script: |
-    yarn build:all
-  displayName: 'yarn build'
-- task: CopyFiles@2
-  displayName: "Copy frozen executables to staging"
-  inputs:
-    sourceFolder: "$(System.DefaultWorkingDirectory)/packages/intiface/dist_electron"
-    contents: "intiface-desktop-*"
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
-    flattenFolders: true
-- task: PublishPipelineArtifact@0
-  displayName: "Publish frozen executables to artifacts"
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'intiface-desktop-$(imageName)'
+jobs:
+  - job: Windows
+    pool:
+      vmImage: "vs2017-win2016"
+    steps:
+      - template: 'build/run-build.yml'
+  - job: Linux
+    pool:
+      vmImage: "ubuntu-16.04"
+    steps:
+      - template: 'build/run-build.yml'
+  - job: MacOS
+    pool:
+      vmImage: "macos-10.13"
+    steps:
+      - template: 'build/run-build.yml'
+  - job: Deploy
+    dependsOn:
+      - Windows
+      - MacOS
+      - Linux
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    pool:
+      vmImage: "ubuntu-16.04"
+    steps:
+      - task: DownloadPipelineArtifact@1
+        displayName: Download Artifacts from other jobs
+        inputs:
+          buildType: 'current'
+      - task: GitHubRelease@0
+        displayName: Upload CLI releases to Github
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        inputs:
+          gitHubConnection: "release"
+          repositoryName: "intiface/intiface-desktop"
+          action: "create"
+          tagSource: "auto"
+          title: "Buttplug JS CLI Release"
+          assets: "$(System.ArtifactsDirectory)/**/*"
+          isPreRelease: false
