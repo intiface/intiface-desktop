@@ -13,10 +13,10 @@ export class IntifaceConfiguration extends EventEmitter {
   private listenOnProxyServer: boolean = false;
   // private deviceListUpdateURL: string;
   private websocketServerAllInterfaces: boolean = false;
-  private websocketServerUseInsecurePort: boolean = false;
-  private websocketServerInsecurePort: number = 12346;
-  private websocketServerUseSecurePort: boolean = true;
-  private websocketServerSecurePort: number = 12345;
+  private websocketServerUseInsecurePort: boolean = true;
+  private websocketServerInsecurePort: number = 12345;
+  private websocketServerUseSecurePort: boolean = false;
+  private websocketServerSecurePort: number = 12346;
   private serverLogLevel: ButtplugLogLevel = ButtplugLogLevel.Info;
   private proxyServerPort: number = 12347;
   private engine: ButtplugEngineType = os.platform() === "win32" ? "buttplug-csharp" : "buttplug-js";
