@@ -23,4 +23,15 @@ steps:
     yarn
     yarn build:all
   displayName: 'yarn install and build'
-
+- task: CopyFiles@2
+  displayName: "Copy frozen executables to staging"
+  inputs:
+    sourceFolder: "$(System.DefaultWorkingDirectory)/packages/intiface-desktop/dist_electron"
+    contents: "intiface-desktop-*"
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+    flattenFolders: true
+- task: PublishPipelineArtifact@0
+  displayName: "Publish frozen executables to artifacts"
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'intiface-desktop-$(imageName)'

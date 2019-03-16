@@ -1,6 +1,8 @@
 {
   "name": "intiface-desktop",
-  "version": "0.1.0",
+  "description": "Desktop Intiface Application",
+  "author": "Nonpolynomial Labs, LLC",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
