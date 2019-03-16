@@ -2,7 +2,7 @@
   "private": true,
   "name": "intiface",
   "scripts": {
-    "build:all": "yarn workspace core build && yarn workspace intiface electron:build"
+    "build:all": "yarn workspace intiface-core-library build && yarn workspace intiface-desktop electron:build"
   },
   "workspaces": [
     "packages/*"
