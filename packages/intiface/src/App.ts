@@ -11,9 +11,10 @@ import { FrontendConnector } from "intiface-core-library";
 export default class App extends Vue {
   private connector: FrontendConnector | null = null;
   private menuList = [
-    { title: "Server", icon: "cloud_circle", path: "server" },
-    { title: "Proxy", icon: "settings_cell", path: "proxy" },
-    { title: "Devices", icon: "device_hub", path: "devices" },
+    { title: "Server", icon: "cloud_circle", path: "/" },
+    // TODO Actually implement these panels
+    // { title: "Proxy", icon: "settings_cell", path: "proxy" },
+    // { title: "Devices", icon: "device_hub", path: "devices" },
     { title: "Settings", icon: "settings", path: "settings" },
     { title: "About", icon: "info", path: "about" },
   ];
