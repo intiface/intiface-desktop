@@ -26,7 +26,7 @@ steps:
 - task: CopyFiles@2
   displayName: "Copy frozen executables to staging"
   inputs:
-    sourceFolder: "$(System.DefaultWorkingDirectory)/packages/intiface-desktop/dist_electron"
+    sourceFolder: "$(System.DefaultWorkingDirectory)/packages/intiface/dist_electron"
     contents: "intiface-desktop-*"
     targetFolder: '$(Build.ArtifactStagingDirectory)'
     flattenFolders: true
