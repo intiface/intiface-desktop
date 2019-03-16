@@ -12,8 +12,10 @@ describe("Configuration tests", async () => {
 
   it("should return expected values for configurations", async () => {
     config.CurrentDeviceFileVersion = 1;
+    // tslint:disable-next-line no-floating-promises
     expect(mgr.CheckForNewDeviceFileVersion()).resolves.toBeFalsy();
     config.CurrentDeviceFileVersion = 1000;
+    // tslint:disable-next-line no-floating-promises
     expect(mgr.CheckForNewDeviceFileVersion()).resolves.toBeFalsy();
   });
 });

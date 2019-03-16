@@ -70,7 +70,7 @@ export class ServerProcess extends EventEmitter {
     const msg = IntifaceProtocols.ServerControlMessage.create({
       stop: IntifaceProtocols.ServerControlMessage.Stop.create(),
     });
-    this.SendMessage(msg);
+    await this.SendMessage(msg);
   }
 
   protected async BuildServerArguments() {

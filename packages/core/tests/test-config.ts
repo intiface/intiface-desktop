@@ -35,6 +35,7 @@ describe("Configuration tests", async () => {
 
   it("Should throw if mismatched property is in file", () => {
     fs.writeFileSync(_tempConfigFilePath, "{ \"notAValue\": false }", { encoding: "utf-8" });
+    // tslint:disable-next-line no-floating-promises
     expect(IntifaceConfigurationFileManager.Create(_tempConfigFilePath))
       .rejects
       .toThrowError("Unknown property notAValue");
@@ -44,6 +45,7 @@ describe("Configuration tests", async () => {
     expect(fs.existsSync(_tempConfigFilePath)).toBeFalsy();
     fs.writeFileSync(_tempConfigFilePath, "{}", { encoding: "utf-8" });
     fs.chmodSync(_tempConfigFilePath, 0o444);
+    // tslint:disable-next-line no-floating-promises
     expect(IntifaceConfigurationFileManager.Create(_tempConfigFilePath))
       .rejects
       .toThrowError("permission denied");

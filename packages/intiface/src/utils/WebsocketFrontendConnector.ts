@@ -8,5 +8,6 @@ export class WebsocketFrontendConnector extends FrontendConnector {
   }
 
   protected SendMessageInternal(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+    // TODO Implement once we have an express server
   }
 }

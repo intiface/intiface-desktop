@@ -28,7 +28,9 @@ export class ButtplugProcessManager {
   protected constructor(aConnector: BackendConnector, aConfig: IntifaceConfigurationFileManager) {
     this._connector = aConnector;
     this._configManager = aConfig;
-    this._connector.addListener("message", (msg) => this.ReceiveFrontendMessage(msg));
+    // TODO This isn't really handled if something goes wrong. We should at
+    // least catch and log.
+    this._connector.addListener("message", async (msg) => await this.ReceiveFrontendMessage(msg));
   }
 
   private UpdateDownloadProgress(aProgress: any) {
@@ -66,7 +68,7 @@ export class ButtplugProcessManager {
         this._connector.SendMessage(stopMsg);
         this._process = null;
       });
-      this._process.RunServer();
+      await this._process.RunServer();
     } else if (aMsg.stopProcess !== null) {
       if (this._process) {
         // This will fire the exit event, which will set the process to null and
@@ -74,6 +76,7 @@ export class ButtplugProcessManager {
         await this._process.StopServer();
       }
     } else if (aMsg.startProxy !== null) {
+      // TODO Fill in once proxy is done
     } else if (aMsg.ready !== null) {
       this.UpdateFrontendConfiguration();
     } else if (aMsg.updateConfig !== null) {
@@ -82,27 +85,20 @@ export class ButtplugProcessManager {
     } else if (aMsg.updateEngine !== null) {
       const ghManager = new GithubReleaseManager(this._configManager.Config);
       ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
-      ghManager.DownloadLatestEngineVersion().then(() => {
-        ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
-        // Once we're done with a download, make sure to save our config and
-        // update our frontend.
-        this._configManager!.Save().then(() => {
-          console.log(this._configManager!.Config!.CurrentEngineVersion);
-          this.UpdateFrontendConfiguration();
-        });
-      });
+      await ghManager.DownloadLatestEngineVersion();
+      ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
+      // Once we're done with a download, make sure to save our config and
+      // update our frontend.
+      this.UpdateFrontendConfiguration();
     } else if (aMsg.updateDeviceFile !== null) {
       const ghManager = new GithubReleaseManager(this._configManager.Config);
       ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
-      ghManager.DownloadLatestDeviceFileVersion().then(() => {
-        ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
-        // Once we're done with a download, make sure to save our config and
-        // update our frontend.
-        this._configManager!.Save().then(() => {
-          console.log(this._configManager!.Config!.CurrentEngineVersion);
-          this.UpdateFrontendConfiguration();
-        });
-      });
+      await ghManager.DownloadLatestDeviceFileVersion();
+      ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
+      // Once we're done with a download, make sure to save our config and
+      // update our frontend.
+      await this._configManager!.Save();
+      this.UpdateFrontendConfiguration();
     } else if (aMsg.generateCertificate !== null) {
       const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory, this._configManager.Config);
       if (!(await cg.HasGeneratedCerts())) {
