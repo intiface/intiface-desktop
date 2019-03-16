@@ -21,8 +21,10 @@ steps:
   displayName: 'Install Node.js'
 - script: |
     yarn
+  displayName: 'yarn install'
+- script: |
     yarn build:all
-  displayName: 'yarn install and build'
+  displayName: 'yarn build'
 - task: CopyFiles@2
   displayName: "Copy frozen executables to staging"
   inputs:
