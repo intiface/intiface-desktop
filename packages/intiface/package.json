@@ -2,7 +2,7 @@
   "name": "intiface-desktop",
   "description": "Desktop Intiface Application",
   "author": "Nonpolynomial Labs, LLC",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -17,8 +17,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "intiface-core-library": "*",
-    "intiface-protocols": "*",
+    "intiface-core-library": "^0.0.2",
+    "intiface-protocols": "^0.0.2",
     "vue": "^2.6.8",
     "vue-class-component": "^7.0.1",
     "vue-property-decorator": "^7.3.0",
