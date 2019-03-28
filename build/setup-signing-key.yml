@@ -1,0 +1,23 @@
+steps:
+  - task: AzureKeyVault@1
+    displayName: "Retreive Signing Key"
+    inputs:
+      azureSubscription: "azure-nplabs"
+      keyVaultName: "nplabs"
+  - task: PowerShell@2
+    displayName: 'Setup Signing Key'
+    inputs:
+      targetType: inline
+      script: |
+        $kvSecretBytes = [System.Convert]::FromBase64String("$(NPLabsCodeSigningCert)")
+        $certCollection = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2Collection
+        $certCollection.Import($kvSecretBytes,$null,[System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::Exportable)
+        $password = "$(NPLabsRepoSigningKey)"
+        $protectedCertificateBytes = $certCollection.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Pkcs12, $password)
+        $pfxPath = "$(System.DefaultWorkingDirectory)\SigningCert.pfx"
+        [System.IO.File]::WriteAllBytes($pfxPath, $protectedCertificateBytes)
+  - script: |
+      setx CSC_LINK ".\SigningCert.pfx"
+      setx CSC_KEY_PASSWORD "$(NPLabsRepoSigningKey)"
+    displayName: 'Set signing variables'
+  
