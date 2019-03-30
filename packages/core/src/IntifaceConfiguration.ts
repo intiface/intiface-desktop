@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 import { ButtplugLogLevel } from "buttplug";
 import * as os from "os";
 
-export type ButtplugEngineType = "buttplug-js" | "buttplug-csharp";
+export type EngineType = "js" | "csharp";
 
 export class IntifaceConfiguration extends EventEmitter {
   private serverName: string = "Buttplug Server";
@@ -19,7 +19,7 @@ export class IntifaceConfiguration extends EventEmitter {
   private websocketServerSecurePort: number = 12346;
   private serverLogLevel: ButtplugLogLevel = ButtplugLogLevel.Info;
   private proxyServerPort: number = 12347;
-  private engine: ButtplugEngineType = os.platform() === "win32" ? "buttplug-csharp" : "buttplug-js";
+  private engine: EngineType = os.platform() === "win32" ? "csharp" : "js";
   private usePrereleaseEngine: boolean = false;
   private currentEngineVersion: string = "";
   private currentDeviceFileVersion: number = 0;
@@ -150,11 +150,11 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
-  get Engine(): ButtplugEngineType {
+  get Engine(): EngineType {
     return this.engine;
   }
 
-  set Engine(aEngine: ButtplugEngineType) {
+  set Engine(aEngine: EngineType) {
     this.engine = aEngine;
     this.emit("update");
   }
