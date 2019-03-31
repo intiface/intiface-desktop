@@ -1,6 +1,6 @@
 {
   "name": "intiface-core-library",
-  "version": "1",
+  "version": "1.0.0",
   "description": "Desktop Intiface Application - Core Library",
   "main": "dist/src/index.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "dependencies": {
     "@octokit/rest": "^16.16.4",
     "buttplug": "^0.10.0",
-    "intiface-protocols": "^0.0.2",
+    "intiface-protocols": "*",
     "opn": "^5.4.0",
     "protobufjs": "^6.8.8",
     "request": "^2.88.0",
