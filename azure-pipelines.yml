@@ -1,6 +1,10 @@
 trigger:
-  - master
-  - dev
+  branches:
+    - master
+    - dev
+  tags:
+    include:
+      - v*
 
 jobs:
   - job: Windows
