@@ -9,6 +9,7 @@ steps:
   - powershell: |
       $Env:CSC_LINK = "$(System.DefaultWorkingDirectory)\SigningCert.pfx"
       $Env:CSC_KEY_PASSWORD = "$(NPLabsRepoSigningKey)"
+      $Env:GH_TOKEN = "$(GH_TOKEN)"
       yarn build:all
     displayName: 'yarn build (powershell)'
     condition: eq(variables['Agent.OS'], 'Windows_NT')
