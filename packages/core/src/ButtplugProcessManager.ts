@@ -22,7 +22,7 @@ export class ButtplugProcessManager {
   }
 
   private _connector: BackendConnector;
-  private _process: ServerProcess | null;
+  private _process: ServerProcess | null = null;
   private _configManager: IntifaceConfigurationManager;
 
   protected constructor(aConnector: BackendConnector, aConfig: IntifaceConfigurationFileManager) {
