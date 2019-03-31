@@ -1,3 +1,12 @@
+# 1.0.0 (2019-03-30)
+
+## Features
+
+- Second First Release! Deleted 0.0.1 because it was horribly broken
+- Moving to Major Version only releases, as app has no public facing API
+- Added installer and executable signing for windows
+- Updated to use new intiface-cli downloader and runner
+
 # 0.0.1 (2019-03-16)
 
 ## Features
