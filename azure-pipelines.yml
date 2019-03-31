@@ -11,25 +11,25 @@ jobs:
       - template: 'build/run-build.yml'
         parameters:
           platform: "win"
-  - job: Linux
-    pool:
-      vmImage: "ubuntu-16.04"
-    steps:
-      - template: 'build/run-build.yml'
-        parameters:
-          platform: "linux"
-  - job: MacOS
-    pool:
-      vmImage: "macos-10.13"
-    steps:
-      - template: 'build/run-build.yml'
-        parameters:
-          platform: "macos"
+  # - job: Linux
+  #   pool:
+  #     vmImage: "ubuntu-16.04"
+  #   steps:
+  #     - template: 'build/run-build.yml'
+  #       parameters:
+  #         platform: "linux"
+  # - job: MacOS
+  #   pool:
+  #     vmImage: "macos-10.13"
+  #   steps:
+  #     - template: 'build/run-build.yml'
+  #       parameters:
+  #         platform: "macos"
   - job: Deploy
     dependsOn:
       - Windows
-      - MacOS
-      - Linux
+      # - MacOS
+      # - Linux
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     pool:
       vmImage: "ubuntu-16.04"
