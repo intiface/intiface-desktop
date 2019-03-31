@@ -1,6 +1,6 @@
 {
   "name": "intiface-protocols",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Protocols for intiface process bindings",
   "main": "./protocols/intiface_pb.js",
   "types": "./protocols/intiface_pb.d.ts",
