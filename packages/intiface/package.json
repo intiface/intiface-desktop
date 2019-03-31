@@ -2,7 +2,20 @@
   "name": "intiface-desktop",
   "description": "Desktop Intiface Application",
   "author": "Nonpolynomial Labs, LLC",
-  "version": "0.0.2",
+  "version": "1",
+  "homepage": "https://github.com/intiface/intiface-desktop",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/intiface/intiface-desktop.git"
+  },
+  "keywords": [
+    "teledildonics",
+    "hardware"
+  ],
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/intiface/intiface-desktop/issues"
+  },
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -17,8 +30,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "intiface-core-library": "^0.0.2",
-    "intiface-protocols": "^0.0.2",
+    "intiface-core-library": "*",
+    "intiface-protocols": "*",
     "vue": "^2.6.8",
     "vue-class-component": "^7.0.1",
     "vue-property-decorator": "^7.3.0",
