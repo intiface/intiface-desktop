@@ -31,4 +31,4 @@ steps:
     displayName: "Publish frozen executables to artifacts"
     inputs:
       targetPath: '$(Build.ArtifactStagingDirectory)'
-      artifactName: 'intiface-desktop-${{ parameters.platform }}'
+      artifactName: 'intiface-desktop'
