@@ -1,6 +1,6 @@
 # Intiface Application
 
-[![Build Status](https://dev.azure.com/nplabs/intiface/_apis/build/status/intiface.intiface-desktop?branchName=master)](https://dev.azure.com/nplabs/intiface/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://dev.azure.com/nplabs/buttplug/_apis/build/status/intiface.intiface-desktop?branchName=master)](https://dev.azure.com/nplabs/buttplug/_build/latest?definitionId=5&branchName=master)
 
 [![Patreon donate button](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://www.patreon.com/qdot)
 [![Discourse Forum](https://img.shields.io/badge/discourse-forum-blue.svg)](https://metafetish.club)
