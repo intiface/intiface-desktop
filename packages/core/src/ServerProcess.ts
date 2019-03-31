@@ -1,6 +1,9 @@
 import * as child_process from "child_process";
 import * as path from "path";
 import * as protobuf from "protobufjs";
+import * as fs from "fs";
+import * as os from "os";
+import { promisify } from "util";
 import { IntifaceProtocols } from "intiface-protocols";
 import { IntifaceUtils } from "./Utils";
 import { EventEmitter } from "events";
@@ -21,6 +24,8 @@ import { CertGenerator } from "./CertGenerator";
 // - devicedisconnected
 export class ServerProcess extends EventEmitter {
 
+  private static EXECUTABLE_NAME = "IntifaceCLI" + (os.platform() === "win32" ? ".exe" : "");
+
   private _serverProcess: child_process.ChildProcess | null = null;
   private _config: IntifaceConfiguration;
 
@@ -34,13 +39,15 @@ export class ServerProcess extends EventEmitter {
     const args: string[] = await this.BuildServerArguments();
     console.log(args);
     const [p, res, rej] = IntifaceUtils.MakePromise();
+    const exeFile = await this.GetServerExecutablePath();
     // Now we start up our external process.
     this._serverProcess =
-      child_process.execFile(path.join(IntifaceUtils.UserConfigDirectory, "engine", "Buttplug.Server.CLI"),
+      child_process.execFile(exeFile,
                              args,
                              {
                                encoding: "binary",
                                maxBuffer: 1024768,
+                               cwd: path.dirname(exeFile),
                              },
                              (error: Error, stdout: string | Buffer, stderr: string | Buffer) => {
                                if (error) {
@@ -134,5 +141,24 @@ export class ServerProcess extends EventEmitter {
       });
       this.emit("process_message", newMsg);
     }
+  }
+
+  private async GetServerExecutablePath(): Promise<string> {
+    const exists = promisify(fs.exists);
+    const readFile = promisify(fs.readFile);
+    const exePathFile = path.join(IntifaceUtils.UserConfigDirectory, "enginepath.txt");
+    if (!(await exists(exePathFile))) {
+      throw new Error(`Cannot find engine path file at ${exePathFile}.`);
+    }
+    const exePath = await readFile(exePathFile, { encoding: "utf8" });
+    if (!(await exists(exePath))) {
+      throw new Error("Server executable install location ${exePath} does not exist.");
+    }
+    const exeFile = path.join(exePath, ServerProcess.EXECUTABLE_NAME);
+    if (!(await exists(exeFile))) {
+      throw new Error(`Server executable file ${exeFile} does not exist.`);
+    }
+    console.log(exeFile);
+    return exeFile;
   }
 }

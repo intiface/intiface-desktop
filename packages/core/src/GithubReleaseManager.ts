@@ -182,20 +182,33 @@ export class GithubReleaseManager extends EventEmitter {
   private async InstallEngine(aEngineFile: string): Promise<void> {
     // TODO Wait for the installer to write the ini file with the engine path.
     const [p, res, rej] = IntifaceUtils.MakePromise();
-    // Now we start up our external process.
-    this._installerProcess =
-      child_process.execFile(aEngineFile, [], {},
-                             (error: Error, stdout: string | Buffer, stderr: string | Buffer) => {
-                               if (error) {
-                                 rej(error);
-                               }
-                               res();
-                             });
-    this._installerProcess.on("exit", (code: number, signal: string) => {
-      // TODO Should probably emit some sort of installerFinished event?
-      this._installerProcess = null;
-    });
-    await p;
+    let i = 0;
+    // Windows virus checkers can take a while, and there's not a good way to
+    // test for when they're done, so just spinwait. Ugh.
+    while (i < 5) {
+      try {
+        // Now we start up our external process.
+        this._installerProcess =
+          child_process.execFile(aEngineFile, [], {},
+                                 (error: Error, stdout: string | Buffer, stderr: string | Buffer) => {
+                                   if (error) {
+                                     rej(error);
+                                   }
+                                   res();
+                                 });
+        this._installerProcess.on("exit", async (code: number, signal: string) => {
+          const unlink = promisify(fs.unlink);
+          // TODO Should probably emit some sort of installerFinished event?
+          await unlink(aEngineFile);
+          this._installerProcess = null;
+        });
+        await p;
+        return;
+      } catch {
+        await IntifaceUtils.Sleep(1000);
+      }
+    }
+    throw new Error("Cannot run installer!");
   }
 
   private async UnzipEngine(aEngineFile: string): Promise<void> {

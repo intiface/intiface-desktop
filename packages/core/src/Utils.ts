@@ -19,4 +19,8 @@ export class IntifaceUtils {
     const p = new Promise<void>((r, e) => { res = r; rej = e; });
     return [p, res, rej];
   }
+
+  public static Sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 }
