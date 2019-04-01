@@ -24,6 +24,48 @@ export abstract class FrontendConnector extends EventEmitter {
     this.SendMessageInternal(Buffer.from(IntifaceProtocols.IntifaceFrontendMessage.encode(aMsg).finish()));
   }
 
+  public CheckForUpdates() {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      checkForUpdates: IntifaceProtocols.IntifaceFrontendMessage.CheckForUpdates.create(),
+    });
+    this.SendMessage(msg);
+  }
+
+  public UpdateDeviceFile() {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      updateDeviceFile: IntifaceProtocols.IntifaceFrontendMessage.UpdateDeviceFile.create(),
+    });
+    this.SendMessage(msg);
+  }
+
+  public UpdateEngine() {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      updateEngine: IntifaceProtocols.IntifaceFrontendMessage.UpdateEngine.create(),
+    });
+    this.SendMessage(msg);
+  }
+
+  public UpdateApplication() {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      updateApplication: IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication.create(),
+    });
+    this.SendMessage(msg);
+  }
+
+  public StartProcess() {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      startProcess: IntifaceProtocols.IntifaceFrontendMessage.StartProcess.create(),
+    });
+    this.SendMessage(msg);
+  }
+
+  public StopProcess() {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      stopProcess: IntifaceProtocols.IntifaceFrontendMessage.StopProcess.create(),
+    });
+    this.SendMessage(msg);
+  }
+
   protected abstract SendMessageInternal(aRawMsg: Buffer): void;
 
   protected Ready() {
@@ -56,6 +98,7 @@ export abstract class FrontendConnector extends EventEmitter {
       if (processMsg.processLog !== null) {
         console.log(processMsg.processLog!.message);
       }
+    } else if (aMsg.updatesAvailable !== null) {
     }
 
     // Always emit after we're done, just in case extra things need to be done otherwise.

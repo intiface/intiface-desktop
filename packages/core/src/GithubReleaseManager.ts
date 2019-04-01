@@ -119,7 +119,7 @@ export class GithubReleaseManager extends EventEmitter {
     }
     const releaseInfo = await this._client.repos.getLatestRelease({ owner: GithubReleaseManager.INTIFACE_REPO_OWNER,
                                                                     repo: this.EngineRepo });
-    return semver.gt(releaseInfo.data.tag_name, this._config.CurrentEngineVersion);
+    return releaseInfo.data.tag_name !== this._config.CurrentEngineVersion;
   }
 
   public async DownloadLatestEngineVersion(): Promise<void> {

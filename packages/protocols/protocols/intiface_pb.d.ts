@@ -1748,6 +1748,9 @@ export namespace IntifaceProtocols {
         /** IntifaceFrontendMessage updateDeviceFile */
         updateDeviceFile?: (IntifaceProtocols.IntifaceFrontendMessage.IUpdateDeviceFile|null);
 
+        /** IntifaceFrontendMessage updateApplication */
+        updateApplication?: (IntifaceProtocols.IntifaceFrontendMessage.IUpdateApplication|null);
+
         /** IntifaceFrontendMessage generateCertificate */
         generateCertificate?: (IntifaceProtocols.IntifaceFrontendMessage.IGenerateCertificate|null);
 
@@ -1794,6 +1797,9 @@ export namespace IntifaceProtocols {
         /** IntifaceFrontendMessage updateDeviceFile. */
         public updateDeviceFile?: (IntifaceProtocols.IntifaceFrontendMessage.IUpdateDeviceFile|null);
 
+        /** IntifaceFrontendMessage updateApplication. */
+        public updateApplication?: (IntifaceProtocols.IntifaceFrontendMessage.IUpdateApplication|null);
+
         /** IntifaceFrontendMessage generateCertificate. */
         public generateCertificate?: (IntifaceProtocols.IntifaceFrontendMessage.IGenerateCertificate|null);
 
@@ -1804,7 +1810,7 @@ export namespace IntifaceProtocols {
         public stopCertificateAcceptanceServer?: (IntifaceProtocols.IntifaceFrontendMessage.IStopCertificateAcceptanceServer|null);
 
         /** IntifaceFrontendMessage msg. */
-        public msg?: ("ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer");
+        public msg?: ("ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer");
 
         /**
          * Creates a new IntifaceFrontendMessage instance using the specified properties.
@@ -2636,6 +2642,90 @@ export namespace IntifaceProtocols {
 
             /**
              * Converts this UpdateDeviceFile to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of an UpdateApplication. */
+        interface IUpdateApplication {
+        }
+
+        /** Represents an UpdateApplication. */
+        class UpdateApplication implements IUpdateApplication {
+
+            /**
+             * Constructs a new UpdateApplication.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceFrontendMessage.IUpdateApplication);
+
+            /**
+             * Creates a new UpdateApplication instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns UpdateApplication instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceFrontendMessage.IUpdateApplication): IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication;
+
+            /**
+             * Encodes the specified UpdateApplication message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication.verify|verify} messages.
+             * @param message UpdateApplication message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceFrontendMessage.IUpdateApplication, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified UpdateApplication message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication.verify|verify} messages.
+             * @param message UpdateApplication message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceFrontendMessage.IUpdateApplication, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an UpdateApplication message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns UpdateApplication
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication;
+
+            /**
+             * Decodes an UpdateApplication message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns UpdateApplication
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication;
+
+            /**
+             * Verifies an UpdateApplication message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an UpdateApplication message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns UpdateApplication
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication;
+
+            /**
+             * Creates a plain object from an UpdateApplication message. Also converts values to other types if specified.
+             * @param message UpdateApplication
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this UpdateApplication to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };

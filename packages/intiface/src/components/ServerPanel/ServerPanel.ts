@@ -30,15 +30,9 @@ export default class ServerPanel extends Vue {
   private ToggleServer() {
     this.serverRunning = !this.serverRunning;
     if (this.serverRunning) {
-      const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
-        startProcess: IntifaceProtocols.IntifaceFrontendMessage.StartProcess.create(),
-      });
-      this.connector.SendMessage(msg);
+      this.connector.StartProcess();
     } else {
-      const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
-        stopProcess: IntifaceProtocols.IntifaceFrontendMessage.StopProcess.create(),
-      });
-      this.connector.SendMessage(msg);
+      this.connector.StopProcess();
     }
   }
 

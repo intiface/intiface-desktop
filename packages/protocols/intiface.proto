@@ -147,6 +147,9 @@ message IntifaceFrontendMessage {
   message UpdateDeviceFile {
   };
 
+  message UpdateApplication {
+  };
+
   message GenerateCertificate {
   };
 
@@ -166,8 +169,9 @@ message IntifaceFrontendMessage {
     CheckForUpdates check_for_updates = 7;
     UpdateEngine update_engine = 8;
     UpdateDeviceFile update_device_file = 9;
-    GenerateCertificate generate_certificate = 10;
-    RunCertificateAcceptanceServer run_certificate_acceptance_server = 11;
-    StopCertificateAcceptanceServer stop_certificate_acceptance_server = 12;
+    UpdateApplication update_application = 10;
+    GenerateCertificate generate_certificate = 11;
+    RunCertificateAcceptanceServer run_certificate_acceptance_server = 12;
+    StopCertificateAcceptanceServer stop_certificate_acceptance_server = 13;
   };
 };

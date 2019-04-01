@@ -128,6 +128,27 @@ export class ButtplugProcessManager {
         }),
       });
       this._connector.SendMessage(msg);
+    } else if (aMsg.checkForUpdates !== null) {
+      console.log("Checking for updates");
+      const hasAppUpdate = false;
+      const ghManager = new GithubReleaseManager(this._configManager.Config);
+      const hasEngineUpdate = await ghManager.CheckForNewEngineVersion();
+      const hasDeviceFileUpdate = await ghManager.CheckForNewDeviceFileVersion();
+      // const msg = IntifaceProtocols.IntifaceBackendMessage.create({
+      //   updatesAvailable: IntifaceProtocols.IntifaceBackendMessage.UpdatesAvailable.create({
+      //     deviceFile: hasDeviceFileUpdate,
+      //     engine: hasEngineUpdate,
+      //     // Application currently updates itself. Should relay this once we let
+      //     // user deal with this.
+      //     application: false,
+      //   }),
+      // });
+      // this._connector.SendMessage(msg);
+      this._configManager!.Config.EngineUpdateAvailable = hasEngineUpdate;
+      //this._configManager!.Config.ApplicationUpdateAvailable = hasApplicationUpdate;
+      this._configManager!.Config.DeviceFileUpdateAvailable = hasDeviceFileUpdate;
+      await this._configManager!.Save();
+      this.UpdateFrontendConfiguration();
     } else {
       console.log(`Message has no usable payload! ${aMsg}`);
     }

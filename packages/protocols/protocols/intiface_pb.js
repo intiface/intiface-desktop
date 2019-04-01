@@ -251,6 +251,7 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
               "checkForUpdates",
               "updateEngine",
               "updateDeviceFile",
+              "updateApplication",
               "generateCertificate",
               "runCertificateAcceptanceServer",
               "stopCertificateAcceptanceServer"
@@ -294,17 +295,21 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
             type: "UpdateDeviceFile",
             id: 9
           },
+          updateApplication: {
+            type: "UpdateApplication",
+            id: 10
+          },
           generateCertificate: {
             type: "GenerateCertificate",
-            id: 10
+            id: 11
           },
           runCertificateAcceptanceServer: {
             type: "RunCertificateAcceptanceServer",
-            id: 11
+            id: 12
           },
           stopCertificateAcceptanceServer: {
             type: "StopCertificateAcceptanceServer",
-            id: 12
+            id: 13
           }
         },
         nested: {
@@ -338,6 +343,9 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
             fields: {}
           },
           UpdateDeviceFile: {
+            fields: {}
+          },
+          UpdateApplication: {
             fields: {}
           },
           GenerateCertificate: {

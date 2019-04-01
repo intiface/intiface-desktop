@@ -25,6 +25,9 @@ export class IntifaceConfiguration extends EventEmitter {
   private currentDeviceFileVersion: number = 0;
   private automaticallyCheckForUpdates: boolean = true;
   private hasRunSetup: boolean = false;
+  private deviceFileUpdateAvailable: boolean = false;
+  private engineUpdateAvailable: boolean = false;
+  private applicationUpdateAvailable: boolean = false;
 
   public Load(aConfigObj: object) {
     for (const propName of Object.getOwnPropertyNames(aConfigObj)) {
@@ -224,6 +227,33 @@ export class IntifaceConfiguration extends EventEmitter {
 
   set HasRunSetup(aHasSetup: boolean) {
     this.hasRunSetup = aHasSetup;
+    this.emit("update");
+  }
+
+  get EngineUpdateAvailable(): boolean {
+    return this.engineUpdateAvailable;
+  }
+
+  set EngineUpdateAvailable(aUpdate: boolean) {
+    this.engineUpdateAvailable = aUpdate;
+    this.emit("update");
+  }
+
+  get ApplicationUpdateAvailable(): boolean {
+    return this.applicationUpdateAvailable;
+  }
+
+  set ApplicationUpdateAvailable(aUpdate: boolean) {
+    this.applicationUpdateAvailable = aUpdate;
+    this.emit("update");
+  }
+
+  get DeviceFileUpdateAvailable(): boolean {
+    return this.deviceFileUpdateAvailable;
+  }
+
+  set DeviceFileUpdateAvailable(aUpdate: boolean) {
+    this.deviceFileUpdateAvailable = aUpdate;
     this.emit("update");
   }
 }
