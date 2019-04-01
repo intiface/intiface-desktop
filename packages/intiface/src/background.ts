@@ -1,7 +1,6 @@
 "use strict";
 
 import { app, protocol, BrowserWindow } from "electron";
-import { autoUpdater } from "electron-updater";
 import {
   createProtocol,
   installVueDevtools,
@@ -82,11 +81,3 @@ if (isDevelopment) {
     });
   }
 }
-
-app.on("ready", () => {
-  // Once the app is up, bring up the autoupdater
-  const log = require("electron-log");
-  log.transports.file.level = "debug";
-  autoUpdater.logger = log;
-  autoUpdater.checkForUpdatesAndNotify();
-});

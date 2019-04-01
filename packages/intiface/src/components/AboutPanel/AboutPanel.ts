@@ -22,7 +22,7 @@ export default class AboutPanel extends Vue {
     return this.config.CurrentDeviceFileVersion.toString(10);
   }
 
-  public get NeedApplicationUpdate(): boolean {
+  public get NeedsApplicationUpdate(): boolean {
     return this.config.ApplicationUpdateAvailable;
   }
 

@@ -2,6 +2,7 @@
   <v-container>
     <h1>Intiface Desktop</h1>
     <p><b>Intiface Desktop Version:</b> {{ this.Version }}</p>
+    <p><v-btn v-if="this.NeedsApplicationUpdate" @click="UpdateApplication()">Update Application</v-btn></p>
     <p><b>Intiface Engine Version:</b> {{ this.EngineVersion }}</p>
     <p><v-btn v-if="this.NeedsEngineUpdate" @click="UpdateEngine()">Update Engine</v-btn></p>
     <p><b>Device Config File Version:</b> {{ this.DeviceConfigFileVersion }}</p>

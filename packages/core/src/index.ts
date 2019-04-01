@@ -1,5 +1,6 @@
 export * from "./BackendConnector";
 export * from "./FrontendConnector";
+export * from "./IApplicationUpdater";
 export * from "./IntifaceBackendManager";
 export * from "./IntifaceConfiguration";
 export * from "./IntifaceConfigurationManager";
