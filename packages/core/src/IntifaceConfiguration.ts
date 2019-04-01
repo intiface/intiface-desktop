@@ -28,11 +28,16 @@ export class IntifaceConfiguration extends EventEmitter {
 
   public Load(aConfigObj: object) {
     for (const propName of Object.getOwnPropertyNames(aConfigObj)) {
-      // If we find keys we don't know what to do with, log and ignore. If we have keys
-      // that aren't in the file, that's fine. This is also where conversion
-      // code will need to go if we ever change configuration value names/types.
+      // If we find keys we don't know what to do with, log and ignore. If we
+      // have keys that aren't in the file, that's fine. This is also where
+      // conversion code will need to go if we ever change configuration value
+      // names/types.
       if (Object.keys(this).indexOf(propName) === -1) {
         console.log(`Configuration key ${propName} not recognized, ignoring`);
+        continue;
+      }
+      // If we've accidentally saved a private variable, just ignore and continue.
+      if (propName.startsWith("_")) {
         continue;
       }
       this[propName] = aConfigObj[propName];
