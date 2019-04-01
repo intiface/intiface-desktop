@@ -8,17 +8,17 @@ import { CertGenerator } from "./CertGenerator";
 import { IntifaceUtils } from "./Utils";
 
 // The link between whatever our frontend is (Electron, express, etc) and our
-// Buttplug server process. This will handle loading/saving our configuration
+// IntifaceCLI server process. This will handle loading/saving our configuration
 // file, bringing up/shutting down processes, etc...
 //
 // This module will need to exist in whatever the parent process of our setup
 // is, i.e. the process that can actually touch files and network. It will
 // communicate with the GUI via a specialized FrondendConnector class.
-export class ButtplugProcessManager {
+export class IntifaceBackendManager {
 
-  public static async Create(aConnector: BackendConnector): Promise<ButtplugProcessManager> {
+  public static async Create(aConnector: BackendConnector): Promise<IntifaceBackendManager> {
     const config = await IntifaceConfigurationFileManager.Create();
-    return new ButtplugProcessManager(aConnector, config);
+    return new IntifaceBackendManager(aConnector, config);
   }
 
   private _connector: BackendConnector;
