@@ -23,7 +23,7 @@ export class IntifaceConfiguration extends EventEmitter {
   private usePrereleaseEngine: boolean = false;
   private currentEngineVersion: string = "";
   private currentDeviceFileVersion: number = 0;
-  private automaticallyCheckForUpdates: boolean = true;
+  private checkForUpdatesOnStart: boolean = true;
   private hasRunSetup: boolean = false;
   private deviceFileUpdateAvailable: boolean = false;
   private engineUpdateAvailable: boolean = false;
@@ -194,12 +194,12 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
-  get AutomaticallyCheckForUpdates(): boolean {
-    return this.automaticallyCheckForUpdates;
+  get CheckForUpdatesOnStart(): boolean {
+    return this.checkForUpdatesOnStart;
   }
 
-  set AutomaticallyCheckForUpdates(aCheck: boolean) {
-    this.automaticallyCheckForUpdates = aCheck;
+  set CheckForUpdatesOnStart(aCheck: boolean) {
+    this.checkForUpdatesOnStart = aCheck;
     this.emit("update");
   }
 

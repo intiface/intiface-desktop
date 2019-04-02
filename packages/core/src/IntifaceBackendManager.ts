@@ -130,7 +130,7 @@ export class IntifaceBackendManager {
     this._connector.SendMessage(msg);
   }
 
-  private async CheckForUpdates(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+  private async CheckForUpdates(aMsg: IntifaceProtocols.IntifaceFrontendMessage | null) {
     try {
       const hasAppUpdate = await this._applicationUpdater.CheckForUpdate();
       this._configManager!.Config.ApplicationUpdateAvailable = hasAppUpdate;
@@ -141,8 +141,8 @@ export class IntifaceBackendManager {
     const ghManager = new GithubReleaseManager(this._configManager.Config);
     const hasEngineUpdate = await ghManager.CheckForNewEngineVersion();
     const hasDeviceFileUpdate = await ghManager.CheckForNewDeviceFileVersion();
-    this._configManager!.Config.EngineUpdateAvailable = hasEngineUpdate;
-    this._configManager!.Config.DeviceFileUpdateAvailable = hasDeviceFileUpdate;
+    this._configManager.Config.EngineUpdateAvailable = hasEngineUpdate;
+    this._configManager.Config.DeviceFileUpdateAvailable = hasDeviceFileUpdate;
     await this._configManager!.Save();
     this.UpdateFrontendConfiguration();
   }

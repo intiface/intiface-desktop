@@ -81,6 +81,7 @@ export abstract class FrontendConnector extends EventEmitter {
 
   protected ProcessMessage(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
     if (aMsg.configuration !== null) {
+      let maybeRunUpdate = (this._config === null);
       // If we've gotten a configuration message from the backend, that means
       // the config file was loaded and we need to overwrite our current state
       // with that.
@@ -93,6 +94,9 @@ export abstract class FrontendConnector extends EventEmitter {
         });
         this.SendMessage(configMsg);
       });
+      if (maybeRunUpdate && this._config.Config.CheckForUpdatesOnStart) {
+        this.CheckForUpdates();
+      }
     } else if (aMsg.serverProcessMessage !== null) {
       const processMsg = aMsg.serverProcessMessage!;
       if (processMsg.processLog !== null) {
