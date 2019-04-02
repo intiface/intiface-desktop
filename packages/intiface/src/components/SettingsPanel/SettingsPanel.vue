@@ -1,5 +1,9 @@
 <template>
   <v-container>
+    <v-checkbox
+      v-model="config.CheckForUpdatesOnStart"
+      label="Check For Updates On Application Start"
+    ></v-checkbox>
     <v-btn
       color="primary"
       @click="RunSetup()"
