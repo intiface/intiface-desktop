@@ -131,12 +131,17 @@ export class IntifaceBackendManager {
   }
 
   private async CheckForUpdates(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-    const hasAppUpdate = await this._applicationUpdater.CheckForUpdate();
+    try {
+      const hasAppUpdate = await this._applicationUpdater.CheckForUpdate();
+      this._configManager!.Config.ApplicationUpdateAvailable = hasAppUpdate;
+    } catch (e) {
+      // This will fail during dev mode and who knows when else.
+      console.log(`Application updater check failed: ${(e as Error).message}.`);
+    }
     const ghManager = new GithubReleaseManager(this._configManager.Config);
     const hasEngineUpdate = await ghManager.CheckForNewEngineVersion();
     const hasDeviceFileUpdate = await ghManager.CheckForNewDeviceFileVersion();
     this._configManager!.Config.EngineUpdateAvailable = hasEngineUpdate;
-    this._configManager!.Config.ApplicationUpdateAvailable = hasAppUpdate;
     this._configManager!.Config.DeviceFileUpdateAvailable = hasDeviceFileUpdate;
     await this._configManager!.Save();
     this.UpdateFrontendConfiguration();

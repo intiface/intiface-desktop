@@ -1,6 +1,6 @@
 "use strict";
 
-import { app, protocol, BrowserWindow } from "electron";
+import { app, protocol, BrowserWindow, shell } from "electron";
 import {
   createProtocol,
   installVueDevtools,
@@ -17,6 +17,11 @@ protocol.registerStandardSchemes(["app"], { secure: true });
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({ width: 800, height: 600 });
+
+  win.webContents.addListener('will-navigate', function(event, url) {
+    event.preventDefault();
+    shell.openExternal(url);
+  });
 
   SetupElectronIntifaceServer(win).then(() => {
     if (process.env.WEBPACK_DEV_SERVER_URL) {
