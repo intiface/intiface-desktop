@@ -9,6 +9,7 @@ export default class AboutPanel extends Vue {
   private config!: IntifaceConfiguration;
   @Prop()
   private connector!: FrontendConnector;
+  private isCheckingForUpdates: boolean = false;
 
   public get Version(): string {
     return packageInfo.version;
@@ -46,7 +47,12 @@ export default class AboutPanel extends Vue {
     this.connector.UpdateEngine();
   }
 
-  public CheckForUpdates() {
-    this.connector.CheckForUpdates();
+  public async CheckForUpdates() {
+    this.isCheckingForUpdates = true;
+    try {
+      await this.connector.CheckForUpdates();
+    } finally {
+      this.isCheckingForUpdates = false;
+    }
   }
 }

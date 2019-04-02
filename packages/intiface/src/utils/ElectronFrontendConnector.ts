@@ -7,9 +7,9 @@ import { ipcRenderer } from "electron";
 // update the UI.
 export class ElectronFrontendConnector extends FrontendConnector {
 
-  public static Create(): ElectronFrontendConnector {
+  public static async Create(): Promise<ElectronFrontendConnector> {
     const connector = new ElectronFrontendConnector();
-    connector.Ready();
+    await connector.Ready();
     return connector;
   }
 

@@ -10,7 +10,7 @@
     <p><v-btn v-if="this.NeedsEngineUpdate" @click="UpdateEngine()">Update Engine</v-btn></p>
     <p><b>Device Config File Version:</b> {{ this.DeviceConfigFileVersion }}</p>
     <p><v-btn v-if="this.NeedsDeviceFileUpdate" @click="UpdateDeviceFile()">Update Device File</v-btn></p>
-    <p><v-btn @click="CheckForUpdates()">Check For Updates</v-btn></p>
+    <p><v-btn :disabled="isCheckingForUpdates" @click="CheckForUpdates()">Check For Updates</v-btn></p>
   </v-container>
 </template>
 

@@ -50,8 +50,8 @@ export class IntifaceBackendManager {
     this._connector.UpdateDownloadProgress(aProgress);
   }
 
-  private UpdateFrontendConfiguration() {
-    this._connector.UpdateFrontendConfiguration(this._configManager.Config);
+  private UpdateFrontendConfiguration(aMsg: IntifaceProtocols.IntifaceFrontendMessage | null = null) {
+    this._connector.UpdateFrontendConfiguration(this._configManager.Config, aMsg);
   }
 
   private async StartProcess(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
@@ -69,6 +69,7 @@ export class IntifaceBackendManager {
       this._process = null;
     });
     await this._process.RunServer();
+    this._connector.SendOk(aMsg);
   }
 
   private async StopProcess(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
@@ -77,6 +78,7 @@ export class IntifaceBackendManager {
       // update the frontend.
       await this._process.StopServer();
     }
+    this._connector.SendOk(aMsg);
   }
 
   private async UpdateEngine(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
@@ -87,6 +89,7 @@ export class IntifaceBackendManager {
     // Once we're done with a download, make sure to save our config and
     // update our frontend.
     this.UpdateFrontendConfiguration();
+    this._connector.SendOk(aMsg);
   }
 
   private async UpdateDeviceFile(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
@@ -98,10 +101,12 @@ export class IntifaceBackendManager {
     // update our frontend.
     await this._configManager!.Save();
     this.UpdateFrontendConfiguration();
+    this._connector.SendOk(aMsg);
   }
 
   private async UpdateApplication(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
     await this._applicationUpdater.DownloadUpdate();
+    this._connector.SendOk(aMsg);
   }
 
   private async GenerateCert(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
@@ -112,6 +117,7 @@ export class IntifaceBackendManager {
     this._connector.SendMessage(IntifaceProtocols.IntifaceBackendMessage.create({
       certificateGenerated: IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated.create(),
     }));
+    this._connector.SendOk(aMsg);
   }
 
   private async RunCertificateAcceptanceServer(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
@@ -145,6 +151,9 @@ export class IntifaceBackendManager {
     this._configManager.Config.DeviceFileUpdateAvailable = hasDeviceFileUpdate;
     await this._configManager!.Save();
     this.UpdateFrontendConfiguration();
+    if (aMsg !== null) {
+      this._connector.SendOk(aMsg);
+    }
   }
 
   private async ReceiveFrontendMessage(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
@@ -165,7 +174,7 @@ export class IntifaceBackendManager {
     }
 
     if (aMsg.ready !== null) {
-      this.UpdateFrontendConfiguration();
+      this.UpdateFrontendConfiguration(aMsg);
       return;
     }
 

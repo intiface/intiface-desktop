@@ -73,6 +73,13 @@ message ServerProcessMessage {
 // Messages that go from parent process to child interface/gui.
 message IntifaceBackendMessage {
 
+  message Ok {
+  };
+
+  message Error {
+    string reason = 1;
+  };
+  
   // Sends full configuration file to the child process, usually on
   // startup to seed initial config information.
   message Configuration {
@@ -99,17 +106,30 @@ message IntifaceBackendMessage {
   };
 
   oneof msg {
-    Configuration configuration = 1;
-    UpdatesAvailable updates_available = 2;
-    DownloadProgress download_progress = 3;
-    CertificateAcceptanceServerRunning certificate_acceptance_server_running = 4;
-    CertificateGenerated certificate_generated = 5;
-    ServerProcessMessage server_process_message = 6;
+    Ok ok = 1;
+    Error error = 2;
+    Configuration configuration = 3;
+    UpdatesAvailable updates_available = 4;
+    DownloadProgress download_progress = 5;
+    CertificateAcceptanceServerRunning certificate_acceptance_server_running = 6;
+    CertificateGenerated certificate_generated = 7;
+    ServerProcessMessage server_process_message = 8;
   };
 };
 
 // Messages that go from child interface/gui to parent process.
 message IntifaceFrontendMessage {
+
+  // Message Index, for matching paired frontend/backend messages.
+  uint32 index = 1;
+
+  message Ok {
+  };
+
+  message Error {
+    string reason = 1;
+  };
+  
   // Sent from frontend to backend when frontend is considered to be
   // up and running. Will cause backend to respond by sending
   // configuration.
@@ -160,18 +180,20 @@ message IntifaceFrontendMessage {
   };
 
   oneof msg {
-    Ready ready = 1;
-    StartProcess start_process = 2;
-    StopProcess stop_process = 3;
-    StartProxy start_proxy = 4;
-    StopProxy stop_proxy = 5;
-    UpdateConfig update_config = 6;
-    CheckForUpdates check_for_updates = 7;
-    UpdateEngine update_engine = 8;
-    UpdateDeviceFile update_device_file = 9;
-    UpdateApplication update_application = 10;
-    GenerateCertificate generate_certificate = 11;
-    RunCertificateAcceptanceServer run_certificate_acceptance_server = 12;
-    StopCertificateAcceptanceServer stop_certificate_acceptance_server = 13;
+    Ok ok = 2;
+    Error error = 3;
+    Ready ready = 4;
+    StartProcess start_process = 5;
+    StopProcess stop_process = 6;
+    StartProxy start_proxy = 7;
+    StopProxy stop_proxy = 8;
+    UpdateConfig update_config = 9;
+    CheckForUpdates check_for_updates = 10;
+    UpdateEngine update_engine = 11;
+    UpdateDeviceFile update_device_file = 12;
+    UpdateApplication update_application = 13;
+    GenerateCertificate generate_certificate = 14;
+    RunCertificateAcceptanceServer run_certificate_acceptance_server = 15;
+    StopCertificateAcceptanceServer stop_certificate_acceptance_server = 16;
   };
 };

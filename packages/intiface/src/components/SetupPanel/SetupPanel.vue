@@ -38,12 +38,12 @@
             @click="RunDownloads()"
             v-if="!downloadStarted"
           >Start Download</v-btn>
-          <!-- Why does this need a multiplier to work correctly?! -->
+          <p v-if="downloadStarted && !downloadFinished">{{ downloadMessage }}</p>
           <v-progress-circular
             :size="75"
             :width="15"
             rotate="-90"
-            :value="downloadProgress * 2"
+            :value="downloadProgress"
             v-if="downloadStarted && !downloadFinished"
             color="primary"
           >{{ downloadProgress }}</v-progress-circular>

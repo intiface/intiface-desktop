@@ -13,6 +13,7 @@ export default class SetupPanel extends Vue {
   private config!: IntifaceConfiguration;
   private downloadProgress: number = 0;
 
+  private downloadMessage: string = "Downloading Device File...";
   private downloadStarted: boolean = false;
   private downloadFinished: boolean = false;
 
@@ -25,65 +26,38 @@ export default class SetupPanel extends Vue {
 
   private async RunDownloads() {
     this.downloadStarted = true;
-    this.connector.addListener("message", this.UpdateDownloadProgress);
+    this.connector.addListener("progress", this.UpdateDownloadProgress);
 
-    let [p, res] = IntifaceUtils.MakePromise();
-    this.downloadFinishedResolver = res;
-    this.StartEngineDownload();
-    await p;
+    await this.DownloadDeviceFile();
+    this.downloadMessage = "Downloading and Installing Engine...";
+    this.downloadProgress = 0;
+    await this.DownloadEngine();
 
-    [p, res] = IntifaceUtils.MakePromise();
-    this.downloadFinishedResolver = res;
-    this.StartDeviceFileDownload();
-    await p;
-
-    this.connector.removeListener("message", this.UpdateDownloadProgress);
+    this.connector.removeListener("progress", this.UpdateDownloadProgress);
 
     this.downloadFinished = true;
     this.downloadFinishedResolver = null;
   }
 
-  private StartEngineDownload() {
-    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
-      updateEngine: IntifaceProtocols.IntifaceFrontendMessage.UpdateEngine.create(),
-    });
-    this.connector.SendMessage(msg);
+  private async DownloadEngine() {
+    await this.connector.UpdateEngine();
   }
 
-  private StartDeviceFileDownload() {
-    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
-      updateDeviceFile: IntifaceProtocols.IntifaceFrontendMessage.UpdateDeviceFile.create(),
-    });
-    this.connector.SendMessage(msg);
+  private async DownloadDeviceFile() {
+    await this.connector.UpdateDeviceFile();
   }
 
-  private UpdateDownloadProgress(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
-    if (aMsg.downloadProgress !== null) {
-      const msg = aMsg.downloadProgress!;
-      this.downloadProgress = Math.ceil(((msg.bytesReceived!) / msg.bytesTotal!) * 100);
-      if (msg.bytesReceived === msg.bytesTotal) {
-        if (this.downloadFinishedResolver !== null) {
-          this.downloadFinishedResolver();
-        }
+  private UpdateDownloadProgress(aMsg: IntifaceProtocols.IntifaceBackendMessage.DownloadProgress) {
+    this.downloadProgress = Math.ceil(((aMsg.bytesReceived!) / aMsg.bytesTotal!) * 100);
+    if (aMsg.bytesReceived === aMsg.bytesTotal) {
+      if (this.downloadFinishedResolver !== null) {
+        this.downloadFinishedResolver();
       }
     }
   }
 
   private async StartCertServer() {
-    const [p, res] = IntifaceUtils.MakePromise();
-    this.connector.addListener("message", (aMsg: IntifaceProtocols.IntifaceBackendMessage) => {
-      if (aMsg.certificateGenerated) {
-        res();
-      }
-    });
-    let msg = IntifaceProtocols.IntifaceFrontendMessage.create({
-      generateCertificate: IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate.create(),
-    });
-    this.connector.SendMessage(msg);
-    await p;
-    msg = IntifaceProtocols.IntifaceFrontendMessage.create({
-      runCertificateAcceptanceServer: IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer.create(),
-    });
-    this.connector.SendMessage(msg);
+    await this.connector.GenerateCertificate();
+    await this.connector.RunCertificateAcceptanceServer();
   }
 }

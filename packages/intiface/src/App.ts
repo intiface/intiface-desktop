@@ -35,30 +35,25 @@ export default class App extends Vue {
     // if/else block as you would a #ifdef/#else in C.
     if (WEBPACK_ELECTRON) {
       const mod = await import("./utils/ElectronFrontendConnector");
-      this.connector = mod.ElectronFrontendConnector.Create();
-      this.connector.addListener("message", () => {
-        this.loaded = true;
-      });
+      this.connector = await mod.ElectronFrontendConnector.Create();
+      this.loaded = true;
     } else {
       if (this.$route.query.websocket) {
-        const mod = await import("./utils/WebsocketFrontendConnector");
-        this.connector = new mod.WebsocketFrontendConnector();
+        // const mod = await import("./utils/WebsocketFrontendConnector");
+        // this.connector = new mod.WebsocketFrontendConnector();
       } else {
         // TODO Create dummy/test connector for instances where we don"t have a
         // websocket to connect to.
         console.log("NO CONNECTOR");
       }
     }
-    this.connector!.addListener("message", this.checkSetup);
+    this.checkSetup();
   }
 
-  private checkSetup(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
-    if (aMsg.configuration !== null) {
-      this.connector!.removeListener("message", this.checkSetup);
-      if (this.connector!.Config !== null && !this.connector!.Config!.HasRunSetup) {
-        this.currentItem = { title: "Initial Setup", icon: "", path: "setup" };
-        router.push("setup");
-      }
+  private checkSetup() {
+    if (!this.connector!.Config!.HasRunSetup) {
+      this.currentItem = { title: "Initial Setup", icon: "", path: "setup" };
+      router.push("setup");
     }
   }
 

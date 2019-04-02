@@ -1127,6 +1127,15 @@ export namespace IntifaceProtocols {
     /** Properties of an IntifaceBackendMessage. */
     interface IIntifaceBackendMessage {
 
+        /** IntifaceBackendMessage index */
+        index?: (number|null);
+
+        /** IntifaceBackendMessage ok */
+        ok?: (IntifaceProtocols.IntifaceBackendMessage.IOk|null);
+
+        /** IntifaceBackendMessage error */
+        error?: (IntifaceProtocols.IntifaceBackendMessage.IError|null);
+
         /** IntifaceBackendMessage configuration */
         configuration?: (IntifaceProtocols.IntifaceBackendMessage.IConfiguration|null);
 
@@ -1155,6 +1164,15 @@ export namespace IntifaceProtocols {
          */
         constructor(properties?: IntifaceProtocols.IIntifaceBackendMessage);
 
+        /** IntifaceBackendMessage index. */
+        public index: number;
+
+        /** IntifaceBackendMessage ok. */
+        public ok?: (IntifaceProtocols.IntifaceBackendMessage.IOk|null);
+
+        /** IntifaceBackendMessage error. */
+        public error?: (IntifaceProtocols.IntifaceBackendMessage.IError|null);
+
         /** IntifaceBackendMessage configuration. */
         public configuration?: (IntifaceProtocols.IntifaceBackendMessage.IConfiguration|null);
 
@@ -1174,7 +1192,7 @@ export namespace IntifaceProtocols {
         public serverProcessMessage?: (IntifaceProtocols.IServerProcessMessage|null);
 
         /** IntifaceBackendMessage msg. */
-        public msg?: ("configuration"|"updatesAvailable"|"downloadProgress"|"certificateAcceptanceServerRunning"|"certificateGenerated"|"serverProcessMessage");
+        public msg?: ("ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"certificateAcceptanceServerRunning"|"certificateGenerated"|"serverProcessMessage");
 
         /**
          * Creates a new IntifaceBackendMessage instance using the specified properties.
@@ -1248,6 +1266,180 @@ export namespace IntifaceProtocols {
     }
 
     namespace IntifaceBackendMessage {
+
+        /** Properties of an Ok. */
+        interface IOk {
+        }
+
+        /** Represents an Ok. */
+        class Ok implements IOk {
+
+            /**
+             * Constructs a new Ok.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceBackendMessage.IOk);
+
+            /**
+             * Creates a new Ok instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns Ok instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceBackendMessage.IOk): IntifaceProtocols.IntifaceBackendMessage.Ok;
+
+            /**
+             * Encodes the specified Ok message. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.Ok.verify|verify} messages.
+             * @param message Ok message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceBackendMessage.IOk, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified Ok message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.Ok.verify|verify} messages.
+             * @param message Ok message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceBackendMessage.IOk, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an Ok message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns Ok
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceBackendMessage.Ok;
+
+            /**
+             * Decodes an Ok message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns Ok
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceBackendMessage.Ok;
+
+            /**
+             * Verifies an Ok message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an Ok message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns Ok
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceBackendMessage.Ok;
+
+            /**
+             * Creates a plain object from an Ok message. Also converts values to other types if specified.
+             * @param message Ok
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceBackendMessage.Ok, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this Ok to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of an Error. */
+        interface IError {
+
+            /** Error reason */
+            reason?: (string|null);
+        }
+
+        /** Represents an Error. */
+        class Error implements IError {
+
+            /**
+             * Constructs a new Error.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceBackendMessage.IError);
+
+            /** Error reason. */
+            public reason: string;
+
+            /**
+             * Creates a new Error instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns Error instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceBackendMessage.IError): IntifaceProtocols.IntifaceBackendMessage.Error;
+
+            /**
+             * Encodes the specified Error message. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.Error.verify|verify} messages.
+             * @param message Error message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceBackendMessage.IError, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified Error message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.Error.verify|verify} messages.
+             * @param message Error message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceBackendMessage.IError, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an Error message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns Error
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceBackendMessage.Error;
+
+            /**
+             * Decodes an Error message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns Error
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceBackendMessage.Error;
+
+            /**
+             * Verifies an Error message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an Error message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns Error
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceBackendMessage.Error;
+
+            /**
+             * Creates a plain object from an Error message. Also converts values to other types if specified.
+             * @param message Error
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceBackendMessage.Error, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this Error to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
 
         /** Properties of a Configuration. */
         interface IConfiguration {
@@ -1721,6 +1913,15 @@ export namespace IntifaceProtocols {
     /** Properties of an IntifaceFrontendMessage. */
     interface IIntifaceFrontendMessage {
 
+        /** IntifaceFrontendMessage index */
+        index?: (number|null);
+
+        /** IntifaceFrontendMessage ok */
+        ok?: (IntifaceProtocols.IntifaceFrontendMessage.IOk|null);
+
+        /** IntifaceFrontendMessage error */
+        error?: (IntifaceProtocols.IntifaceFrontendMessage.IError|null);
+
         /** IntifaceFrontendMessage ready */
         ready?: (IntifaceProtocols.IntifaceFrontendMessage.IReady|null);
 
@@ -1770,6 +1971,15 @@ export namespace IntifaceProtocols {
          */
         constructor(properties?: IntifaceProtocols.IIntifaceFrontendMessage);
 
+        /** IntifaceFrontendMessage index. */
+        public index: number;
+
+        /** IntifaceFrontendMessage ok. */
+        public ok?: (IntifaceProtocols.IntifaceFrontendMessage.IOk|null);
+
+        /** IntifaceFrontendMessage error. */
+        public error?: (IntifaceProtocols.IntifaceFrontendMessage.IError|null);
+
         /** IntifaceFrontendMessage ready. */
         public ready?: (IntifaceProtocols.IntifaceFrontendMessage.IReady|null);
 
@@ -1810,7 +2020,7 @@ export namespace IntifaceProtocols {
         public stopCertificateAcceptanceServer?: (IntifaceProtocols.IntifaceFrontendMessage.IStopCertificateAcceptanceServer|null);
 
         /** IntifaceFrontendMessage msg. */
-        public msg?: ("ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer");
+        public msg?: ("ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer");
 
         /**
          * Creates a new IntifaceFrontendMessage instance using the specified properties.
@@ -1884,6 +2094,180 @@ export namespace IntifaceProtocols {
     }
 
     namespace IntifaceFrontendMessage {
+
+        /** Properties of an Ok. */
+        interface IOk {
+        }
+
+        /** Represents an Ok. */
+        class Ok implements IOk {
+
+            /**
+             * Constructs a new Ok.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceFrontendMessage.IOk);
+
+            /**
+             * Creates a new Ok instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns Ok instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceFrontendMessage.IOk): IntifaceProtocols.IntifaceFrontendMessage.Ok;
+
+            /**
+             * Encodes the specified Ok message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.Ok.verify|verify} messages.
+             * @param message Ok message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceFrontendMessage.IOk, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified Ok message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.Ok.verify|verify} messages.
+             * @param message Ok message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceFrontendMessage.IOk, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an Ok message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns Ok
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceFrontendMessage.Ok;
+
+            /**
+             * Decodes an Ok message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns Ok
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceFrontendMessage.Ok;
+
+            /**
+             * Verifies an Ok message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an Ok message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns Ok
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceFrontendMessage.Ok;
+
+            /**
+             * Creates a plain object from an Ok message. Also converts values to other types if specified.
+             * @param message Ok
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceFrontendMessage.Ok, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this Ok to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of an Error. */
+        interface IError {
+
+            /** Error reason */
+            reason?: (string|null);
+        }
+
+        /** Represents an Error. */
+        class Error implements IError {
+
+            /**
+             * Constructs a new Error.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceFrontendMessage.IError);
+
+            /** Error reason. */
+            public reason: string;
+
+            /**
+             * Creates a new Error instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns Error instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceFrontendMessage.IError): IntifaceProtocols.IntifaceFrontendMessage.Error;
+
+            /**
+             * Encodes the specified Error message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.Error.verify|verify} messages.
+             * @param message Error message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceFrontendMessage.IError, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified Error message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.Error.verify|verify} messages.
+             * @param message Error message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceFrontendMessage.IError, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an Error message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns Error
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceFrontendMessage.Error;
+
+            /**
+             * Decodes an Error message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns Error
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceFrontendMessage.Error;
+
+            /**
+             * Verifies an Error message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an Error message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns Error
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceFrontendMessage.Error;
+
+            /**
+             * Creates a plain object from an Error message. Also converts values to other types if specified.
+             * @param message Error
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceFrontendMessage.Error, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this Error to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
 
         /** Properties of a Ready. */
         interface IReady {

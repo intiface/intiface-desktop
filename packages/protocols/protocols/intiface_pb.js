@@ -149,6 +149,8 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
         oneofs: {
           msg: {
             oneof: [
+              "ok",
+              "error",
               "configuration",
               "updatesAvailable",
               "downloadProgress",
@@ -159,32 +161,55 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           }
         },
         fields: {
+          index: {
+            type: "uint32",
+            id: 1
+          },
+          ok: {
+            type: "Ok",
+            id: 2
+          },
+          error: {
+            type: "Error",
+            id: 3
+          },
           configuration: {
             type: "Configuration",
-            id: 1
+            id: 4
           },
           updatesAvailable: {
             type: "UpdatesAvailable",
-            id: 2
+            id: 5
           },
           downloadProgress: {
             type: "DownloadProgress",
-            id: 3
+            id: 6
           },
           certificateAcceptanceServerRunning: {
             type: "CertificateAcceptanceServerRunning",
-            id: 4
+            id: 7
           },
           certificateGenerated: {
             type: "CertificateGenerated",
-            id: 5
+            id: 8
           },
           serverProcessMessage: {
             type: "ServerProcessMessage",
-            id: 6
+            id: 9
           }
         },
         nested: {
+          Ok: {
+            fields: {}
+          },
+          Error: {
+            fields: {
+              reason: {
+                type: "string",
+                id: 1
+              }
+            }
+          },
           Configuration: {
             fields: {
               configuration: {
@@ -242,6 +267,8 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
         oneofs: {
           msg: {
             oneof: [
+              "ok",
+              "error",
               "ready",
               "startProcess",
               "stopProcess",
@@ -259,60 +286,83 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           }
         },
         fields: {
+          index: {
+            type: "uint32",
+            id: 1
+          },
+          ok: {
+            type: "Ok",
+            id: 2
+          },
+          error: {
+            type: "Error",
+            id: 3
+          },
           ready: {
             type: "Ready",
-            id: 1
+            id: 4
           },
           startProcess: {
             type: "StartProcess",
-            id: 2
+            id: 5
           },
           stopProcess: {
             type: "StopProcess",
-            id: 3
+            id: 6
           },
           startProxy: {
             type: "StartProxy",
-            id: 4
+            id: 7
           },
           stopProxy: {
             type: "StopProxy",
-            id: 5
+            id: 8
           },
           updateConfig: {
             type: "UpdateConfig",
-            id: 6
+            id: 9
           },
           checkForUpdates: {
             type: "CheckForUpdates",
-            id: 7
+            id: 10
           },
           updateEngine: {
             type: "UpdateEngine",
-            id: 8
+            id: 11
           },
           updateDeviceFile: {
             type: "UpdateDeviceFile",
-            id: 9
+            id: 12
           },
           updateApplication: {
             type: "UpdateApplication",
-            id: 10
+            id: 13
           },
           generateCertificate: {
             type: "GenerateCertificate",
-            id: 11
+            id: 14
           },
           runCertificateAcceptanceServer: {
             type: "RunCertificateAcceptanceServer",
-            id: 12
+            id: 15
           },
           stopCertificateAcceptanceServer: {
             type: "StopCertificateAcceptanceServer",
-            id: 13
+            id: 16
           }
         },
         nested: {
+          Ok: {
+            fields: {}
+          },
+          Error: {
+            fields: {
+              reason: {
+                type: "string",
+                id: 1
+              }
+            }
+          },
           Ready: {
             fields: {}
           },

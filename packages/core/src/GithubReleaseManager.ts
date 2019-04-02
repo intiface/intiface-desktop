@@ -253,7 +253,7 @@ export class GithubReleaseManager extends EventEmitter {
     let totalBytes = 0;
 
     const outStream = fs.createWriteStream(aOutputName);
-    const [p, res, rej] = IntifaceUtils.MakePromise();
+    const [p, res, rej] = IntifaceUtils.MakePromise<void>();
 
     request
       .get(aUrl)

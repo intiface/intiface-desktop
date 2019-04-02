@@ -2,9 +2,20 @@ import { EventEmitter } from "events";
 import { IntifaceProtocols } from "intiface-protocols";
 import { IntifaceConfigurationEventManager } from "./IntifaceConfigurationEventManager";
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
+import { IntifaceUtils } from "./Utils";
+
+class PromiseFuncs {
+  public resolve: (aMsg: IntifaceProtocols.IntifaceBackendMessage) => void;
+  public reject: (aError: Error) => void;
+}
 
 // Sends messages from the frontend/GUI to the backend/server process.
 export abstract class FrontendConnector extends EventEmitter {
+
+  // Used for creating message pairs, when needed.
+  private _msgId: number = 1;
+  private _taskMap: Map<number, PromiseFuncs> =
+    new Map<number, PromiseFuncs>();
 
   public get Config(): IntifaceConfiguration | null {
     if (this._config === null) {
@@ -20,59 +31,122 @@ export abstract class FrontendConnector extends EventEmitter {
     super();
   }
 
-  public SendMessage(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-    this.SendMessageInternal(Buffer.from(IntifaceProtocols.IntifaceFrontendMessage.encode(aMsg).finish()));
-  }
-
-  public CheckForUpdates() {
+  public async CheckForUpdates() {
     const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       checkForUpdates: IntifaceProtocols.IntifaceFrontendMessage.CheckForUpdates.create(),
     });
-    this.SendMessage(msg);
+    await this.SendMessageExpectOk(msg);
   }
 
-  public UpdateDeviceFile() {
+  public async UpdateDeviceFile() {
     const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       updateDeviceFile: IntifaceProtocols.IntifaceFrontendMessage.UpdateDeviceFile.create(),
     });
-    this.SendMessage(msg);
+    await this.SendMessageExpectOk(msg);
   }
 
-  public UpdateEngine() {
+  public async UpdateEngine() {
     const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       updateEngine: IntifaceProtocols.IntifaceFrontendMessage.UpdateEngine.create(),
     });
-    this.SendMessage(msg);
+    await this.SendMessageExpectOk(msg);
   }
 
-  public UpdateApplication() {
+  public async UpdateApplication() {
     const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       updateApplication: IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication.create(),
     });
-    this.SendMessage(msg);
+    await this.SendMessageExpectOk(msg);
   }
 
-  public StartProcess() {
+  public async StartProcess() {
     const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       startProcess: IntifaceProtocols.IntifaceFrontendMessage.StartProcess.create(),
     });
-    this.SendMessage(msg);
+    await this.SendMessageExpectOk(msg);
   }
 
-  public StopProcess() {
+  public async StopProcess() {
     const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       stopProcess: IntifaceProtocols.IntifaceFrontendMessage.StopProcess.create(),
     });
-    this.SendMessage(msg);
+    await this.SendMessageExpectOk(msg);
+  }
+
+  public async GenerateCertificate() {
+    let msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      generateCertificate: IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate.create(),
+    });
+    await this.SendMessageExpectOk(msg);
+  }
+
+  public async RunCertificateAcceptanceServer() {
+    let msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      runCertificateAcceptanceServer: IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer.create(),
+    });
+    await this.SendMessageExpectOk(msg);
   }
 
   protected abstract SendMessageInternal(aRawMsg: Buffer): void;
 
-  protected Ready() {
-    const readyMsg = IntifaceProtocols.IntifaceFrontendMessage.create({
+  protected SendMessageWithoutReturn(aMsg: IntifaceProtocols.IntifaceFrontendMessage)
+  {
+    this.SendMessageInternal(Buffer.from(IntifaceProtocols.IntifaceFrontendMessage.encode(aMsg).finish()));
+  }
+
+  protected async SendMessageExpectReturn(aMsg: IntifaceProtocols.IntifaceFrontendMessage)
+  : Promise<IntifaceProtocols.IntifaceBackendMessage> {
+    // Tag every outgoing message.
+    aMsg.index = this._msgId;
+    this._msgId += 1;
+
+    const [p, res, rej] = IntifaceUtils.MakePromise<IntifaceProtocols.IntifaceBackendMessage>();
+    const promiseFuncs = new PromiseFuncs();
+    promiseFuncs.resolve = res;
+    promiseFuncs.reject = rej;
+
+    this._taskMap.set(aMsg.index, promiseFuncs);
+    this.SendMessageWithoutReturn(aMsg);
+    const msg = await p;
+    if (msg.error !== null) {
+      throw msg.error;
+    }
+    return msg;
+  }
+
+  protected async SendMessageExpectOk(aMsg: IntifaceProtocols.IntifaceFrontendMessage): Promise<void> {
+    const msg = await this.SendMessageExpectReturn(aMsg);
+    // SendMessageExpectReturn will throw error if something returns error
+    // remotely, so in this case we've used the wrong function for message
+    // handling.
+    if (msg.ok === null) {
+      throw new Error("Expected to receive Ok, didn't get get it.");
+    }
+    return;
+  }
+
+  protected async Ready() {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       ready: IntifaceProtocols.IntifaceFrontendMessage.Ready.create(),
     });
-    this.SendMessage(readyMsg);
+    const configMsg = await this.SendMessageExpectReturn(msg);
+
+    if (!configMsg.configuration) {
+      throw new Error("Didn't get configuration as expected. Cannot proceed.");
+    }
+
+    this._config = new IntifaceConfigurationEventManager(JSON.parse(configMsg.configuration!.configuration!));
+    // Any time the configuration is saved, throw it at the backend so we can
+    // update settings and save the file.
+    this._config.addListener("configsaved", (aConfig: string) => {
+      const updateConfigMsg = IntifaceProtocols.IntifaceFrontendMessage.create({
+        updateConfig: IntifaceProtocols.IntifaceFrontendMessage.UpdateConfig.create({ configuration: aConfig }),
+      });
+      this.SendMessageWithoutReturn(updateConfigMsg);
+    });
+  }
+
+  protected UpdateConfiguration() {
   }
 
   protected EmitServerMessage(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
@@ -80,32 +154,30 @@ export abstract class FrontendConnector extends EventEmitter {
   }
 
   protected ProcessMessage(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
-    if (aMsg.configuration !== null) {
-      let maybeRunUpdate = (this._config === null);
-      // If we've gotten a configuration message from the backend, that means
-      // the config file was loaded and we need to overwrite our current state
-      // with that.
-      this._config = new IntifaceConfigurationEventManager(JSON.parse(aMsg.configuration!.configuration!));
-      // Any time the configuration is saved, throw it at the backend so we can
-      // update settings and save the file.
-      this._config.addListener("configsaved", (aConfig: string) => {
-        const configMsg = IntifaceProtocols.IntifaceFrontendMessage.create({
-          updateConfig: IntifaceProtocols.IntifaceFrontendMessage.UpdateConfig.create({ configuration: aConfig }),
-        });
-        this.SendMessage(configMsg);
-      });
-      if (maybeRunUpdate && this._config.Config.CheckForUpdatesOnStart) {
-        this.CheckForUpdates();
+    if (aMsg.index !== 0) {
+      if (!this._taskMap.has(aMsg.index)) {
+        console.log(`Got reply for message ${aMsg.index} with no matched promise.`);
+      } else {
+        // Save off our promise and delete from the map, then resolve it.
+        const p = this._taskMap.get(aMsg.index)!;
+        this._taskMap.delete(aMsg.index);
+        p.resolve(aMsg);
       }
+      return;
+    }
+
+    if (aMsg.configuration !== null) {
+      if (!this._config) {
+        throw new Error("Configuration not set up yet, cannot update.");
+      }
+      this._config.Config.Load(JSON.parse(aMsg.configuration!.configuration!));
     } else if (aMsg.serverProcessMessage !== null) {
       const processMsg = aMsg.serverProcessMessage!;
       if (processMsg.processLog !== null) {
         console.log(processMsg.processLog!.message);
       }
-    } else if (aMsg.updatesAvailable !== null) {
+    } else if (aMsg.downloadProgress) {
+      this.emit("progress", aMsg.downloadProgress);
     }
-
-    // Always emit after we're done, just in case extra things need to be done otherwise.
-    this.EmitServerMessage(aMsg);
   }
 }

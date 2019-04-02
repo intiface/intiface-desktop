@@ -14,12 +14,24 @@ export abstract class BackendConnector extends EventEmitter {
     this.SendMessageInternal(Buffer.from(IntifaceProtocols.IntifaceBackendMessage.encode(aMsg).finish()));
   }
 
-  public UpdateFrontendConfiguration(aConfig: IntifaceConfiguration) {
+  public SendOk(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+    const okMsg = IntifaceProtocols.IntifaceBackendMessage.create({
+      ok: IntifaceProtocols.IntifaceBackendMessage.Ok.create(),
+    });
+    okMsg.index = aMsg.index;
+    this.SendMessage(okMsg);
+  }
+
+  public UpdateFrontendConfiguration(aConfig: IntifaceConfiguration,
+                                     aMsg: IntifaceProtocols.IntifaceFrontendMessage | null) {
     const msg = IntifaceProtocols.IntifaceBackendMessage.create({
       configuration: IntifaceProtocols.IntifaceBackendMessage.Configuration.create({
         configuration: JSON.stringify(aConfig),
       }),
     });
+    if (aMsg) {
+      msg.index = aMsg.index;
+    }
     this.SendMessage(msg);
   }
 

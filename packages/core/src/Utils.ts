@@ -13,10 +13,10 @@ export class IntifaceUtils {
     }
   }
 
-  public static MakePromise(): [Promise<void>, () => void, (err: Error) => void] {
+  public static MakePromise<T>(): [Promise<T>, () => T, (err: Error) => void] {
     let res;
     let rej;
-    const p = new Promise<void>((r, e) => { res = r; rej = e; });
+    const p = new Promise<T>((r, e) => { res = r; rej = e; });
     return [p, res, rej];
   }
 
