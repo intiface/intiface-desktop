@@ -1,3 +1,9 @@
+# 2.0.0 (2019-04-01)
+
+## Features
+
+- Added in-app update abilities for app/engine/device file
+
 # 1.0.0 (2019-03-30)
 
 ## Features
