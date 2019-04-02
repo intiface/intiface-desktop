@@ -53,6 +53,6 @@ steps:
       repositoryName: "intiface/intiface-desktop"
       action: "create"
       tagSource: "auto"
-      title: "Intiface Desktop Release $(gitVersion)"
+      title: 'Intiface Desktop Release $(gitVersion)'
       assets: "$(System.ArtifactsDirectory)/**/*"
       isPreRelease: false
