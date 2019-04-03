@@ -84,8 +84,14 @@ export class IntifaceBackendManager {
   private async UpdateEngine(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
     const ghManager = new GithubReleaseManager(this._configManager.Config);
     ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
-    await ghManager.DownloadLatestEngineVersion();
-    ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
+    try {
+      await ghManager.DownloadLatestEngineVersion();
+    } catch (e) {
+      this._connector.SendError(aMsg, (e as Error).message);
+      return;
+    } finally {
+      ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
+    }
     // Once we're done with a download, make sure to save our config and
     // update our frontend.
     this.UpdateFrontendConfiguration();

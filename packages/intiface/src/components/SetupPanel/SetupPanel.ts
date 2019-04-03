@@ -28,23 +28,20 @@ export default class SetupPanel extends Vue {
     this.downloadStarted = true;
     this.connector.addListener("progress", this.UpdateDownloadProgress);
 
-    await this.DownloadDeviceFile();
+    await this.connector.UpdateDeviceFile();
+
     this.downloadMessage = "Downloading and Installing Engine...";
     this.downloadProgress = 0;
-    await this.DownloadEngine();
+    try {
+      await this.connector.UpdateEngine();
+    } catch (e) {
+      this.$emit("error", e);
+    }
 
     this.connector.removeListener("progress", this.UpdateDownloadProgress);
 
     this.downloadFinished = true;
     this.downloadFinishedResolver = null;
-  }
-
-  private async DownloadEngine() {
-    await this.connector.UpdateEngine();
-  }
-
-  private async DownloadDeviceFile() {
-    await this.connector.UpdateDeviceFile();
   }
 
   private UpdateDownloadProgress(aMsg: IntifaceProtocols.IntifaceBackendMessage.DownloadProgress) {

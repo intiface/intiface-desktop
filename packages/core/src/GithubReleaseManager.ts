@@ -181,31 +181,36 @@ export class GithubReleaseManager extends EventEmitter {
 
   private async InstallEngine(aEngineFile: string): Promise<void> {
     // TODO Wait for the installer to write the ini file with the engine path.
-    const [p, res, rej] = IntifaceUtils.MakePromise();
     let i = 0;
     // Windows virus checkers can take a while, and there's not a good way to
     // test for when they're done, so just spinwait. Ugh.
     while (i < 5) {
       try {
+        const [p, res, rej] = IntifaceUtils.MakePromise();
         // Now we start up our external process.
         this._installerProcess =
           child_process.execFile(aEngineFile, [], {},
                                  (error: Error, stdout: string | Buffer, stderr: string | Buffer) => {
                                    if (error) {
+                                     console.log("Installer failed to run.");
                                      rej(error);
                                    }
-                                   res();
+                                   console.log("Installer running.");
                                  });
         this._installerProcess.on("exit", async (code: number, signal: string) => {
+          console.log("Installer exited.");
           const unlink = promisify(fs.unlink);
           // TODO Should probably emit some sort of installerFinished event?
           await unlink(aEngineFile);
           this._installerProcess = null;
+          res();
         });
         await p;
         return;
       } catch {
+        console.log("Waiting on file execution...");
         await IntifaceUtils.Sleep(1000);
+        i += 1;
       }
     }
     throw new Error("Cannot run installer!");
