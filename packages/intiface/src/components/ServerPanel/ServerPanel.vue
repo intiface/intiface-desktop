@@ -56,7 +56,7 @@
         </v-list-tile>
       </v-list>
       <v-flex shrink>
-        <v-btn outline class="my-3" @click="ToggleServer()">{{ serverRunning ? serverStates[1] : serverStates[0] }}</v-btn>
+        <v-btn outline class="my-3" :disabled="!config.ListenOnWebsocketServer && !config.ListenOnIpcServer" @click="ToggleServer()">{{ serverRunning ? serverStates[1] : serverStates[0] }}</v-btn>
       </v-flex>
       <p class="mx-2"><b>Status:</b> Disconnected</p>
       <v-divider></v-divider>

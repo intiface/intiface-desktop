@@ -55,7 +55,13 @@ export class IntifaceBackendManager {
   }
 
   private async StartProcess(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+    if (!this.CheckForEngineExecutable()) {
+      this.UpdateFrontendConfiguration();
+      this._connector.SendError(aMsg, "Cannot find engine executable to run. Please reinstall engine.");
+      return;
+    }
     this._process = new ServerProcess(this._configManager.Config);
+
     this._process.addListener("process_message", (aProcessMsg: IntifaceProtocols.IntifaceBackendMessage) => {
       this._connector.SendMessage(aProcessMsg);
     });
@@ -68,8 +74,12 @@ export class IntifaceBackendManager {
       this._connector.SendMessage(stopMsg);
       this._process = null;
     });
-    await this._process.RunServer();
-    this._connector.SendOk(aMsg);
+    try {
+      await this._process.RunServer();
+      this._connector.SendOk(aMsg);
+    } catch (e) {
+      this._connector.SendError(aMsg, e.message);
+    }
   }
 
   private async StopProcess(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
@@ -79,6 +89,13 @@ export class IntifaceBackendManager {
       await this._process.StopServer();
     }
     this._connector.SendOk(aMsg);
+  }
+
+  private async CheckForEngineExecutable(): Promise<boolean> {
+    this._process = new ServerProcess(this._configManager.Config);
+    this._configManager.Config.HasUsableEngineExecutable = await this._process.CheckForUsableExecutable();
+    this._configManager.Save();
+    return this._configManager.Config.HasUsableEngineExecutable;
   }
 
   private async UpdateEngine(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
@@ -92,8 +109,9 @@ export class IntifaceBackendManager {
     } finally {
       ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
     }
-    // Once we're done with a download, make sure to save our config and
-    // update our frontend.
+    // Once we're done with a download, make sure to save our config and update
+    // our frontend.
+    await this.CheckForEngineExecutable();
     this.UpdateFrontendConfiguration();
     this._connector.SendOk(aMsg);
   }
@@ -180,11 +198,14 @@ export class IntifaceBackendManager {
     }
 
     if (aMsg.ready !== null) {
+      await this.CheckForEngineExecutable();
       this.UpdateFrontendConfiguration(aMsg);
       return;
     }
 
     if (aMsg.updateConfig !== null) {
+      // Always make sure we have a (mostly) valid engine before we start. If
+      // the exe is corrupted or something, welp.
       this._configManager.Config.Load(JSON.parse(aMsg.updateConfig!.configuration!));
       this._configManager.Save();
       return;

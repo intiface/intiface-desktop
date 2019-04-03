@@ -35,9 +35,19 @@ export class ServerProcess extends EventEmitter {
     process.addListener("beforeExit", this.StopServer);
   }
 
+  public async CheckForUsableExecutable(): Promise<boolean> {
+    try {
+      console.log(await this.GetServerExecutablePath());
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
   public async RunServer() {
     const args: string[] = await this.BuildServerArguments();
     console.log(args);
+    let hasResolved = false;
     const [p, res, rej] = IntifaceUtils.MakePromise();
     const exeFile = await this.GetServerExecutablePath();
     // Now we start up our external process.
@@ -53,8 +63,11 @@ export class ServerProcess extends EventEmitter {
                                if (error) {
                                  rej(error);
                                  this._serverProcess = null;
+                                 return;
+                               } else if (!hasResolved) {
+                                 res();
+                                 hasResolved = true;
                                }
-                               res();
                              });
     this._serverProcess.stdout!.addListener("data", (d: string) => {
       // We'll always get strings from stdin, but we know they've been encoded
@@ -62,6 +75,12 @@ export class ServerProcess extends EventEmitter {
       // buffers here.
       const buf = Buffer.from(d, "binary");
       this.ParseMessages(buf);
+      // If we've successfully parsed a message, then consider the server
+      // running.
+      if (!hasResolved) {
+        res();
+        hasResolved = true;
+      }
     });
 
     this._serverProcess.on("exit", (code: number, signal: string) => {
@@ -158,7 +177,6 @@ export class ServerProcess extends EventEmitter {
     if (!(await exists(exeFile))) {
       throw new Error(`Server executable file ${exeFile} does not exist.`);
     }
-    console.log(exeFile);
     return exeFile;
   }
 }

@@ -182,23 +182,30 @@ export class GithubReleaseManager extends EventEmitter {
   private async InstallEngine(aEngineFile: string): Promise<void> {
     // TODO Wait for the installer to write the ini file with the engine path.
     let i = 0;
+    let hasRun = false;
     // Windows virus checkers can take a while, and there's not a good way to
     // test for when they're done, so just spinwait. Ugh.
-    while (i < 5) {
+    //
+    // TODO Clean this up at some point, it's really gross right now.
+    while (i < 5 && !hasRun) {
       try {
         const [p, res, rej] = IntifaceUtils.MakePromise();
         // Now we start up our external process.
+        //
+        // TODO Callback is just exit event basically, not sure what this is
+        // defined twice.
         this._installerProcess =
           child_process.execFile(aEngineFile, [], {},
                                  (error: Error, stdout: string | Buffer, stderr: string | Buffer) => {
                                    if (error) {
+                                     console.log(error);
                                      console.log("Installer failed to run.");
                                      rej(error);
+                                     return;
                                    }
-                                   console.log("Installer running.");
+                                   hasRun = true;
                                  });
         this._installerProcess.on("exit", async (code: number, signal: string) => {
-          console.log("Installer exited.");
           const unlink = promisify(fs.unlink);
           // TODO Should probably emit some sort of installerFinished event?
           await unlink(aEngineFile);
@@ -208,9 +215,11 @@ export class GithubReleaseManager extends EventEmitter {
         await p;
         return;
       } catch {
-        console.log("Waiting on file execution...");
-        await IntifaceUtils.Sleep(1000);
-        i += 1;
+        // Only wait and continue if we haven't run yet.
+        if (!hasRun) {
+          await IntifaceUtils.Sleep(1000);
+          i += 1;
+        }
       }
     }
     throw new Error("Cannot run installer!");

@@ -27,12 +27,18 @@ export default class ServerPanel extends Vue {
     }
   }
 
-  private ToggleServer() {
-    this.serverRunning = !this.serverRunning;
-    if (this.serverRunning) {
-      this.connector.StartProcess();
-    } else {
-      this.connector.StopProcess();
+  private async ToggleServer() {
+    try {
+      if (!this.serverRunning) {
+        await this.connector.StartProcess();
+        console.log("process started");
+      } else {
+        await this.connector.StopProcess();
+      }
+      console.log("Updating status");
+      this.serverRunning = !this.serverRunning;
+    } catch (e) {
+      this.$emit("error", e);
     }
   }
 

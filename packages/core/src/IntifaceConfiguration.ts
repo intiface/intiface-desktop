@@ -28,6 +28,7 @@ export class IntifaceConfiguration extends EventEmitter {
   private deviceFileUpdateAvailable: boolean = false;
   private engineUpdateAvailable: boolean = false;
   private applicationUpdateAvailable: boolean = false;
+  private hasUsableEngineExecutable: boolean = false;
 
   public Load(aConfigObj: object) {
     for (const propName of Object.getOwnPropertyNames(aConfigObj)) {
@@ -254,6 +255,15 @@ export class IntifaceConfiguration extends EventEmitter {
 
   set DeviceFileUpdateAvailable(aUpdate: boolean) {
     this.deviceFileUpdateAvailable = aUpdate;
+    this.emit("update");
+  }
+
+  get HasUsableEngineExecutable(): boolean {
+    return this.hasUsableEngineExecutable;
+  }
+
+  set HasUsableEngineExecutable(aUpdate: boolean) {
+    this.hasUsableEngineExecutable = aUpdate;
     this.emit("update");
   }
 }

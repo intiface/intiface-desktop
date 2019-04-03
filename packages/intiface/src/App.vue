@@ -48,17 +48,17 @@
         @error="onError"
         :connector="connector"
         :config="connector.Config"></router-view>
+      <v-container>
+        <v-alert
+          v-for="errorMsg in errors"
+          dismissible
+          value="true"
+          type="error"
+        >
+          {{ errorMsg }}
+        </v-alert>
+      </v-container>
     </v-content>
-    <v-container>
-      <v-alert
-        v-for="errorMsg in errors"
-        dismissible
-        value="true"
-        type="error"
-      >
-        {{ errorMsg }}
-      </v-alert>
-    </v-container>
   </v-app>
 </template>
 
