@@ -23,6 +23,7 @@ export default class App extends Vue {
   private mini = true;
   private drawer = true;
   private loaded = false;
+  private errors: string[] = [];
 
   /////////////////////////////////////
   // Component and UI methods
@@ -55,6 +56,10 @@ export default class App extends Vue {
       this.currentItem = { title: "Initial Setup", icon: "", path: "setup" };
       router.push("setup");
     }
+  }
+
+  private onError(aMsg: string) {
+    this.errors.push(aMsg);
   }
 
   // Not actually sure what the incoming type of the router value is, and we

@@ -44,8 +44,21 @@
     </v-navigation-drawer>
     <v-toolbar app>{{ currentItem.title }}</v-toolbar>
     <v-content fill-height>
-      <router-view :connector="connector" :config="connector.Config"></router-view>
+      <router-view
+        @error="onError"
+        :connector="connector"
+        :config="connector.Config"></router-view>
     </v-content>
+    <v-container>
+      <v-alert
+        v-for="errorMsg in errors"
+        dismissible
+        value="true"
+        type="error"
+      >
+        {{ errorMsg }}
+      </v-alert>
+    </v-container>
   </v-app>
 </template>
 

@@ -22,6 +22,16 @@ export abstract class BackendConnector extends EventEmitter {
     this.SendMessage(okMsg);
   }
 
+  public SendError(aMsg: IntifaceProtocols.IntifaceFrontendMessage, aErrorMsg: string) {
+    const errMsg = IntifaceProtocols.IntifaceBackendMessage.create({
+      error: IntifaceProtocols.IntifaceBackendMessage.Error.create({
+        reason: aErrorMsg,
+      }),
+    });
+    errMsg.index = aMsg.index;
+    this.SendMessage(errMsg);
+  }
+
   public UpdateFrontendConfiguration(aConfig: IntifaceConfiguration,
                                      aMsg: IntifaceProtocols.IntifaceFrontendMessage | null) {
     const msg = IntifaceProtocols.IntifaceBackendMessage.create({
