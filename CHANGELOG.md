@@ -1,3 +1,9 @@
+# v4 (2019-04-03)
+
+## Bugfixes
+
+- App now actually quits and installs new version after download on app upgrade request.
+
 # v3 (2019-04-03)
 
 ## Features
