@@ -10,6 +10,10 @@ export default class AboutPanel extends Vue {
   @Prop()
   private connector!: FrontendConnector;
   private isCheckingForUpdates: boolean = false;
+  private isDownloadingApplication: boolean = false;
+  private isDownloadingEngine: boolean = false;
+  private isDownloadingDeviceFile: boolean = false;
+  private newApplicationDonwloaded: boolean = false;
 
   public get Version(): string {
     return packageInfo.version;
@@ -35,16 +39,32 @@ export default class AboutPanel extends Vue {
     return this.config.DeviceFileUpdateAvailable;
   }
 
-  public UpdateApplication() {
-    this.connector.UpdateApplication();
+  public async UpdateApplication() {
+    this.isDownloadingApplication = true;
+    try {
+      await this.connector.UpdateApplication();
+      this.newApplicationDonwloaded = true;
+    } finally {
+      this.isDownloadingApplication = false;
+    }
   }
 
-  public UpdateDeviceFile() {
-    this.connector.UpdateDeviceFile();
+  public async UpdateDeviceFile() {
+    this.isDownloadingDeviceFile = true;
+    try {
+      await this.connector.UpdateDeviceFile();
+    } finally {
+      this.isDownloadingDeviceFile = false;
+    }
   }
 
-  public UpdateEngine() {
-    this.connector.UpdateEngine();
+  public async UpdateEngine() {
+    this.isDownloadingEngine = true;
+    try {
+      await this.connector.UpdateDeviceFile();
+    } finally {
+      this.isDownloadingEngine = false;
+    }
   }
 
   public async CheckForUpdates() {
