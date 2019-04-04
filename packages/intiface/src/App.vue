@@ -12,7 +12,7 @@
         <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar :tile=true>
-              <img src="./images/buttplug.svg">
+              <img src="../build/icon.png">
             </v-list-tile-avatar>
 
             <v-list-tile-content>
