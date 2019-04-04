@@ -114,14 +114,13 @@
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-action>
-                  <v-checkbox v-model="config.WebsocketServerUseSecurePort" :disabled="serverRunning"></v-checkbox>
+                  <v-checkbox v-model="config.WebsocketServerUseSecurePort && config.HasCertificates" :disabled="serverRunning || !config.HasCertificates"></v-checkbox>
                 </v-list-tile-action>
                 <v-list-tile-content>
                   <v-list-tile-title>SSL/TLS</v-list-tile-title>
-                  <v-list-tile-sub-title>Use SSL/TLS when hosting server. Required for using web applications with Intiface.</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>Use SSL/TLS when hosting server. Required for using web applications with Intiface. If disabled, may mean certificates have not been generated.</v-list-tile-sub-title>
                 </v-list-tile-content>
               </v-list-tile>
-              <v-subheader>Network Interfaces</v-subheader>
             </v-list-group>
           </v-list>
         </v-expansion-panel-content>

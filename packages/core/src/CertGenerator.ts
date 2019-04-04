@@ -7,19 +7,24 @@ import * as opn from "opn";
 import * as url from "url";
 import { promisify } from "util";
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
+import { IntifaceUtils } from "./Utils";
 
 export class CertGenerator {
 
   public static readonly CERT_FILENAME = "cert.pem";
   public static readonly PRIVKEY_FILENAME = "privkey.pem";
 
+  public static async HasCerts(): Promise<boolean> {
+    const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
+    return await cg.HasGeneratedCerts();
+  }
+
   public readonly CertFilePath: string;
   public readonly PrivKeyFilePath: string;
   // This port can be random
   public readonly InsecurePort = 1024 + Math.floor((Math.random() * (65535 - 1024)));
   // This port must be the same as the port we've got listed in our config
-  private readonly SecurePort;
-  private _config: IntifaceConfiguration;
+  private _securePort: number;
   private _certPath: string;
   private _httpServer: http.Server | null = null;
   private _httpsServer: https.Server | null = null;
@@ -33,10 +38,8 @@ export class CertGenerator {
 </html>
 `;
 
-  public constructor(aPath: string, aConfig: IntifaceConfiguration) {
+  public constructor(aPath: string) {
     this._certPath = aPath;
-    this._config = aConfig;
-    this.SecurePort = this._config.WebsocketServerSecurePort;
     this.CertFilePath = path.join(aPath, CertGenerator.CERT_FILENAME);
     this.PrivKeyFilePath = path.join(aPath, CertGenerator.PRIVKEY_FILENAME);
   }
@@ -92,16 +95,17 @@ export class CertGenerator {
     }
   }
 
-  public async RunCertAcceptanceServer(): Promise<void> {
+  public async RunCertAcceptanceServer(aSecurePort: number): Promise<void> {
     this._httpServer = http.createServer(this.HttpServerResponse.bind(this)).listen(this.InsecurePort, "127.0.0.1");
+    this._securePort = aSecurePort;
     console.log(`Insecure Cert Acceptance Server listening on 127.0.0.1:${this.InsecurePort}`);
     const certStrs = await this.LoadCerts();
 
     this._httpsServer = https.createServer({
       cert: certStrs.cert,
       key: certStrs.privkey,
-    }, this.HttpsServerResponse.bind(this)).listen(this.SecurePort, "127.0.0.1");
-    console.log(`Secure Cert Acceptance Server listening on 127.0.0.1:${this.SecurePort}`);
+    }, this.HttpsServerResponse.bind(this)).listen(aSecurePort, "127.0.0.1");
+    console.log(`Secure Cert Acceptance Server listening on 127.0.0.1:${this._securePort}`);
     opn(`http://127.0.0.1:${this.InsecurePort}`);
   }
 
@@ -114,7 +118,7 @@ export class CertGenerator {
 <p>This page will help you set up the self signed certificate for using
 Intiface with web browsers.</p>
 
-<a href="https://127.0.0.1:${this.SecurePort}" target="_blank">Click here to open a tab to the HTTPS server.</a>
+<a href="https://127.0.0.1:${this._securePort}" target="_blank">Click here to open a tab to the HTTPS server.</a>
 </body>
 </html>
 `;

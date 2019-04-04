@@ -29,6 +29,7 @@ export class IntifaceConfiguration extends EventEmitter {
   private engineUpdateAvailable: boolean = false;
   private applicationUpdateAvailable: boolean = false;
   private hasUsableEngineExecutable: boolean = false;
+  private hasCertificates: boolean = false;
 
   public Load(aConfigObj: object) {
     for (const propName of Object.getOwnPropertyNames(aConfigObj)) {
@@ -48,20 +49,20 @@ export class IntifaceConfiguration extends EventEmitter {
     }
   }
 
-  get ServerName(): string {
+  public get ServerName(): string {
     return this.serverName;
   }
 
-  set ServerName(aName: string) {
+  public set ServerName(aName: string) {
     this.serverName = aName;
     this.emit("update");
   }
 
-  get ServerMaxPingTime(): number {
+  public get ServerMaxPingTime(): number {
     return this.serverMaxPingTime;
   }
 
-  set ServerMaxPingTime(aPing: number) {
+  public set ServerMaxPingTime(aPing: number) {
     if (aPing < 0) {
       throw new Error("Ping must be >= 0.");
     }
@@ -69,47 +70,47 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
-  get IpcServerPipeName(): string {
+  public get IpcServerPipeName(): string {
     return this.ipcServerPipeName;
   }
 
-  set IpcServerPipeName(aName: string) {
+  public set IpcServerPipeName(aName: string) {
     this.ipcServerPipeName = aName;
     this.emit("update");
   }
 
-  get ListenOnIpcServer(): boolean {
+  public get ListenOnIpcServer(): boolean {
     return this.listenOnIpcServer;
   }
 
-  set ListenOnIpcServer(aShouldListen: boolean) {
+  public set ListenOnIpcServer(aShouldListen: boolean) {
     this.listenOnIpcServer = aShouldListen;
     this.emit("update");
   }
 
-  get ListenOnWebsocketServer(): boolean {
+  public get ListenOnWebsocketServer(): boolean {
     return this.listenOnWebsocketServer;
   }
 
-  set ListenOnWebsocketServer(aShouldListen: boolean) {
+  public set ListenOnWebsocketServer(aShouldListen: boolean) {
     this.listenOnWebsocketServer = aShouldListen;
     this.emit("update");
   }
 
-  get ListenOnProxyServer(): boolean {
+  public get ListenOnProxyServer(): boolean {
     return this.listenOnProxyServer;
   }
 
-  set ListenOnProxyServer(aShouldListen: boolean) {
+  public set ListenOnProxyServer(aShouldListen: boolean) {
     this.listenOnProxyServer = aShouldListen;
     this.emit("update");
   }
 
-  get WebsocketServerInsecurePort(): number {
+  public get WebsocketServerInsecurePort(): number {
     return this.websocketServerInsecurePort;
   }
 
-  set WebsocketServerInsecurePort(aPort: number) {
+  public set WebsocketServerInsecurePort(aPort: number) {
     if (aPort < 1 || aPort > 65536) {
       throw new Error("Invalid network port number.");
     }
@@ -117,11 +118,11 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
-  get WebsocketServerSecurePort(): number {
+  public get WebsocketServerSecurePort(): number {
     return this.websocketServerSecurePort;
   }
 
-  set WebsocketServerSecurePort(aPort: number) {
+  public set WebsocketServerSecurePort(aPort: number) {
     if (aPort < 1 || aPort > 65536) {
       throw new Error("Invalid network port number.");
     }
@@ -129,29 +130,29 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
-  get WebsocketServerUseInsecurePort(): boolean {
+  public get WebsocketServerUseInsecurePort(): boolean {
     return this.websocketServerUseInsecurePort;
   }
 
-  set WebsocketServerUseInsecurePort(aUsePort: boolean) {
+  public set WebsocketServerUseInsecurePort(aUsePort: boolean) {
     this.websocketServerUseInsecurePort = aUsePort;
     this.emit("update");
   }
 
-  get WebsocketServerUseSecurePort(): boolean {
+  public get WebsocketServerUseSecurePort(): boolean {
     return this.websocketServerUseSecurePort;
   }
 
-  set WebsocketServerUseSecurePort(aUsePort: boolean) {
+  public set WebsocketServerUseSecurePort(aUsePort: boolean) {
     this.websocketServerUseSecurePort = aUsePort;
     this.emit("update");
   }
 
-  get ProxyServerPort(): number {
+  public get ProxyServerPort(): number {
     return this.proxyServerPort;
   }
 
-  set ProxyServerPort(aPort: number) {
+  public set ProxyServerPort(aPort: number) {
     if (aPort < 1 || aPort > 65536) {
       throw new Error("Invalid network port number.");
     }
@@ -159,111 +160,120 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
-  get Engine(): EngineType {
+  public get Engine(): EngineType {
     return this.engine;
   }
 
-  set Engine(aEngine: EngineType) {
+  public set Engine(aEngine: EngineType) {
     this.engine = aEngine;
     this.emit("update");
   }
 
-  get CurrentEngineVersion(): string {
+  public get CurrentEngineVersion(): string {
     return this.currentEngineVersion;
   }
 
-  set CurrentEngineVersion(aVersion: string) {
+  public set CurrentEngineVersion(aVersion: string) {
     this.currentEngineVersion = aVersion;
     this.emit("update");
   }
 
-  get CurrentDeviceFileVersion(): number {
+  public get CurrentDeviceFileVersion(): number {
     return this.currentDeviceFileVersion;
   }
 
-  set CurrentDeviceFileVersion(aVersion: number) {
+  public set CurrentDeviceFileVersion(aVersion: number) {
     this.currentDeviceFileVersion = aVersion;
     this.emit("update");
   }
 
-  get UsePrereleaseEngine(): boolean {
+  public get UsePrereleaseEngine(): boolean {
     return this.usePrereleaseEngine;
   }
 
-  set UsePrereleaseEngine(aUse: boolean) {
+  public set UsePrereleaseEngine(aUse: boolean) {
     this.usePrereleaseEngine = aUse;
     this.emit("update");
   }
 
-  get CheckForUpdatesOnStart(): boolean {
+  public get CheckForUpdatesOnStart(): boolean {
     return this.checkForUpdatesOnStart;
   }
 
-  set CheckForUpdatesOnStart(aCheck: boolean) {
+  public set CheckForUpdatesOnStart(aCheck: boolean) {
     this.checkForUpdatesOnStart = aCheck;
     this.emit("update");
   }
 
-  get WebsocketServerAllInterfaces(): boolean {
+  public get WebsocketServerAllInterfaces(): boolean {
     return this.websocketServerAllInterfaces;
   }
 
-  set WebsocketServerAllInterfaces(aAllInterfaces: boolean) {
+  public set WebsocketServerAllInterfaces(aAllInterfaces: boolean) {
     this.websocketServerAllInterfaces = aAllInterfaces;
     this.emit("update");
   }
 
-  get ServerLogLevel(): ButtplugLogLevel {
+  public get ServerLogLevel(): ButtplugLogLevel {
     return this.serverLogLevel;
   }
 
-  set ServerLogLevel(aLevel: ButtplugLogLevel) {
+  public set ServerLogLevel(aLevel: ButtplugLogLevel) {
     this.serverLogLevel = aLevel;
     this.emit("update");
   }
 
-  get HasRunSetup(): boolean {
+  public get HasRunSetup(): boolean {
     return this.hasRunSetup;
   }
 
-  set HasRunSetup(aHasSetup: boolean) {
+  public set HasRunSetup(aHasSetup: boolean) {
     this.hasRunSetup = aHasSetup;
     this.emit("update");
   }
 
-  get EngineUpdateAvailable(): boolean {
+  public get EngineUpdateAvailable(): boolean {
     return this.engineUpdateAvailable;
   }
 
-  set EngineUpdateAvailable(aUpdate: boolean) {
+  public set EngineUpdateAvailable(aUpdate: boolean) {
     this.engineUpdateAvailable = aUpdate;
     this.emit("update");
   }
 
-  get ApplicationUpdateAvailable(): boolean {
+  public get ApplicationUpdateAvailable(): boolean {
     return this.applicationUpdateAvailable;
   }
 
-  set ApplicationUpdateAvailable(aUpdate: boolean) {
+  public set ApplicationUpdateAvailable(aUpdate: boolean) {
     this.applicationUpdateAvailable = aUpdate;
     this.emit("update");
   }
 
-  get DeviceFileUpdateAvailable(): boolean {
+  public get DeviceFileUpdateAvailable(): boolean {
     return this.deviceFileUpdateAvailable;
   }
 
-  set DeviceFileUpdateAvailable(aUpdate: boolean) {
+  public set DeviceFileUpdateAvailable(aUpdate: boolean) {
     this.deviceFileUpdateAvailable = aUpdate;
     this.emit("update");
   }
 
-  get HasUsableEngineExecutable(): boolean {
+  public get HasUsableEngineExecutable(): boolean {
     return this.hasUsableEngineExecutable;
   }
 
-  set HasUsableEngineExecutable(aUpdate: boolean) {
+  public set HasUsableEngineExecutable(aUpdate: boolean) {
     this.hasUsableEngineExecutable = aUpdate;
+    this.emit("update");
+  }
+
+  public get HasCertificates(): boolean {
+    return this.hasCertificates;
+  }
+
+  public set HasCertificates(aHasCerts: boolean) {
+    this.hasCertificates = aHasCerts;
     this.emit("update");
   }
 }

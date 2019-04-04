@@ -20,7 +20,9 @@ export class IntifaceBackendManager {
   public static async Create(aConnector: BackendConnector, aUpdater: IApplicationUpdater):
   Promise<IntifaceBackendManager> {
     const config = await IntifaceConfigurationFileManager.Create();
-    return new IntifaceBackendManager(aConnector, config, aUpdater);
+    const manager = new IntifaceBackendManager(aConnector, config, aUpdater);
+    await manager.Initialize();
+    return manager;
   }
 
   private _connector: BackendConnector;
@@ -44,6 +46,13 @@ export class IntifaceBackendManager {
       await this._process.StopServer();
       this._process = null;
     }
+  }
+
+  private async Initialize() {
+    // Do all of the file system update checks when we're created, before we've
+    // shipped off the configuration to the frontend.
+    await this.CheckForCertificates();
+    await this.CheckForEngineExecutable();
   }
 
   private UpdateDownloadProgress(aProgress: any) {
@@ -98,6 +107,12 @@ export class IntifaceBackendManager {
     return this._configManager.Config.HasUsableEngineExecutable;
   }
 
+  private async CheckForCertificates(): Promise<boolean> {
+    this._configManager.Config.HasCertificates = await CertGenerator.HasCerts();
+    this._configManager.Save();
+    return this._configManager.Config.HasCertificates;
+  }
+
   private async UpdateEngine(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
     const ghManager = new GithubReleaseManager(this._configManager.Config);
     ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
@@ -134,7 +149,7 @@ export class IntifaceBackendManager {
   }
 
   private async GenerateCert(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-    const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory, this._configManager.Config);
+    const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
     if (!(await cg.HasGeneratedCerts())) {
       await cg.GenerateCerts();
     }
@@ -145,12 +160,12 @@ export class IntifaceBackendManager {
   }
 
   private async RunCertificateAcceptanceServer(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-    const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory, this._configManager.Config);
+    const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
     if (!(await cg.HasGeneratedCerts())) {
       // TODO Should probably error here
       return;
     }
-    await cg.RunCertAcceptanceServer();
+    await cg.RunCertAcceptanceServer(this._configManager.Config.WebsocketServerSecurePort);
     const msg = IntifaceProtocols.IntifaceBackendMessage.create({
       certificateAcceptanceServerRunning:
       IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning.create({
@@ -198,7 +213,6 @@ export class IntifaceBackendManager {
     }
 
     if (aMsg.ready !== null) {
-      await this.CheckForEngineExecutable();
       this.UpdateFrontendConfiguration(aMsg);
       return;
     }
