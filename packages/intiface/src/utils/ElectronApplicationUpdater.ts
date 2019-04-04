@@ -11,6 +11,7 @@ export class ElectronApplicationUpdater implements IApplicationUpdater {
     log.transports.file.level = "debug";
     autoUpdater.logger = log;
     autoUpdater.autoDownload = false;
+    autoUpdater.autoInstallOnAppQuit = true;
     autoUpdater.addListener("update-not-available", () => {
       this._updateAvailable = false;
     });
@@ -29,5 +30,6 @@ export class ElectronApplicationUpdater implements IApplicationUpdater {
   }
 
   public QuitAndInstall(): void {
+    autoUpdater.quitAndInstall();
   }
 }

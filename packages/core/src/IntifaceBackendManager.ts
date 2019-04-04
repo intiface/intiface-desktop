@@ -145,6 +145,7 @@ export class IntifaceBackendManager {
 
   private async UpdateApplication(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
     await this._applicationUpdater.DownloadUpdate();
+    this._applicationUpdater.QuitAndInstall();
     this._connector.SendOk(aMsg);
   }
 
