@@ -61,7 +61,7 @@ export default class AboutPanel extends Vue {
   public async UpdateEngine() {
     this.isDownloadingEngine = true;
     try {
-      await this.connector.UpdateDeviceFile();
+      await this.connector.UpdateEngine();
     } finally {
       this.isDownloadingEngine = false;
     }
