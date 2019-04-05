@@ -118,9 +118,9 @@ export class ServerProcess extends EventEmitter {
       if (this._config.UseWebsocketServerInsecure) {
         args.push(`--insecureport`, `${this._config.WebsocketServerInsecurePort}`);
       }
-      if (this._config.UseWebsocketServerSecure) {
+      if (this._config.UseWebsocketServerSecure && this._config.HasCertificates) {
         const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
-        if (await this._config.HasCertificates) {
+        if (await cg.HasGeneratedCerts()) {
           args.push(`--secureport`, `${this._config.WebsocketServerSecurePort}`);
           args.push(`--certfile`, `${cg.CertFilePath}`);
           args.push(`--privfile`, `${cg.PrivKeyFilePath}`);

@@ -56,7 +56,7 @@
         </v-list-tile>
         <v-list-tile>
           <v-list-tile-action>
-            <v-checkbox v-model="config.UseWebsocketServerSecure && config.HasCertificates" :disabled="serverRunning || !config.HasCertificates"></v-checkbox>
+            <v-checkbox v-model="config.UseWebsocketServerSecure" :disabled="serverRunning || !config.HasCertificates"></v-checkbox>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Secure Websockets</v-list-tile-title>
