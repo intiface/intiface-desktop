@@ -126,9 +126,11 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-layout>
+    <!--
     <v-layout row align-center justify-center fill-width>
       <v-flex><v-btn @click="inSimpleMode = !inSimpleMode">Change to {{ inSimpleMode ? 'Advanced Mode' : 'Simple Mode' }}</v-btn></v-flex>
     </v-layout>
+    -->
   </v-container>
 </template>
 
