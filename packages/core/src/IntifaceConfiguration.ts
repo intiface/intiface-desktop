@@ -8,14 +8,13 @@ export class IntifaceConfiguration extends EventEmitter {
   private serverName: string = "Buttplug Server";
   private serverMaxPingTime: number = 0;
   private ipcServerPipeName: string = "ButtplugPort";
-  private listenOnIpcServer: boolean = false;
-  private listenOnWebsocketServer: boolean = false;
-  private listenOnProxyServer: boolean = false;
+  private useIpcServer: boolean = false;
+  private useWebsocketServerInsecure: boolean = true;
+  private useWebsocketServerSecure: boolean = false;
+  private useProxyServer: boolean = false;
   // private deviceListUpdateURL: string;
   private websocketServerAllInterfaces: boolean = false;
-  private websocketServerUseInsecurePort: boolean = true;
   private websocketServerInsecurePort: number = 12345;
-  private websocketServerUseSecurePort: boolean = false;
   private websocketServerSecurePort: number = 12346;
   private serverLogLevel: ButtplugLogLevel = ButtplugLogLevel.Info;
   private proxyServerPort: number = 12347;
@@ -79,30 +78,39 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
-  public get ListenOnIpcServer(): boolean {
-    return this.listenOnIpcServer;
+  public get UseIpcServer(): boolean {
+    return this.useIpcServer;
   }
 
-  public set ListenOnIpcServer(aShouldListen: boolean) {
-    this.listenOnIpcServer = aShouldListen;
+  public set UseIpcServer(aShouldListen: boolean) {
+    this.useIpcServer = aShouldListen;
     this.emit("update");
   }
 
-  public get ListenOnWebsocketServer(): boolean {
-    return this.listenOnWebsocketServer;
+  public get UseWebsocketServerInsecure(): boolean {
+    return this.useWebsocketServerInsecure;
   }
 
-  public set ListenOnWebsocketServer(aShouldListen: boolean) {
-    this.listenOnWebsocketServer = aShouldListen;
+  public set UseWebsocketServerInsecure(aShouldListen: boolean) {
+    this.useWebsocketServerInsecure = aShouldListen;
     this.emit("update");
   }
 
-  public get ListenOnProxyServer(): boolean {
-    return this.listenOnProxyServer;
+  public get UseWebsocketServerSecure(): boolean {
+    return this.useWebsocketServerSecure;
   }
 
-  public set ListenOnProxyServer(aShouldListen: boolean) {
-    this.listenOnProxyServer = aShouldListen;
+  public set UseWebsocketServerSecure(aShouldListen: boolean) {
+    this.useWebsocketServerSecure = aShouldListen;
+    this.emit("update");
+  }
+
+  public get UseProxyServer(): boolean {
+    return this.useProxyServer;
+  }
+
+  public set UseProxyServer(aShouldListen: boolean) {
+    this.useProxyServer = aShouldListen;
     this.emit("update");
   }
 
@@ -127,24 +135,6 @@ export class IntifaceConfiguration extends EventEmitter {
       throw new Error("Invalid network port number.");
     }
     this.websocketServerSecurePort = aPort;
-    this.emit("update");
-  }
-
-  public get WebsocketServerUseInsecurePort(): boolean {
-    return this.websocketServerUseInsecurePort;
-  }
-
-  public set WebsocketServerUseInsecurePort(aUsePort: boolean) {
-    this.websocketServerUseInsecurePort = aUsePort;
-    this.emit("update");
-  }
-
-  public get WebsocketServerUseSecurePort(): boolean {
-    return this.websocketServerUseSecurePort;
-  }
-
-  public set WebsocketServerUseSecurePort(aUsePort: boolean) {
-    this.websocketServerUseSecurePort = aUsePort;
     this.emit("update");
   }
 

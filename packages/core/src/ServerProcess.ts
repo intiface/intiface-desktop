@@ -106,21 +106,21 @@ export class ServerProcess extends EventEmitter {
     // First, we set up our incoming pipe to receive GUI info from the CLI
     // process
     args.push(`--guipipe`);
-    if (this._config.ListenOnIpcServer) {
+    if (this._config.UseIpcServer) {
       args.push("--ipcserver");
       args.push(`--ipcpipe`, `${this._config.IpcServerPipeName}`);
     }
-    if (this._config.ListenOnWebsocketServer) {
+    if (this._config.UseWebsocketServerInsecure || this._config.UseWebsocketServerSecure) {
       args.push("--websocketserver");
       if (this._config.WebsocketServerAllInterfaces) {
         args.push(`--websocketallinterfaces`);
       }
-      if (this._config.WebsocketServerUseInsecurePort) {
+      if (this._config.UseWebsocketServerInsecure) {
         args.push(`--insecureport`, `${this._config.WebsocketServerInsecurePort}`);
       }
-      if (this._config.WebsocketServerUseSecurePort) {
+      if (this._config.UseWebsocketServerSecure) {
         const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
-        if (await cg.HasGeneratedCerts()) {
+        if (await this._config.HasCertificates) {
           args.push(`--secureport`, `${this._config.WebsocketServerSecurePort}`);
           args.push(`--certfile`, `${cg.CertFilePath}`);
           args.push(`--privfile`, `${cg.PrivKeyFilePath}`);
