@@ -153,6 +153,9 @@ export class IntifaceBackendManager {
     const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
     if (!(await cg.HasGeneratedCerts())) {
       await cg.GenerateCerts();
+      // Use the certificate check to update the new configuration file values
+      this.CheckForCertificates();
+      this.UpdateFrontendConfiguration();
     }
     this._connector.SendMessage(IntifaceProtocols.IntifaceBackendMessage.create({
       certificateGenerated: IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated.create(),
