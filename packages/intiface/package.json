@@ -2,7 +2,7 @@
   "name": "intiface-desktop",
   "description": "Desktop Intiface Application",
   "author": "Nonpolynomial Labs, LLC",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "homepage": "https://github.com/intiface/intiface-desktop",
   "repository": {
     "type": "git",

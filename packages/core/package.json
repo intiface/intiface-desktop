@@ -1,6 +1,6 @@
 {
   "name": "intiface-core-library",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Desktop Intiface Application - Core Library",
   "main": "dist/src/index.js",
   "scripts": {
