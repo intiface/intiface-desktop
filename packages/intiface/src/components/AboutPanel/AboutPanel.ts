@@ -13,7 +13,7 @@ export default class AboutPanel extends Vue {
   private isDownloadingApplication: boolean = false;
   private isDownloadingEngine: boolean = false;
   private isDownloadingDeviceFile: boolean = false;
-  private newApplicationDonwloaded: boolean = false;
+  private newApplicationDownloaded: boolean = false;
 
   public get Version(): string {
     return packageInfo.version;
@@ -43,7 +43,7 @@ export default class AboutPanel extends Vue {
     this.isDownloadingApplication = true;
     try {
       await this.connector.UpdateApplication();
-      this.newApplicationDonwloaded = true;
+      this.newApplicationDownloaded = true;
     } finally {
       this.isDownloadingApplication = false;
     }
