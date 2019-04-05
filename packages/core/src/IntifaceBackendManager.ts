@@ -75,12 +75,8 @@ export class IntifaceBackendManager {
       this._connector.SendMessage(aProcessMsg);
     });
     this._process.addListener("exit", () => {
-      const stopMsg = IntifaceProtocols.IntifaceBackendMessage.create({
-        serverProcessMessage: IntifaceProtocols.ServerProcessMessage.create({
-          processEnded: IntifaceProtocols.ServerProcessMessage.ProcessEnded.create(),
-        }),
-      });
-      this._connector.SendMessage(stopMsg);
+      // We expect that we'll get a process ended message before the process
+      // quits. If not, expect that the engine crashed.
       this._process = null;
     });
     try {

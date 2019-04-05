@@ -169,9 +169,9 @@ export class ServerProcess extends EventEmitter {
     if (!(await exists(exePathFile))) {
       throw new Error(`Cannot find engine path file at ${exePathFile}.`);
     }
-    const exePath = await readFile(exePathFile, { encoding: "utf8" });
+    const exePath = (await readFile(exePathFile, { encoding: "utf8" })).trim();
     if (!(await exists(exePath))) {
-      throw new Error("Server executable install location ${exePath} does not exist.");
+      throw new Error(`Server executable install location ${exePath} does not exist.`);
     }
     const exeFile = path.join(exePath, ServerProcess.EXECUTABLE_NAME);
     if (!(await exists(exeFile))) {

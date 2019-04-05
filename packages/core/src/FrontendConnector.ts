@@ -17,6 +17,10 @@ export abstract class FrontendConnector extends EventEmitter {
   private _taskMap: Map<number, PromiseFuncs> =
     new Map<number, PromiseFuncs>();
 
+  // State we need to manage from the Backend, that may not persist in the
+  // frontend components.
+  private _isServerProcessRunning: boolean = false;
+
   public get Config(): IntifaceConfiguration | null {
     if (this._config === null) {
       return null;
@@ -29,6 +33,10 @@ export abstract class FrontendConnector extends EventEmitter {
 
   protected constructor() {
     super();
+  }
+
+  public get IsServerProcessRunning(): boolean {
+    return this._isServerProcessRunning;
   }
 
   public async CheckForUpdates() {
@@ -171,13 +179,34 @@ export abstract class FrontendConnector extends EventEmitter {
         throw new Error("Configuration not set up yet, cannot update.");
       }
       this._config.Config.Load(JSON.parse(aMsg.configuration!.configuration!));
-    } else if (aMsg.serverProcessMessage !== null) {
-      const processMsg = aMsg.serverProcessMessage!;
-      if (processMsg.processLog !== null) {
-        console.log(processMsg.processLog!.message);
-      }
-    } else if (aMsg.downloadProgress) {
+      return;
+    }
+
+    if (aMsg.serverProcessMessage !== null) {
+      this.ProcessProcessMessage(aMsg.serverProcessMessage!);
+      return;
+    }
+
+    if (aMsg.downloadProgress) {
       this.emit("progress", aMsg.downloadProgress);
+    }
+  }
+
+  // Ah, the mistakes in naming that led to this point.
+  protected ProcessProcessMessage(aMsg: IntifaceProtocols.IServerProcessMessage) {
+    if (aMsg.processLog !== null) {
+      console.log(aMsg.processLog!.message);
+      return;
+    }
+
+    if (aMsg.processStarted !== null) {
+      this._isServerProcessRunning = true;
+      return;
+    }
+
+    if (aMsg.processEnded !== null) {
+      this._isServerProcessRunning = false;
+      return;
     }
   }
 }
