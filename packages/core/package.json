@@ -52,11 +52,5 @@
       "json"
     ],
     "collectCoverage": true
-  },
-  "devDependencies": {
-    "@types/request": "^2.48.1",
-    "@types/rimraf": "^2.0.2",
-    "@types/semver": "^5.5.0",
-    "@types/unzipper": "^0.9.1"
   }
 }

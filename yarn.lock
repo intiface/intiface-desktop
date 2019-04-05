@@ -12486,6 +12486,16 @@ vuetify@^1.5.8:
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.5.8.tgz#58bbbe07a05e1cb00fffa9abed3f2f1d8e6ca29d"
   integrity sha512-AmyJb/kAIivEC+CM5BVqiumxUeaJRB4oKzKjEzXpI0tCbkNQIrTVrVjB1+ZnAk9al/6fJp63Hq8uy2RfRmZoRg==
 
+vuex-class@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/vuex-class/-/vuex-class-0.3.2.tgz#c7e96a076c1682137d4d23a8dcfdc63f220e17a8"
+  integrity sha512-m0w7/FMsNcwJgunJeM+wcNaHzK2KX1K1rw2WUQf7Q16ndXHo7pflRyOV/E8795JO/7fstyjH3EgqBI4h4n4qXQ==
+
+vuex-module-decorators@^0.9.8:
+  version "0.9.8"
+  resolved "https://registry.yarnpkg.com/vuex-module-decorators/-/vuex-module-decorators-0.9.8.tgz#760c63fc5358fb2f3170a5428181a4549adc91ce"
+  integrity sha512-yyh9+0mO7NYZxw5BlXWNA/lHioVOUL0muDpJPL9ssAvje2PHQfFSOCSridK4vA3HasjyaGRtTPJKH7+7UCcpwg==
+
 vuex@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.1.0.tgz#634b81515cf0cfe976bd1ffe9601755e51f843b9"
