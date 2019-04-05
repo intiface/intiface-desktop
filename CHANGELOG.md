@@ -1,3 +1,16 @@
+# v5 (2019-04-04)
+
+## Features
+
+- Promote insecure/secure websockets to being their own connection
+  types, making selection more understandable for users.
+
+## Bugfixes
+
+- Server status no longer resets when moving off of server control component.
+- Server can now use SSL.
+- Simple mode disabled until it actually works.
+
 # v4 (2019-04-03)
 
 ## Bugfixes
