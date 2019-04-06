@@ -33,25 +33,12 @@
         <!-- Engine and Device File Downloads -->
         <v-stepper-content step="2">
           <p>First off, we're going to need to download an engine and device file for Intiface to run. Downloads will usually anywhere between 5-50mb, depending on the operating system you're on. Download speeds may vary, but there's a progress bar to let you know how much time is left.</p>
-          <v-btn
-            color="primary"
-            @click="RunDownloads()"
-            v-if="!downloadStarted"
-          >Start Download</v-btn>
-          <p v-if="downloadStarted && !downloadFinished">{{ downloadMessage }}</p>
-          <v-progress-circular
-            :size="75"
-            :width="15"
-            rotate="-90"
-            :value="downloadProgress"
-            v-if="downloadStarted && !downloadFinished"
-            color="primary"
-          >{{ downloadProgress }}</v-progress-circular>
-          <v-btn
-            color="primary"
-            @click="setupStep = 3"
-            v-if="downloadFinished"
-          >Download finished! Continue.</v-btn>
+          <update-dialog
+            :connector="connector"
+            dialogVerb="Install"
+            :dialogType='["Engine","Device File"]'>
+          </update-dialog>
+
         </v-stepper-content>
 
         <!-- Setup secure cert -->
