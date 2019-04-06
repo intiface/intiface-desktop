@@ -73,6 +73,9 @@ message ServerProcessMessage {
 // Messages that go from parent process to child interface/gui.
 message IntifaceBackendMessage {
 
+  // Message Index, for matching paired frontend/backend messages.
+  uint32 index = 1;
+
   message Ok {
   };
 
@@ -106,14 +109,14 @@ message IntifaceBackendMessage {
   };
 
   oneof msg {
-    Ok ok = 1;
-    Error error = 2;
-    Configuration configuration = 3;
-    UpdatesAvailable updates_available = 4;
-    DownloadProgress download_progress = 5;
-    CertificateAcceptanceServerRunning certificate_acceptance_server_running = 6;
-    CertificateGenerated certificate_generated = 7;
-    ServerProcessMessage server_process_message = 8;
+    Ok ok = 2;
+    Error error = 3;
+    Configuration configuration = 4;
+    UpdatesAvailable updates_available = 5;
+    DownloadProgress download_progress = 6;
+    CertificateAcceptanceServerRunning certificate_acceptance_server_running = 7;
+    CertificateGenerated certificate_generated = 8;
+    ServerProcessMessage server_process_message = 9;
   };
 };
 
