@@ -1,3 +1,13 @@
+# v6 (2019-04-07)
+
+## Features
+
+- Move app updates to shared modal dialog
+- Added Log Panel and logging framework
+- Moved all settings into settings panel
+- Added status bar icons
+- Removed simple mode (didn't work, can't tell if needed yet)
+
 # v5 (2019-04-04)
 
 ## Features
