@@ -4,6 +4,7 @@ import { IntifaceConfigurationEventManager } from "./IntifaceConfigurationEventM
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
 import { IntifaceUtils } from "./Utils";
 import { IntifaceFrontendLogger } from "./IntifaceFrontendLogger";
+import * as winston from "winston";
 
 class PromiseFuncs {
   public resolve: (aMsg: IntifaceProtocols.IntifaceBackendMessage) => void;
@@ -17,7 +18,7 @@ export abstract class FrontendConnector extends EventEmitter {
   private _msgId: number = 1;
   private _taskMap: Map<number, PromiseFuncs> =
     new Map<number, PromiseFuncs>();
-
+  private _logger: winston.Logger;
   // State we need to manage from the Backend, that may not persist in the
   // frontend components.
   private _isServerProcessRunning: boolean = false;
@@ -34,6 +35,7 @@ export abstract class FrontendConnector extends EventEmitter {
 
   protected constructor() {
     super();
+    this._logger = IntifaceFrontendLogger.GetChildLogger(this.constructor.name);
     IntifaceFrontendLogger.AddConnectorTransport(this);
   }
 
@@ -175,7 +177,7 @@ export abstract class FrontendConnector extends EventEmitter {
   protected ProcessMessage(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
     if (aMsg.index !== 0) {
       if (!this._taskMap.has(aMsg.index)) {
-        console.log(`Got reply for message ${aMsg.index} with no matched promise.`);
+        this._logger.warn(`Got reply for message ${aMsg.index} with no matched promise.`);
       } else {
         // Save off our promise and delete from the map, then resolve it.
         const p = this._taskMap.get(aMsg.index)!;
@@ -211,7 +213,13 @@ export abstract class FrontendConnector extends EventEmitter {
   // Ah, the mistakes in naming that led to this point.
   protected ProcessProcessMessage(aMsg: IntifaceProtocols.IServerProcessMessage) {
     if (aMsg.processLog !== null) {
-      console.log(aMsg.processLog!.message);
+      // This should be done in the parent process.
+      this._logger.log({
+        message: aMsg.processLog!.message!,
+        level: "info",
+        logType: "process",
+        location: "Process",
+      });
       return;
     }
 
