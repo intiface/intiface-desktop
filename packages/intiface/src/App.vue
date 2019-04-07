@@ -50,18 +50,20 @@
         <v-flex shrink>
           <v-layout
             row>
-          <toolbar-status-icon
-            tooltip="Server not running"
-            icon="devices"
-            link="server"></toolbar-status-icon>
-          <toolbar-status-icon
-            tooltip="Server not connected"
-            icon="call"
-            link="server"></toolbar-status-icon>
+            <toolbar-status-icon
+              :tooltip="connector.IsServerProcessRunning ? 'Server running' : 'Server not running'"
+              :color="connector.IsServerProcessRunning ? '#00FF00' : '#FF0000'"
+              icon="devices"
+              link="server"></toolbar-status-icon>
+          <!-- <toolbar-status-icon
+               tooltip="Server not connected"
+               icon="call"
+               link="server"></toolbar-status-icon> -->
           <toolbar-status-icon
             tooltip="Updates Available"
             icon="update"
             link="settings"
+            v-if="config.HasUpdatesAvailable"
           ></toolbar-status-icon>
           </v-layout>
         </v-flex>

@@ -13,6 +13,11 @@ export default class ToolbarStatusIcon extends Vue {
   @Prop()
   private icon!: string;
 
+  @Prop({
+    default: "#FFF",
+  })
+  private color!: string;
+
   private navigateTo(aPath: string) {
     router.push(aPath);
   }
