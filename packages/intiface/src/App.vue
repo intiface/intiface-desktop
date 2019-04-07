@@ -42,7 +42,31 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar app>{{ currentItem.title }}</v-toolbar>
+    <v-toolbar app>
+      <v-layout row>
+        <v-flex grow>
+          {{ currentItem.title }}
+        </v-flex>
+        <v-flex shrink>
+          <v-layout
+            row>
+          <toolbar-status-icon
+            tooltip="Server not running"
+            icon="devices"
+            link="server"></toolbar-status-icon>
+          <toolbar-status-icon
+            tooltip="Server not connected"
+            icon="call"
+            link="server"></toolbar-status-icon>
+          <toolbar-status-icon
+            tooltip="Updates Available"
+            icon="update"
+            link="settings"
+          ></toolbar-status-icon>
+          </v-layout>
+        </v-flex>
+      </v-layout>
+    </v-toolbar>
     <v-content fill-height>
       <router-view
         @error="onError"

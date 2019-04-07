@@ -266,4 +266,8 @@ export class IntifaceConfiguration extends EventEmitter {
     this.hasCertificates = aHasCerts;
     this.emit("update");
   }
+
+  public get HasUpdatesAvailable() {
+    return this.applicationUpdateAvailable || this.engineUpdateAvailable || this.deviceFileUpdateAvailable;
+  }
 }

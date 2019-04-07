@@ -2,11 +2,13 @@ import Vue from "vue";
 import router from "./router";
 import { IntifaceProtocols } from "intiface-protocols";
 import { Component, Watch, Prop } from "vue-property-decorator";
-import { FrontendConnector, IntifaceFrontendLogger } from "intiface-core-library";
+import { FrontendConnector, IntifaceFrontendLogger, IntifaceConfiguration } from "intiface-core-library";
+import ToolbarStatusIcon from "./components/ToolbarStatusIcon/ToolbarStatusIcon";
 import * as winston from "winston";
 
 @Component({
   components: {
+    ToolbarStatusIcon,
   },
 })
 export default class App extends Vue {
@@ -20,6 +22,7 @@ export default class App extends Vue {
     { title: "Log", icon: "receipt", path: "log" },
     { title: "About", icon: "info", path: "about" },
   ];
+  private config!: IntifaceConfiguration;
   private showNavBar: boolean = true;
   private currentItem = this.menuList[0];
   private mini = true;
@@ -51,6 +54,7 @@ export default class App extends Vue {
         console.log("NO CONNECTOR");
       }
     }
+    this.config = this.connector!.Config!;
     this.logger = IntifaceFrontendLogger.GetChildLogger(this.constructor.name);
     this.logger.info("Intiface desktop application frontend mounted");
     this.checkSetup();
