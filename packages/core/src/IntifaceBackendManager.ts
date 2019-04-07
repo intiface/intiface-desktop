@@ -267,6 +267,6 @@ export class IntifaceBackendManager {
       return;
     }
 
-    console.log(`Message has no usable payload! ${aMsg}`);
+    this._logger.warn(`Message has no usable payload! ${aMsg}`);
   }
 }
