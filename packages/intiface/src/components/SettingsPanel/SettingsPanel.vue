@@ -25,6 +25,58 @@
           </v-card-text>
         </v-card>
       </v-expansion-panel-content>
+      <v-expansion-panel-content class="transparent">
+        <template v-slot:header>
+          IPC Settings
+        </template>
+        <v-card class="transparent">
+          <v-card-text>
+            <v-text-field label="Pipe Name" placeholder="ButtplugPipe" v-model="config.IpcServerPipeName" clearable :disabled="serverRunning"></v-text-field>
+          </v-card-text>
+        </v-card>
+      </v-expansion-panel-content>
+      <v-expansion-panel-content class="transparent">
+        <template v-slot:header>
+          Websocket Settings
+        </template>
+        <v-card class="transparent">
+          <v-card-text>
+            <v-list
+              subheader
+              dense
+              two-line
+              class="transparent"
+            >
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-text-field
+                    label="Insecure Port"
+                    v-model="config.WebsocketServerInsecurePort">
+                  </v-text-field>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+
+                  <v-text-field
+                    label="Secure Port"
+                    v-model="config.WebsocketServerSecurePort">
+                  </v-text-field>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-checkbox v-model="config.WebsocketServerAllInterfaces" :disabled="serverRunning"></v-checkbox>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Listen on All Interfaces</v-list-tile-title>
+                  <v-list-tile-sub-title>When on, listens on all available network interfaces. Otherwise, only listens on 127.0.0.1.</v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+          </v-card-text>
+        </v-card>
+      </v-expansion-panel-content>
       <v-expansion-panel-content class="transparent" popout>
         <template v-slot:header>
           Other
