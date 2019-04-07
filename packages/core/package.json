@@ -33,6 +33,8 @@
     "selfsigned": "^1.10.4",
     "semver": "^6.0.0",
     "unzipper": "^0.9.11",
+    "winston": "^3.2.1",
+    "winston-transport": "^4.3.0",
     "ws": "^6.2.1"
   },
   "jest": {
@@ -52,5 +54,6 @@
       "json"
     ],
     "collectCoverage": true
-  }
+  },
+  "devDependencies": {}
 }

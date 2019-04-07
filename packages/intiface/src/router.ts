@@ -4,6 +4,7 @@ import ServerPanel from "./components/ServerPanel/ServerPanel";
 import AboutPanel from "./components/AboutPanel/AboutPanel";
 import SettingsPanel from "./components/SettingsPanel/SettingsPanel";
 import SetupPanel from "./components/SetupPanel/SetupPanel";
+import LogPanel from "./components/LogPanel/LogPanel";
 
 Vue.use(Router);
 
@@ -21,6 +22,11 @@ export default new Router({
       path: "/settings",
       name: "Settings",
       component: SettingsPanel,
+    },
+    {
+      path: "/log",
+      name: "Log",
+      component: LogPanel,
     },
     {
       path: "/about",

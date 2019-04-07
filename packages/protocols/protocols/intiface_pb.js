@@ -156,7 +156,8 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
               "downloadProgress",
               "certificateAcceptanceServerRunning",
               "certificateGenerated",
-              "serverProcessMessage"
+              "serverProcessMessage",
+              "logMessage"
             ]
           }
         },
@@ -196,6 +197,10 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           serverProcessMessage: {
             type: "ServerProcessMessage",
             id: 9
+          },
+          logMessage: {
+            type: "LogMessage",
+            id: 10
           }
         },
         nested: {
@@ -260,6 +265,14 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
                 id: 1
               }
             }
+          },
+          LogMessage: {
+            fields: {
+              info: {
+                type: "string",
+                id: 1
+              }
+            }
           }
         }
       },
@@ -281,7 +294,8 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
               "updateApplication",
               "generateCertificate",
               "runCertificateAcceptanceServer",
-              "stopCertificateAcceptanceServer"
+              "stopCertificateAcceptanceServer",
+              "logMessage"
             ]
           }
         },
@@ -349,6 +363,10 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           stopCertificateAcceptanceServer: {
             type: "StopCertificateAcceptanceServer",
             id: 16
+          },
+          logMessage: {
+            type: "LogMessage",
+            id: 17
           }
         },
         nested: {
@@ -406,6 +424,14 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           },
           StopCertificateAcceptanceServer: {
             fields: {}
+          },
+          LogMessage: {
+            fields: {
+              info: {
+                type: "string",
+                id: 1
+              }
+            }
           }
         }
       }

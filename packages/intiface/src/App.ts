@@ -2,7 +2,8 @@ import Vue from "vue";
 import router from "./router";
 import { IntifaceProtocols } from "intiface-protocols";
 import { Component, Watch, Prop } from "vue-property-decorator";
-import { FrontendConnector } from "intiface-core-library";
+import { FrontendConnector, IntifaceFrontendLogger } from "intiface-core-library";
+import * as winston from "winston";
 
 @Component({
   components: {
@@ -16,6 +17,7 @@ export default class App extends Vue {
     // { title: "Proxy", icon: "settings_cell", path: "proxy" },
     // { title: "Devices", icon: "device_hub", path: "devices" },
     { title: "Settings", icon: "settings", path: "settings" },
+    { title: "Log", icon: "receipt", path: "log" },
     { title: "About", icon: "info", path: "about" },
   ];
   private showNavBar: boolean = true;
@@ -24,6 +26,7 @@ export default class App extends Vue {
   private drawer = true;
   private loaded = false;
   private errors: string[] = [];
+  private logger!: winston.Logger;
 
   /////////////////////////////////////
   // Component and UI methods
@@ -48,11 +51,14 @@ export default class App extends Vue {
         console.log("NO CONNECTOR");
       }
     }
+    this.logger = IntifaceFrontendLogger.GetChildLogger(this.constructor.name);
+    this.logger.info("Intiface desktop application frontend mounted");
     this.checkSetup();
   }
 
   private checkSetup() {
     if (!this.connector!.Config!.HasRunSetup) {
+      this.logger.info("HasRunSetup is false, running first time experience flow.");
       this.currentItem = { title: "Initial Setup", icon: "", path: "setup" };
       router.push("setup");
     }

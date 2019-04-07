@@ -17,23 +17,23 @@ export default class SettingsPanel extends Vue {
   @Prop()
   private config!: IntifaceConfiguration;
   private isCheckingForUpdates: boolean = false;
+  private dialogType: string[] = [];
 
   private mounted() {
     this.UpdateRequirements();
   }
 
   private UpdateRequirements() {
-    const updateTypes = [];
+    this.dialogType = [];
     if (this.config.ApplicationUpdateAvailable) {
-      updateTypes.push("application");
+      this.dialogType.push("application");
     }
     if (this.config.EngineUpdateAvailable) {
-      updateTypes.push("engine");
+      this.dialogType.push("engine");
     }
     if (this.config.DeviceFileUpdateAvailable) {
-      updateTypes.push("devicefile");
+      this.dialogType.push("devicefile");
     }
-    (this.$refs.UpdateDialog as any).dialogType = updateTypes;
   }
 
   private RunSetup() {

@@ -108,6 +108,12 @@ message IntifaceBackendMessage {
     uint32 insecure_port = 1;
   };
 
+  // JSON block representing a js object for winston, for display in
+  // the Frontend
+  message LogMessage {
+    string info = 1;
+  };
+
   oneof msg {
     Ok ok = 2;
     Error error = 3;
@@ -117,6 +123,7 @@ message IntifaceBackendMessage {
     CertificateAcceptanceServerRunning certificate_acceptance_server_running = 7;
     CertificateGenerated certificate_generated = 8;
     ServerProcessMessage server_process_message = 9;
+    LogMessage log_message = 10;
   };
 };
 
@@ -182,6 +189,12 @@ message IntifaceFrontendMessage {
   message StopCertificateAcceptanceServer {
   };
 
+  // JSON block representing a js object for winston, to record in the
+  // backend.
+  message LogMessage {
+    string info = 1;
+  };
+
   oneof msg {
     Ok ok = 2;
     Error error = 3;
@@ -198,5 +211,6 @@ message IntifaceFrontendMessage {
     GenerateCertificate generate_certificate = 14;
     RunCertificateAcceptanceServer run_certificate_acceptance_server = 15;
     StopCertificateAcceptanceServer stop_certificate_acceptance_server = 16;
+    LogMessage log_message = 17;
   };
 };

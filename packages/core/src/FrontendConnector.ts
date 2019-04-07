@@ -3,6 +3,7 @@ import { IntifaceProtocols } from "intiface-protocols";
 import { IntifaceConfigurationEventManager } from "./IntifaceConfigurationEventManager";
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
 import { IntifaceUtils } from "./Utils";
+import { IntifaceFrontendLogger } from "./IntifaceFrontendLogger";
 
 class PromiseFuncs {
   public resolve: (aMsg: IntifaceProtocols.IntifaceBackendMessage) => void;
@@ -33,10 +34,20 @@ export abstract class FrontendConnector extends EventEmitter {
 
   protected constructor() {
     super();
+    IntifaceFrontendLogger.AddConnectorTransport(this);
   }
 
   public get IsServerProcessRunning(): boolean {
     return this._isServerProcessRunning;
+  }
+
+  public async LogMessage(aJsonMsg: string) {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      logMessage: IntifaceProtocols.IntifaceFrontendMessage.LogMessage.create({
+        info: aJsonMsg,
+      }),
+    });
+    await this.SendMessageWithoutReturn(msg);
   }
 
   public async CheckForUpdates() {
@@ -189,6 +200,11 @@ export abstract class FrontendConnector extends EventEmitter {
 
     if (aMsg.downloadProgress) {
       this.emit("progress", aMsg.downloadProgress);
+    }
+
+    if (aMsg.logMessage) {
+      const logObj = JSON.parse(aMsg.logMessage!.info!);
+      IntifaceFrontendLogger.Logger.log(logObj);
     }
   }
 

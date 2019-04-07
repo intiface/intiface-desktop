@@ -1153,6 +1153,9 @@ export namespace IntifaceProtocols {
 
         /** IntifaceBackendMessage serverProcessMessage */
         serverProcessMessage?: (IntifaceProtocols.IServerProcessMessage|null);
+
+        /** IntifaceBackendMessage logMessage */
+        logMessage?: (IntifaceProtocols.IntifaceBackendMessage.ILogMessage|null);
     }
 
     /** Represents an IntifaceBackendMessage. */
@@ -1191,8 +1194,11 @@ export namespace IntifaceProtocols {
         /** IntifaceBackendMessage serverProcessMessage. */
         public serverProcessMessage?: (IntifaceProtocols.IServerProcessMessage|null);
 
+        /** IntifaceBackendMessage logMessage. */
+        public logMessage?: (IntifaceProtocols.IntifaceBackendMessage.ILogMessage|null);
+
         /** IntifaceBackendMessage msg. */
-        public msg?: ("ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"certificateAcceptanceServerRunning"|"certificateGenerated"|"serverProcessMessage");
+        public msg?: ("ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"certificateAcceptanceServerRunning"|"certificateGenerated"|"serverProcessMessage"|"logMessage");
 
         /**
          * Creates a new IntifaceBackendMessage instance using the specified properties.
@@ -1908,6 +1914,96 @@ export namespace IntifaceProtocols {
              */
             public toJSON(): { [k: string]: any };
         }
+
+        /** Properties of a LogMessage. */
+        interface ILogMessage {
+
+            /** LogMessage info */
+            info?: (string|null);
+        }
+
+        /** Represents a LogMessage. */
+        class LogMessage implements ILogMessage {
+
+            /**
+             * Constructs a new LogMessage.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceBackendMessage.ILogMessage);
+
+            /** LogMessage info. */
+            public info: string;
+
+            /**
+             * Creates a new LogMessage instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns LogMessage instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceBackendMessage.ILogMessage): IntifaceProtocols.IntifaceBackendMessage.LogMessage;
+
+            /**
+             * Encodes the specified LogMessage message. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.LogMessage.verify|verify} messages.
+             * @param message LogMessage message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceBackendMessage.ILogMessage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified LogMessage message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.LogMessage.verify|verify} messages.
+             * @param message LogMessage message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceBackendMessage.ILogMessage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a LogMessage message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns LogMessage
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceBackendMessage.LogMessage;
+
+            /**
+             * Decodes a LogMessage message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns LogMessage
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceBackendMessage.LogMessage;
+
+            /**
+             * Verifies a LogMessage message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a LogMessage message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns LogMessage
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceBackendMessage.LogMessage;
+
+            /**
+             * Creates a plain object from a LogMessage message. Also converts values to other types if specified.
+             * @param message LogMessage
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceBackendMessage.LogMessage, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this LogMessage to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
     }
 
     /** Properties of an IntifaceFrontendMessage. */
@@ -1960,6 +2056,9 @@ export namespace IntifaceProtocols {
 
         /** IntifaceFrontendMessage stopCertificateAcceptanceServer */
         stopCertificateAcceptanceServer?: (IntifaceProtocols.IntifaceFrontendMessage.IStopCertificateAcceptanceServer|null);
+
+        /** IntifaceFrontendMessage logMessage */
+        logMessage?: (IntifaceProtocols.IntifaceFrontendMessage.ILogMessage|null);
     }
 
     /** Represents an IntifaceFrontendMessage. */
@@ -2019,8 +2118,11 @@ export namespace IntifaceProtocols {
         /** IntifaceFrontendMessage stopCertificateAcceptanceServer. */
         public stopCertificateAcceptanceServer?: (IntifaceProtocols.IntifaceFrontendMessage.IStopCertificateAcceptanceServer|null);
 
+        /** IntifaceFrontendMessage logMessage. */
+        public logMessage?: (IntifaceProtocols.IntifaceFrontendMessage.ILogMessage|null);
+
         /** IntifaceFrontendMessage msg. */
-        public msg?: ("ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer");
+        public msg?: ("ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer"|"logMessage");
 
         /**
          * Creates a new IntifaceFrontendMessage instance using the specified properties.
@@ -3362,6 +3464,96 @@ export namespace IntifaceProtocols {
 
             /**
              * Converts this StopCertificateAcceptanceServer to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a LogMessage. */
+        interface ILogMessage {
+
+            /** LogMessage info */
+            info?: (string|null);
+        }
+
+        /** Represents a LogMessage. */
+        class LogMessage implements ILogMessage {
+
+            /**
+             * Constructs a new LogMessage.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceFrontendMessage.ILogMessage);
+
+            /** LogMessage info. */
+            public info: string;
+
+            /**
+             * Creates a new LogMessage instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns LogMessage instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceFrontendMessage.ILogMessage): IntifaceProtocols.IntifaceFrontendMessage.LogMessage;
+
+            /**
+             * Encodes the specified LogMessage message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.LogMessage.verify|verify} messages.
+             * @param message LogMessage message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceFrontendMessage.ILogMessage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified LogMessage message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.LogMessage.verify|verify} messages.
+             * @param message LogMessage message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceFrontendMessage.ILogMessage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a LogMessage message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns LogMessage
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceFrontendMessage.LogMessage;
+
+            /**
+             * Decodes a LogMessage message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns LogMessage
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceFrontendMessage.LogMessage;
+
+            /**
+             * Verifies a LogMessage message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a LogMessage message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns LogMessage
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceFrontendMessage.LogMessage;
+
+            /**
+             * Creates a plain object from a LogMessage message. Also converts values to other types if specified.
+             * @param message LogMessage
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceFrontendMessage.LogMessage, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this LogMessage to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };

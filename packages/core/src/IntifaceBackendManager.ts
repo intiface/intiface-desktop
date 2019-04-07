@@ -7,6 +7,8 @@ import { GithubReleaseManager } from "./GithubReleaseManager";
 import { CertGenerator } from "./CertGenerator";
 import { IntifaceUtils } from "./Utils";
 import { IApplicationUpdater } from "./IApplicationUpdater";
+import { IntifaceBackendLogger } from "./IntifaceBackendLogger";
+import * as winston from "winston";
 
 // The link between whatever our frontend is (Electron, express, etc) and our
 // IntifaceCLI server process. This will handle loading/saving our configuration
@@ -19,12 +21,14 @@ export class IntifaceBackendManager {
 
   public static async Create(aConnector: BackendConnector, aUpdater: IApplicationUpdater):
   Promise<IntifaceBackendManager> {
+    IntifaceBackendLogger.Logger.debug("Creating Backend Manager");
     const config = await IntifaceConfigurationFileManager.Create();
     const manager = new IntifaceBackendManager(aConnector, config, aUpdater);
     await manager.Initialize();
     return manager;
   }
 
+  private _logger: winston.Logger;
   private _connector: BackendConnector;
   private _process: ServerProcess | null = null;
   private _configManager: IntifaceConfigurationManager;
@@ -33,6 +37,8 @@ export class IntifaceBackendManager {
   protected constructor(aConnector: BackendConnector,
                         aConfig: IntifaceConfigurationFileManager,
                         aApplicationUpdater: IApplicationUpdater) {
+    this._logger = IntifaceBackendLogger.GetChildLogger(this.constructor.name);
+    this._logger.debug("Constructing Backend Manager");
     this._connector = aConnector;
     this._configManager = aConfig;
     this._applicationUpdater = aApplicationUpdater;
@@ -60,6 +66,7 @@ export class IntifaceBackendManager {
   }
 
   private UpdateFrontendConfiguration(aMsg: IntifaceProtocols.IntifaceFrontendMessage | null = null) {
+    this._logger.debug("Updating frontend configuration.");
     this._connector.UpdateFrontendConfiguration(this._configManager.Config, aMsg);
   }
 
@@ -176,18 +183,22 @@ export class IntifaceBackendManager {
   }
 
   private async CheckForUpdates(aMsg: IntifaceProtocols.IntifaceFrontendMessage | null) {
+    this._logger.info("Checking for updates.");
     try {
       const hasAppUpdate = await this._applicationUpdater.CheckForUpdate();
       this._configManager!.Config.ApplicationUpdateAvailable = hasAppUpdate;
+      this._logger.info(`Has application update: ${hasAppUpdate}`);
     } catch (e) {
       // This will fail during dev mode and who knows when else.
-      console.log(`Application updater check failed: ${(e as Error).message}.`);
+      this._logger.warn(`Application updater check failed: ${(e as Error).message}.`);
     }
     const ghManager = new GithubReleaseManager(this._configManager.Config);
     const hasEngineUpdate = await ghManager.CheckForNewEngineVersion();
     const hasDeviceFileUpdate = await ghManager.CheckForNewDeviceFileVersion();
     this._configManager.Config.EngineUpdateAvailable = hasEngineUpdate;
+    this._logger.info(`Has engine update: ${hasEngineUpdate}`);
     this._configManager.Config.DeviceFileUpdateAvailable = hasDeviceFileUpdate;
+    this._logger.info(`Has device file update: ${hasDeviceFileUpdate}`);
     await this._configManager!.Save();
     this.UpdateFrontendConfiguration();
     if (aMsg !== null) {
@@ -213,6 +224,7 @@ export class IntifaceBackendManager {
     }
 
     if (aMsg.ready !== null) {
+      this._logger.debug("Received ready signal from frontend");
       this.UpdateFrontendConfiguration(aMsg);
       return;
     }

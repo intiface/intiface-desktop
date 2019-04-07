@@ -1,11 +1,11 @@
 <template>
   <v-container>
     <v-expansion-panel class="transparent">
-      <v-expansion-panel-content class="transparent">
+      <v-expansion-panel-content class="transparent" popout>
         <template v-slot:header>
           Versions and Updates
         </template>
-        <v-card>
+        <v-card class="transparent">
           <v-card-text>
             <v-checkbox
               v-model="config.CheckForUpdatesOnStart"
@@ -19,17 +19,17 @@
             <update-dialog
               :connector="connector"
               dialogVerb="Get Updates"
-              v-if="NeedsUpdate"
-              ref="UpdateDialog">
+              :dialogType="dialogType"
+              v-show="NeedsUpdate">
             </update-dialog>
           </v-card-text>
         </v-card>
       </v-expansion-panel-content>
-      <v-expansion-panel-content class="transparent">
+      <v-expansion-panel-content class="transparent" popout>
         <template v-slot:header>
           Other
         </template>
-        <v-card>
+        <v-card class="transparent">
           <v-card-text>
             <v-btn
               color="primary"
