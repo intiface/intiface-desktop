@@ -12,7 +12,7 @@ import * as winston from "winston";
 export default class App extends Vue {
   private connector: FrontendConnector | null = null;
   private menuList = [
-    { title: "Server", icon: "cloud_circle", path: "/" },
+    { title: "Server Status", icon: "cloud_circle", path: "/" },
     // TODO Actually implement these panels
     // { title: "Proxy", icon: "settings_cell", path: "proxy" },
     // { title: "Devices", icon: "device_hub", path: "devices" },
