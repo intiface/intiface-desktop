@@ -1,5 +1,5 @@
 <template>
-  <v-app dark v-if="loaded">
+  <v-app dark v-if="loaded" class="noOverflow">
     <v-navigation-drawer
       v-model="drawer"
       v-if="showNavBar"
@@ -64,3 +64,9 @@
 
 <script lang="ts" src="./App.ts">
 </script>
+
+<style lang="css" >
+ .noOverflow {
+   overflow: hidden;
+ }
+</style>

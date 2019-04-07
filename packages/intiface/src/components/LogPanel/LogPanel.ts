@@ -6,6 +6,9 @@ import { IntifaceFrontendLogger } from "intiface-core-library";
 export default class LogPanel extends Vue {
 
   public mounted() {
+    // Scroll to bottom (newest) when panel is brought up.
+    const el = document.getElementById("logContainer")!;
+    el.scrollTop = el.scrollHeight - el.clientHeight;
   }
 
   private get Logs() {
