@@ -11,7 +11,6 @@ export default class ServerPanel extends Vue {
 
   @Prop()
   private connector!: FrontendConnector;
-  private inSimpleMode: boolean = false;
   private serverStates: string[] = ["Start Server", "Stop Server"];
 
   private get serverRunning() {
