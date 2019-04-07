@@ -6,10 +6,10 @@
     >
       <v-flex grow id="logContainer">
         <div id="logFrame">
-              <div
-                v-for="msg in Logs"
-                :class="msg.logType + ' logMsg'">{{ msg.timestamp }} : {{ msg.logType }} : {{ msg.location }} : {{ msg.message }}</div>
-            </div>
+          <div
+            v-for="msg in Logs"
+            :class="`${msg.logType} logMsg`">{{ msg.timestamp }} : {{ msg.logType }} : {{ msg.location }} : {{ msg.message }}</div>
+        </div>
       </v-flex>
       <v-flex shrink>
         <v-layout row>
@@ -36,6 +36,7 @@
    position: relative;
    overflow-y: auto;
    background: #222;
+   border-radius: 4px;
  }
 
  #logFrame {
@@ -77,6 +78,7 @@
    background: #222;
    transition: 0.2s;
    padding: 2px;
+   border-radius: 4px;
  }
 
  .logMsg:hover {
