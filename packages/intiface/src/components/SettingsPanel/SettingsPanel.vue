@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-expansion-panel class="transparent">
+    <v-expansion-panel class="transparent" v-model="panelExpand" expand>
       <v-expansion-panel-content class="transparent" popout>
         <template v-slot:header>
           Versions and Updates

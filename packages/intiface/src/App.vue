@@ -61,11 +61,11 @@
               :color="connector.ClientName !== null ? '#00FF00' : '#FF0000'"
               icon="call"
               link="server"></toolbar-status-icon>
-          <toolbar-status-icon
-            tooltip="Updates Available"
-            icon="update"
-            link="settings"
-            v-if="config.HasUpdatesAvailable"
+            <toolbar-status-icon
+              tooltip="Updates Available"
+              icon="update"
+              link="settings#version"
+              v-if="config.HasUpdatesAvailable"
           ></toolbar-status-icon>
           </v-layout>
         </v-flex>
