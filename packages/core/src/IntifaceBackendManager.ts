@@ -59,6 +59,13 @@ export class IntifaceBackendManager {
     // shipped off the configuration to the frontend.
     await this.CheckForCertificates();
     await this.CheckForEngineExecutable();
+    if (this._configManager.Config.CheckForUpdatesOnStart) {
+      try {
+        await this.CheckForUpdates(null);
+      } catch (e) {
+        this._logger.warn("Update check failed, continuing.");
+      }
+    }
   }
 
   private UpdateDownloadProgress(aProgress: any) {
