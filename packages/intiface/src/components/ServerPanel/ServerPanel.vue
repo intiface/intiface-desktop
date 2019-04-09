@@ -38,7 +38,7 @@
       <v-flex shrink>
         <v-btn outline class="my-3" :disabled="!config.UseIpcServer && !config.UseWebsocketServerInsecure && !config.UseWebsocketServerSecure" @click="ToggleServer()">{{ serverRunning ? serverStates[1] : serverStates[0] }}</v-btn>
       </v-flex>
-      <p class="mx-2"><b>Status:</b> Disconnected</p>
+      <p class="mx-2"><b>Status:</b> {{ connector.ClientName !== null ? `Connected to ${connector.ClientName}` : "Disconnected" }}</p>
     </v-layout>
   </v-container>
 </template>

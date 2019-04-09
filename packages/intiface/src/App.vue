@@ -55,10 +55,12 @@
               :color="connector.IsServerProcessRunning ? '#00FF00' : '#FF0000'"
               icon="devices"
               link="server"></toolbar-status-icon>
-          <!-- <toolbar-status-icon
-               tooltip="Server not connected"
-               icon="call"
-               link="server"></toolbar-status-icon> -->
+            <toolbar-status-icon
+              :tooltip="connector.ClientName !== null ? connector.ClientName : 'Client not connected'"
+              v-if="connector.IsServerProcessRunning"
+              :color="connector.ClientName !== null ? '#00FF00' : '#FF0000'"
+              icon="call"
+              link="server"></toolbar-status-icon>
           <toolbar-status-icon
             tooltip="Updates Available"
             icon="update"

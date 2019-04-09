@@ -22,6 +22,7 @@ export abstract class FrontendConnector extends EventEmitter {
   // State we need to manage from the Backend, that may not persist in the
   // frontend components.
   private _isServerProcessRunning: boolean = false;
+  private _clientName: string | null = null;
 
   public get Config(): IntifaceConfiguration | null {
     if (this._config === null) {
@@ -37,6 +38,10 @@ export abstract class FrontendConnector extends EventEmitter {
     super();
     this._logger = IntifaceFrontendLogger.GetChildLogger(this.constructor.name);
     IntifaceFrontendLogger.AddConnectorTransport(this);
+  }
+
+  public get ClientName(): string | null {
+    return this._clientName;
   }
 
   public get IsServerProcessRunning(): boolean {
@@ -223,14 +228,22 @@ export abstract class FrontendConnector extends EventEmitter {
       return;
     }
 
-    if (aMsg.processStarted !== null) {
+    if (aMsg.processStarted) {
       this._isServerProcessRunning = true;
       return;
     }
 
-    if (aMsg.processEnded !== null) {
+    if (aMsg.processEnded) {
       this._isServerProcessRunning = false;
       return;
+    }
+
+    if (aMsg.clientConnected) {
+      this._clientName = aMsg.clientConnected!.clientName!;
+    }
+
+    if (aMsg.clientDisconnected) {
+      this._clientName = null;
     }
   }
 }
