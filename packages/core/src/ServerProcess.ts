@@ -105,25 +105,25 @@ export class ServerProcess extends EventEmitter {
     // args.push(`--userdeviceconfig `);
     // First, we set up our incoming pipe to receive GUI info from the CLI
     // process
-    args.push(`--guipipe`);
+    args.push(`--frontendpipe`);
+    args.push(`--stayopen`);
     if (this._config.UseIpcServer) {
       args.push("--ipcserver");
       args.push(`--ipcpipe`, `${this._config.IpcServerPipeName}`);
     }
     if (this._config.UseWebsocketServerInsecure || this._config.UseWebsocketServerSecure) {
-      args.push("--websocketserver");
       if (this._config.WebsocketServerAllInterfaces) {
-        args.push(`--websocketallinterfaces`);
+        args.push(`--wsallinterfaces`);
       }
       if (this._config.UseWebsocketServerInsecure) {
-        args.push(`--insecureport`, `${this._config.WebsocketServerInsecurePort}`);
+        args.push(`--wsinsecureport`, `${this._config.WebsocketServerInsecurePort}`);
       }
       if (this._config.UseWebsocketServerSecure && this._config.HasCertificates) {
         const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
         if (await cg.HasGeneratedCerts()) {
-          args.push(`--secureport`, `${this._config.WebsocketServerSecurePort}`);
-          args.push(`--certfile`, `${cg.CertFilePath}`);
-          args.push(`--privfile`, `${cg.PrivKeyFilePath}`);
+          args.push(`--wssecureport`, `${this._config.WebsocketServerSecurePort}`);
+          args.push(`--wscertfile`, `${cg.CertFilePath}`);
+          args.push(`--wsprivfile`, `${cg.PrivKeyFilePath}`);
         }
       }
     }
