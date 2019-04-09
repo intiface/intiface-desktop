@@ -36,8 +36,8 @@
               label="Log Output Level"
               v-model="config.ServerLogLevel">
               ></v-select>
-            <v-text-field label="Server Name" placeholder="Intiface Server" v-model="config.ServerName" :disabled="serverRunning"></v-text-field>
-            <v-text-field label="Max Server Ping Time" placeholder="0" v-model="config.ServerMaxPingTime" mask="#" :disabled="serverRunning"></v-text-field>
+            <v-text-field label="Server Name" placeholder="Intiface Server" v-model="config.ServerName" :disabled="connector.IsServerProcessRunning"></v-text-field>
+            <v-text-field label="Max Server Ping Time" placeholder="0" v-model="config.ServerMaxPingTime" mask="#" :disabled="connector.IsServerProcessRunning"></v-text-field>
           </v-card-text>
         </v-card>
       </v-expansion-panel-content>
@@ -47,7 +47,7 @@
         </template>
         <v-card class="transparent">
           <v-card-text>
-            <v-text-field label="Pipe Name" placeholder="ButtplugPipe" v-model="config.IpcServerPipeName" clearable :disabled="serverRunning"></v-text-field>
+            <v-text-field label="Pipe Name" placeholder="ButtplugPipe" v-model="config.IpcServerPipeName" clearable :disabled="connector.IsServerProcessRunning"></v-text-field>
           </v-card-text>
         </v-card>
       </v-expansion-panel-content>
@@ -68,6 +68,7 @@
                   <v-text-field
                     label="Insecure Port"
                     mask="#"
+                    :disabled="connector.IsServerProcessRunning"
                     v-model="config.WebsocketServerInsecurePort">
                   </v-text-field>
                 </v-list-tile-content>
@@ -78,13 +79,14 @@
                   <v-text-field
                     label="Secure Port"
                     mask="#"
+                    :disabled="connector.IsServerProcessRunning"
                     v-model="config.WebsocketServerSecurePort">
                   </v-text-field>
                 </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-action>
-                  <v-checkbox v-model="config.WebsocketServerAllInterfaces" :disabled="serverRunning"></v-checkbox>
+                  <v-checkbox v-model="config.WebsocketServerAllInterfaces" :disabled="connector.IsServerProcessRunning"></v-checkbox>
                 </v-list-tile-action>
                 <v-list-tile-content>
                   <v-list-tile-title>Listen on All Interfaces</v-list-tile-title>
