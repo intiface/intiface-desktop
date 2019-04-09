@@ -9,6 +9,7 @@ import { IntifaceUtils } from "./Utils";
 import { EventEmitter } from "events";
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
 import { CertGenerator } from "./CertGenerator";
+import { ButtplugLogLevel } from "buttplug";
 
 // Handles execution and lifetime of server processes, as well as translation of
 // the protobuf protocol.
@@ -127,8 +128,13 @@ export class ServerProcess extends EventEmitter {
         }
       }
     }
-    // args.push(`--pingtime`, `${this._config.ServerMaxPingTime}`);
-    // args.push(`--log`, `${this._config.ServerLogLevel}`);
+    if (this._config.ServerLogLevel !== "Off") {
+      args.push(`--log`, `${this._config.ServerLogLevel}`);
+    }
+    if (this._config.ServerMaxPingTime > 0) {
+      args.push(`--pingtime`, `${this._config.ServerMaxPingTime}`);
+    }
+
     return args;
   }
 

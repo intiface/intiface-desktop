@@ -18,6 +18,7 @@ export default class SettingsPanel extends Vue {
   private config!: IntifaceConfiguration;
   private isCheckingForUpdates: boolean = false;
   private dialogType: string[] = [];
+  private logLevels: string[] = ["Off", "Error", "Warn", "Info", "Debug", "Trace"];
 
   private mounted() {
     this.UpdateRequirements();

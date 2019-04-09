@@ -1,8 +1,8 @@
 import { EventEmitter } from "events";
-import { ButtplugLogLevel } from "buttplug";
 import * as os from "os";
 
 export type EngineType = "js" | "csharp";
+export type ButtplugLogLevel = "Off" | "Error" | "Warn" | "Info" | "Debug" | "Trace";
 
 export class IntifaceConfiguration extends EventEmitter {
   private serverName: string = "Buttplug Server";
@@ -16,7 +16,7 @@ export class IntifaceConfiguration extends EventEmitter {
   private websocketServerAllInterfaces: boolean = false;
   private websocketServerInsecurePort: number = 12345;
   private websocketServerSecurePort: number = 12346;
-  private serverLogLevel: ButtplugLogLevel = ButtplugLogLevel.Info;
+  private serverLogLevel: ButtplugLogLevel = "Info";
   private proxyServerPort: number = 12347;
   private engine: EngineType = os.platform() === "win32" ? "csharp" : "js";
   private usePrereleaseEngine: boolean = false;

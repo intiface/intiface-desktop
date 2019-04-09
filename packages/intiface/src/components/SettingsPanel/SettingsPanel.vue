@@ -27,6 +27,22 @@
       </v-expansion-panel-content>
       <v-expansion-panel-content class="transparent">
         <template v-slot:header>
+          Server Process Settings
+        </template>
+        <v-card class="transparent">
+          <v-card-text>
+            <v-select
+              :items="logLevels"
+              label="Log Output Level"
+              v-model="config.ServerLogLevel">
+              ></v-select>
+            <v-text-field label="Server Name" placeholder="Intiface Server" v-model="config.ServerName" :disabled="serverRunning"></v-text-field>
+            <v-text-field label="Max Server Ping Time" placeholder="0" v-model="config.ServerMaxPingTime" mask="#" :disabled="serverRunning"></v-text-field>
+          </v-card-text>
+        </v-card>
+      </v-expansion-panel-content>
+      <v-expansion-panel-content class="transparent">
+        <template v-slot:header>
           IPC Settings
         </template>
         <v-card class="transparent">
@@ -51,6 +67,7 @@
                 <v-list-tile-content>
                   <v-text-field
                     label="Insecure Port"
+                    mask="#"
                     v-model="config.WebsocketServerInsecurePort">
                   </v-text-field>
                 </v-list-tile-content>
@@ -60,6 +77,7 @@
 
                   <v-text-field
                     label="Secure Port"
+                    mask="#"
                     v-model="config.WebsocketServerSecurePort">
                   </v-text-field>
                 </v-list-tile-content>
