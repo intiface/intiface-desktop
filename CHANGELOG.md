@@ -1,3 +1,14 @@
+# v8 (2019-04-09)
+
+## Features
+
+- Application updates now have download progress
+
+## Bugfixes
+
+- Hopefully application updates also actually work now.
+- Fixed weird wording on update dialog
+
 # v7 (2019-04-09)
 
 ## Features
