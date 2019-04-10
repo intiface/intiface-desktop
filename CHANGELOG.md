@@ -1,3 +1,19 @@
+# v7 (2019-04-09)
+
+## Features
+
+- Update process arguments for C# CLI 0.4.3.2, including now using
+  stayopen
+- Add status icons to toolbar
+- Add settings for server name, server ping time, log level, websocket
+  ports
+- Add settings form validation
+- Add server ipc/ws settings readouts to server status page
+  
+## Bugfixes
+
+- Actually check for updates on startup when option is chosen
+
 # v6 (2019-04-07)
 
 ## Features
