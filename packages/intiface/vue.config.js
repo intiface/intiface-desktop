@@ -14,8 +14,11 @@ module.exports = {
         appId: "com.nonpolynomiallabs.intiface-desktop",
         copyright: "Copyright © 2019 Nonpolynomial Labs, LLC",
         artifactName: "${name}-${version}-${os}-${arch}.${ext}",
-        publish: [ "github" ]
+        publish: [ "github" ],
       },
+      win: {
+        publisherName: "Nonpolynomial Labs, LLC",
+      }
     },
   },
 };
