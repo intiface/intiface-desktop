@@ -1,3 +1,13 @@
+# v10 (2019-04-10)
+
+## Features
+
+- Add 32/64 bit downloads for windows.
+
+## Bugfixes
+
+- Continue trying to fix signing verficiation on app updates
+
 # v9 (2019-04-09)
 
 ## Bugfixes
