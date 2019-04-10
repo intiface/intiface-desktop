@@ -18,6 +18,7 @@ module.exports = {
       },
       win: {
         publisherName: "Nonpolynomial Labs, LLC",
+        verifyUpdateCodeSignature: false,
       }
     },
   },
