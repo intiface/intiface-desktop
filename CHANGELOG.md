@@ -1,3 +1,9 @@
+# v9 (2019-04-09)
+
+## Bugfixes
+
+- Turn off update signing verification for now, until signing is fixed
+
 # v8 (2019-04-09)
 
 ## Features
