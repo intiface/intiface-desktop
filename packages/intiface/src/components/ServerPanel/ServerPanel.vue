@@ -12,7 +12,7 @@
             <v-checkbox v-model="config.UseIpcServer" :disabled="serverRunning"></v-checkbox>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>IPC</v-list-tile-title>
+            <v-list-tile-title>IPC (on {{config.ipcServerPipeName}})</v-list-tile-title>
             <v-list-tile-sub-title>Listen on local IPC. Used for native applications.</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -21,7 +21,7 @@
             <v-checkbox v-model="config.UseWebsocketServerInsecure" :disabled="serverRunning"></v-checkbox>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Insecure Websockets</v-list-tile-title>
+            <v-list-tile-title>Insecure Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerInsecurePort }})</v-list-tile-title>
             <v-list-tile-sub-title>Listen on Insecure Websockets. Used for remote or web applications, Google Chrome, etc....</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -30,7 +30,7 @@
             <v-checkbox v-model="config.UseWebsocketServerSecure" :disabled="serverRunning || !config.HasCertificates"></v-checkbox>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Secure Websockets</v-list-tile-title>
+            <v-list-tile-title>Secure Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerSecurePort }})</v-list-tile-title>
             <v-list-tile-sub-title>Listen on Secure Websockets. Used for web applications on other machines, Firefox, etc...</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>

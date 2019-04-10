@@ -28,7 +28,7 @@ export default class App extends Vue {
   private mini = true;
   private drawer = true;
   private loaded = false;
-  private errors: string[] = [];
+  private appErrors: string[] = [];
   private logger!: winston.Logger;
 
   /////////////////////////////////////
@@ -69,7 +69,7 @@ export default class App extends Vue {
   }
 
   private onError(aMsg: string) {
-    this.errors.push(aMsg);
+    this.appErrors.push(aMsg);
   }
 
   // Not actually sure what the incoming type of the router value is, and we

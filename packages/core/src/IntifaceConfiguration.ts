@@ -5,7 +5,7 @@ export type EngineType = "js" | "csharp";
 export type ButtplugLogLevel = "Off" | "Error" | "Warn" | "Info" | "Debug" | "Trace";
 
 export class IntifaceConfiguration extends EventEmitter {
-  private serverName: string = "Buttplug Server";
+  private serverName: string = "Intiface Server";
   private serverMaxPingTime: number = 0;
   private ipcServerPipeName: string = "ButtplugPort";
   private useIpcServer: boolean = false;

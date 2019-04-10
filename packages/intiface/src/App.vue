@@ -78,7 +78,7 @@
         :config="connector.Config"></router-view>
       <v-container>
         <v-alert
-          v-for="errorMsg in errors"
+          v-for="errorMsg in appErrors"
           dismissible
           value="true"
           type="error"

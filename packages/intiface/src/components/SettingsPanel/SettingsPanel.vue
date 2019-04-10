@@ -3,7 +3,7 @@
     <v-expansion-panel class="transparent" v-model="panelExpand" expand>
       <v-expansion-panel-content class="transparent" popout>
         <template v-slot:header>
-          Versions and Updates
+          <div>Versions and Updates</div>
         </template>
         <v-card class="transparent">
           <v-card-text>
@@ -27,7 +27,7 @@
       </v-expansion-panel-content>
       <v-expansion-panel-content class="transparent">
         <template v-slot:header>
-          Server Process Settings
+          <div>Server Process Settings</div>
         </template>
         <v-card class="transparent">
           <v-card-text>
@@ -36,24 +36,47 @@
               label="Log Output Level"
               v-model="config.ServerLogLevel">
               ></v-select>
-            <v-text-field label="Server Name" placeholder="Intiface Server" v-model="config.ServerName" :disabled="connector.IsServerProcessRunning"></v-text-field>
-            <v-text-field label="Max Server Ping Time" placeholder="0" v-model="config.ServerMaxPingTime" mask="#" :disabled="connector.IsServerProcessRunning"></v-text-field>
+            <v-text-field
+              data-vv-name="serverNameEntry"
+              label="Server Name"
+              v-validate="'required'"
+              placeholder="Intiface Server"
+              v-model="config.ServerName"
+              clearable
+              :error-messages="errors.collect('serverNameEntry')"
+              :disabled="connector.IsServerProcessRunning"></v-text-field>
+            <v-text-field
+              data-vv-name="serverMaxPingEntry"
+              :error-messages="errors.collect('serverMaxPingEntry')"
+              label="Max Server Ping Time"
+              placeholder="0"
+              v-validate="'required|numeric|min_value:0'"
+              v-model="config.ServerMaxPingTime"
+              :disabled="connector.IsServerProcessRunning"></v-text-field>
           </v-card-text>
         </v-card>
       </v-expansion-panel-content>
       <v-expansion-panel-content class="transparent">
         <template v-slot:header>
-          IPC Settings
+          <div>Server IPC Settings</div>
         </template>
         <v-card class="transparent">
           <v-card-text>
-            <v-text-field label="Pipe Name" placeholder="ButtplugPipe" v-model="config.IpcServerPipeName" clearable :disabled="connector.IsServerProcessRunning"></v-text-field>
+            <v-text-field
+              data-vv-name="serverPipeNameEntry"
+              :error-messages="errors.collect('serverPipeNameEntry')"
+              label="Pipe Name"
+              v-validate="'required'"
+              placeholder="ButtplugPipe"
+              v-model="config.IpcServerPipeName"
+              clearable
+              :disabled="connector.IsServerProcessRunning"></v-text-field>
           </v-card-text>
         </v-card>
       </v-expansion-panel-content>
       <v-expansion-panel-content class="transparent">
         <template v-slot:header>
-          Websocket Settings
+          <div>Server Websocket Settings</div>
         </template>
         <v-card class="transparent">
           <v-card-text>
@@ -66,8 +89,10 @@
               <v-list-tile>
                 <v-list-tile-content>
                   <v-text-field
+                    data-vv-name="websocketInsecurePort"
                     label="Insecure Port"
-                    mask="#"
+                    :error-messages="errors.collect('websocketInsecurePort')"
+                    v-validate="'required|numeric|min_value:1|max_value:65535'"
                     :disabled="connector.IsServerProcessRunning"
                     v-model="config.WebsocketServerInsecurePort">
                   </v-text-field>
@@ -77,8 +102,10 @@
                 <v-list-tile-content>
 
                   <v-text-field
+                    data-vv-name="websocketSecurePort"
+                    :error-messages="errors.collect('websocketSecurePort')"
                     label="Secure Port"
-                    mask="#"
+                    v-validate="'required|numeric|min_value:1|max_value:65535'"
                     :disabled="connector.IsServerProcessRunning"
                     v-model="config.WebsocketServerSecurePort">
                   </v-text-field>
@@ -99,7 +126,7 @@
       </v-expansion-panel-content>
       <v-expansion-panel-content class="transparent" popout>
         <template v-slot:header>
-          Other
+          <div>Other Settings</div>
         </template>
         <v-card class="transparent">
           <v-card-text>
