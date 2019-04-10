@@ -15,11 +15,18 @@ module.exports = {
         copyright: "Copyright © 2019 Nonpolynomial Labs, LLC",
         artifactName: "${name}-${version}-${os}-${arch}.${ext}",
         publish: [ "github" ],
+        win: {
+          publisherName: ["Nonpolynomial Labs, LLC"],
+          verifyUpdateCodeSignature: false,
+          "target": {
+            "target": "nsis",
+            "arch": [
+              "x64",
+              "ia32"
+            ],
+          },
+        },
       },
-      win: {
-        publisherName: "Nonpolynomial Labs, LLC",
-        verifyUpdateCodeSignature: false,
-      }
     },
   },
 };
