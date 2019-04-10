@@ -154,9 +154,14 @@ export class IntifaceBackendManager {
   }
 
   private async UpdateApplication(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-    await this._applicationUpdater.DownloadUpdate();
-    this._applicationUpdater.QuitAndInstall();
-    this._connector.SendOk(aMsg);
+    try {
+      this._applicationUpdater.addListener("progress", this.UpdateDownloadProgress.bind(this));
+      await this._applicationUpdater.DownloadUpdate();
+      this._applicationUpdater.QuitAndInstall();
+      this._connector.SendOk(aMsg);
+    } finally {
+      this._applicationUpdater.removeListener("progress", this.UpdateDownloadProgress.bind(this));
+    }
   }
 
   private async GenerateCert(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {

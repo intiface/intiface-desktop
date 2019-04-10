@@ -1,19 +1,25 @@
-import { IApplicationUpdater } from "intiface-core-library";
+import { IApplicationUpdater, IntifaceBackendLogger } from "intiface-core-library";
 import { autoUpdater } from "electron-updater";
-import * as log from "electron-log";
+import { EventEmitter } from "events";
 
-export class ElectronApplicationUpdater implements IApplicationUpdater {
+export class ElectronApplicationUpdater extends EventEmitter implements IApplicationUpdater {
 
   private _updateAvailable: boolean = false;
 
   public constructor() {
+    super();
     // Once the app is up, bring up the autoupdater
-    log.transports.file.level = "debug";
-    autoUpdater.logger = log;
+    autoUpdater.logger = IntifaceBackendLogger.Logger;
     autoUpdater.autoDownload = false;
     autoUpdater.autoInstallOnAppQuit = true;
     autoUpdater.addListener("update-not-available", () => {
       this._updateAvailable = false;
+    });
+    autoUpdater.addListener("download-progress", (progressObj) => {
+      this.emit("progress", {
+        receivedBytes: progressObj.transferred,
+        totalBytes: progressObj.total,
+      });
     });
   }
 
