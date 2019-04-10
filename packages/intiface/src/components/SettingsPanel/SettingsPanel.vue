@@ -18,7 +18,6 @@
             <p><v-btn :disabled="isCheckingForUpdates" @click="CheckForUpdates()">Check For Updates</v-btn></p>
             <update-dialog
               :connector="connector"
-              dialogVerb="Get Updates"
               :dialogType="dialogType"
               v-show="NeedsUpdate">
             </update-dialog>

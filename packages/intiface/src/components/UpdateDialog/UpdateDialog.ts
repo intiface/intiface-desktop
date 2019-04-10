@@ -9,9 +9,6 @@ export default class UpdateDialog extends Vue {
   private connector!: FrontendConnector;
 
   @Prop()
-  private dialogVerb!: string;
-
-  @Prop()
   private dialogType!: string[];
 
   private dialogName: string = "";

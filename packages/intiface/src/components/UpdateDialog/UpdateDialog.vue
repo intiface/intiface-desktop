@@ -10,7 +10,7 @@
           dark
           v-on="on"
         >
-          {{ dialogVerb }} {{ dialogName }}
+          Get Updates
         </v-btn>
       </template>
 
@@ -20,11 +20,10 @@
           dark
           primary-title
         >
-          Installing {{ dialogName }}
+          Updating {{ dialogName }}
         </v-card-title>
 
         <v-card-text>
-          {{ dialogVerb }} {{ dialogName }}
           <v-progress-linear v-model="installationProgress"></v-progress-linear>
         </v-card-text>
 
