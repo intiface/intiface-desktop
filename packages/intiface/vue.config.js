@@ -16,8 +16,7 @@ module.exports = {
         artifactName: "${name}-${version}-${os}-${arch}.${ext}",
         publish: [ "github" ],
         win: {
-          publisherName: ["Nonpolynomial Labs, LLC"],
-          verifyUpdateCodeSignature: false,
+          "publisherName": ["Nonpolynomial Labs, LLC", "Sectigo RSA Code Signing CA"],
           "target": {
             "target": "nsis",
             "arch": [
