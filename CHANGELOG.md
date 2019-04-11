@@ -1,3 +1,11 @@
+# v11 (2019-04-10)
+
+## Bugfixes
+
+- Updates from v10 now actually seem to work, and now I know more
+  about electron-builder's update system than I ever wanted. I can
+  work on something else now. yay!
+
 # v10 (2019-04-10)
 
 ## Features
@@ -60,7 +68,8 @@
 
 ## Bugfixes
 
-- Server status no longer resets when moving off of server control component.
+- Server status no longer resets when moving off of server control
+  component.
 - Server can now use SSL.
 - Simple mode disabled until it actually works.
 
@@ -68,15 +77,18 @@
 
 ## Bugfixes
 
-- App now actually quits and installs new version after download on app upgrade request.
+- App now actually quits and installs new version after download on
+  app upgrade request.
 
 # v3 (2019-04-03)
 
 ## Features
 
 - Allow checking for updates on startup
-- Implement core message pairing (so frontend will wait for backend on things like updates)
-- Add checks for server executable/certificate existence, adjust GUI accordingly if they are missing
+- Implement core message pairing (so frontend will wait for backend on
+  things like updates)
+- Add checks for server executable/certificate existence, adjust GUI
+  accordingly if they are missing
 - Update icons to Intiface Placeholders
 - Display some errors as alerts
 
