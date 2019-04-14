@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { Component, Prop, Watch } from "vue-property-decorator";
-import { FrontendConnector } from "intiface-core-library";
+import { FrontendConnector, IntifaceFrontendLogger } from "intiface-core-library";
 import { IntifaceProtocols } from "intiface-protocols";
 
 @Component({})
@@ -26,18 +26,25 @@ export default class UpdateDialog extends Vue {
     }
     this.isDownloading = true;
     try {
+      const dialogTypes: Set<string> = new Set(this.dialogType);
       this.connector.addListener("progress", this.UpdateDownloadProgress);
-      if (this.dialogType.includes("engine")) {
+      if (dialogTypes.has("engine")) {
+        dialogTypes.delete("engine");
         this.dialogName = "Engine";
         await this.connector.UpdateEngine();
       }
-      if (this.dialogType.includes("application")) {
+      if (dialogTypes.has("application")) {
+        dialogTypes.delete("application");
         this.dialogName = "Application";
         await this.connector.UpdateApplication();
       }
-      if (this.dialogType.includes("devicefile")) {
+      if (dialogTypes.has("devicefile")) {
+        dialogTypes.delete("devicefile");
         this.dialogName = "Device File";
         await this.connector.UpdateDeviceFile();
+      }
+      if (dialogTypes.size > 0) {
+        IntifaceFrontendLogger.Logger.warn(`Unused dialog types: ${Array.from(dialogTypes.values())}`);
       }
     } finally {
       this.connector.removeListener("progress", this.UpdateDownloadProgress);

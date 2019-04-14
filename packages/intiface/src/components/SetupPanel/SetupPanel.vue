@@ -36,9 +36,12 @@
           <update-dialog
             :connector="connector"
             dialogVerb="Install"
-            :dialogType='["Engine","Device File"]'>
+            :dialogType='["engine","devicefile"]'>
           </update-dialog>
-
+          <v-btn
+            color="primary"
+            @click="setupStep = 3"
+          >Continue</v-btn>
         </v-stepper-content>
 
         <!-- Setup secure cert -->
