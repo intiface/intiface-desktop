@@ -1,3 +1,9 @@
+# v12 (2019-04-14)
+
+## Bugfixes
+
+- Fixed issue with download dialog getting stuck on initial setup
+
 # v11 (2019-04-10)
 
 ## Bugfixes
