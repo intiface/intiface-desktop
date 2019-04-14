@@ -2,7 +2,8 @@
   "private": true,
   "name": "intiface",
   "scripts": {
-    "build:all": "yarn workspace intiface-core-library build && yarn workspace intiface-desktop electron:build"
+    "build:all": "yarn workspace intiface-core-library build && yarn workspace intiface-desktop electron:build",
+    "lerna:version": "lerna version --no-git-tag-version --no-push"
   },
   "workspaces": [
     "packages/*"
