@@ -25,7 +25,7 @@ import { ButtplugLogLevel } from "buttplug";
 // - devicedisconnected
 export class ServerProcess extends EventEmitter {
 
-  private static EXECUTABLE_NAME = "IntifaceCLI" + (os.platform() === "win32" ? ".exe" : "");
+  public static EXECUTABLE_NAME = "IntifaceCLI" + (os.platform() === "win32" ? ".exe" : "");
 
   private _serverProcess: child_process.ChildProcess | null = null;
   private _config: IntifaceConfiguration;

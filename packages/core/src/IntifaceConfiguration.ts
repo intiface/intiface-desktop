@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 import * as os from "os";
 
-export type EngineType = "js" | "csharp";
+export type EngineType = "node" | "csharp";
 export type ButtplugLogLevel = "Off" | "Error" | "Warn" | "Info" | "Debug" | "Trace";
 
 export class IntifaceConfiguration extends EventEmitter {
@@ -18,7 +18,7 @@ export class IntifaceConfiguration extends EventEmitter {
   private websocketServerSecurePort: number = 12346;
   private serverLogLevel: ButtplugLogLevel = "Info";
   private proxyServerPort: number = 12347;
-  private engine: EngineType = os.platform() === "win32" ? "csharp" : "js";
+  private engine: EngineType = os.platform() === "win32" ? "csharp" : "node";
   private usePrereleaseEngine: boolean = false;
   private currentEngineVersion: string = "";
   private currentDeviceFileVersion: number = 0;
@@ -45,6 +45,7 @@ export class IntifaceConfiguration extends EventEmitter {
         continue;
       }
       this[propName] = aConfigObj[propName];
+      // Convert engine type if unknown.
     }
   }
 
