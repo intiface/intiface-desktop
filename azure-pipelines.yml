@@ -75,11 +75,39 @@ jobs:
         inputs:
           targetPath: '$(Build.ArtifactStagingDirectory)'
           artifactName: 'intiface-desktop-mac'
+  - job: Linux
+    pool:
+      vmImage: 'macos-10.13'
+    steps:
+      - template: 'build/setup-variables.yml'
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '11.x'
+        displayName: 'Install Node.js'
+      - bash: |
+          yarn
+        displayName: 'yarn install'
+      - bash: |
+          yarn build:all
+        displayName: 'yarn build'
+      - task: CopyFiles@2
+        displayName: "Copy frozen executables to staging"
+        inputs:
+          sourceFolder: '$(System.DefaultWorkingDirectory)/packages/intiface/dist_electron'
+          contents: |
+            intiface-desktop-*
+          targetFolder: '$(Build.ArtifactStagingDirectory)'
+          flattenFolders: true
+      - task: PublishPipelineArtifact@0
+        displayName: "Publish frozen executables to artifacts"
+        inputs:
+          targetPath: '$(Build.ArtifactStagingDirectory)'
+          artifactName: 'intiface-desktop-linux'
   - job: Deploy
     dependsOn:
       - Windows
       - MacOS
-      # - Linux
+      - Linux
     condition: and(succeeded(), contains(variables['Build.SourceBranch'], 'refs/tags/'))
     pool:
       vmImage: 'vs2017-win2016'
