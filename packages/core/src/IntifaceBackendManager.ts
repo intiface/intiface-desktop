@@ -114,8 +114,8 @@ export class IntifaceBackendManager {
   }
 
   private async CheckForEngineExecutable(): Promise<boolean> {
-    this._process = new ServerProcess(this._configManager.Config);
-    this._configManager.Config.HasUsableEngineExecutable = await this._process.CheckForUsableExecutable();
+    const checkServer = new ServerProcess(this._configManager.Config);
+    this._configManager.Config.HasUsableEngineExecutable = await checkServer.CheckForUsableExecutable();
     this._configManager.Save();
     return this._configManager.Config.HasUsableEngineExecutable;
   }
