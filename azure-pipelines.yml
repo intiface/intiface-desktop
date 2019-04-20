@@ -75,3 +75,26 @@ jobs:
         inputs:
           targetPath: '$(Build.ArtifactStagingDirectory)'
           artifactName: 'intiface-desktop-mac'
+  - job: Deploy
+    dependsOn:
+      - Windows
+      - MacOS
+      # - Linux
+    condition: and(succeeded(), contains(variables['Build.SourceBranch'], 'refs/tags/'))
+    pool:
+      vmImage: 'vs2017-win2016'
+    steps:
+      - task: DownloadPipelineArtifact@1
+        displayName: Download Artifacts from other jobs
+        inputs:
+          buildType: 'current'
+      - task: GitHubRelease@0
+        displayName: Upload release to Github
+        inputs:
+          gitHubConnection: "release"
+          repositoryName: "intiface/intiface-desktop"
+          action: "create"
+          tagSource: "auto"
+          title: 'Intiface Desktop Release $(gitVersion)'
+          assets: "$(System.ArtifactsDirectory)/**/*"
+          isPreRelease: false
