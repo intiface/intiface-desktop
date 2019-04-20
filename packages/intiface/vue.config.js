@@ -16,7 +16,8 @@ module.exports = {
         artifactName: "${name}-${version}-${os}-${arch}.${ext}",
         publish: [ "github" ],
         win: {
-          "rfc3161TimeStampServer": "http://sha256timestamp.ws.symantec.com/sha256/timestamp",
+          "timeStampServer": "http://timestamp.comodoca.com/authenticode",
+          "rfc3161TimeStampServer": "http://timestamp.comodoca.com/rfc3161",
           "publisherName": ["Nonpolynomial Labs, LLC", "Sectigo RSA Code Signing CA"],
           "target": {
             "target": "nsis",
