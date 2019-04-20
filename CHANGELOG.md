@@ -1,3 +1,15 @@
+# v13 (2019-04-20)
+
+## Features
+
+- Brought Node CLI engine and Mac/Linux support back in
+- Added mac application signing on CI
+- Added more logging messages for debugging purposes
+
+## Bugfixes
+
+- Shutdown now actually calls intiface's shutdown in electron
+
 # v12 (2019-04-14)
 
 ## Bugfixes
