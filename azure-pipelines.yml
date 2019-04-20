@@ -77,7 +77,7 @@ jobs:
           artifactName: 'intiface-desktop-mac'
   - job: Linux
     pool:
-      vmImage: 'macos-10.13'
+      vmImage: 'ubuntu-16.04'
     steps:
       - template: 'build/setup-variables.yml'
       - task: NodeTool@0
