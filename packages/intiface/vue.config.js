@@ -26,6 +26,11 @@ module.exports = {
             ],
           },
         },
+        linux: {
+          "target": {
+            "target": ["AppImage", "tar.gz", "deb", "rpm"]
+          }
+        }
       },
     },
   },
