@@ -10,6 +10,8 @@ import { EventEmitter } from "events";
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
 import { CertGenerator } from "./CertGenerator";
 import { ButtplugLogLevel } from "buttplug";
+import { IntifaceBackendLogger } from "./IntifaceBackendLogger";
+import * as winston from "winston";
 
 // Handles execution and lifetime of server processes, as well as translation of
 // the protobuf protocol.
@@ -29,9 +31,11 @@ export class ServerProcess extends EventEmitter {
 
   private _serverProcess: child_process.ChildProcess | null = null;
   private _config: IntifaceConfiguration;
+  private _logger: winston.Logger;
 
   public constructor(aConfig: IntifaceConfiguration) {
     super();
+    this._logger = IntifaceBackendLogger.GetChildLogger(this.constructor.name);
     this._config = aConfig;
     process.addListener("beforeExit", this.StopServer);
   }
@@ -47,10 +51,10 @@ export class ServerProcess extends EventEmitter {
 
   public async RunServer() {
     const args: string[] = await this.BuildServerArguments();
-    console.log(args);
     let hasResolved = false;
     const [p, res, rej] = IntifaceUtils.MakePromise();
     const exeFile = await this.GetServerExecutablePath();
+    this._logger.debug(`Running ${exeFile} with arguments ${args}`);
     // Now we start up our external process.
     this._serverProcess =
       child_process.execFile(exeFile,
@@ -79,12 +83,14 @@ export class ServerProcess extends EventEmitter {
       // If we've successfully parsed a message, then consider the server
       // running.
       if (!hasResolved) {
+        this._logger.debug("Server process sent first message, continuing.");
         res();
         hasResolved = true;
       }
     });
 
     this._serverProcess.on("exit", (code: number, signal: string) => {
+      this._logger.debug("Server process exited.");
       this.emit("exit", code);
       this._serverProcess = null;
     });
@@ -92,11 +98,13 @@ export class ServerProcess extends EventEmitter {
   }
 
   public async StopServer() {
+    this._logger.debug("Stopping currently running server.");
     process.removeListener("beforeExit", this.StopServer);
     const msg = IntifaceProtocols.ServerControlMessage.create({
       stop: IntifaceProtocols.ServerControlMessage.Stop.create(),
     });
     await this.SendMessage(msg);
+    this._logger.debug("Waiting for server to go down.");
   }
 
   protected async BuildServerArguments() {
@@ -151,16 +159,17 @@ export class ServerProcess extends EventEmitter {
   private ParseMessages(aData: Buffer) {
     const reader = protobuf.Reader.create(aData);
     while (reader.pos < reader.len ) {
-      console.log(reader.pos);
       // TODO Sucks that we'll have to parse this twice, once here and once in the
       // frontend. Not sure how to serialize to frontend and not lose typing tho.
       const msg = IntifaceProtocols.ServerProcessMessage.decodeDelimited(reader);
       if (msg.processEnded !== null) {
+        this._logger.debug("Server process ended, notified via process message.");
         // Process will not send messages after this, shut down listener. This is
         // the only type of message the server currently needs to care about.
         this.StopServer();
+      } else if (msg.processLog !== null) {
+        this._logger.info(`Process Log: ${msg.processLog!.message}`);
       }
-      console.log(msg);
       const newMsg = IntifaceProtocols.IntifaceBackendMessage.create({
         serverProcessMessage: msg,
       });

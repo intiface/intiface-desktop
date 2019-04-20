@@ -1,15 +1,17 @@
 import { BrowserWindow } from "electron";
-import { IntifaceBackendManager } from "intiface-core-library";
+import { IntifaceBackendManager, IntifaceBackendLogger } from "intiface-core-library";
 import { ElectronBackendConnector } from "./ElectronBackendConnector";
 import { ElectronApplicationUpdater } from "./ElectronApplicationUpdater";
 
 let _backendManager: IntifaceBackendManager;
 
 export async function SetupElectronIntifaceServer(aWin: BrowserWindow) {
+  IntifaceBackendLogger.GetChildLogger("ElectronIntifaceInitializer").debug("Bringing up Electron Intiface Backend.");
   _backendManager = await IntifaceBackendManager.Create(new ElectronBackendConnector(aWin),
                                                         new ElectronApplicationUpdater());
 }
 
 export async function ShutdownElectronIntifaceServer() {
+  IntifaceBackendLogger.GetChildLogger("ElectronIntifaceInitializer").debug("Window closed, shutting down.");
   await _backendManager.Shutdown();
 }
