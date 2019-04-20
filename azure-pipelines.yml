@@ -6,52 +6,72 @@ trigger:
   tags:
     include:
       - v*
-
-pool:
-  vmImage: "vs2017-win2016"
-
-steps:
-  - template: 'build/setup-variables.yml'
-  - template: 'build/setup-signing-key.yml'
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '11.x'
-    displayName: 'Install Node.js'
-  - bash: |
-      yarn
-    displayName: 'yarn install'
-  - bash: |
-      export CSC_LINK="$(System.DefaultWorkingDirectory)\SigningCert.pfx"
-      export CSC_KEY_PASSWORD="$(NPLabsRepoSigningKey)"
-      yarn build:all
-    displayName: 'yarn build (powershell)'
-    condition: eq(variables['Agent.OS'], 'Windows_NT')
-  - script: |
-      yarn build:all
-    displayName: 'yarn build (shell)'
-    condition: not(eq(variables['Agent.OS'], 'Windows_NT'))
-  - task: CopyFiles@2
-    displayName: "Copy frozen executables to staging"
-    inputs:
-      sourceFolder: '$(System.DefaultWorkingDirectory)/packages/intiface/dist_electron'
-      contents: |
-        intiface-desktop-*
-        latest.yml
-      targetFolder: '$(Build.ArtifactStagingDirectory)'
-      flattenFolders: true
-  - task: PublishPipelineArtifact@0
-    displayName: "Publish frozen executables to artifacts"
-    inputs:
-      targetPath: '$(Build.ArtifactStagingDirectory)'
-      artifactName: 'intiface-desktop'
-  - task: GitHubRelease@0
-    displayName: Upload release to Github
-    condition: and(succeeded(), contains(variables['Build.SourceBranch'], 'refs/tags/'))
-    inputs:
-      gitHubConnection: "release"
-      repositoryName: "intiface/intiface-desktop"
-      action: "create"
-      tagSource: "auto"
-      title: 'Intiface Desktop Release $(gitVersion)'
-      assets: "$(System.ArtifactsDirectory)/**/*"
-      isPreRelease: false
+jobs:
+  - job: Windows
+    pool:
+      vmImage: "vs2017-win2016"
+    steps:
+      - template: 'build/setup-variables.yml'
+      - template: 'build/setup-signing-key.yml'
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '11.x'
+        displayName: 'Install Node.js'
+      - bash: |
+          yarn
+        displayName: 'yarn install'
+      - bash: |
+          export CSC_LINK="$(System.DefaultWorkingDirectory)\SigningCert.pfx"
+          export CSC_KEY_PASSWORD="$(NPLabsRepoSigningKey)"
+          yarn build:all
+        displayName: 'yarn build (powershell)'
+        condition: eq(variables['Agent.OS'], 'Windows_NT')
+      - script: |
+          yarn build:all
+        displayName: 'yarn build (shell)'
+        condition: not(eq(variables['Agent.OS'], 'Windows_NT'))
+      - task: CopyFiles@2
+        displayName: "Copy frozen executables to staging"
+        inputs:
+          sourceFolder: '$(System.DefaultWorkingDirectory)/packages/intiface/dist_electron'
+          contents: |
+            intiface-desktop-*
+            latest.yml
+          targetFolder: '$(Build.ArtifactStagingDirectory)'
+          flattenFolders: true
+      - task: PublishPipelineArtifact@0
+        displayName: "Publish frozen executables to artifacts"
+        inputs:
+          targetPath: '$(Build.ArtifactStagingDirectory)'
+          artifactName: 'intiface-desktop-win'
+  - job: MacOS
+    pool:
+      vmImage: 'macos-10.13'
+    steps:
+      - template: 'build/setup-variables.yml'
+      - template: 'build/setup-mac-signing-key.yml'
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '11.x'
+        displayName: 'Install Node.js'
+      - bash: |
+          yarn
+        displayName: 'yarn install'
+      - bash: |
+          export CSC_LINK="$(System.DefaultWorkingDirectory)/SigningCert.pfx"
+          export CSC_KEY_PASSWORD="$(NPLabsMacSigningKey)"
+          yarn build:all
+        displayName: 'yarn build'
+      - task: CopyFiles@2
+        displayName: "Copy frozen executables to staging"
+        inputs:
+          sourceFolder: '$(System.DefaultWorkingDirectory)/packages/intiface/dist_electron'
+          contents: |
+            intiface-desktop-*
+          targetFolder: '$(Build.ArtifactStagingDirectory)'
+          flattenFolders: true
+      - task: PublishPipelineArtifact@0
+        displayName: "Publish frozen executables to artifacts"
+        inputs:
+          targetPath: '$(Build.ArtifactStagingDirectory)'
+          artifactName: 'intiface-desktop-mac'
