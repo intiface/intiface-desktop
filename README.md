@@ -17,18 +17,47 @@ For those familiar with the development of
 Server program, and is the basis of UI/UX for Buttplug on both desktop
 and mobile.
 
-## Installation
-
-Currently there are no installation steps, as the project is still
-new. This README will be updated once installers are available.
-
 ## Support The Project
 
 If you find this project helpful, you
 can
-[support Metafetish projects via Patreon](http://patreon.com/qdot)!
+[support Nonpolynomial Labs projects via Patreon](http://patreon.com/qdot)!
 Every donation helps us afford more hardware to reverse, document, and
 write code for!
+
+## Installation
+
+Releases are available on the [Intiface Desktop Github Release
+Site](https://github.com/intiface/intiface-desktop/releases).
+
+Installers are available for:
+
+- Windows 7-10 (Executable installer, tested on Windows 10)
+- macOS (.Dmg file, Tested on 10.14)
+- Linux (AppImage file, Tested on Debian 9)
+
+The application will download the up-to-date device file and
+engine for the operating system it is on.
+
+## Linux Issues
+
+To use Bluetooth LE on linux, you will need to run a couple of
+commands after an engine is updated. Instructions here were adapted
+from [https://github.com/noble/noble#running-without-rootsudo](https://github.com/noble/noble#running-without-rootsudo).
+
+Run the following command:
+
+```
+sudo setcap cap_net_raw+eip ~/.config/Intiface/engine/IntifaceCLI
+```
+
+This grants the node binary cap_net_raw privileges, so it can start/stop BLE advertising.
+
+Note: The above command requires setcap to be installed, it can be installed using the following:
+
+- apt: `sudo apt-get install libcap2-bin`
+- yum: `su -c \'yum install libcap2-bin\'`
+
 
 ## License
 
