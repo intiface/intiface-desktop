@@ -9,6 +9,7 @@ import * as winston from "winston";
 export abstract class BackendConnector extends EventEmitter {
 
   private _logger: winston.Logger;
+  private _isExiting: boolean = false;
 
   protected constructor() {
     super();
@@ -16,7 +17,20 @@ export abstract class BackendConnector extends EventEmitter {
     IntifaceBackendLogger.AddConnectorTransport(this);
   }
 
+  public get IsExiting() {
+    return this._isExiting;
+  }
+
+  public set IsExiting(aIsExiting: boolean) {
+    this._isExiting = aIsExiting;
+  }
+
   public SendMessage(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
+    // If we're exiting, it should be assumed that the frontend is gone. Drop
+    // any messages.
+    if (this._isExiting) {
+      return;
+    }
     this.SendMessageInternal(Buffer.from(IntifaceProtocols.IntifaceBackendMessage.encode(aMsg).finish()));
   }
 

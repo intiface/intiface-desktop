@@ -48,6 +48,9 @@ export class IntifaceBackendManager {
   }
 
   public async Shutdown() {
+    if (this._connector) {
+      this._connector.IsExiting = true;
+    }
     if (this._process !== null) {
       await this._process.StopServer();
       this._process = null;
