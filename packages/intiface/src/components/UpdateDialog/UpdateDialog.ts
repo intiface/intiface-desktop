@@ -12,6 +12,7 @@ export default class UpdateDialog extends Vue {
   private dialogType!: string[];
 
   private dialogName: string = "";
+  private dialogVerb: string = "Updating";
 
   private showDialog: boolean = false;
   private installationProgress: number = 0;
@@ -24,6 +25,7 @@ export default class UpdateDialog extends Vue {
     if (!this.showDialog) {
       return;
     }
+    this.dialogVerb = "Updating";
     this.isDownloading = true;
     try {
       const dialogTypes: Set<string> = new Set(this.dialogType);
@@ -49,7 +51,7 @@ export default class UpdateDialog extends Vue {
     } finally {
       this.connector.removeListener("progress", this.UpdateDownloadProgress);
       this.isDownloading = false;
-
+      this.dialogVerb = "Finished Updating";
       // TODO Emit on download success
       this.$emit("finished");
     }

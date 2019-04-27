@@ -20,7 +20,7 @@
           dark
           primary-title
         >
-          Updating {{ dialogName }}
+          {{ dialogVerb }} {{ dialogName }}
         </v-card-title>
 
         <v-card-text>
