@@ -5,6 +5,7 @@ import AboutPanel from "./components/AboutPanel/AboutPanel";
 import SettingsPanel from "./components/SettingsPanel/SettingsPanel";
 import SetupPanel from "./components/SetupPanel/SetupPanel";
 import LogPanel from "./components/LogPanel/LogPanel";
+import HomePanel from "./components/HomePanel/HomePanel";
 
 Vue.use(Router);
 
@@ -14,6 +15,12 @@ export default new Router({
   routes: [
     {
       path: "/",
+      name: "Home",
+      component: HomePanel,
+      props: true,
+    },
+    {
+      path: "/server",
       name: "Server",
       component: ServerPanel,
       props: true,
