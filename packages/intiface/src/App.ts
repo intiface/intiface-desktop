@@ -57,6 +57,11 @@ export default class App extends Vue {
     }
     this.config = this.connector!.Config!;
     this.logger = IntifaceFrontendLogger.GetChildLogger(this.constructor.name);
+    IntifaceFrontendLogger.Instance.on("logged", (transport: any, level: string, msg: string, meta: object) => {
+      if (level === "Error") {
+        this.onError(msg);
+      }
+    });
     this.logger.info("Intiface desktop application frontend mounted");
     this.checkSetup();
   }

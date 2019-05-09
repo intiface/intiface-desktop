@@ -19,6 +19,8 @@ export class IntifaceFrontendLogStorageTransport extends TransportStream {
     while (this._logStore.length > this._storeLimit) {
       this._logStore.shift();
     }
+    // Transports should emit messages
+    this.emit("logged", info);
     callback();
   }
 }
