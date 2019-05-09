@@ -100,14 +100,14 @@ export abstract class FrontendConnector extends EventEmitter {
   }
 
   public async GenerateCertificate() {
-    let msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       generateCertificate: IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate.create(),
     });
     await this.SendMessageExpectOk(msg);
   }
 
   public async RunCertificateAcceptanceServer() {
-    let msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       runCertificateAcceptanceServer: IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer.create(),
     });
     await this.SendMessageExpectOk(msg);
@@ -115,8 +115,7 @@ export abstract class FrontendConnector extends EventEmitter {
 
   protected abstract SendMessageInternal(aRawMsg: Buffer): void;
 
-  protected SendMessageWithoutReturn(aMsg: IntifaceProtocols.IntifaceFrontendMessage)
-  {
+  protected SendMessageWithoutReturn(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
     this.SendMessageInternal(Buffer.from(IntifaceProtocols.IntifaceFrontendMessage.encode(aMsg).finish()));
   }
 
@@ -180,9 +179,6 @@ export abstract class FrontendConnector extends EventEmitter {
       });
     }
 
-  }
-
-  protected UpdateConfiguration() {
   }
 
   protected EmitServerMessage(aMsg: IntifaceProtocols.IntifaceBackendMessage) {
