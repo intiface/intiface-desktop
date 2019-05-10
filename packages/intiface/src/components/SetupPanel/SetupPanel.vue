@@ -46,6 +46,14 @@
 
         <!-- Setup secure cert -->
         <v-stepper-content step="3">
+          <p>Depending on how you plan on using Intiface, you may need to set up a secure certificate. This includes:</p>
+          <ul>
+            <li>Using Firefox for webapps that will access Intiface. (Chrome does not require a cert and can connect via insecure websockets.)</li>
+            <li>Using the Proxy feature of Intiface</li>
+          </ul>
+          <br />
+          <p>If either of these cases applies to you, hit the Run Cert Setup button below and you'll be taken to the Cert Setup website in your browser.</p>
+          <p>If you aren't sure if either of these cases applies to you, you can always run the Cert Server from the Settings panel of Intiface Desktop.</p>
           <v-btn
             color="primary"
             @click="StartCertServer()"

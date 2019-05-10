@@ -72,4 +72,11 @@ export default class SettingsPanel extends Vue {
       this.isCheckingForUpdates = false;
     }
   }
+
+  private async StartCertServer() {
+    if (!this.config.HasCertificates) {
+      await this.connector.GenerateCertificate();
+    }
+    await this.connector.RunCertificateAcceptanceServer();
+  }
 }
