@@ -1,3 +1,19 @@
+# v14 (2019-05-09)
+
+## Features
+
+- Added home panel
+- Added content to about page
+- Downloads now cancellable
+- Downloads now signify when finished
+
+## Bugfixes
+
+- Download dialog no longer dismissable by clicking outside dialog
+- Trying updates while not online actually errors out now
+- Only check for updates once GUI is up
+- Mac/Linux auto-updates should work after this release
+
 # v13 (2019-04-20)
 
 ## Features
