@@ -8,6 +8,7 @@ import { CertGenerator } from "./CertGenerator";
 import { IntifaceUtils } from "./Utils";
 import { IApplicationUpdater } from "./IApplicationUpdater";
 import { IntifaceBackendLogger } from "./IntifaceBackendLogger";
+import isOnline from "is-online";
 import * as winston from "winston";
 
 // The link between whatever our frontend is (Electron, express, etc) and our
@@ -62,6 +63,10 @@ export class IntifaceBackendManager {
     // shipped off the configuration to the frontend.
     await this.CheckForCertificates();
     await this.CheckForEngineExecutable();
+    isOnline().then((aIsOnline: boolean) => {
+      this._logger.debug(`Online check: ${aIsOnline}`);
+      this._configManager.Config.IsOnline = aIsOnline;
+    });
   }
 
   private UpdateDownloadProgress(aProgress: any) {
@@ -120,6 +125,12 @@ export class IntifaceBackendManager {
   }
 
   private async UpdateEngine(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+    if (!this._configManager.Config.IsOnline) {
+      this._logger.debug("Uncertain of online status, not running engine update.");
+      if (aMsg !== null) {
+        this._connector.SendError(aMsg, "Online connection status uncertain, not running engine update.");
+      }
+    }
     const ghManager = new GithubReleaseManager(this._configManager.Config);
     ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
     try {
@@ -138,6 +149,12 @@ export class IntifaceBackendManager {
   }
 
   private async UpdateDeviceFile(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+    if (!this._configManager.Config.IsOnline) {
+      this._logger.debug("Uncertain of online status, not running device file update.");
+      if (aMsg !== null) {
+        this._connector.SendError(aMsg, "Online connection status uncertain, not running device file update.");
+      }
+    }
     const ghManager = new GithubReleaseManager(this._configManager.Config);
     ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
     await ghManager.DownloadLatestDeviceFileVersion();
@@ -150,6 +167,12 @@ export class IntifaceBackendManager {
   }
 
   private async UpdateApplication(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+    if (!this._configManager.Config.IsOnline) {
+      this._logger.debug("Uncertain of online status, not running application update.");
+      if (aMsg !== null) {
+        this._connector.SendError(aMsg, "Online connection status uncertain, not running application update.");
+      }
+    }
     try {
       this._applicationUpdater.addListener("progress", this.UpdateDownloadProgress.bind(this));
       await this._applicationUpdater.DownloadUpdate();
@@ -191,6 +214,12 @@ export class IntifaceBackendManager {
   }
 
   private async CheckForUpdates(aMsg: IntifaceProtocols.IntifaceFrontendMessage | null) {
+    if (!this._configManager.Config.IsOnline) {
+      this._logger.debug("Uncertain of online status, not running update check.");
+      if (aMsg !== null) {
+        this._connector.SendError(aMsg, "Online connection status uncertain, not running update check.");
+      }
+    }
     this._logger.info("Checking for updates.");
     try {
       const hasAppUpdate = await this._applicationUpdater.CheckForUpdate();

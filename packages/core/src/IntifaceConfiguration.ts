@@ -29,6 +29,14 @@ export class IntifaceConfiguration extends EventEmitter {
   private applicationUpdateAvailable: boolean = false;
   private hasUsableEngineExecutable: boolean = false;
   private hasCertificates: boolean = false;
+  // Session variables. This will be saved, but won't be reloaded from the file
+  // on next start. They should really only keep the state of a session, and are
+  // expected to be reset.
+
+  // IsOnline starts out as null, which means we haven't actually checked for a
+  // connection yet. Once we've checked, it'll be true/false. Used for showing
+  // proper errors during updates, etc...
+  private _isOnline: boolean | null = null;
 
   public Load(aConfigObj: object) {
     for (const propName of Object.getOwnPropertyNames(aConfigObj)) {
@@ -40,7 +48,7 @@ export class IntifaceConfiguration extends EventEmitter {
         console.log(`Configuration key ${propName} not recognized, ignoring`);
         continue;
       }
-      // If we've accidentally saved a private variable, just ignore and continue.
+      // If we've saved a session variable, just ignore and continue.
       if (propName.startsWith("_")) {
         continue;
       }
@@ -270,5 +278,13 @@ export class IntifaceConfiguration extends EventEmitter {
 
   public get HasUpdatesAvailable() {
     return this.applicationUpdateAvailable || this.engineUpdateAvailable || this.deviceFileUpdateAvailable;
+  }
+
+  public get IsOnline(): boolean | null {
+    return this._isOnline;
+  }
+
+  public set IsOnline(aIsOnline: boolean | null) {
+    this._isOnline = aIsOnline;
   }
 }
