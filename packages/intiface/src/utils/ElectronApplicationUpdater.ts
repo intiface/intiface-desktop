@@ -1,10 +1,11 @@
 import { IApplicationUpdater, IntifaceBackendLogger } from "intiface-core-library";
-import { autoUpdater } from "electron-updater";
+import { autoUpdater, CancellationToken } from "electron-updater";
 import { EventEmitter } from "events";
 
 export class ElectronApplicationUpdater extends EventEmitter implements IApplicationUpdater {
 
   private _updateAvailable: boolean = false;
+  private _cancellationToken: CancellationToken | null = null;
 
   public constructor() {
     super();
@@ -20,6 +21,9 @@ export class ElectronApplicationUpdater extends EventEmitter implements IApplica
         receivedBytes: progressObj.transferred,
         totalBytes: progressObj.total,
       });
+      if (progressObj.transferred === progressObj.total) {
+        this._cancellationToken = null;
+      }
     });
   }
 
@@ -32,10 +36,17 @@ export class ElectronApplicationUpdater extends EventEmitter implements IApplica
   }
 
   public async DownloadUpdate(): Promise<void> {
-    await autoUpdater.downloadUpdate();
+    this._cancellationToken = new CancellationToken();
+    await autoUpdater.downloadUpdate(this._cancellationToken);
   }
 
   public QuitAndInstall(): void {
     autoUpdater.quitAndInstall();
+  }
+
+  public CancelUpdate(): void {
+    if (this._cancellationToken) {
+      this._cancellationToken.cancel();
+    }
   }
 }

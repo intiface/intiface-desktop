@@ -52,9 +52,24 @@ export default class UpdateDialog extends Vue {
       this.connector.removeListener("progress", this.UpdateDownloadProgress);
       this.isDownloading = false;
       this.dialogVerb = "Finished Updating";
+      this.dialogName = "";
+      this.installationProgress = 0;
       // TODO Emit on download success
       this.$emit("finished");
     }
+  }
+
+  private CloseDialog() {
+    this.installationProgress = 0;
+    this.showDialog = false;
+  }
+
+  private async CancelUpdate() {
+    await this.connector.CancelUpdate();
+    this.connector.removeListener("progress", this.UpdateDownloadProgress);
+    this.isDownloading = false;
+    this.CloseDialog();
+    this.$emit("cancelled");
   }
 
   private UpdateDownloadProgress(aMsg: IntifaceProtocols.IntifaceBackendMessage.DownloadProgress) {

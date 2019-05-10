@@ -34,6 +34,7 @@ export class IntifaceBackendManager {
   private _process: ServerProcess | null = null;
   private _configManager: IntifaceConfigurationManager;
   private _applicationUpdater: IApplicationUpdater;
+  private _ghManagers: Set<GithubReleaseManager> = new Set<GithubReleaseManager>();
 
   protected constructor(aConnector: BackendConnector,
                         aConfig: IntifaceConfigurationFileManager,
@@ -132,20 +133,25 @@ export class IntifaceBackendManager {
       }
     }
     const ghManager = new GithubReleaseManager(this._configManager.Config);
-    ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
+    this._ghManagers.add(ghManager);
     try {
-      await ghManager.DownloadLatestEngineVersion();
-    } catch (e) {
-      this._connector.SendError(aMsg, (e as Error).message);
-      return;
+      ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
+      try {
+        await ghManager.DownloadLatestEngineVersion();
+      } catch (e) {
+        this._connector.SendError(aMsg, (e as Error).message);
+        return;
+      } finally {
+        ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
+      }
+      // Once we're done with a download, make sure to save our config and update
+      // our frontend.
+      await this.CheckForEngineExecutable();
+      this.UpdateFrontendConfiguration();
+      this._connector.SendOk(aMsg);
     } finally {
-      ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
+      this._ghManagers.delete(ghManager);
     }
-    // Once we're done with a download, make sure to save our config and update
-    // our frontend.
-    await this.CheckForEngineExecutable();
-    this.UpdateFrontendConfiguration();
-    this._connector.SendOk(aMsg);
   }
 
   private async UpdateDeviceFile(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
@@ -156,14 +162,19 @@ export class IntifaceBackendManager {
       }
     }
     const ghManager = new GithubReleaseManager(this._configManager.Config);
-    ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
-    await ghManager.DownloadLatestDeviceFileVersion();
-    ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
-    // Once we're done with a download, make sure to save our config and
-    // update our frontend.
-    await this._configManager!.Save();
-    this.UpdateFrontendConfiguration();
-    this._connector.SendOk(aMsg);
+    this._ghManagers.add(ghManager);
+    try {
+      ghManager.addListener("progress", this.UpdateDownloadProgress.bind(this));
+      await ghManager.DownloadLatestDeviceFileVersion();
+      ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
+      // Once we're done with a download, make sure to save our config and
+      // update our frontend.
+      await this._configManager!.Save();
+      this.UpdateFrontendConfiguration();
+      this._connector.SendOk(aMsg);
+    } finally {
+      this._ghManagers.delete(ghManager);
+    }
   }
 
   private async UpdateApplication(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
@@ -230,17 +241,32 @@ export class IntifaceBackendManager {
       this._logger.warn(`Application updater check failed: ${(e as Error).message}.`);
     }
     const ghManager = new GithubReleaseManager(this._configManager.Config);
-    const hasEngineUpdate = await ghManager.CheckForNewEngineVersion();
-    const hasDeviceFileUpdate = await ghManager.CheckForNewDeviceFileVersion();
-    this._configManager.Config.EngineUpdateAvailable = hasEngineUpdate;
-    this._logger.info(`Has engine update: ${hasEngineUpdate}`);
-    this._configManager.Config.DeviceFileUpdateAvailable = hasDeviceFileUpdate;
-    this._logger.info(`Has device file update: ${hasDeviceFileUpdate}`);
-    await this._configManager!.Save();
-    this.UpdateFrontendConfiguration();
-    if (aMsg !== null) {
-      this._connector.SendOk(aMsg);
+    this._ghManagers.add(ghManager);
+    try {
+      const hasEngineUpdate = await ghManager.CheckForNewEngineVersion();
+      const hasDeviceFileUpdate = await ghManager.CheckForNewDeviceFileVersion();
+      this._configManager.Config.EngineUpdateAvailable = hasEngineUpdate;
+      this._logger.info(`Has engine update: ${hasEngineUpdate}`);
+      this._configManager.Config.DeviceFileUpdateAvailable = hasDeviceFileUpdate;
+      this._logger.info(`Has device file update: ${hasDeviceFileUpdate}`);
+      await this._configManager!.Save();
+      this.UpdateFrontendConfiguration();
+      if (aMsg !== null) {
+        this._connector.SendOk(aMsg);
+      }
+    } finally {
+      this._ghManagers.delete(ghManager);
     }
+  }
+
+  private async CancelUpdate(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+    for (const ghm of this._ghManagers) {
+      ghm.CancelDownload();
+    }
+    if (this._applicationUpdater) {
+      this._applicationUpdater.CancelUpdate();
+    }
+    this._connector.SendOk(aMsg);
   }
 
   private async ReceiveFrontendMessage(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
@@ -304,6 +330,11 @@ export class IntifaceBackendManager {
       return;
     }
 
-    this._logger.warn(`Message has no usable payload! ${aMsg}`);
+    if (aMsg.cancelUpdate !== null) {
+      await this.CancelUpdate(aMsg);
+      return;
+    }
+
+    this._logger.warn(`Message not recognized by Backend Manager! ${JSON.stringify(aMsg)}`);
   }
 }

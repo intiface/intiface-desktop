@@ -36,6 +36,7 @@ export class GithubReleaseManager extends EventEmitter {
 
   // This could be either "intiface-node" or "intiface-csharp" but it's hard to
   // restrict the type, since we'll be loading it out of a file.
+  private _request: request.Request | null = null;
   private _engine: EngineType = "csharp";
   private readonly _config: IntifaceConfiguration;
   private _installerProcess: child_process.ChildProcess | null = null;
@@ -148,6 +149,14 @@ export class GithubReleaseManager extends EventEmitter {
     this._logger.debug(`Trying to download engine release ${releaseInfo.data.tag_name} from ${this.EngineRepo}.`);
     await this.DownloadEngineRelease(releaseInfo.data.assets);
     this._config.CurrentEngineVersion = releaseInfo.data.tag_name;
+  }
+
+  public CancelDownload() {
+    // https://github.com/request/request/issues/772
+    if (this._request !== null) {
+      this._logger.info(`Cancelling current download.`);
+      (this._request as any).abort();
+    }
   }
 
   private async CheckForNewEnginePrereleaseVersion(): Promise<boolean> {
@@ -305,8 +314,8 @@ export class GithubReleaseManager extends EventEmitter {
     const outStream = fs.createWriteStream(aOutputName);
     const [p, res, rej] = IntifaceUtils.MakePromise<void>();
 
-    request
-      .get(aUrl)
+    this._request = request.get(aUrl);
+    this._request
       .on("error", (err) => {
         rej(err);
       })
@@ -318,7 +327,7 @@ export class GithubReleaseManager extends EventEmitter {
         if (receivedBytes === totalBytes) {
           res();
         }
-        this._logger.silly(`Amount downloaded: ${receivedBytes} ${totalBytes}`);
+        // this._logger.trace(`Amount downloaded: ${receivedBytes} ${totalBytes}`);
         this.emit("progress", {
           receivedBytes,
           totalBytes,

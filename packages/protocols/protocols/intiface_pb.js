@@ -295,7 +295,8 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
               "generateCertificate",
               "runCertificateAcceptanceServer",
               "stopCertificateAcceptanceServer",
-              "logMessage"
+              "logMessage",
+              "cancelUpdate"
             ]
           }
         },
@@ -367,6 +368,10 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           logMessage: {
             type: "LogMessage",
             id: 17
+          },
+          cancelUpdate: {
+            type: "CancelUpdate",
+            id: 18
           }
         },
         nested: {
@@ -432,6 +437,9 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
                 id: 1
               }
             }
+          },
+          CancelUpdate: {
+            fields: {}
           }
         }
       }

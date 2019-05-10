@@ -2059,6 +2059,9 @@ export namespace IntifaceProtocols {
 
         /** IntifaceFrontendMessage logMessage */
         logMessage?: (IntifaceProtocols.IntifaceFrontendMessage.ILogMessage|null);
+
+        /** IntifaceFrontendMessage cancelUpdate */
+        cancelUpdate?: (IntifaceProtocols.IntifaceFrontendMessage.ICancelUpdate|null);
     }
 
     /** Represents an IntifaceFrontendMessage. */
@@ -2121,8 +2124,11 @@ export namespace IntifaceProtocols {
         /** IntifaceFrontendMessage logMessage. */
         public logMessage?: (IntifaceProtocols.IntifaceFrontendMessage.ILogMessage|null);
 
+        /** IntifaceFrontendMessage cancelUpdate. */
+        public cancelUpdate?: (IntifaceProtocols.IntifaceFrontendMessage.ICancelUpdate|null);
+
         /** IntifaceFrontendMessage msg. */
-        public msg?: ("ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer"|"logMessage");
+        public msg?: ("ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer"|"logMessage"|"cancelUpdate");
 
         /**
          * Creates a new IntifaceFrontendMessage instance using the specified properties.
@@ -3554,6 +3560,90 @@ export namespace IntifaceProtocols {
 
             /**
              * Converts this LogMessage to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a CancelUpdate. */
+        interface ICancelUpdate {
+        }
+
+        /** Represents a CancelUpdate. */
+        class CancelUpdate implements ICancelUpdate {
+
+            /**
+             * Constructs a new CancelUpdate.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceFrontendMessage.ICancelUpdate);
+
+            /**
+             * Creates a new CancelUpdate instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns CancelUpdate instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceFrontendMessage.ICancelUpdate): IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate;
+
+            /**
+             * Encodes the specified CancelUpdate message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate.verify|verify} messages.
+             * @param message CancelUpdate message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceFrontendMessage.ICancelUpdate, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified CancelUpdate message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate.verify|verify} messages.
+             * @param message CancelUpdate message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceFrontendMessage.ICancelUpdate, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a CancelUpdate message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns CancelUpdate
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate;
+
+            /**
+             * Decodes a CancelUpdate message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns CancelUpdate
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate;
+
+            /**
+             * Verifies a CancelUpdate message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a CancelUpdate message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns CancelUpdate
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate;
+
+            /**
+             * Creates a plain object from a CancelUpdate message. Also converts values to other types if specified.
+             * @param message CancelUpdate
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this CancelUpdate to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };

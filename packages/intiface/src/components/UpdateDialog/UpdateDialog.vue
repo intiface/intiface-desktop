@@ -3,6 +3,7 @@
     <v-dialog
       v-model="showDialog"
       width="500"
+      persistent
     >
       <template v-slot:activator="{ on }">
         <v-btn
@@ -34,10 +35,9 @@
           <v-btn
             color="primary"
             flat
-            :disabled="this.isDownloading"
-            @click="showDialog = false"
+            @click="isDownloading ? CancelUpdate() : CloseDialog()"
           >
-            Continue
+            {{ isDownloading ? "Cancel" : "Continue" }}
           </v-btn>
         </v-card-actions>
       </v-card>

@@ -195,6 +195,9 @@ message IntifaceFrontendMessage {
     string info = 1;
   };
 
+  message CancelUpdate {
+  };
+
   oneof msg {
     Ok ok = 2;
     Error error = 3;
@@ -212,5 +215,6 @@ message IntifaceFrontendMessage {
     RunCertificateAcceptanceServer run_certificate_acceptance_server = 15;
     StopCertificateAcceptanceServer stop_certificate_acceptance_server = 16;
     LogMessage log_message = 17;
+    CancelUpdate cancel_update = 18;
   };
 };
