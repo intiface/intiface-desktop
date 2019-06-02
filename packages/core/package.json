@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/qdot/intiface-desktop#readme",
   "dependencies": {
-    "@octokit/rest": "^16.25.0",
-    "buttplug": "^0.11.3",
+    "@octokit/rest": "^16.27.3",
+    "buttplug": "^0.11.6",
     "intiface-protocols": "*",
     "is-online": "^8.2.0",
     "opn": "^6.0.0",
@@ -32,11 +32,11 @@
     "request": "^2.88.0",
     "rimraf": "^2.6.3",
     "selfsigned": "^1.10.4",
-    "semver": "^6.0.0",
-    "unzipper": "^0.9.11",
+    "semver": "^6.1.1",
+    "unzipper": "^0.10.0",
     "winston": "^3.2.1",
     "winston-transport": "^4.3.0",
-    "ws": "^6.2.1"
+    "ws": "^7.0.0"
   },
   "jest": {
     "moduleFileExtensions": [
