@@ -1,3 +1,9 @@
+# v15 (2019-06-02)
+
+## Bugfixes
+
+- Secure websockets no longer always disabled on first run
+
 # v14 (2019-05-09)
 
 ## Features
