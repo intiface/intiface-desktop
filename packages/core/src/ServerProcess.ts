@@ -8,7 +8,7 @@ import { IntifaceProtocols } from "intiface-protocols";
 import { IntifaceUtils } from "./Utils";
 import { EventEmitter } from "events";
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
-import { CertGenerator } from "./CertGenerator";
+import { CertManager } from "./CertManager";
 import { ButtplugLogLevel } from "buttplug";
 import { IntifaceBackendLogger } from "./IntifaceBackendLogger";
 import * as winston from "winston";
@@ -128,7 +128,7 @@ export class ServerProcess extends EventEmitter {
         args.push(`--wsinsecureport`, `${this._config.WebsocketServerInsecurePort}`);
       }
       if (this._config.UseWebsocketServerSecure && this._config.HasCertificates) {
-        const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
+        const cg = new CertManager(IntifaceUtils.UserConfigDirectory);
         if (await cg.HasGeneratedCerts()) {
           args.push(`--wssecureport`, `${this._config.WebsocketServerSecurePort}`);
           args.push(`--wscertfile`, `${cg.CertFilePath}`);

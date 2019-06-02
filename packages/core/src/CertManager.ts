@@ -9,13 +9,13 @@ import { promisify } from "util";
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
 import { IntifaceUtils } from "./Utils";
 
-export class CertGenerator {
+export class CertManager {
 
   public static readonly CERT_FILENAME = "cert.pem";
   public static readonly PRIVKEY_FILENAME = "privkey.pem";
 
   public static async HasCerts(): Promise<boolean> {
-    const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
+    const cg = new CertManager(IntifaceUtils.UserConfigDirectory);
     return await cg.HasGeneratedCerts();
   }
 
@@ -40,8 +40,8 @@ export class CertGenerator {
 
   public constructor(aPath: string) {
     this._certPath = aPath;
-    this.CertFilePath = path.join(aPath, CertGenerator.CERT_FILENAME);
-    this.PrivKeyFilePath = path.join(aPath, CertGenerator.PRIVKEY_FILENAME);
+    this.CertFilePath = path.join(aPath, CertManager.CERT_FILENAME);
+    this.PrivKeyFilePath = path.join(aPath, CertManager.PRIVKEY_FILENAME);
   }
 
   public async HasGeneratedCerts(): Promise<boolean> {

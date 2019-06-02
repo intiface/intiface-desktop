@@ -4,7 +4,7 @@ import { ServerProcess } from "./ServerProcess";
 import { IntifaceConfigurationManager } from "./IntifaceConfigurationManager";
 import { IntifaceConfigurationFileManager } from "./IntifaceConfigurationFileManager";
 import { GithubReleaseManager } from "./GithubReleaseManager";
-import { CertGenerator } from "./CertGenerator";
+import { CertManager } from "./CertManager";
 import { IntifaceUtils } from "./Utils";
 import { IApplicationUpdater } from "./IApplicationUpdater";
 import { IntifaceBackendLogger } from "./IntifaceBackendLogger";
@@ -120,7 +120,7 @@ export class IntifaceBackendManager {
   }
 
   private async CheckForCertificates(): Promise<boolean> {
-    this._configManager.Config.HasCertificates = await CertGenerator.HasCerts();
+    this._configManager.Config.HasCertificates = await CertManager.HasCerts();
     this._configManager.Save();
     return this._configManager.Config.HasCertificates;
   }
@@ -195,7 +195,7 @@ export class IntifaceBackendManager {
   }
 
   private async GenerateCert(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-    const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
+    const cg = new CertManager(IntifaceUtils.UserConfigDirectory);
     if (!(await cg.HasGeneratedCerts())) {
       await cg.GenerateCerts();
       // Use the certificate check to update the new configuration file values
@@ -209,7 +209,7 @@ export class IntifaceBackendManager {
   }
 
   private async RunCertificateAcceptanceServer(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-    const cg = new CertGenerator(IntifaceUtils.UserConfigDirectory);
+    const cg = new CertManager(IntifaceUtils.UserConfigDirectory);
     if (!(await cg.HasGeneratedCerts())) {
       // TODO Should probably error here
       return;
