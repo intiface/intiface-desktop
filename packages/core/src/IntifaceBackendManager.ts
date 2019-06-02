@@ -199,7 +199,7 @@ export class IntifaceBackendManager {
     if (!(await cg.HasGeneratedCerts())) {
       await cg.GenerateCerts();
       // Use the certificate check to update the new configuration file values
-      this.CheckForCertificates();
+      await this.CheckForCertificates();
       this.UpdateFrontendConfiguration();
     }
     this._connector.SendMessage(IntifaceProtocols.IntifaceBackendMessage.create({
