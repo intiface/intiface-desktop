@@ -7,6 +7,7 @@
     >
       <template v-slot:activator="{ on }">
         <v-btn
+          :disabled="connector.IsServerProcessRunning"
           color="purple"
           dark
           v-on="on"

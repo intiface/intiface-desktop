@@ -15,12 +15,17 @@
             <p>(If updater doesn't work, latest release always available from <a href="https://github.com/intiface/intiface-desktop/releases">https://github.com/intiface/intiface-desktop/releases</a>)</p>
             <p><b>Intiface Engine Version:</b> {{ this.EngineVersion }}</p>
             <p><b>Device Config File Version:</b> {{ this.DeviceConfigFileVersion }}</p>
-            <p><v-btn :disabled="isCheckingForUpdates" @click="CheckForUpdates()">Check For Updates</v-btn></p>
-            <update-dialog
-              :connector="connector"
-              :dialogType="dialogType"
-              v-show="NeedsUpdate">
-            </update-dialog>
+            <v-alert type="warning" :value="isCheckingForUpdates || connector.IsServerProcessRunning" outline>
+              <b>Cannot update while server is running or update checks are happening.</b>
+            </v-alert>
+            <div v-if="!(isCheckingForUpdates || connector.IsServerProcessRunning)">
+              <p><v-btn :disabled="isCheckingForUpdates || connector.IsServerProcessRunning" @click="CheckForUpdates()">Check For Updates</v-btn></p>
+              <update-dialog
+                :connector="connector"
+                :dialogType="dialogType"
+                v-show="NeedsUpdate">
+              </update-dialog>
+            </div>
           </v-card-text>
         </v-card>
       </v-expansion-panel-content>
