@@ -2,6 +2,8 @@ import * as os from "os";
 import * as path from "path";
 
 export class IntifaceUtils {
+  public static DEVICE_CONFIG_FILENAME = "buttplug-device-config.json";
+
   public static get UserConfigDirectory(): string {
     const home = os.homedir();
     if (process.platform === "win32") {
@@ -11,6 +13,10 @@ export class IntifaceUtils {
     } else {
       return process.env.XDG_CONFIG_HOME || path.join(home, ".config", "Intiface");
     }
+  }
+
+  public static get DeviceConfigFilePath(): string {
+    return path.join(IntifaceUtils.UserConfigDirectory, IntifaceUtils.DEVICE_CONFIG_FILENAME);
   }
 
   public static MakePromise<T>(): [Promise<T>, () => T, (err: Error) => void] {

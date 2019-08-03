@@ -54,7 +54,7 @@ export class ServerProcess extends EventEmitter {
     let hasResolved = false;
     const [p, res, rej] = IntifaceUtils.MakePromise();
     const exeFile = await this.GetServerExecutablePath();
-    this._logger.debug(`Running ${exeFile} with arguments ${args}`);
+    this._logger.info(`Running ${exeFile} with arguments ${args}`);
     // Now we start up our external process.
     this._serverProcess =
       child_process.execFile(exeFile,
@@ -109,8 +109,8 @@ export class ServerProcess extends EventEmitter {
 
   protected async BuildServerArguments() {
     const args: string[] = new Array<string>();
-    // args.push(`--servername`, `${this._config.ServerName}`);
-    // args.push(`--deviceconfig ${this._config.ServerName}`);
+    args.push(`--servername`, `${this._config.ServerName}`);
+    args.push(`--deviceconfig`, `${IntifaceUtils.DeviceConfigFilePath}`);
     // args.push(`--userdeviceconfig `);
     // First, we set up our incoming pipe to receive GUI info from the CLI
     // process

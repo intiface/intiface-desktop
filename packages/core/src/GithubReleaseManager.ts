@@ -29,7 +29,6 @@ export class GithubReleaseManager extends EventEmitter {
   private static INTIFACE_REPO_OWNER = "intiface";
   private static PRERELEASE_TAG = "420.69.666";
   private static DEVICE_CONFIG_REPO = "buttplug-device-config";
-  private static DEVICE_CONFIG_FILENAME = "buttplug-device-config.json";
 
   private _client: Octokit = new Octokit();
   private _logger: winston.Logger;
@@ -78,7 +77,7 @@ export class GithubReleaseManager extends EventEmitter {
                                                                     repo: GithubReleaseManager.DEVICE_CONFIG_REPO });
     let downloadUrl: string | null = null;
     for (const asset of releaseInfo.data.assets) {
-      if (asset.name === GithubReleaseManager.DEVICE_CONFIG_FILENAME) {
+      if (asset.name === IntifaceUtils.DEVICE_CONFIG_FILENAME) {
         downloadUrl = asset.browser_download_url;
         break;
       }
@@ -86,10 +85,9 @@ export class GithubReleaseManager extends EventEmitter {
     if (downloadUrl === null) {
       throw new Error("Cannot find device configuration asset to download!");
     }
-    const configFile = path.join(IntifaceUtils.UserConfigDirectory, GithubReleaseManager.DEVICE_CONFIG_FILENAME);
     this._logger.debug(`Downloading device file from ${downloadUrl}`);
-    await this.DownloadFile(downloadUrl, configFile);
-    this._logger.debug(`Finished downloading device file.`);
+    await this.DownloadFile(downloadUrl, IntifaceUtils.DeviceConfigFilePath);
+    this._logger.debug(`Stored device file to ${IntifaceUtils.DeviceConfigFilePath}`);
     this._config.CurrentDeviceFileVersion = parseInt(releaseInfo.data.tag_name.substr(1), 10);
   }
 
