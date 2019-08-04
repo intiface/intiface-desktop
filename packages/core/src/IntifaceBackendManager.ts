@@ -147,6 +147,7 @@ export class IntifaceBackendManager {
       // Once we're done with a download, make sure to save our config and update
       // our frontend.
       await this.CheckForEngineExecutable();
+      this._configManager.Config.EngineUpdateAvailable = false;
       this.UpdateFrontendConfiguration();
       this._connector.SendOk(aMsg);
     } finally {
@@ -169,6 +170,7 @@ export class IntifaceBackendManager {
       ghManager.removeListener("progress", this.UpdateDownloadProgress.bind(this));
       // Once we're done with a download, make sure to save our config and
       // update our frontend.
+      this._configManager.Config.DeviceFileUpdateAvailable = false;
       await this._configManager!.Save();
       this.UpdateFrontendConfiguration();
       this._connector.SendOk(aMsg);
@@ -187,6 +189,7 @@ export class IntifaceBackendManager {
     try {
       this._applicationUpdater.addListener("progress", this.UpdateDownloadProgress.bind(this));
       await this._applicationUpdater.DownloadUpdate();
+      this._configManager.Config.ApplicationUpdateAvailable = false;
       this._applicationUpdater.QuitAndInstall();
       this._connector.SendOk(aMsg);
     } finally {
