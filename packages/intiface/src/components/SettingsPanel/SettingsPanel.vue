@@ -35,6 +35,10 @@
         </template>
         <v-card class="transparent">
           <v-card-text>
+            <v-checkbox
+              v-model="config.StartServerOnStartup"
+              label="Start Server when Intiface Desktop Launches"
+            ></v-checkbox>
             <v-select
               :items="logLevels"
               label="Log Output Level"

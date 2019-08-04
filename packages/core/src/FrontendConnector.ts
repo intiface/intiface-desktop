@@ -186,6 +186,14 @@ export abstract class FrontendConnector extends EventEmitter {
       });
     }
 
+    if (this._config.Config.StartServerOnStartup) {
+      // If we want to start the server on startup, do it from the frontend so
+      // we get all of the message chain and updates that we expect.
+      process.nextTick(async () => {
+        await this.StartProcess();
+      });
+    }
+
   }
 
   protected EmitServerMessage(aMsg: IntifaceProtocols.IntifaceBackendMessage) {

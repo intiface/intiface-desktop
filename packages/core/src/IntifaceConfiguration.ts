@@ -29,6 +29,8 @@ export class IntifaceConfiguration extends EventEmitter {
   private applicationUpdateAvailable: boolean = false;
   private hasUsableEngineExecutable: boolean = false;
   private hasCertificates: boolean = false;
+  private startServerOnStartup: boolean = false;
+
   // Session variables. This will be saved, but won't be reloaded from the file
   // on next start. They should really only keep the state of a session, and are
   // expected to be reset.
@@ -276,6 +278,15 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
+  public get StartServerOnStartup(): boolean {
+    return this.startServerOnStartup;
+  }
+
+  public set StartServerOnStartup(aStartServerOnStartup: boolean) {
+    this.startServerOnStartup = aStartServerOnStartup;
+    this.emit("update");
+  }
+
   public get HasUpdatesAvailable() {
     return this.applicationUpdateAvailable || this.engineUpdateAvailable || this.deviceFileUpdateAvailable;
   }
@@ -287,4 +298,5 @@ export class IntifaceConfiguration extends EventEmitter {
   public set IsOnline(aIsOnline: boolean | null) {
     this._isOnline = aIsOnline;
   }
+
 }
