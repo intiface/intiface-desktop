@@ -1,3 +1,17 @@
+# v16 (2019-08-04)
+
+## Features
+
+- Added setting to allow server start on intiface desktop startup
+- Server Name setting now actually does something
+- Device Config files now loaded from file system, allowing for easier
+  updates.
+
+## Bugfixes
+
+- Don't allow updates while server is running
+- "Get Updates" button cleared after successful update
+
 # v15 (2019-06-02)
 
 ## Bugfixes
