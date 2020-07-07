@@ -47,7 +47,7 @@
     "@vue/cli-plugin-unit-jest": "^3.8.0",
     "@vue/cli-service": "^3.8.0",
     "@vue/test-utils": "^1.0.0-beta.29",
-    "electron": "^4.1.4",
+    "electron": "^7.2.4",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "stylus": "^0.54.5",

@@ -22,7 +22,7 @@
     "@vue/test-utils": "^1.0.0-beta.29",
     "codecov": "^3.5.0",
     "copyfiles": "^2.1.0",
-    "electron": "^4.1.4",
+    "electron": "^7.2.4",
     "electron-builder": "^20.41.0",
     "jest": "^24.8.0",
     "lerna": "^3.14.1",
