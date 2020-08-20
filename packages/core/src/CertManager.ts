@@ -3,7 +3,7 @@ import * as selfsigned from "selfsigned";
 import * as path from "path";
 import * as http from "http";
 import * as https from "https";
-import * as opn from "opn";
+// import * as opn from "opn";
 import * as url from "url";
 import { promisify } from "util";
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
@@ -106,7 +106,7 @@ export class CertManager {
       key: certStrs.privkey,
     }, this.HttpsServerResponse.bind(this)).listen(aSecurePort, "127.0.0.1");
     console.log(`Secure Cert Acceptance Server listening on 127.0.0.1:${this._securePort}`);
-    opn(`http://127.0.0.1:${this.InsecurePort}`);
+    // opn(`http://127.0.0.1:${this.InsecurePort}`);
   }
 
   private get HttpPage(): string {

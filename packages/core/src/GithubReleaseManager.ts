@@ -1,10 +1,10 @@
 import * as child_process from "child_process";
-import * as Octokit from "@octokit/rest";
+import { Octokit } from "@octokit/rest";
 import * as os from "os";
 import * as fs from "fs";
 import * as semver from "semver";
 import * as path from "path";
-import * as unzipper from "unzipper";
+// import * as unzipper from "unzipper";
 import * as rimraf from "rimraf";
 import * as request from "request";
 import { promisify } from "util";
@@ -262,6 +262,7 @@ export class GithubReleaseManager extends EventEmitter {
   }
 
   private async UnzipEngine(aEngineFile: string): Promise<void> {
+    /*
     this._logger.debug(`Unzipping engine to config directory.`);
     const exists = promisify(fs.exists);
     const unlink = promisify(fs.unlink);
@@ -291,7 +292,8 @@ export class GithubReleaseManager extends EventEmitter {
     }
     const enginePathFile = path.join(IntifaceUtils.UserConfigDirectory, "enginepath.txt");
     await writeFile(enginePathFile, engineDirectory, { encoding: "utf-8" });
-
+   */
+  return Promise.resolve();
     // TODO Should download some sort of checksum to check against.
     // TODO Should probably emit some sort of installerFinished event?
   }
