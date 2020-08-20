@@ -1,15 +1,15 @@
 import Vue from "vue";
-import Router from "vue-router";
-import ServerPanel from "./components/ServerPanel/ServerPanel";
-import AboutPanel from "./components/AboutPanel/AboutPanel";
-import SettingsPanel from "./components/SettingsPanel/SettingsPanel";
-import SetupPanel from "./components/SetupPanel/SetupPanel";
-import LogPanel from "./components/LogPanel/LogPanel";
-import HomePanel from "./components/HomePanel/HomePanel";
+import VueRouter from "vue-router";
+import ServerPanel from "./components/ServerPanel/ServerPanel.vue";
+import AboutPanel from "./components/AboutPanel/AboutPanel.vue";
+import SettingsPanel from "./components/SettingsPanel/SettingsPanel.vue";
+import SetupPanel from "./components/SetupPanel/SetupPanel.vue";
+import LogPanel from "./components/LogPanel/LogPanel.vue";
+import HomePanel from "./components/HomePanel/HomePanel.vue";
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
-export default new Router({
+export default new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [

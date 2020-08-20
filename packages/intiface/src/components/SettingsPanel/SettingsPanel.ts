@@ -1,7 +1,7 @@
 import Vue from "vue";
 import * as packageInfo from "../../../package.json";
 import router from "../../router";
-import UpdateDialog from "../UpdateDialog/UpdateDialog";
+import UpdateDialog from "../UpdateDialog/UpdateDialog.vue";
 import { IntifaceConfiguration, FrontendConnector } from "intiface-core-library";
 import { Component, Prop } from "vue-property-decorator";
 

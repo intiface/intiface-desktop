@@ -10,6 +10,7 @@ module.exports = {
   },
   pluginOptions: {
     electronBuilder: {
+      nodeIntegration: true,
       builderOptions: {
         appId: "com.nonpolynomiallabs.intiface-desktop",
         copyright: "Copyright © 2019 Nonpolynomial Labs, LLC",

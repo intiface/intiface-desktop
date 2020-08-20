@@ -1,63 +1,47 @@
 {
-  "name": "intiface-desktop",
-  "description": "Desktop Intiface Application",
-  "author": "Nonpolynomial Labs, LLC",
-  "version": "16.0.0",
-  "homepage": "https://github.com/intiface/intiface-desktop",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/intiface/intiface-desktop.git"
-  },
-  "keywords": [
-    "teledildonics",
-    "hardware"
-  ],
-  "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/intiface/intiface-desktop/issues"
-  },
+  "name": "intiface",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "electron:build": "vue-cli-service electron:build -p never",
+    "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps",
-    "tslint": "tslint --project tsconfig.json --outputAbsolutePaths -c ../../tslint.json \"src/**/*.ts\" \"tests/**/*.ts\"",
-    "tslint:fix": "tslint --project tsconfig.json --outputAbsolutePaths -c ../../tslint.json --fix semicolon,comma,no-var-keyword,ordered-imports \"src/**/*.ts\" \"tests/**/*.ts\"",
-    "test:unit": "vue-cli-service test:unit"
+    "postuninstall": "electron-builder install-app-deps"
   },
+  "main": "background.js",
   "dependencies": {
-    "electron-updater": "^4.0.6",
-    "intiface-core-library": "*",
-    "intiface-protocols": "*",
-    "vee-validate": "^2.2.9",
-    "vue": "^2.6.10",
-    "vue-class-component": "^7.1.0",
-    "vue-property-decorator": "^8.1.1",
-    "vue-router": "^3.0.6",
-    "vuetify": "^1.5.14",
-    "vuex": "^3.1.1"
+    "electron-updater": "^4.3.4",
+    "intiface-core-library": "file:../core",
+    "intiface-protocols": "file:../protocols",
+    "vee-validate": "^3.3.9",
+    "vue": "^2.6.11",
+    "vue-class-component": "^7.2.3",
+    "vue-property-decorator": "^8.4.2"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.13",
-    "@vue/cli-plugin-typescript": "^3.8.1",
-    "@vue/cli-plugin-unit-jest": "^3.8.0",
-    "@vue/cli-service": "^3.8.0",
-    "@vue/test-utils": "^1.0.0-beta.29",
-    "electron": "^4.1.4",
-    "less": "^3.9.0",
-    "less-loader": "^5.0.0",
-    "stylus": "^0.54.5",
+    "@types/electron-devtools-installer": "^2.2.0",
+    "@types/node": "^12.0.0",
+    "@types/vue-router": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "electron": "^9.0.0",
+    "electron-devtools-installer": "^3.1.1",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
     "stylus-loader": "^3.0.2",
-    "ts-jest": "^24.0.2",
-    "typescript": "^3.5.1",
-    "vue-cli-plugin-electron-builder": "^1.3.4",
+    "typescript": "~3.9.3",
+    "vue-cli-plugin-electron-builder": "~2.0.0-rc.4",
     "vue-cli-plugin-vuetify": "^0.5.0",
-    "vue-template-compiler": "^2.6.10",
+    "vue-devtools": "^5.1.4",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify": "^1.5.14",
     "vuetify-loader": "^1.2.2"
-  },
-  "main": "background.js"
+  }
 }

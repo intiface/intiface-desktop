@@ -3,7 +3,7 @@ import router from "./router";
 import { IntifaceProtocols } from "intiface-protocols";
 import { Component, Watch, Prop } from "vue-property-decorator";
 import { FrontendConnector, IntifaceFrontendLogger, IntifaceConfiguration } from "intiface-core-library";
-import ToolbarStatusIcon from "./components/ToolbarStatusIcon/ToolbarStatusIcon";
+import ToolbarStatusIcon from "./components/ToolbarStatusIcon/ToolbarStatusIcon.vue";
 import * as winston from "winston";
 
 @Component({

@@ -44,23 +44,25 @@
               label="Log Output Level"
               v-model="config.ServerLogLevel">
               ></v-select>
+            <ValidationProvider v-slot="{ errors }" rules="required">
             <v-text-field
               data-vv-name="serverNameEntry"
               label="Server Name"
-              v-validate="'required'"
               placeholder="Intiface Server"
               v-model="config.ServerName"
               clearable
-              :error-messages="errors.collect('serverNameEntry')"
+              :error-messages="errors[0]"
               :disabled="connector.IsServerProcessRunning"></v-text-field>
+            </ValidationProvider>
+            <ValidationProvider v-slot="{ errors }" rules="required|numeric|min_value:0">
             <v-text-field
               data-vv-name="serverMaxPingEntry"
-              :error-messages="errors.collect('serverMaxPingEntry')"
+              :error-messages="errors[0]"
               label="Max Server Ping Time"
               placeholder="0"
-              v-validate="'required|numeric|min_value:0'"
               v-model="config.ServerMaxPingTime"
               :disabled="connector.IsServerProcessRunning"></v-text-field>
+            </ValidationProvider>
           </v-card-text>
         </v-card>
       </v-expansion-panel-content>
@@ -70,15 +72,16 @@
         </template>
         <v-card class="transparent">
           <v-card-text>
+            <ValidationProvider v-slot="{ errors }" rules="required">
             <v-text-field
               data-vv-name="serverPipeNameEntry"
-              :error-messages="errors.collect('serverPipeNameEntry')"
+              :error-messages="errors[0]"
               label="Pipe Name"
-              v-validate="'required'"
               placeholder="ButtplugPipe"
               v-model="config.IpcServerPipeName"
               clearable
               :disabled="connector.IsServerProcessRunning"></v-text-field>
+            </ValidationProvider>
           </v-card-text>
         </v-card>
       </v-expansion-panel-content>
@@ -96,27 +99,28 @@
             >
               <v-list-tile>
                 <v-list-tile-content>
+                  <ValidationProvider v-slot="{ errors }" rules="required|numeric|min_value:1|max_value:65535">
                   <v-text-field
                     data-vv-name="websocketInsecurePort"
                     label="Insecure Port"
-                    :error-messages="errors.collect('websocketInsecurePort')"
-                    v-validate="'required|numeric|min_value:1|max_value:65535'"
+                    :error-messages="errors[0]"
                     :disabled="connector.IsServerProcessRunning"
                     v-model="config.WebsocketServerInsecurePort">
                   </v-text-field>
+                  </ValidationProvider>
                 </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>
-
+                  <ValidationProvider v-slot="{ errors }" rules="required|numeric|min_value:1|max_value:65535">
                   <v-text-field
                     data-vv-name="websocketSecurePort"
-                    :error-messages="errors.collect('websocketSecurePort')"
+                    :error-messages="errors[0]"
                     label="Secure Port"
-                    v-validate="'required|numeric|min_value:1|max_value:65535'"
                     :disabled="connector.IsServerProcessRunning"
                     v-model="config.WebsocketServerSecurePort">
                   </v-text-field>
+                  </ValidationProvider>
                 </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
