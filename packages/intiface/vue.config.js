@@ -8,6 +8,9 @@ module.exports = {
       return definitions;
     });
   },
+  transpileDependencies: [
+    "vuetify"
+  ],
   pluginOptions: {
     electronBuilder: {
       nodeIntegration: true,

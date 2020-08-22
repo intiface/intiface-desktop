@@ -7,36 +7,36 @@
         two-line
         class="transparent"
       >
-        <v-list-tile>
-          <v-list-tile-action>
+        <v-list-item>
+          <v-list-item-action>
             <v-checkbox v-model="config.UseIpcServer" :disabled="serverRunning"></v-checkbox>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>IPC (on {{config.ipcServerPipeName}})</v-list-tile-title>
-            <v-list-tile-sub-title>Listen on local IPC. Used for native applications.</v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>IPC (on {{config.ipcServerPipeName}})</v-list-item-title>
+            <v-list-item-subtitle>Listen on local IPC. Used for native applications.</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-action>
             <v-checkbox v-model="config.UseWebsocketServerInsecure" :disabled="serverRunning"></v-checkbox>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Insecure Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerInsecurePort }})</v-list-tile-title>
-            <v-list-tile-sub-title>Listen on Insecure Websockets. Used for remote or web applications, Google Chrome, etc....</v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Insecure Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerInsecurePort }})</v-list-item-title>
+            <v-list-item-subtitle>Listen on Insecure Websockets. Used for remote or web applications, Google Chrome, etc....</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-action>
             <v-checkbox v-model="config.UseWebsocketServerSecure" :disabled="serverRunning || !config.HasCertificates"></v-checkbox>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Secure Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerSecurePort }})</v-list-tile-title>
-            <v-list-tile-sub-title>Listen on Secure Websockets. Used for web applications on other machines, Firefox, etc...</v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Secure Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerSecurePort }})</v-list-item-title>
+            <v-list-item-subtitle>Listen on Secure Websockets. Used for web applications on other machines, Firefox, etc...</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
       <v-flex shrink>
-        <v-btn outline class="my-3" :disabled="!config.UseIpcServer && !config.UseWebsocketServerInsecure && !config.UseWebsocketServerSecure" @click="ToggleServer()">{{ serverRunning ? serverStates[1] : serverStates[0] }}</v-btn>
+        <v-btn outlined class="my-3" :disabled="!config.UseIpcServer && !config.UseWebsocketServerInsecure && !config.UseWebsocketServerSecure" @click="ToggleServer()">{{ serverRunning ? serverStates[1] : serverStates[0] }}</v-btn>
       </v-flex>
       <p class="mx-2"><b>Status:</b> {{ connector.ClientName !== null ? `Connected to ${connector.ClientName}` : "Disconnected" }}</p>
     </v-layout>

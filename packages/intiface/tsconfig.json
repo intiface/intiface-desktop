@@ -14,7 +14,8 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "jest"
+      "jest",
+      "vuetify"
     ],
     "paths": {
       "@/*": [
@@ -27,7 +28,11 @@
       "dom.iterable",
       "scripthost"
     ],
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/vuetify/types"
+    ]
   },
   "include": [
     "src/**/*.ts",
