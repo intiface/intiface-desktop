@@ -35,7 +35,6 @@
           <v-spacer></v-spacer>
           <v-btn
             color="primary"
-            flat
             @click="isDownloading ? CancelUpdate() : CloseDialog()"
           >
             {{ isDownloading ? "Cancel" : "Continue" }}

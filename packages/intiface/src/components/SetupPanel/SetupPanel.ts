@@ -1,9 +1,8 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
-import UpdateDialog from "../UpdateDialog/UpdateDialog";
+import UpdateDialog from "../UpdateDialog/UpdateDialog.vue";
 import router from "../../router";
 import { FrontendConnector, IntifaceConfiguration, IntifaceUtils } from "intiface-core-library";
-import { IntifaceProtocols } from "intiface-protocols";
 
 @Component({
   components: {
@@ -11,7 +10,7 @@ import { IntifaceProtocols } from "intiface-protocols";
   },
 })
 export default class SetupPanel extends Vue {
-  private setupStep: number = 0;
+  private setupStep: number = 1;
   @Prop()
   private connector!: FrontendConnector;
   @Prop()

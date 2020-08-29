@@ -36,7 +36,7 @@
     <v-app-bar app>
       <v-row align="center">
         <v-col cols="auto">{{ currentItem.title }}</v-col>
-        <v-col cols="auto" class="ml-auto">
+        <v-col cols="auto" class="ml-auto" v-if="showNavBar">
           <v-row>
             <v-col>
             <toolbar-status-icon
