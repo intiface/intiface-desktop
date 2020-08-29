@@ -5,7 +5,7 @@
   "main": "./protocols/intiface_pb.js",
   "types": "./protocols/intiface_pb.d.ts",
   "scripts": {
-    "build": "pbjs -t json-module -w commonjs -o protocols/intiface_pb.js intiface.proto && pbjs -t static-module intiface.proto | pbts -o protocols/intiface_pb.d.ts -"
+    "build": "pbjs -t static-module -w commonjs -o protocols/intiface_pb.js intiface.proto && pbjs -t static-module intiface.proto | pbts -o protocols/intiface_pb.d.ts -"
   },
   "license": "BSD-3-Clause",
   "dependencies": {
