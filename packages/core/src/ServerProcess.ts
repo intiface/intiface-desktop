@@ -58,22 +58,22 @@ export class ServerProcess extends EventEmitter {
     // Now we start up our external process.
     this._serverProcess =
       child_process.execFile(exeFile,
-                             args,
-                             {
-                               encoding: "binary",
-                               maxBuffer: 1024768,
-                               cwd: path.dirname(exeFile),
-                             },
-                             (error: Error, stdout: string | Buffer, stderr: string | Buffer) => {
-                               if (error) {
-                                 rej(error);
-                                 this._serverProcess = null;
-                                 return;
-                               } else if (!hasResolved) {
-                                 res();
-                                 hasResolved = true;
-                               }
-                             });
+        args,
+        {
+          encoding: "binary",
+          maxBuffer: 1024768,
+          cwd: path.dirname(exeFile),
+        },
+        (error: Error, stdout: string | Buffer, stderr: string | Buffer) => {
+          if (error) {
+            rej(error);
+            this._serverProcess = null;
+            return;
+          } else if (!hasResolved) {
+            res();
+            hasResolved = true;
+          }
+        });
     this._serverProcess.stdout!.addListener("data", (d: string) => {
       // We'll always get strings from stdin, but we know they've been encoded
       // binary on the other end, so we should just be able to change them to
@@ -110,7 +110,10 @@ export class ServerProcess extends EventEmitter {
   protected async BuildServerArguments() {
     const args: string[] = new Array<string>();
     args.push(`--servername`, `${this._config.ServerName}`);
-    args.push(`--deviceconfig`, `${IntifaceUtils.DeviceConfigFilePath}`);
+    // Let rust use its internal device config.
+    if (this._config.Engine != "rs") {
+      args.push(`--deviceconfig`, `${IntifaceUtils.DeviceConfigFilePath}`);
+    }
     // args.push(`--userdeviceconfig `);
     // First, we set up our incoming pipe to receive GUI info from the CLI
     // process
@@ -151,30 +154,40 @@ export class ServerProcess extends EventEmitter {
       // TODO Should error here.
       return;
     }
+    try {
+      const buf = IntifaceProtocols.ServerControlMessage.encodeDelimited(aMsg).finish();
+      this._serverProcess.stdin.write(buf);
+    } catch (e) {
+      this._logger.error("GOT ERROR TRYING TO ENCODE MESSAGE");
+      this._logger.error(e);
+    }
 
-    const buf = IntifaceProtocols.ServerControlMessage.encodeDelimited(aMsg).finish();
-    this._serverProcess.stdin.write(buf);
   }
 
   private ParseMessages(aData: Buffer) {
-    const reader = protobuf.Reader.create(aData);
-    while (reader.pos < reader.len ) {
-      // TODO Sucks that we'll have to parse this twice, once here and once in the
-      // frontend. Not sure how to serialize to frontend and not lose typing tho.
-      const msg = IntifaceProtocols.ServerProcessMessage.decodeDelimited(reader);
-      if (msg.processEnded !== null) {
-        this._logger.debug("Server process ended, notified via process message.");
-        // Process will not send messages after this, shut down listener. This is
-        // the only type of message the server currently needs to care about.
-        this.StopServer();
-      } else if (msg.processLog !== null) {
-        this._logger.info(`Process Log: ${msg.processLog!.message}`);
-      }
-      const newMsg = IntifaceProtocols.IntifaceBackendMessage.create({
-        serverProcessMessage: msg,
-      });
-      this.emit("process_message", newMsg);
+    //const reader = protobuf.Reader.create(aData);
+    //while (reader.pos < reader.len ) {
+    // TODO Sucks that we'll have to parse this twice, once here and once in the
+    // frontend. Not sure how to serialize to frontend and not lose typing tho.
+    const msg = IntifaceProtocols.ServerProcessMessage.decodeDelimited(aData);
+
+    if (msg.processEnded !== null) {
+      this._logger.debug("Server process ended, notified via process message.");
+      // Process will not send messages after this, shut down listener. This is
+      // the only type of message the server currently needs to care about.
+      this.StopServer();
+    } else if (msg.deviceConnected !== null) {
+      this._logger.info(`Device Connected: ${msg.deviceConnected!.deviceName}`);
+    } else if (msg.deviceDisconnected !== null) {
+      this._logger.info(`Device Disconnected: ${msg.deviceDisconnected!.deviceId}`);
+    } else if (msg.processLog !== null) {
+      this._logger.info(`Process Log: ${msg.processLog!.message}`);
     }
+    const newMsg = IntifaceProtocols.IntifaceBackendMessage.create({
+      serverProcessMessage: msg,
+    });
+    this.emit("process_message", newMsg);
+    //}
   }
 
   private async GetServerExecutablePath(): Promise<string> {

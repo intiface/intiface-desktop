@@ -23,6 +23,8 @@ export abstract class FrontendConnector extends EventEmitter {
   // frontend components.
   private _isServerProcessRunning: boolean = false;
   private _clientName: string | null = null;
+  private _devices: Map<number, string> = new Map<number, string>();
+  private _devices_change_tracker = 1;
 
   public get Config(): IntifaceConfiguration | null {
     if (this._config === null) {
@@ -42,6 +44,11 @@ export abstract class FrontendConnector extends EventEmitter {
 
   public get ClientName(): string | null {
     return this._clientName;
+  }
+
+  public get Devices(): any {
+    // Haaaaaaack via https://github.com/vuejs/vue/issues/2410#issuecomment-318487855
+    return this._devices_change_tracker && this._devices!;
   }
 
   public get IsServerProcessRunning(): boolean {
@@ -265,6 +272,18 @@ export abstract class FrontendConnector extends EventEmitter {
 
     if (aMsg.clientDisconnected) {
       this._clientName = null;
+    }
+
+    if (aMsg.deviceConnected) {
+      console.log("Got Device Connected");
+      this._devices.set(aMsg.deviceConnected!.deviceId!, aMsg.deviceConnected!.deviceName!);
+      this._devices_change_tracker += 1;
+    }
+
+    if (aMsg.deviceDisconnected) {
+      console.log("Got Device disconnected");
+      this._devices.delete(aMsg.deviceDisconnected!.deviceId!);
+      this._devices_change_tracker += 1;
     }
   }
 }
