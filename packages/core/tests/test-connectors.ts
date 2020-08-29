@@ -2,7 +2,7 @@ import { BackendConnector, FrontendConnector } from "../src";
 import { EventEmitter } from "events";
 import { IntifaceProtocols } from "intiface-protocols";
 
-describe("Connector tests", async () => {
+describe("Connector tests", () => {
 
   // Simulates whatever our frontend/backend connector is (ipcMain/ipcRender for
   // electron, websocket server for express, etc...)

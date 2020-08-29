@@ -4,7 +4,7 @@ import * as os from "os";
 import * as crypto from "crypto";
 import * as path from "path";
 
-describe("Configuration tests", async () => {
+describe("Configuration tests", () => {
 
   let _tempConfigFilePath: string;
 

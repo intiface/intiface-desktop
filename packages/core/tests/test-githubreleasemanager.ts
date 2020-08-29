@@ -1,6 +1,6 @@
 import { IntifaceConfiguration, GithubReleaseManager } from "../src";
 
-describe("Configuration tests", async () => {
+describe("Configuration tests", () => {
 
   let config: IntifaceConfiguration;
   let mgr: GithubReleaseManager;
