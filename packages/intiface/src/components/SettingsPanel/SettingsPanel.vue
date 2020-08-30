@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-expansion-panels class="transparent" v-model="panelExpand" multiple>
+    <v-expansion-panels class="transparent" v-model="panelOpen" multiple>
       <v-expansion-panel>
         <v-expansion-panel-header>Versions and Updates</v-expansion-panel-header>
         <v-expansion-panel-content class="transparent" popout>
@@ -20,14 +20,23 @@
                   href="https://github.com/intiface/intiface-desktop/releases"
                 >https://github.com/intiface/intiface-desktop/releases</a>)
               </p>
-              <p>
-                <b>Intiface Engine Version:</b>
-                {{ this.EngineVersion }}
+              <p v-if="IsRunningWindows">
+                <b>Intiface Engine:</b>
+                <v-select :items="engineChoices" v-model="config.Engine" dense></v-select>
               </p>
-              <p>
-                <b>Device Config File Version:</b>
-                {{ this.DeviceConfigFileVersion }}
-              </p>
+              <div v-if="config.HasUsableEngineExecutable && config.Engine === config.InstalledEngineType">
+                <p>
+                  <b>Intiface Engine Version:</b>
+                  {{ this.EngineVersion }}
+                </p>
+                <p>
+                  <b>Device Config File Version:</b>
+                  {{ this.DeviceConfigFileVersion }}
+                </p>
+              </div>
+              <div v-else>
+                <b>New engine executable required. Hit "Force Engine Update" button to fix.</b><br/>
+              </div>
               <v-alert
                 type="warning"
                 :value="isCheckingForUpdates || connector.IsServerProcessRunning"
@@ -36,13 +45,24 @@
                 <b>Cannot update while server is running or update checks are happening.</b>
               </v-alert>
               <div v-if="!(isCheckingForUpdates || connector.IsServerProcessRunning)">
-                <p>
+                <span>
                   <v-btn
                     :disabled="isCheckingForUpdates || connector.IsServerProcessRunning"
                     @click="CheckForUpdates()"
                   >Check For Updates</v-btn>
-                </p>
-                <update-dialog :connector="connector" :dialogType="dialogType" v-show="NeedsUpdate"></update-dialog>
+                </span>
+                <span>
+                  <v-btn
+                    :disabled="isCheckingForUpdates || connector.IsServerProcessRunning"
+                    @click="ForceUpdate()"
+                  >Force Engine Update</v-btn>
+                </span>
+                <update-dialog
+                  :connector="connector"
+                  :dialogType="dialogType"
+                  v-show="NeedsUpdate && config.Engine === config.InstalledEngineType"
+                  ref="updateDialog"
+                ></update-dialog>
               </div>
             </v-card-text>
           </v-card>

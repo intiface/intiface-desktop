@@ -1,8 +1,8 @@
 import * as child_process from "child_process";
 import * as path from "path";
-import * as protobuf from "protobufjs";
 import * as fs from "fs";
 import * as os from "os";
+import { Reader } from "protobufjs";
 import { promisify } from "util";
 import { IntifaceProtocols } from "intiface-protocols";
 import { IntifaceUtils } from "./Utils";
@@ -165,12 +165,11 @@ export class ServerProcess extends EventEmitter {
   }
 
   private ParseMessages(aData: Buffer) {
-    //const reader = protobuf.Reader.create(aData);
+    //const reader = Reader.create(aData);
     //while (reader.pos < reader.len ) {
     // TODO Sucks that we'll have to parse this twice, once here and once in the
     // frontend. Not sure how to serialize to frontend and not lose typing tho.
     const msg = IntifaceProtocols.ServerProcessMessage.decodeDelimited(aData);
-
     if (msg.processEnded !== null) {
       this._logger.debug("Server process ended, notified via process message.");
       // Process will not send messages after this, shut down listener. This is
@@ -191,19 +190,23 @@ export class ServerProcess extends EventEmitter {
   }
 
   private async GetServerExecutablePath(): Promise<string> {
+    if (this._config.Engine !== this._config.InstalledEngineType) {
+      return Promise.reject(new Error("Wrong engine type installed. Please run 'Force Engine Download' on Settings > Versions and Updates"));
+    }
+
     const exists = promisify(fs.exists);
     const readFile = promisify(fs.readFile);
     const exePathFile = path.join(IntifaceUtils.UserConfigDirectory, "enginepath.txt");
     if (!(await exists(exePathFile))) {
-      throw new Error(`Cannot find engine path file at ${exePathFile}.`);
+      return Promise.reject(new Error(`Cannot find engine path file at ${exePathFile}.`));
     }
     const exePath = (await readFile(exePathFile, { encoding: "utf8" })).trim();
     if (!(await exists(exePath))) {
-      throw new Error(`Server executable install location ${exePath} does not exist.`);
+      return Promise.reject(new Error(`Server executable install location ${exePath} does not exist.`));
     }
     const exeFile = path.join(exePath, ServerProcess.EXECUTABLE_NAME);
     if (!(await exists(exeFile))) {
-      throw new Error(`Server executable file ${exeFile} does not exist.`);
+      return Promise.reject(new Error(`Server executable file ${exeFile} does not exist.`));
     }
     return exeFile;
   }

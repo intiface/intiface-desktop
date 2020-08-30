@@ -249,6 +249,7 @@ export class GithubReleaseManager extends EventEmitter {
           res();
         });
         await p;
+        this._config.InstalledEngineType = this._config.Engine;
         return;
       } catch {
         // Only wait and continue if we haven't run yet.
@@ -292,7 +293,7 @@ export class GithubReleaseManager extends EventEmitter {
     }
     const enginePathFile = path.join(IntifaceUtils.UserConfigDirectory, "enginepath.txt");
     await writeFile(enginePathFile, engineDirectory, { encoding: "utf-8" });
-
+    this._config.InstalledEngineType = this._config.Engine;
     // TODO Should download some sort of checksum to check against.
     // TODO Should probably emit some sort of installerFinished event?
   }

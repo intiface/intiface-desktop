@@ -20,6 +20,8 @@ export default class SettingsPanel extends Vue {
   private dialogType: string[] = [];
   private logLevels: string[] = ["Off", "Error", "Warn", "Info", "Debug", "Trace"];
   private panelExpand: boolean[] = [];
+  private panelOpen: number[] = [0, 1, 2, 3, 4];
+  private engineChoices: string[] = ["rs", "csharp"];
 
   private mounted() {
     this.UpdateRequirements();
@@ -39,6 +41,22 @@ export default class SettingsPanel extends Vue {
     if (this.config.DeviceFileUpdateAvailable) {
       this.dialogType.push("devicefile");
     }
+  }
+
+  private get IsRunningWindows() {
+    let platform = window.navigator.platform,
+        windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
+
+    if (windowsPlatforms.indexOf(platform) !== -1) {
+      return true;
+    }
+    return false;
+  }
+
+  private ForceUpdate() {
+    this.dialogType.push("engine");
+    this.dialogType.push("devicefile");
+    (this.$refs.updateDialog as any).OpenDialog();
   }
 
   private RunSetup() {

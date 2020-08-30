@@ -35,8 +35,11 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <v-flex shrink>
+      <v-flex v-if="config.HasUsableEngineExecutable && config.Engine === config.InstalledEngineType" shrink>
         <v-btn outlined class="my-3" :disabled="!config.UseIpcServer && !config.UseWebsocketServerInsecure && !config.UseWebsocketServerSecure" @click="ToggleServer()">{{ serverRunning ? serverStates[1] : serverStates[0] }}</v-btn>
+      </v-flex>
+      <v-flex v-else>
+        <b>New engine executable required.</b> <router-link to="settings"> Go to Settings Panel > Versions and Updates to update.</router-link>
       </v-flex>
       <p class="mx-2"><b>Status:</b> {{ connector.ClientName !== null ? `Connected to ${connector.ClientName}` : "Disconnected" }}</p>
       <v-flex v-if="connector.Devices.size > 0">

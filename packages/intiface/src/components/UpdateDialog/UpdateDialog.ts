@@ -59,6 +59,10 @@ export default class UpdateDialog extends Vue {
     }
   }
 
+  public OpenDialog() {
+    this.showDialog = true;
+  }
+
   private CloseDialog() {
     this.installationProgress = 0;
     this.showDialog = false;
