@@ -11,6 +11,8 @@ import { FrontendConnector, IntifaceConfiguration, IntifaceUtils } from "intifac
 })
 export default class SetupPanel extends Vue {
   private setupStep: number = 1;
+  private updateFinished: boolean = false;
+  private usingFirefox: boolean = false;
   @Prop()
   private connector!: FrontendConnector;
   @Prop()

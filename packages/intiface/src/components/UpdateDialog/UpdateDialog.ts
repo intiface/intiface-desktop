@@ -11,6 +11,9 @@ export default class UpdateDialog extends Vue {
   @Prop()
   private dialogType!: string[];
 
+  @Prop({ default: "Get Udpates"})
+  private buttonText!: string;
+
   private dialogName: string = "";
   private dialogVerb: string = "Updating";
 
@@ -48,6 +51,7 @@ export default class UpdateDialog extends Vue {
       if (dialogTypes.size > 0) {
         IntifaceFrontendLogger.Logger.warn(`Unused dialog types: ${Array.from(dialogTypes.values())}`);
       }
+      this.$emit("success");
     } finally {
       this.connector.removeListener("progress", this.UpdateDownloadProgress);
       this.isDownloading = false;

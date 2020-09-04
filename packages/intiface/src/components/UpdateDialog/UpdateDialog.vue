@@ -12,7 +12,7 @@
           dark
           v-on="on"
         >
-          Get Updates
+          {{ buttonText }}
         </v-btn>
       </template>
 
