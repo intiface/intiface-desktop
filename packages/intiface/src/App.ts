@@ -21,6 +21,7 @@ export default class App extends Vue {
     // { title: "Devices", icon: "device_hub", path: "devices" },
     { title: "Settings", icon: "settings", path: "settings" },
     { title: "Log", icon: "receipt", path: "log" },
+    { title: "Help", icon: "help_center", path: "help" },
     { title: "About", icon: "info", path: "about" },
   ];
   private config!: IntifaceConfiguration;

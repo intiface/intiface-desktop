@@ -6,6 +6,7 @@ import SettingsPanel from "./components/SettingsPanel/SettingsPanel.vue";
 import SetupPanel from "./components/SetupPanel/SetupPanel.vue";
 import LogPanel from "./components/LogPanel/LogPanel.vue";
 import HomePanel from "./components/HomePanel/HomePanel.vue";
+import HelpPanel from "./components/HelpPanel/HelpPanel.vue";
 
 Vue.use(VueRouter);
 
@@ -34,6 +35,11 @@ export default new VueRouter({
       path: "/log",
       name: "Log",
       component: LogPanel,
+    },
+    {
+      path: "/help",
+      name: "help",
+      component: HelpPanel,
     },
     {
       path: "/about",
