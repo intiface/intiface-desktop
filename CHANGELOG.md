@@ -1,3 +1,20 @@
+# v17 (2020-09-07)
+
+## Features
+
+- Make buttplug-rs the default engine for all platforms, allowing windows to
+  fall back to C# if needed.
+- Update to newest electron, vuetify, and other dependencies
+- Add connected device listing on server panel
+- Add help panel
+- Lots of build fixes and simplifications
+
+## Bugfixes
+
+- System tries to be smarter in cases where engine is missing or requires
+  upgrade.
+- Setup flow hopefully sucks less.
+
 # v16 (2019-08-04)
 
 ## Features
