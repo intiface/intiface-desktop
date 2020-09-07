@@ -263,6 +263,8 @@ export abstract class FrontendConnector extends EventEmitter {
 
     if (aMsg.processEnded) {
       this._isServerProcessRunning = false;
+      this._devices.clear();
+      this._devices_change_tracker += 1;
       return;
     }
 

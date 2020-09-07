@@ -42,7 +42,7 @@
         <b>New engine executable required.</b> <router-link to="settings"> Go to Settings Panel > Versions and Updates to update.</router-link>
       </v-flex>
       <p class="mx-2"><b>Status:</b> {{ connector.ClientName !== null ? `Connected to ${connector.ClientName}` : "Disconnected" }}</p>
-      <v-flex v-if="connector.Devices.size > 0">
+      <v-flex v-if="connector.Devices.size > 0 && serverRunning">
         <b>Devices:</b>
         <ul>
           <li v-for="[id, name] of connector.Devices.entries()" :key="id">{{ name }}</li>
