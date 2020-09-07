@@ -11,7 +11,7 @@ export default class UpdateDialog extends Vue {
   @Prop()
   private dialogType!: string[];
 
-  @Prop({ default: "Get Udpates"})
+  @Prop({ default: "Get Updates"})
   private buttonText!: string;
 
   private dialogName: string = "";
