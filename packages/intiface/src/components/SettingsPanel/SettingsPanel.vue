@@ -44,26 +44,27 @@
               >
                 <b>Cannot update while server is running or update checks are happening.</b>
               </v-alert>
-              <div v-if="!(isCheckingForUpdates || connector.IsServerProcessRunning)">
-                <span>
+              <v-row v-if="!(isCheckingForUpdates || connector.IsServerProcessRunning)">
+                <v-col v-if="NeedsUpdate && config.Engine === config.InstalledEngineType">
+                  <update-dialog
+                    :connector="connector"
+                    :dialogType="dialogType"
+                    ref="updateDialog"
+                    ></update-dialog>
+                </v-col>
+                <v-col>
                   <v-btn
                     :disabled="isCheckingForUpdates || connector.IsServerProcessRunning"
                     @click="CheckForUpdates()"
                   >Check For Updates</v-btn>
-                </span>
-                <span>
+                </v-col>
+                <v-col>
                   <v-btn
                     :disabled="isCheckingForUpdates || connector.IsServerProcessRunning"
                     @click="ForceUpdate()"
                   >Force Engine Update</v-btn>
-                </span>
-                <update-dialog
-                  :connector="connector"
-                  :dialogType="dialogType"
-                  v-show="NeedsUpdate && config.Engine === config.InstalledEngineType"
-                  ref="updateDialog"
-                ></update-dialog>
-              </div>
+                </v-col>
+              </v-row>
             </v-card-text>
           </v-card>
         </v-expansion-panel-content>
