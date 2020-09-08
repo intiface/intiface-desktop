@@ -28,7 +28,9 @@ function createWindow() {
       nodeIntegration: (process.env
         .ELECTRON_NODE_INTEGRATION as unknown) as boolean
     }
-  })
+  });
+
+  win.setMenuBarVisibility(false);
 
   SetupElectronIntifaceServer(win).then(async () => {
     if (win === null) {
@@ -47,7 +49,7 @@ function createWindow() {
 
   win.on('closed', () => {
     win = null
-  })
+  });
 }
 
 // Quit when all windows are closed.
