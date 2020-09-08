@@ -27,6 +27,7 @@ jobs:
           cd ../intiface
           export CSC_LINK="$(System.DefaultWorkingDirectory)\SigningCert.pfx"
           export CSC_KEY_PASSWORD="$(NPLabsRepoSigningKey)"
+          export GH_TOKEN = "$(GH_TOKEN)"
           yarn
           yarn electron:build
         displayName: 'yarn build (powershell)'
@@ -65,6 +66,7 @@ jobs:
           cd ../intiface
           export CSC_LINK="$(System.DefaultWorkingDirectory)\SigningCert.pfx"
           export CSC_KEY_PASSWORD="$(NPLabsRepoSigningKey)"
+          export GH_TOKEN = "$(GH_TOKEN)"
           yarn
           yarn electron:build
         displayName: 'yarn build'
@@ -101,6 +103,7 @@ jobs:
           cd ../intiface
           export CSC_LINK="$(System.DefaultWorkingDirectory)\SigningCert.pfx"
           export CSC_KEY_PASSWORD="$(NPLabsRepoSigningKey)"
+          export GH_TOKEN = "$(GH_TOKEN)"
           yarn
           yarn electron:build
         displayName: 'yarn build'
