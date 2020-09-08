@@ -45,7 +45,7 @@
                 <b>Cannot update while server is running or update checks are happening.</b>
               </v-alert>
               <v-row v-if="!(isCheckingForUpdates || connector.IsServerProcessRunning)">
-                <v-col v-if="NeedsUpdate && config.Engine === config.InstalledEngineType">
+                <v-col v-show="NeedsUpdate && config.Engine === config.InstalledEngineType">
                   <update-dialog
                     :connector="connector"
                     :dialogType="dialogType"
