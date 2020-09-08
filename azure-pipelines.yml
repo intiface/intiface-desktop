@@ -37,7 +37,7 @@ jobs:
         inputs:
           sourceFolder: '$(System.DefaultWorkingDirectory)/packages/intiface/dist_electron'
           contents: |
-            intiface-desktop-*
+            intiface-desktop*
             latest*.yml
           targetFolder: '$(Build.ArtifactStagingDirectory)'
           flattenFolders: true
@@ -65,8 +65,6 @@ jobs:
           yarn build
           cd ../intiface
           export GH_TOKEN="$(GH_TOKEN)"
-          export CSC_LINK="$(System.DefaultWorkingDirectory)\SigningCert.pfx"
-          export CSC_KEY_PASSWORD="$(NPLabsRepoSigningKey)"
           yarn
           yarn electron:build
         displayName: 'yarn build'
@@ -75,7 +73,7 @@ jobs:
         inputs:
           sourceFolder: '$(System.DefaultWorkingDirectory)/packages/intiface/dist_electron'
           contents: |
-            intiface-desktop-*
+            intiface-desktop*
             latest*.yml
           targetFolder: '$(Build.ArtifactStagingDirectory)'
           flattenFolders: true
@@ -112,7 +110,7 @@ jobs:
         inputs:
           sourceFolder: '$(System.DefaultWorkingDirectory)/packages/intiface/dist_electron'
           contents: |
-            intiface-desktop-*
+            intiface-desktop*
             latest*.yml
           targetFolder: '$(Build.ArtifactStagingDirectory)'
           flattenFolders: true
