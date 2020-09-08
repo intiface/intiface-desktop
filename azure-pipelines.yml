@@ -25,6 +25,7 @@ jobs:
           yarn
           yarn build
           cd ../intiface
+          export GH_TOKEN="$(GH_TOKEN)"
           export CSC_LINK="$(System.DefaultWorkingDirectory)\SigningCert.pfx"
           export CSC_KEY_PASSWORD="$(NPLabsRepoSigningKey)"
           yarn
@@ -63,6 +64,7 @@ jobs:
           yarn
           yarn build
           cd ../intiface
+          export GH_TOKEN="$(GH_TOKEN)"
           export CSC_LINK="$(System.DefaultWorkingDirectory)\SigningCert.pfx"
           export CSC_KEY_PASSWORD="$(NPLabsRepoSigningKey)"
           yarn
@@ -99,6 +101,7 @@ jobs:
           yarn
           yarn build
           cd ../intiface
+          export GH_TOKEN="$(GH_TOKEN)"
           export CSC_LINK="$(System.DefaultWorkingDirectory)\SigningCert.pfx"
           export CSC_KEY_PASSWORD="$(NPLabsRepoSigningKey)"
           yarn
