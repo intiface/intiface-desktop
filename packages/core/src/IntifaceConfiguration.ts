@@ -55,8 +55,9 @@ export class IntifaceConfiguration extends EventEmitter {
       if (propName.startsWith("_")) {
         continue;
       }
-      // Convert engine type if unknown.
-      if (propName == "engine" && aConfigObj[propName] == "node") {
+      // Slam engine type to rust on first boot of new Intiface Desktop
+      if (propName == "engine" && 
+          (aConfigObj[propName] == "node" || !aConfigObj.hasOwnProperty("installedEngineType") || aConfigObj["installedEngineType"] === null)) {
         aConfigObj[propName] = "rs";
       }
 

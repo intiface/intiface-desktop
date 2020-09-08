@@ -2,7 +2,7 @@ import Vue from "vue";
 import * as packageInfo from "../../../package.json";
 import router from "../../router";
 import UpdateDialog from "../UpdateDialog/UpdateDialog.vue";
-import { IntifaceConfiguration, FrontendConnector } from "intiface-core-library";
+import { IntifaceConfiguration, FrontendConnector, EngineType } from "intiface-core-library";
 import { Component, Prop } from "vue-property-decorator";
 
 @Component({
@@ -21,7 +21,7 @@ export default class SettingsPanel extends Vue {
   private logLevels: string[] = ["Off", "Error", "Warn", "Info", "Debug", "Trace"];
   private panelExpand: boolean[] = [];
   private panelOpen: number[] = [0, 1, 2, 3, 4];
-  private engineChoices: string[] = ["rs", "csharp"];
+  private engineChoices: EngineType[] = ["rs", "csharp"];
 
   private mounted() {
     this.UpdateRequirements();
@@ -43,7 +43,7 @@ export default class SettingsPanel extends Vue {
     }
   }
 
-  private get IsRunningWindows() {
+  private get IsRunningWindows(): boolean {
     let platform = window.navigator.platform,
         windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
 
