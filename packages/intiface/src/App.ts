@@ -14,7 +14,7 @@ import * as winston from "winston";
 export default class App extends Vue {
   private connector: FrontendConnector | null = null;
   private menuList = [
-    { title: "Home", icon: "home", path: "/"},
+    { title: "Home", icon: "home", path: "home"},
     { title: "Server Status", icon: "cloud_circle", path: "server" },
     // TODO Actually implement these panels
     // { title: "Proxy", icon: "settings_cell", path: "proxy" },

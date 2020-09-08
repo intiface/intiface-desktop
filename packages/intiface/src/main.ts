@@ -13,7 +13,7 @@ new Vue({
   
   mounted() {
     // Prevent blank screen in Electron builds
-    //this.$router.push("/");
+    this.$router.push("/home");
   },
   
 }).$mount("#app");

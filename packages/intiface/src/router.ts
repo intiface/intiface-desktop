@@ -15,7 +15,7 @@ export default new VueRouter({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
+      path: "/home",
       name: "Home",
       component: HomePanel,
       props: true,
