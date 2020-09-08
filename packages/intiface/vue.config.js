@@ -16,9 +16,8 @@ module.exports = {
       nodeIntegration: true,
       builderOptions: {
         appId: "com.nonpolynomiallabs.intiface-desktop",
-        copyright: "Copyright © 2019 Nonpolynomial Labs, LLC",
+        copyright: "Copyright © 2020 Nonpolynomial Labs, LLC",
         artifactName: "${name}-${version}-${os}-${arch}.${ext}",
-        publish: [ "github" ],
         win: {
           "timeStampServer": "http://timestamp.comodoca.com/authenticode",
           "rfc3161TimeStampServer": "http://timestamp.comodoca.com/rfc3161",
