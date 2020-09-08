@@ -20,7 +20,7 @@ export default class SetupPanel extends Vue {
 
   private GoToIntiface() {
     this.config.HasRunSetup = true;
-    router.push("/");
+    router.push("home");
   }
 
   private async StartCertServer() {
