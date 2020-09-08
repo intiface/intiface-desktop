@@ -16,8 +16,4 @@ steps:
         $protectedCertificateBytes = $certCollection.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Pkcs12, $password)
         $pfxPath = "$(System.DefaultWorkingDirectory)\SigningCert.pfx"
         [System.IO.File]::WriteAllBytes($pfxPath, $protectedCertificateBytes)
-  - script: |
-      setx CSC_LINK ".\SigningCert.pfx"
-      setx CSC_KEY_PASSWORD "$(NPLabsRepoSigningKey)"
-    displayName: 'Set signing variables'
   
