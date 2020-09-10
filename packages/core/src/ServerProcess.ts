@@ -119,10 +119,6 @@ export class ServerProcess extends EventEmitter {
     // process
     args.push(`--frontendpipe`);
     args.push(`--stayopen`);
-    if (this._config.UseIpcServer) {
-      args.push("--ipcserver");
-      args.push(`--ipcpipe`, `${this._config.IpcServerPipeName}`);
-    }
     if (this._config.UseWebsocketServerInsecure || this._config.UseWebsocketServerSecure) {
       if (this._config.WebsocketServerAllInterfaces) {
         args.push(`--wsallinterfaces`);

@@ -7,8 +7,6 @@ export type ButtplugLogLevel = "Off" | "Error" | "Warn" | "Info" | "Debug" | "Tr
 export class IntifaceConfiguration extends EventEmitter {
   private serverName: string = "Intiface Server";
   private serverMaxPingTime: number = 0;
-  private ipcServerPipeName: string = "ButtplugPort";
-  private useIpcServer: boolean = false;
   private useWebsocketServerInsecure: boolean = true;
   private useWebsocketServerSecure: boolean = false;
   private useProxyServer: boolean = false;
@@ -83,24 +81,6 @@ export class IntifaceConfiguration extends EventEmitter {
       throw new Error("Ping must be >= 0.");
     }
     this.serverMaxPingTime = aPing;
-    this.emit("update");
-  }
-
-  public get IpcServerPipeName(): string {
-    return this.ipcServerPipeName;
-  }
-
-  public set IpcServerPipeName(aName: string) {
-    this.ipcServerPipeName = aName;
-    this.emit("update");
-  }
-
-  public get UseIpcServer(): boolean {
-    return this.useIpcServer;
-  }
-
-  public set UseIpcServer(aShouldListen: boolean) {
-    this.useIpcServer = aShouldListen;
     this.emit("update");
   }
 

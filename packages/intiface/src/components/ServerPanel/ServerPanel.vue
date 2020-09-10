@@ -9,15 +9,6 @@
       >
         <v-list-item>
           <v-list-item-action>
-            <v-checkbox v-model="config.UseIpcServer" :disabled="serverRunning"></v-checkbox>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>IPC (on {{config.ipcServerPipeName}})</v-list-item-title>
-            <v-list-item-subtitle>Listen on local IPC. Used for native applications.</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-action>
             <v-checkbox v-model="config.UseWebsocketServerInsecure" :disabled="serverRunning"></v-checkbox>
           </v-list-item-action>
           <v-list-item-content>

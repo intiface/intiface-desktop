@@ -109,26 +109,6 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
       <v-expansion-panel>
-        <v-expansion-panel-header>Server IPC Settings</v-expansion-panel-header>
-        <v-expansion-panel-content class="transparent">
-          <v-card class="transparent">
-            <v-card-text>
-              <ValidationProvider v-slot="{ errors }" rules="required">
-                <v-text-field
-                  data-vv-name="serverPipeNameEntry"
-                  :error-messages="errors[0]"
-                  label="Pipe Name"
-                  placeholder="ButtplugPipe"
-                  v-model="config.IpcServerPipeName"
-                  clearable
-                  :disabled="connector.IsServerProcessRunning"
-                ></v-text-field>
-              </ValidationProvider>
-            </v-card-text>
-          </v-card>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-      <v-expansion-panel>
         <v-expansion-panel-header>Server Websocket Settings</v-expansion-panel-header>
         <v-expansion-panel-content class="transparent">
           <v-card class="transparent">
