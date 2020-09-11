@@ -3,7 +3,6 @@ import * as selfsigned from "selfsigned";
 import * as path from "path";
 import * as http from "http";
 import * as https from "https";
-// import * as opn from "opn";
 import * as url from "url";
 import { promisify } from "util";
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
@@ -53,7 +52,7 @@ export class CertManager {
     if (await this.HasGeneratedCerts()) {
       throw new Error("Please remove cert.pem and private.pem files before generating new keys.");
     }
-    const pems = selfsigned.generate(undefined, { days: 9999 });
+    const pems = selfsigned.generate(null, { keySize: 2048, days: 9999, algorithm: 'sha256' });
 
     const writeFile = promisify(fs.writeFile);
     await writeFile(this.CertFilePath, pems.cert);
@@ -106,7 +105,6 @@ export class CertManager {
       key: certStrs.privkey,
     }, this.HttpsServerResponse.bind(this)).listen(aSecurePort, "127.0.0.1");
     console.log(`Secure Cert Acceptance Server listening on 127.0.0.1:${this._securePort}`);
-    // opn(`http://127.0.0.1:${this.InsecurePort}`);
   }
 
   private get HttpPage(): string {

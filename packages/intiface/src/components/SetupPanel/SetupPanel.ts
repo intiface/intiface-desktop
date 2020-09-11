@@ -24,7 +24,13 @@ export default class SetupPanel extends Vue {
   }
 
   private async StartCertServer() {
-    await this.connector.GenerateCertificate();
-    await this.connector.RunCertificateAcceptanceServer();
+    if (!this.config.HasCertificates) {
+      await this.connector.GenerateCertificate();
+    }
+    let maybe_port = await this.connector.RunCertificateAcceptanceServer();
+    if (maybe_port.certificateAcceptanceServerRunning) {
+      let port = maybe_port.certificateAcceptanceServerRunning!.insecurePort!;
+      window.open(`http://127.0.0.1:${port}`, "_blank");
+    }  
   }
 }

@@ -173,7 +173,7 @@
           </v-card>
           <v-card class="transparent">
             <v-card-text>
-              <v-btn color="primary" @click="RunSetup()">Run Certificate Setup</v-btn>
+              <v-btn color="primary" @click="StartCertServer()">Run Certificate Setup</v-btn>
             </v-card-text>
           </v-card>
         </v-expansion-panel-content>

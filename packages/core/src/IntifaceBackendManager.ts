@@ -232,6 +232,7 @@ export class IntifaceBackendManager {
         insecurePort: cg.InsecurePort,
       }),
     });
+    msg.index = aMsg.index;
     this._connector.SendMessage(msg);
   }
 
