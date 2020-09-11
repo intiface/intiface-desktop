@@ -3,15 +3,16 @@ import * as path from "path";
 
 export class IntifaceUtils {
   public static DEVICE_CONFIG_FILENAME = "buttplug-device-config.json";
+  public static INTIFACE_CONFIG_DIRECTORY_NAME = "IntifaceDesktop";
 
   public static get UserConfigDirectory(): string {
     const home = os.homedir();
     if (process.platform === "win32") {
-      return path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), "Intiface");
+      return path.join(process.env.LOCALAPPDATA || path.join(home, "AppData", "Local"), IntifaceUtils.INTIFACE_CONFIG_DIRECTORY_NAME);
     } else if (process.platform === "darwin") {
-      return path.join(home, "Library", "Application Support", "Intiface");
+      return path.join(home, "Library", "Application Support", IntifaceUtils.INTIFACE_CONFIG_DIRECTORY_NAME);
     } else {
-      return process.env.XDG_CONFIG_HOME || path.join(home, ".config", "Intiface");
+      return process.env.XDG_CONFIG_HOME || path.join(home, ".config", IntifaceUtils.INTIFACE_CONFIG_DIRECTORY_NAME);
     }
   }
 
