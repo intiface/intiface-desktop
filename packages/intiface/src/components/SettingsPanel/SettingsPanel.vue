@@ -24,7 +24,9 @@
                 <b>Intiface Engine:</b>
                 <v-select :items="engineChoices" v-model="config.Engine" dense></v-select>
               </p>
-              <div v-if="config.HasUsableEngineExecutable && config.Engine === config.InstalledEngineType">
+              <div
+                v-if="config.HasUsableEngineExecutable && config.Engine === config.InstalledEngineType"
+              >
                 <p>
                   <b>Intiface Engine Version:</b>
                   {{ this.EngineVersion }}
@@ -35,7 +37,8 @@
                 </p>
               </div>
               <div v-else>
-                <b>New engine executable required. Hit "Force Engine Update" button to fix.</b><br/>
+                <b>New engine executable required. Hit "Force Engine Update" button to fix.</b>
+                <br />
               </div>
               <v-alert
                 type="warning"
@@ -46,11 +49,7 @@
               </v-alert>
               <v-row v-if="!(isCheckingForUpdates || connector.IsServerProcessRunning)">
                 <v-col v-show="NeedsUpdate && config.Engine === config.InstalledEngineType">
-                  <update-dialog
-                    :connector="connector"
-                    :dialogType="dialogType"
-                    ref="updateDialog"
-                    ></update-dialog>
+                  <update-dialog :connector="connector" :dialogType="dialogType" ref="updateDialog"></update-dialog>
                 </v-col>
                 <v-col>
                   <v-btn
@@ -166,16 +165,40 @@
       <v-expansion-panel>
         <v-expansion-panel-header>Other Settings</v-expansion-panel-header>
         <v-expansion-panel-content class="transparent" popout>
-          <v-card class="transparent">
-            <v-card-text>
-              <v-btn color="primary" @click="RunSetup()">Run Initial Setup</v-btn>
-            </v-card-text>
-          </v-card>
-          <v-card class="transparent">
-            <v-card-text>
-              <v-btn color="primary" @click="StartCertServer()">Run Certificate Setup</v-btn>
-            </v-card-text>
-          </v-card>
+          <div>
+            <v-card class="transparent">
+              <v-card-text>
+                <v-btn color="primary" @click="RunSetup()">Run Initial Setup</v-btn>
+              </v-card-text>
+            </v-card>
+          </div>
+          <div>
+            <v-card class="transparent">
+              <v-card-text>
+                <v-btn color="primary" @click="StartCertServer()">Run Certificate Setup</v-btn>
+              </v-card-text>
+            </v-card>
+          </div>
+          <div>
+            <v-card class="transparent">
+              <v-card-text>
+                <v-dialog v-model="factoryResetDialog" persistent max-width="290">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn color="primary" dark v-bind="attrs" v-on="on">Reset Intiface Configuration</v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-title class="headline">Reset Intiface?</v-card-title>
+                    <v-card-text>This will delete all configuration and keys, returning Intiface Desktop to its original install state. If reset is continued, app will close itself. Start app again to start first time setup flow.</v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn text @click="factoryResetDialog = false">Cancel</v-btn>
+                      <v-btn text @click="ResetIntiface()">Continue Reset</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-card-text>
+            </v-card>
+          </div>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>

@@ -4780,6 +4780,7 @@ $root.IntifaceProtocols = (function() {
          * @property {IntifaceProtocols.IntifaceFrontendMessage.IStopCertificateAcceptanceServer|null} [stopCertificateAcceptanceServer] IntifaceFrontendMessage stopCertificateAcceptanceServer
          * @property {IntifaceProtocols.IntifaceFrontendMessage.ILogMessage|null} [logMessage] IntifaceFrontendMessage logMessage
          * @property {IntifaceProtocols.IntifaceFrontendMessage.ICancelUpdate|null} [cancelUpdate] IntifaceFrontendMessage cancelUpdate
+         * @property {IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration|null} [resetIntifaceConfiguration] IntifaceFrontendMessage resetIntifaceConfiguration
          */
 
         /**
@@ -4941,17 +4942,25 @@ $root.IntifaceProtocols = (function() {
          */
         IntifaceFrontendMessage.prototype.cancelUpdate = null;
 
+        /**
+         * IntifaceFrontendMessage resetIntifaceConfiguration.
+         * @member {IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration|null|undefined} resetIntifaceConfiguration
+         * @memberof IntifaceProtocols.IntifaceFrontendMessage
+         * @instance
+         */
+        IntifaceFrontendMessage.prototype.resetIntifaceConfiguration = null;
+
         // OneOf field names bound to virtual getters and setters
         var $oneOfFields;
 
         /**
          * IntifaceFrontendMessage msg.
-         * @member {"ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer"|"logMessage"|"cancelUpdate"|undefined} msg
+         * @member {"ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer"|"logMessage"|"cancelUpdate"|"resetIntifaceConfiguration"|undefined} msg
          * @memberof IntifaceProtocols.IntifaceFrontendMessage
          * @instance
          */
         Object.defineProperty(IntifaceFrontendMessage.prototype, "msg", {
-            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "ready", "startProcess", "stopProcess", "startProxy", "stopProxy", "updateConfig", "checkForUpdates", "updateEngine", "updateDeviceFile", "updateApplication", "generateCertificate", "runCertificateAcceptanceServer", "stopCertificateAcceptanceServer", "logMessage", "cancelUpdate"]),
+            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "ready", "startProcess", "stopProcess", "startProxy", "stopProxy", "updateConfig", "checkForUpdates", "updateEngine", "updateDeviceFile", "updateApplication", "generateCertificate", "runCertificateAcceptanceServer", "stopCertificateAcceptanceServer", "logMessage", "cancelUpdate", "resetIntifaceConfiguration"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -5015,6 +5024,8 @@ $root.IntifaceProtocols = (function() {
                 $root.IntifaceProtocols.IntifaceFrontendMessage.LogMessage.encode(message.logMessage, writer.uint32(/* id 17, wireType 2 =*/138).fork()).ldelim();
             if (message.cancelUpdate != null && Object.hasOwnProperty.call(message, "cancelUpdate"))
                 $root.IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate.encode(message.cancelUpdate, writer.uint32(/* id 18, wireType 2 =*/146).fork()).ldelim();
+            if (message.resetIntifaceConfiguration != null && Object.hasOwnProperty.call(message, "resetIntifaceConfiguration"))
+                $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.encode(message.resetIntifaceConfiguration, writer.uint32(/* id 19, wireType 2 =*/154).fork()).ldelim();
             return writer;
         };
 
@@ -5102,6 +5113,9 @@ $root.IntifaceProtocols = (function() {
                     break;
                 case 18:
                     message.cancelUpdate = $root.IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate.decode(reader, reader.uint32());
+                    break;
+                case 19:
+                    message.resetIntifaceConfiguration = $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -5310,6 +5324,16 @@ $root.IntifaceProtocols = (function() {
                         return "cancelUpdate." + error;
                 }
             }
+            if (message.resetIntifaceConfiguration != null && message.hasOwnProperty("resetIntifaceConfiguration")) {
+                if (properties.msg === 1)
+                    return "msg: multiple values";
+                properties.msg = 1;
+                {
+                    var error = $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.verify(message.resetIntifaceConfiguration);
+                    if (error)
+                        return "resetIntifaceConfiguration." + error;
+                }
+            }
             return null;
         };
 
@@ -5411,6 +5435,11 @@ $root.IntifaceProtocols = (function() {
                 if (typeof object.cancelUpdate !== "object")
                     throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.cancelUpdate: object expected");
                 message.cancelUpdate = $root.IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate.fromObject(object.cancelUpdate);
+            }
+            if (object.resetIntifaceConfiguration != null) {
+                if (typeof object.resetIntifaceConfiguration !== "object")
+                    throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.resetIntifaceConfiguration: object expected");
+                message.resetIntifaceConfiguration = $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.fromObject(object.resetIntifaceConfiguration);
             }
             return message;
         };
@@ -5516,6 +5545,11 @@ $root.IntifaceProtocols = (function() {
                 object.cancelUpdate = $root.IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate.toObject(message.cancelUpdate, options);
                 if (options.oneofs)
                     object.msg = "cancelUpdate";
+            }
+            if (message.resetIntifaceConfiguration != null && message.hasOwnProperty("resetIntifaceConfiguration")) {
+                object.resetIntifaceConfiguration = $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.toObject(message.resetIntifaceConfiguration, options);
+                if (options.oneofs)
+                    object.msg = "resetIntifaceConfiguration";
             }
             return object;
         };
@@ -7983,6 +8017,166 @@ $root.IntifaceProtocols = (function() {
             };
 
             return StopCertificateAcceptanceServer;
+        })();
+
+        IntifaceFrontendMessage.ResetIntifaceConfiguration = (function() {
+
+            /**
+             * Properties of a ResetIntifaceConfiguration.
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage
+             * @interface IResetIntifaceConfiguration
+             */
+
+            /**
+             * Constructs a new ResetIntifaceConfiguration.
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage
+             * @classdesc Represents a ResetIntifaceConfiguration.
+             * @implements IResetIntifaceConfiguration
+             * @constructor
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration=} [properties] Properties to set
+             */
+            function ResetIntifaceConfiguration(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * Creates a new ResetIntifaceConfiguration instance using the specified properties.
+             * @function create
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration=} [properties] Properties to set
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration} ResetIntifaceConfiguration instance
+             */
+            ResetIntifaceConfiguration.create = function create(properties) {
+                return new ResetIntifaceConfiguration(properties);
+            };
+
+            /**
+             * Encodes the specified ResetIntifaceConfiguration message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.verify|verify} messages.
+             * @function encode
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration} message ResetIntifaceConfiguration message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ResetIntifaceConfiguration.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified ResetIntifaceConfiguration message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration} message ResetIntifaceConfiguration message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ResetIntifaceConfiguration.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a ResetIntifaceConfiguration message from the specified reader or buffer.
+             * @function decode
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration} ResetIntifaceConfiguration
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ResetIntifaceConfiguration.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a ResetIntifaceConfiguration message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration} ResetIntifaceConfiguration
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ResetIntifaceConfiguration.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a ResetIntifaceConfiguration message.
+             * @function verify
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ResetIntifaceConfiguration.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                return null;
+            };
+
+            /**
+             * Creates a ResetIntifaceConfiguration message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration} ResetIntifaceConfiguration
+             */
+            ResetIntifaceConfiguration.fromObject = function fromObject(object) {
+                if (object instanceof $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration)
+                    return object;
+                return new $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration();
+            };
+
+            /**
+             * Creates a plain object from a ResetIntifaceConfiguration message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration} message ResetIntifaceConfiguration
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ResetIntifaceConfiguration.toObject = function toObject() {
+                return {};
+            };
+
+            /**
+             * Converts this ResetIntifaceConfiguration to JSON.
+             * @function toJSON
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ResetIntifaceConfiguration.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return ResetIntifaceConfiguration;
         })();
 
         IntifaceFrontendMessage.LogMessage = (function() {

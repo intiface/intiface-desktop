@@ -22,6 +22,7 @@ export default class SettingsPanel extends Vue {
   private panelExpand: boolean[] = [];
   private panelOpen: number[] = [0, 1, 2, 3, 4];
   private engineChoices: EngineType[] = ["rs", "csharp"];
+  private factoryResetDialog: boolean = false;
 
   private mounted() {
     this.UpdateRequirements();
@@ -100,5 +101,9 @@ export default class SettingsPanel extends Vue {
       let port = maybe_port.certificateAcceptanceServerRunning!.insecurePort!;
       window.open(`http://127.0.0.1:${port}`, "_blank");
     }    
+  }
+
+  private async ResetIntiface() {
+    await this.connector.ResetIntifaceConfiguration();
   }
 }

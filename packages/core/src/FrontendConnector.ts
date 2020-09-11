@@ -71,6 +71,13 @@ export abstract class FrontendConnector extends EventEmitter {
     await this.SendMessageExpectOk(msg);
   }
 
+  public async ResetIntifaceConfiguration() {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      resetIntifaceConfiguration: IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.create(),
+    });
+    await this.SendMessageExpectOk(msg);
+  }
+
   public async UpdateDeviceFile() {
     const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       updateDeviceFile: IntifaceProtocols.IntifaceFrontendMessage.UpdateDeviceFile.create(),

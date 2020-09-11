@@ -196,6 +196,9 @@ message IntifaceFrontendMessage {
   message StopCertificateAcceptanceServer {
   };
 
+  message ResetIntifaceConfiguration {
+  };
+
   // JSON block representing a js object for winston, to record in the
   // backend.
   message LogMessage {
@@ -223,5 +226,6 @@ message IntifaceFrontendMessage {
     StopCertificateAcceptanceServer stop_certificate_acceptance_server = 16;
     LogMessage log_message = 17;
     CancelUpdate cancel_update = 18;
+    ResetIntifaceConfiguration reset_intiface_configuration = 19;
   };
 };

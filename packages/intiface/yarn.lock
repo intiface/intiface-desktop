@@ -5655,7 +5655,7 @@ interpret@^1.0.0:
     buttplug "^0.13.1"
     codecov "^3.7.2"
     copyfiles "^2.3.0"
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-library-16.0.0-52bbccd9-4e0a-4a82-b8a8-481e7710d535-1599798806554/node_modules/protocols"
+    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-library-16.0.0-d0cf2f5b-b2ac-4026-af73-1dac61a3e512-1599801978865/node_modules/protocols"
     is-online "^8.4.0"
     jest "^26.4.0"
     less "^3.12.2"

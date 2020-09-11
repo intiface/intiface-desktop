@@ -2158,6 +2158,9 @@ export namespace IntifaceProtocols {
 
         /** IntifaceFrontendMessage cancelUpdate */
         cancelUpdate?: (IntifaceProtocols.IntifaceFrontendMessage.ICancelUpdate|null);
+
+        /** IntifaceFrontendMessage resetIntifaceConfiguration */
+        resetIntifaceConfiguration?: (IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration|null);
     }
 
     /** Represents an IntifaceFrontendMessage. */
@@ -2223,8 +2226,11 @@ export namespace IntifaceProtocols {
         /** IntifaceFrontendMessage cancelUpdate. */
         public cancelUpdate?: (IntifaceProtocols.IntifaceFrontendMessage.ICancelUpdate|null);
 
+        /** IntifaceFrontendMessage resetIntifaceConfiguration. */
+        public resetIntifaceConfiguration?: (IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration|null);
+
         /** IntifaceFrontendMessage msg. */
-        public msg?: ("ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer"|"logMessage"|"cancelUpdate");
+        public msg?: ("ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer"|"logMessage"|"cancelUpdate"|"resetIntifaceConfiguration");
 
         /**
          * Creates a new IntifaceFrontendMessage instance using the specified properties.
@@ -3566,6 +3572,90 @@ export namespace IntifaceProtocols {
 
             /**
              * Converts this StopCertificateAcceptanceServer to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a ResetIntifaceConfiguration. */
+        interface IResetIntifaceConfiguration {
+        }
+
+        /** Represents a ResetIntifaceConfiguration. */
+        class ResetIntifaceConfiguration implements IResetIntifaceConfiguration {
+
+            /**
+             * Constructs a new ResetIntifaceConfiguration.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration);
+
+            /**
+             * Creates a new ResetIntifaceConfiguration instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns ResetIntifaceConfiguration instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration): IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration;
+
+            /**
+             * Encodes the specified ResetIntifaceConfiguration message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.verify|verify} messages.
+             * @param message ResetIntifaceConfiguration message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified ResetIntifaceConfiguration message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.verify|verify} messages.
+             * @param message ResetIntifaceConfiguration message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a ResetIntifaceConfiguration message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns ResetIntifaceConfiguration
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration;
+
+            /**
+             * Decodes a ResetIntifaceConfiguration message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns ResetIntifaceConfiguration
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration;
+
+            /**
+             * Verifies a ResetIntifaceConfiguration message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a ResetIntifaceConfiguration message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns ResetIntifaceConfiguration
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration;
+
+            /**
+             * Creates a plain object from a ResetIntifaceConfiguration message. Also converts values to other types if specified.
+             * @param message ResetIntifaceConfiguration
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this ResetIntifaceConfiguration to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };
