@@ -83,6 +83,12 @@ message IntifaceBackendMessage {
     string reason = 1;
   };
   
+  // Something has gone wrong with the server process. Relay reason to frontend
+  // so it can reset UI and post error.
+  message ProcessError {
+    string reason = 1;
+  };
+
   // Sends full configuration file to the child process, usually on
   // startup to seed initial config information.
   message Configuration {
@@ -124,6 +130,7 @@ message IntifaceBackendMessage {
     CertificateGenerated certificate_generated = 8;
     ServerProcessMessage server_process_message = 9;
     LogMessage log_message = 10;
+    ProcessError process_error = 11;
   };
 };
 

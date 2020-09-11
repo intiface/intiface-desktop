@@ -93,6 +93,14 @@ export class IntifaceBackendManager {
     this._process.addListener("exit", () => {
       // We expect that we'll get a process ended message before the process
       // quits. If not, expect that the engine crashed.
+      if (!this._process?.GotProcessEnded) {
+        this._logger.error("Did not receive process ended message, process most likely crashed.");
+        this._connector.SendMessage(IntifaceProtocols.IntifaceBackendMessage.create({
+          processError: IntifaceProtocols.IntifaceBackendMessage.ProcessError.create({ reason: "Process most likely crashed. Contact support." }),
+        }));
+      } else {
+        this._logger.info("Normal process shutdown.");
+      }
       this._process = null;
     });
     try {

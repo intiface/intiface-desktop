@@ -2513,6 +2513,7 @@ $root.IntifaceProtocols = (function() {
          * @property {IntifaceProtocols.IntifaceBackendMessage.ICertificateGenerated|null} [certificateGenerated] IntifaceBackendMessage certificateGenerated
          * @property {IntifaceProtocols.IServerProcessMessage|null} [serverProcessMessage] IntifaceBackendMessage serverProcessMessage
          * @property {IntifaceProtocols.IntifaceBackendMessage.ILogMessage|null} [logMessage] IntifaceBackendMessage logMessage
+         * @property {IntifaceProtocols.IntifaceBackendMessage.IProcessError|null} [processError] IntifaceBackendMessage processError
          */
 
         /**
@@ -2610,17 +2611,25 @@ $root.IntifaceProtocols = (function() {
          */
         IntifaceBackendMessage.prototype.logMessage = null;
 
+        /**
+         * IntifaceBackendMessage processError.
+         * @member {IntifaceProtocols.IntifaceBackendMessage.IProcessError|null|undefined} processError
+         * @memberof IntifaceProtocols.IntifaceBackendMessage
+         * @instance
+         */
+        IntifaceBackendMessage.prototype.processError = null;
+
         // OneOf field names bound to virtual getters and setters
         var $oneOfFields;
 
         /**
          * IntifaceBackendMessage msg.
-         * @member {"ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"certificateAcceptanceServerRunning"|"certificateGenerated"|"serverProcessMessage"|"logMessage"|undefined} msg
+         * @member {"ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"certificateAcceptanceServerRunning"|"certificateGenerated"|"serverProcessMessage"|"logMessage"|"processError"|undefined} msg
          * @memberof IntifaceProtocols.IntifaceBackendMessage
          * @instance
          */
         Object.defineProperty(IntifaceBackendMessage.prototype, "msg", {
-            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "configuration", "updatesAvailable", "downloadProgress", "certificateAcceptanceServerRunning", "certificateGenerated", "serverProcessMessage", "logMessage"]),
+            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "configuration", "updatesAvailable", "downloadProgress", "certificateAcceptanceServerRunning", "certificateGenerated", "serverProcessMessage", "logMessage", "processError"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -2668,6 +2677,8 @@ $root.IntifaceProtocols = (function() {
                 $root.IntifaceProtocols.ServerProcessMessage.encode(message.serverProcessMessage, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
             if (message.logMessage != null && Object.hasOwnProperty.call(message, "logMessage"))
                 $root.IntifaceProtocols.IntifaceBackendMessage.LogMessage.encode(message.logMessage, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+            if (message.processError != null && Object.hasOwnProperty.call(message, "processError"))
+                $root.IntifaceProtocols.IntifaceBackendMessage.ProcessError.encode(message.processError, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
             return writer;
         };
 
@@ -2731,6 +2742,9 @@ $root.IntifaceProtocols = (function() {
                     break;
                 case 10:
                     message.logMessage = $root.IntifaceProtocols.IntifaceBackendMessage.LogMessage.decode(reader, reader.uint32());
+                    break;
+                case 11:
+                    message.processError = $root.IntifaceProtocols.IntifaceBackendMessage.ProcessError.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2859,6 +2873,16 @@ $root.IntifaceProtocols = (function() {
                         return "logMessage." + error;
                 }
             }
+            if (message.processError != null && message.hasOwnProperty("processError")) {
+                if (properties.msg === 1)
+                    return "msg: multiple values";
+                properties.msg = 1;
+                {
+                    var error = $root.IntifaceProtocols.IntifaceBackendMessage.ProcessError.verify(message.processError);
+                    if (error)
+                        return "processError." + error;
+                }
+            }
             return null;
         };
 
@@ -2920,6 +2944,11 @@ $root.IntifaceProtocols = (function() {
                 if (typeof object.logMessage !== "object")
                     throw TypeError(".IntifaceProtocols.IntifaceBackendMessage.logMessage: object expected");
                 message.logMessage = $root.IntifaceProtocols.IntifaceBackendMessage.LogMessage.fromObject(object.logMessage);
+            }
+            if (object.processError != null) {
+                if (typeof object.processError !== "object")
+                    throw TypeError(".IntifaceProtocols.IntifaceBackendMessage.processError: object expected");
+                message.processError = $root.IntifaceProtocols.IntifaceBackendMessage.ProcessError.fromObject(object.processError);
             }
             return message;
         };
@@ -2985,6 +3014,11 @@ $root.IntifaceProtocols = (function() {
                 object.logMessage = $root.IntifaceProtocols.IntifaceBackendMessage.LogMessage.toObject(message.logMessage, options);
                 if (options.oneofs)
                     object.msg = "logMessage";
+            }
+            if (message.processError != null && message.hasOwnProperty("processError")) {
+                object.processError = $root.IntifaceProtocols.IntifaceBackendMessage.ProcessError.toObject(message.processError, options);
+                if (options.oneofs)
+                    object.msg = "processError";
             }
             return object;
         };
@@ -3345,6 +3379,193 @@ $root.IntifaceProtocols = (function() {
             };
 
             return Error;
+        })();
+
+        IntifaceBackendMessage.ProcessError = (function() {
+
+            /**
+             * Properties of a ProcessError.
+             * @memberof IntifaceProtocols.IntifaceBackendMessage
+             * @interface IProcessError
+             * @property {string|null} [reason] ProcessError reason
+             */
+
+            /**
+             * Constructs a new ProcessError.
+             * @memberof IntifaceProtocols.IntifaceBackendMessage
+             * @classdesc Represents a ProcessError.
+             * @implements IProcessError
+             * @constructor
+             * @param {IntifaceProtocols.IntifaceBackendMessage.IProcessError=} [properties] Properties to set
+             */
+            function ProcessError(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * ProcessError reason.
+             * @member {string} reason
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.ProcessError
+             * @instance
+             */
+            ProcessError.prototype.reason = "";
+
+            /**
+             * Creates a new ProcessError instance using the specified properties.
+             * @function create
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.ProcessError
+             * @static
+             * @param {IntifaceProtocols.IntifaceBackendMessage.IProcessError=} [properties] Properties to set
+             * @returns {IntifaceProtocols.IntifaceBackendMessage.ProcessError} ProcessError instance
+             */
+            ProcessError.create = function create(properties) {
+                return new ProcessError(properties);
+            };
+
+            /**
+             * Encodes the specified ProcessError message. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.ProcessError.verify|verify} messages.
+             * @function encode
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.ProcessError
+             * @static
+             * @param {IntifaceProtocols.IntifaceBackendMessage.IProcessError} message ProcessError message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ProcessError.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.reason != null && Object.hasOwnProperty.call(message, "reason"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.reason);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified ProcessError message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.ProcessError.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.ProcessError
+             * @static
+             * @param {IntifaceProtocols.IntifaceBackendMessage.IProcessError} message ProcessError message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ProcessError.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a ProcessError message from the specified reader or buffer.
+             * @function decode
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.ProcessError
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {IntifaceProtocols.IntifaceBackendMessage.ProcessError} ProcessError
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ProcessError.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceBackendMessage.ProcessError();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.reason = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a ProcessError message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.ProcessError
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {IntifaceProtocols.IntifaceBackendMessage.ProcessError} ProcessError
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ProcessError.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a ProcessError message.
+             * @function verify
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.ProcessError
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ProcessError.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.reason != null && message.hasOwnProperty("reason"))
+                    if (!$util.isString(message.reason))
+                        return "reason: string expected";
+                return null;
+            };
+
+            /**
+             * Creates a ProcessError message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.ProcessError
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {IntifaceProtocols.IntifaceBackendMessage.ProcessError} ProcessError
+             */
+            ProcessError.fromObject = function fromObject(object) {
+                if (object instanceof $root.IntifaceProtocols.IntifaceBackendMessage.ProcessError)
+                    return object;
+                var message = new $root.IntifaceProtocols.IntifaceBackendMessage.ProcessError();
+                if (object.reason != null)
+                    message.reason = String(object.reason);
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a ProcessError message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.ProcessError
+             * @static
+             * @param {IntifaceProtocols.IntifaceBackendMessage.ProcessError} message ProcessError
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ProcessError.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults)
+                    object.reason = "";
+                if (message.reason != null && message.hasOwnProperty("reason"))
+                    object.reason = message.reason;
+                return object;
+            };
+
+            /**
+             * Converts this ProcessError to JSON.
+             * @function toJSON
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.ProcessError
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ProcessError.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return ProcessError;
         })();
 
         IntifaceBackendMessage.Configuration = (function() {

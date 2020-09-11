@@ -241,6 +241,13 @@ export abstract class FrontendConnector extends EventEmitter {
       const logObj = JSON.parse(aMsg.logMessage!.info!);
       IntifaceFrontendLogger.Logger.log(logObj);
     }
+
+    if (aMsg.processError) {
+      this._isServerProcessRunning = false;
+      this._devices.clear();
+      this._devices_change_tracker += 1;
+      this.EmitServerMessage(aMsg);
+    }
   }
 
   // Ah, the mistakes in naming that led to this point.

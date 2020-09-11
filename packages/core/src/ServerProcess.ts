@@ -29,6 +29,7 @@ export class ServerProcess extends EventEmitter {
 
   public static EXECUTABLE_NAME = "IntifaceCLI" + (os.platform() === "win32" ? ".exe" : "");
 
+  private _gotProcessEnded = false;
   private _serverProcess: child_process.ChildProcess | null = null;
   private _config: IntifaceConfiguration;
   private _logger: winston.Logger;
@@ -49,7 +50,12 @@ export class ServerProcess extends EventEmitter {
     return true;
   }
 
+  public get GotProcessEnded(): boolean {
+    return this._gotProcessEnded;
+  }
+
   public async RunServer() {
+    this._gotProcessEnded = false;
     const args: string[] = await this.BuildServerArguments();
     let hasResolved = false;
     const [p, res, rej] = IntifaceUtils.MakePromise();
@@ -168,6 +174,7 @@ export class ServerProcess extends EventEmitter {
     const msg = IntifaceProtocols.ServerProcessMessage.decodeDelimited(aData);
     if (msg.processEnded !== null) {
       this._logger.debug("Server process ended, notified via process message.");
+      this._gotProcessEnded = true;
       // Process will not send messages after this, shut down listener. This is
       // the only type of message the server currently needs to care about.
       this.StopServer();

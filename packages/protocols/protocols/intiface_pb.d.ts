@@ -1156,6 +1156,9 @@ export namespace IntifaceProtocols {
 
         /** IntifaceBackendMessage logMessage */
         logMessage?: (IntifaceProtocols.IntifaceBackendMessage.ILogMessage|null);
+
+        /** IntifaceBackendMessage processError */
+        processError?: (IntifaceProtocols.IntifaceBackendMessage.IProcessError|null);
     }
 
     /** Represents an IntifaceBackendMessage. */
@@ -1197,8 +1200,11 @@ export namespace IntifaceProtocols {
         /** IntifaceBackendMessage logMessage. */
         public logMessage?: (IntifaceProtocols.IntifaceBackendMessage.ILogMessage|null);
 
+        /** IntifaceBackendMessage processError. */
+        public processError?: (IntifaceProtocols.IntifaceBackendMessage.IProcessError|null);
+
         /** IntifaceBackendMessage msg. */
-        public msg?: ("ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"certificateAcceptanceServerRunning"|"certificateGenerated"|"serverProcessMessage"|"logMessage");
+        public msg?: ("ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"certificateAcceptanceServerRunning"|"certificateGenerated"|"serverProcessMessage"|"logMessage"|"processError");
 
         /**
          * Creates a new IntifaceBackendMessage instance using the specified properties.
@@ -1442,6 +1448,96 @@ export namespace IntifaceProtocols {
 
             /**
              * Converts this Error to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a ProcessError. */
+        interface IProcessError {
+
+            /** ProcessError reason */
+            reason?: (string|null);
+        }
+
+        /** Represents a ProcessError. */
+        class ProcessError implements IProcessError {
+
+            /**
+             * Constructs a new ProcessError.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceBackendMessage.IProcessError);
+
+            /** ProcessError reason. */
+            public reason: string;
+
+            /**
+             * Creates a new ProcessError instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns ProcessError instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceBackendMessage.IProcessError): IntifaceProtocols.IntifaceBackendMessage.ProcessError;
+
+            /**
+             * Encodes the specified ProcessError message. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.ProcessError.verify|verify} messages.
+             * @param message ProcessError message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceBackendMessage.IProcessError, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified ProcessError message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.ProcessError.verify|verify} messages.
+             * @param message ProcessError message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceBackendMessage.IProcessError, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a ProcessError message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns ProcessError
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceBackendMessage.ProcessError;
+
+            /**
+             * Decodes a ProcessError message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns ProcessError
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceBackendMessage.ProcessError;
+
+            /**
+             * Verifies a ProcessError message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a ProcessError message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns ProcessError
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceBackendMessage.ProcessError;
+
+            /**
+             * Creates a plain object from a ProcessError message. Also converts values to other types if specified.
+             * @param message ProcessError
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceBackendMessage.ProcessError, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this ProcessError to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };

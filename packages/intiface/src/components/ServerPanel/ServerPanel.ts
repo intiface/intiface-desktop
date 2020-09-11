@@ -1,5 +1,6 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
+import { IntifaceProtocols } from "intiface-protocols";
 import { IntifaceConfiguration, FrontendConnector } from "intiface-core-library";
 
 @Component({})
@@ -11,6 +12,16 @@ export default class ServerPanel extends Vue {
   @Prop()
   private connector!: FrontendConnector;
   private serverStates: string[] = ["Start Server", "Stop Server"];
+
+  private mounted() {
+    this.connector.addListener("message", (msg: IntifaceProtocols.IntifaceBackendMessage) => this.ParseMessage(msg));
+  }
+
+  private ParseMessage(msg: IntifaceProtocols.IntifaceBackendMessage) {
+    if (msg.processError) {
+      this.$emit("error", msg.processError.reason);
+    }
+  }
 
   private get serverRunning() {
     return this.connector.IsServerProcessRunning;
