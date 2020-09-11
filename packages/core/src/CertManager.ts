@@ -25,6 +25,7 @@ export class CertManager {
   // This port must be the same as the port we've got listed in our config
   private _securePort: number;
   private _certPath: string;
+  private _isServerRunning: boolean = false;
   private _httpServer: http.Server | null = null;
   private _httpsServer: https.Server | null = null;
   private _httpsPage = `<html>
@@ -84,6 +85,9 @@ export class CertManager {
   }
 
   public StopServer() {
+    if (!this._isServerRunning) {
+      return;
+    }
     if (this._httpServer) {
       this._httpServer!.close();
       this._httpServer = null;
@@ -92,9 +96,13 @@ export class CertManager {
       this._httpsServer!.close();
       this._httpsServer = null;
     }
+    this._isServerRunning = false;
   }
 
   public async RunCertAcceptanceServer(aSecurePort: number): Promise<void> {
+    if (this._isServerRunning) {
+      return;
+    }
     this._httpServer = http.createServer(this.HttpServerResponse.bind(this)).listen(this.InsecurePort, "127.0.0.1");
     this._securePort = aSecurePort;
     console.log(`Insecure Cert Acceptance Server listening on 127.0.0.1:${this.InsecurePort}`);
@@ -105,6 +113,7 @@ export class CertManager {
       key: certStrs.privkey,
     }, this.HttpsServerResponse.bind(this)).listen(aSecurePort, "127.0.0.1");
     console.log(`Secure Cert Acceptance Server listening on 127.0.0.1:${this._securePort}`);
+    this._isServerRunning = true;
   }
 
   private get HttpPage(): string {
@@ -116,7 +125,7 @@ export class CertManager {
 <p>This page will help you set up the self signed certificate for using
 Intiface with web browsers.</p>
 
-<a href="https://127.0.0.1:${this._securePort}" target="_blank">Click here to open a tab to the HTTPS server.</a>
+<a href="https://127.0.0.1:${this._securePort}?done=1" target="_blank">Click here to open a tab to the HTTPS server.</a>
 </body>
 </html>
 `;

@@ -13,6 +13,7 @@ export default class SetupPanel extends Vue {
   private setupStep: number = 1;
   private updateFinished: boolean = false;
   private usingFirefox: boolean = false;
+  private certAcceptDialog: boolean = false;
   @Prop()
   private connector!: FrontendConnector;
   @Prop()
@@ -32,5 +33,10 @@ export default class SetupPanel extends Vue {
       let port = maybe_port.certificateAcceptanceServerRunning!.insecurePort!;
       window.open(`http://127.0.0.1:${port}`, "_blank");
     }  
+  }
+
+  private async StopCertServer() {
+    await this.connector.StopCertificateAcceptanceServer();
+    this.certAcceptDialog = false;
   }
 }

@@ -13,6 +13,7 @@ import isOnline from "is-online";
 import { promisify } from "util";
 import * as winston from "winston";
 import * as rimraf from "rimraf";
+import { createGetAccessor } from "typescript";
 
 // The link between whatever our frontend is (Electron, express, etc) and our
 // IntifaceCLI server process. This will handle loading/saving our configuration
@@ -36,6 +37,7 @@ export class IntifaceBackendManager extends EventEmitter {
   private _connector: BackendConnector;
   private _process: ServerProcess | null = null;
   private _configManager: IntifaceConfigurationManager;
+  private _certManager: CertManager;
   private _applicationUpdater: IApplicationUpdater;
   private _ghManagers: Set<GithubReleaseManager> = new Set<GithubReleaseManager>();
 
@@ -48,6 +50,7 @@ export class IntifaceBackendManager extends EventEmitter {
     this._connector = aConnector;
     this._configManager = aConfig;
     this._applicationUpdater = aApplicationUpdater;
+    this._certManager = new CertManager(IntifaceUtils.UserConfigDirectory);
     // TODO This isn't really handled if something goes wrong. We should at
     // least catch and log.
     this._connector.addListener("message", async (msg) => await this.ReceiveFrontendMessage(msg));
@@ -209,14 +212,18 @@ export class IntifaceBackendManager extends EventEmitter {
     }
   }
 
-  private async GenerateCert(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-    const cg = new CertManager(IntifaceUtils.UserConfigDirectory);
-    if (!(await cg.HasGeneratedCerts())) {
-      await cg.GenerateCerts();
-      // Use the certificate check to update the new configuration file values
-      await this.CheckForCertificates();
-      this.UpdateFrontendConfiguration();
+  private async MaybeGenerateCert() {
+    if (await this._certManager.HasGeneratedCerts()) {
+      return;
     }
+    await this._certManager.GenerateCerts();
+    // Use the certificate check to update the new configuration file values
+    await this.CheckForCertificates();
+    this.UpdateFrontendConfiguration();
+  }
+
+  private async GenerateCert(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+    await this.MaybeGenerateCert();
     this._connector.SendMessage(IntifaceProtocols.IntifaceBackendMessage.create({
       certificateGenerated: IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated.create(),
     }));
@@ -224,20 +231,21 @@ export class IntifaceBackendManager extends EventEmitter {
   }
 
   private async RunCertificateAcceptanceServer(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-    const cg = new CertManager(IntifaceUtils.UserConfigDirectory);
-    if (!(await cg.HasGeneratedCerts())) {
-      // TODO Should probably error here
-      return;
-    }
-    await cg.RunCertAcceptanceServer(this._configManager.Config.WebsocketServerSecurePort);
+    await this.MaybeGenerateCert();
+    await this._certManager.RunCertAcceptanceServer(this._configManager.Config.WebsocketServerSecurePort);
     const msg = IntifaceProtocols.IntifaceBackendMessage.create({
       certificateAcceptanceServerRunning:
         IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning.create({
-          insecurePort: cg.InsecurePort,
+          insecurePort: this._certManager.InsecurePort,
         }),
     });
     msg.index = aMsg.index;
     this._connector.SendMessage(msg);
+  }
+
+  private async StopCertificateAcceptanceServer(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+    this._certManager.StopServer();
+    this._connector.SendOk(aMsg);
   }
 
   private async CheckForUpdates(aMsg: IntifaceProtocols.IntifaceFrontendMessage | null) {
@@ -287,86 +295,91 @@ export class IntifaceBackendManager extends EventEmitter {
   }
 
   private async CancelUpdate(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-  for (const ghm of this._ghManagers) {
-    ghm.CancelDownload();
+    for (const ghm of this._ghManagers) {
+      ghm.CancelDownload();
+    }
+    if (this._applicationUpdater) {
+      this._applicationUpdater.CancelUpdate();
+    }
+    this._connector.SendOk(aMsg);
   }
-  if (this._applicationUpdater) {
-    this._applicationUpdater.CancelUpdate();
-  }
-  this._connector.SendOk(aMsg);
-}
 
   private async ReceiveFrontendMessage(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-  // TODO Feels like there should be a better way to do this :c
-  if (aMsg.startProcess !== null) {
-    await this.StartProcess(aMsg);
-    return;
-  }
+    // TODO Feels like there should be a better way to do this :c
+    if (aMsg.startProcess !== null) {
+      await this.StartProcess(aMsg);
+      return;
+    }
 
-  if (aMsg.stopProcess !== null) {
-    await this.StopProcess(aMsg);
-    return;
-  }
+    if (aMsg.stopProcess !== null) {
+      await this.StopProcess(aMsg);
+      return;
+    }
 
-  if (aMsg.startProxy !== null) {
-    // TODO Fill in once proxy is done
-    return;
-  }
+    if (aMsg.startProxy !== null) {
+      // TODO Fill in once proxy is done
+      return;
+    }
 
-  if (aMsg.ready !== null) {
-    this._logger.debug("Received ready signal from frontend");
-    this.UpdateFrontendConfiguration(aMsg);
-    return;
-  }
+    if (aMsg.ready !== null) {
+      this._logger.debug("Received ready signal from frontend");
+      this.UpdateFrontendConfiguration(aMsg);
+      return;
+    }
 
-  if (aMsg.updateConfig !== null) {
-    // Always make sure we have a (mostly) valid engine before we start. If
-    // the exe is corrupted or something, welp.
-    this._configManager.Config.Load(JSON.parse(aMsg.updateConfig!.configuration!));
-    this._configManager.Save();
-    return;
-  }
+    if (aMsg.updateConfig !== null) {
+      // Always make sure we have a (mostly) valid engine before we start. If
+      // the exe is corrupted or something, welp.
+      this._configManager.Config.Load(JSON.parse(aMsg.updateConfig!.configuration!));
+      this._configManager.Save();
+      return;
+    }
 
-  if (aMsg.updateEngine !== null) {
-    await this.UpdateEngine(aMsg);
-    return;
-  }
+    if (aMsg.updateEngine !== null) {
+      await this.UpdateEngine(aMsg);
+      return;
+    }
 
-  if (aMsg.updateDeviceFile !== null) {
-    await this.UpdateDeviceFile(aMsg);
-    return;
-  }
+    if (aMsg.updateDeviceFile !== null) {
+      await this.UpdateDeviceFile(aMsg);
+      return;
+    }
 
-  if (aMsg.updateApplication !== null) {
-    await this.UpdateApplication(aMsg);
-    return;
-  }
+    if (aMsg.updateApplication !== null) {
+      await this.UpdateApplication(aMsg);
+      return;
+    }
 
-  if (aMsg.generateCertificate !== null) {
-    await this.GenerateCert(aMsg);
-    return;
-  }
+    if (aMsg.generateCertificate !== null) {
+      await this.GenerateCert(aMsg);
+      return;
+    }
 
-  if (aMsg.runCertificateAcceptanceServer !== null) {
-    await this.RunCertificateAcceptanceServer(aMsg);
-    return;
-  }
+    if (aMsg.runCertificateAcceptanceServer !== null) {
+      await this.RunCertificateAcceptanceServer(aMsg);
+      return;
+    }
 
-  if (aMsg.checkForUpdates !== null) {
-    await this.CheckForUpdates(aMsg);
-    return;
-  }
+    if (aMsg.stopCertificateAcceptanceServer !== null) {
+      await this.StopCertificateAcceptanceServer(aMsg);
+      return;
+    }
 
-  if (aMsg.cancelUpdate !== null) {
-    await this.CancelUpdate(aMsg);
-    return;
-  }
+    if (aMsg.checkForUpdates !== null) {
+      await this.CheckForUpdates(aMsg);
+      return;
+    }
 
-  if (aMsg.resetIntifaceConfiguration !== null) {
-    await this.ResetIntifaceConfiguration();
-    return;
-  }
+    if (aMsg.cancelUpdate !== null) {
+      await this.CancelUpdate(aMsg);
+      return;
+    }
 
-  this._logger.warn(`Message not recognized by Backend Manager! ${JSON.stringify(aMsg)}`);
-}
+    if (aMsg.resetIntifaceConfiguration !== null) {
+      await this.ResetIntifaceConfiguration();
+      return;
+    }
+
+    this._logger.warn(`Message not recognized by Backend Manager! ${JSON.stringify(aMsg)}`);
+  }
 }

@@ -127,6 +127,13 @@ export abstract class FrontendConnector extends EventEmitter {
     return await this.SendMessageExpectReturn(msg);
   }
 
+  public async StopCertificateAcceptanceServer() {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      stopCertificateAcceptanceServer: IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer.create(),
+    });
+    await this.SendMessageExpectOk(msg);
+  }
+
   public async CancelUpdate() {
     const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       cancelUpdate: IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate.create(),

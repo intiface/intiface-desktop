@@ -62,7 +62,24 @@
             <br />
             <p>If either of these cases applies to you, hit the Run Cert Setup button below and you'll be taken to the Cert Setup website in your browser.</p>
             <p>If you aren't sure if either of these cases applies to you, you can always run the Cert Server from the Settings panel of Intiface Desktop.</p>
-            <v-btn color="primary" @click="StartCertServer()">Run Cert Setup</v-btn>
+            <v-card class="transparent">
+              <v-card-text>
+                <v-dialog v-model="certAcceptDialog" persistent max-width="400">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn color="primary" dark v-bind="attrs" v-on="on">Run Certificate Configuration</v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-title class="headline">Certificate Acceptance</v-card-title>
+                    <v-card-text>Your certs have been generated, but you will now need to accept them in Firefox. Hit the "Launch" button below to open the webpage, or "Cancel" to quit. You can restart acceptance later in the Settings Panel if needed. Note that this will not work in Chrome, and Chrome does not require local certs.</v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn text @click="StartCertServer()">Launch</v-btn>
+                      <v-btn text @click="StopCertServer()">Cancel</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-card-text>
+            </v-card>
           </div>
           <v-btn color="primary" @click="setupStep = 4">Continue</v-btn>
         </v-stepper-content>
