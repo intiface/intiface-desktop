@@ -20,6 +20,7 @@
         <!-- Welcome Screen -->
         <v-stepper-content step="1">
           <h1>Welcome to Intiface!</h1>
+          <p><b>For those of you returning to Intiface Desktop from v17 or before:</b> I reset everyone's configs in order to start things from scratch, so welcome back to square one.</p>
           <p>We'll need to do some setup before running the main program. This shouldn't take more than a few minutes.</p>
           <p>If at any point in the future you would like to go through this process again, there is a "Run Initial Setup" button in the Settings panel.</p>
           <v-btn color="primary" @click="setupStep = 2">Let's Get Started!</v-btn>

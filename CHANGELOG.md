@@ -1,3 +1,19 @@
+# v18 (2020-09-11)
+
+## Features
+
+- Added Reset Configuration button for support needs.
+
+## Bugfixes
+
+- Move configuration files to new location to reset everyone's setup.
+- Remove IPC choices since they don't actually work and never have.
+- Fixed cert generation to generate certs that rustls doesn't hate (> 1024bit).
+- Added dialogs for cert acceptances so users don't get trapped in flow or have
+  server issues.
+- Yell if it looks like the server process crashed. Still need to implement log
+  output on buttplug/intiface-cli to make it more useful.
+
 # v17 (2020-09-07)
 
 ## Features
