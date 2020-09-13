@@ -33,6 +33,7 @@ export class ServerProcess extends EventEmitter {
   private _serverProcess: child_process.ChildProcess | null = null;
   private _config: IntifaceConfiguration;
   private _logger: winston.Logger;
+  private _msgBuffer: Buffer = Buffer.from([]);
 
   public constructor(aConfig: IntifaceConfiguration) {
     super();
@@ -167,29 +168,45 @@ export class ServerProcess extends EventEmitter {
   }
 
   private ParseMessages(aData: Buffer) {
-    //const reader = Reader.create(aData);
-    //while (reader.pos < reader.len ) {
-    // TODO Sucks that we'll have to parse this twice, once here and once in the
-    // frontend. Not sure how to serialize to frontend and not lose typing tho.
-    const msg = IntifaceProtocols.ServerProcessMessage.decodeDelimited(aData);
-    if (msg.processEnded !== null) {
-      this._logger.debug("Server process ended, notified via process message.");
-      this._gotProcessEnded = true;
-      // Process will not send messages after this, shut down listener. This is
-      // the only type of message the server currently needs to care about.
-      this.StopServer();
-    } else if (msg.deviceConnected !== null) {
-      this._logger.info(`Device Connected: ${msg.deviceConnected!.deviceName}`);
-    } else if (msg.deviceDisconnected !== null) {
-      this._logger.info(`Device Disconnected: ${msg.deviceDisconnected!.deviceId}`);
-    } else if (msg.processLog !== null) {
-      this._logger.info(`Process Log: ${msg.processLog!.message}`);
+    let current_buffer = Buffer.concat([this._msgBuffer, aData]);
+    this._msgBuffer = Buffer.from([]);
+    // console.log("CURRENT BUFFER LEN:" + current_buffer.length);
+    let reader = Reader.create(current_buffer);
+    let our_reader = Reader.create(current_buffer);
+    while (reader.pos < reader.len) {
+      // For some reason, using a reader does not hold state here. The reader
+      // position never advances. Therefore we have to manage this ourselves.
+      try {
+        let next_msg_len = our_reader.uint32();
+        if (our_reader.pos + next_msg_len > our_reader.len) {
+          this._msgBuffer = current_buffer.slice(reader.pos);
+          break;
+        }
+        our_reader.pos += next_msg_len;
+        const msg = IntifaceProtocols.ServerProcessMessage.decodeDelimited(current_buffer.slice(reader.pos));
+        reader.pos = our_reader.pos;
+        if (msg.processEnded !== null) {
+          this._logger.debug("Server process ended, notified via process message.");
+          this._gotProcessEnded = true;
+          // Process will not send messages after this, shut down listener. This is
+          // the only type of message the server currently needs to care about.
+          this.StopServer();
+        } else if (msg.deviceConnected !== null) {
+          this._logger.info(`Device Connected: ${msg.deviceConnected!.deviceName}`);
+        } else if (msg.deviceDisconnected !== null) {
+          this._logger.info(`Device Disconnected: ${msg.deviceDisconnected!.deviceId}`);
+        } else if (msg.processLog !== null) {
+          this._logger.info(`Process Log: ${msg.processLog!.message}`);
+        }
+        const newMsg = IntifaceProtocols.IntifaceBackendMessage.create({
+          serverProcessMessage: msg,
+        });
+        this.emit("process_message", newMsg);
+      } catch {
+        this._logger.error("MESSAGE PARSING HAS FALLEN OUT OF SYNC. CONTACT SUPPORT");
+        break;
+      }
     }
-    const newMsg = IntifaceProtocols.IntifaceBackendMessage.create({
-      serverProcessMessage: msg,
-    });
-    this.emit("process_message", newMsg);
-    //}
   }
 
   private async GetServerExecutablePath(): Promise<string> {

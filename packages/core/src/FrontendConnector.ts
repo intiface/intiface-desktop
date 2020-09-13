@@ -267,13 +267,7 @@ export abstract class FrontendConnector extends EventEmitter {
   // Ah, the mistakes in naming that led to this point.
   protected ProcessProcessMessage(aMsg: IntifaceProtocols.IServerProcessMessage) {
     if (aMsg.processLog !== null) {
-      // This should be done in the parent process.
-      this._logger.log({
-        message: aMsg.processLog!.message!,
-        level: "info",
-        logType: "process",
-        location: "Process",
-      });
+      // Handled in the parent process.
       return;
     }
 
