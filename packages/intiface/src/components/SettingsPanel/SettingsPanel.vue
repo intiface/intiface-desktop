@@ -121,10 +121,10 @@
                     >
                       <v-text-field
                         data-vv-name="websocketInsecurePort"
-                        label="Insecure Port"
-                        :error-messages="errors[0]"
+                        label="Regular Websocket Port"
+                        :error-messages="errors.length > 0 ? errors : internalErrors"
                         :disabled="connector.IsServerProcessRunning"
-                        v-model="config.WebsocketServerInsecurePort"
+                        v-model="InsecureWebsocketPort"
                       ></v-text-field>
                     </ValidationProvider>
                   </v-list-item-content>
@@ -137,10 +137,10 @@
                     >
                       <v-text-field
                         data-vv-name="websocketSecurePort"
-                        :error-messages="errors[0]"
-                        label="Secure Port"
+                        :error-messages="errors.length > 0 ? errors : internalErrors"
+                        label="SSL Websocket Port"
                         :disabled="connector.IsServerProcessRunning"
-                        v-model="config.WebsocketServerSecurePort"
+                        v-model="SecureWebsocketPort"
                       ></v-text-field>
                     </ValidationProvider>
                   </v-list-item-content>

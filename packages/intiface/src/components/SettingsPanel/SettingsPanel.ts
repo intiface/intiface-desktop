@@ -24,9 +24,14 @@ export default class SettingsPanel extends Vue {
   private engineChoices: EngineType[] = ["rs", "csharp"];
   private factoryResetDialog: boolean = false;
   private certAcceptDialog: boolean = false;
+  private internalInsecureWebsocketPort: number = 1;
+  private internalSecureWebsocketPort: number = 1;
+  private internalErrors: string[] = [];
 
   private mounted() {
     this.UpdateRequirements();
+    this.internalInsecureWebsocketPort = this.config.WebsocketServerInsecurePort;
+    this.internalSecureWebsocketPort = this.config.WebsocketServerSecurePort;
     if (window.location.hash === "#version") {
       this.panelExpand = [true];
     }
@@ -111,5 +116,43 @@ export default class SettingsPanel extends Vue {
 
   private async ResetIntiface() {
     await this.connector.ResetIntifaceConfiguration();
+  }
+
+  private get InsecureWebsocketPort(): number {
+    return this.internalInsecureWebsocketPort;
+  }
+
+  private set InsecureWebsocketPort(port: number) {
+    try {
+      this.internalInsecureWebsocketPort = port;
+      if (this.internalInsecureWebsocketPort == this.internalSecureWebsocketPort) {
+        this.internalErrors = ["Regular and SSL Websocket port numbers must be different"]
+        return;
+      } else {
+        this.internalErrors = []
+      }
+      this.config.WebsocketServerInsecurePort = port;
+    } catch {
+      // pass here, vee-validate will handle the error on the frontend.
+    }
+  }
+
+  private get SecureWebsocketPort(): number {
+    return this.internalSecureWebsocketPort;
+  }
+
+  private set SecureWebsocketPort(port: number) {
+    try {
+      this.internalSecureWebsocketPort = port;
+      if (this.internalInsecureWebsocketPort == this.internalSecureWebsocketPort) {
+        this.internalErrors = ["Regular and SSL Websocket port numbers must be different"]
+        return;
+      } else {
+        this.internalErrors = []
+      }
+      this.config.WebsocketServerSecurePort = port;
+    } catch {
+      // pass here, vee-validate will handle the error on the frontend.
+    }
   }
 }

@@ -12,8 +12,8 @@
             <v-checkbox v-model="config.UseWebsocketServerInsecure" :disabled="serverRunning"></v-checkbox>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Insecure Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerInsecurePort }})</v-list-item-title>
-            <v-list-item-subtitle>Listen on Insecure Websockets. Used for remote or web applications, Google Chrome, etc....</v-list-item-subtitle>
+            <v-list-item-title>Regular Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerInsecurePort }})</v-list-item-title>
+            <v-list-item-subtitle>Used for remote or web applications, Google Chrome, etc....</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
@@ -21,8 +21,9 @@
             <v-checkbox v-model="config.UseWebsocketServerSecure" :disabled="serverRunning || !config.HasCertificates"></v-checkbox>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Secure Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerSecurePort }})</v-list-item-title>
-            <v-list-item-subtitle>Listen on Secure Websockets. Used for web applications on other machines, Firefox, etc...</v-list-item-subtitle>
+            <v-list-item-title>SSL Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerSecurePort }})</v-list-item-title>
+            <v-list-item-subtitle v-if="!config.HasCertificates">Disabled because cert generation has not happened. Cert generation is available on the Setting tab.</v-list-item-subtitle>
+            <v-list-item-subtitle>Only needed in special instances, such as web applications on other machines, Firefox, etc...</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
