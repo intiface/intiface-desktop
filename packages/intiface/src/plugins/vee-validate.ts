@@ -22,6 +22,6 @@ extend('min_value', {
 })
 
 extend('max_value', {
-  ...min_value,
+  ...max_value,
   message: "Value too high."
 })
