@@ -1,3 +1,16 @@
+# v19 (2020-09-13)
+
+## Features
+
+- Output log messages from engine to log panel.
+
+## Bugfixes
+
+- Reword Insecure/Secure to Regular/SSL to reduce wording severity
+- Fix port number checking methods in settings panel
+- Fix protobufjs errors with delimited message decoding by building our own
+  delimited decoder.
+
 # v18 (2020-09-11)
 
 ## Features

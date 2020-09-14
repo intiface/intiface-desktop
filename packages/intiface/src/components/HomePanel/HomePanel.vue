@@ -4,7 +4,37 @@
     <b>Welcome to Intiface Desktop version {{ Version }}!</b>
     <v-row>
       <v-col>
-        <h2>NEWS FOR V18</h2>
+        <h2>NEWS FOR V19</h2>
+        <p>Another quick turnaround update, with more bugfixes!</p>
+        <ul>
+          <li>
+            There was a problem found in how engines and intiface desktop
+            communicate, which is mostly what necessitated this update
+          </li>
+          <li>
+            Logging output has been added to the rust engine! Expect far
+            more details in the log panel now. In the next few versions, the log
+            panel will be seeing some love to make that output actually usable.
+          </li>
+          <li>
+            Also fixed up some issues and wording regarding websockets and
+            their settings. "Insecure"/"Secure" was not accurate wording in
+            relation to websockets and was worrying some users (insecure/secure
+            sockets are mostly used locally, so security takes more discussion
+            and nuance, which I'll be adding as a help dialog soon), so I've
+            tried to clarify that somewhat.
+          </li>
+        </ul>
+        <br/>
+        <p>There's also a new Rust engine update (v10) coming that will be
+        fixing some issues with rotating Lovense toys.</p>
+        <p>That's it for now, here's hoping I can maybe go a week without
+        another Desktop update!</p>
+        <p>- qDot</p>
+        <br/>
+        <hr>
+        <br/>
+        <h2>OLD NEWS FOR V18</h2>
         <p>
           Ok, well, v17 went poorly. Not surprising after 15 months of not being
           touched, but not great either.
@@ -26,10 +56,12 @@
             case you ever need to start all over again later!
           </li>
         </ul>
-        <br/>
-        <p>The hope is that v18 will at least be stable and useful enough for
-        now, so I can start fixing up more issues in Buttplug as well as
-        possibly adding some things to Desktop and the GHR. We shall see.</p>
+        <br />
+        <p>
+          The hope is that v18 will at least be stable and useful enough for
+          now, so I can start fixing up more issues in Buttplug as well as
+          possibly adding some things to Desktop and the GHR. We shall see.
+        </p>
         <p>- qDot</p>
       </v-col>
       <v-col>
@@ -50,7 +82,9 @@
             <a href="https://intiface.com/ghr">Intiface Game Haptics Router</a> (Doesn't actually use Intiface Desktop yet >.> )
           </li>
         </ul>
-        <br />
+        <br/>
+        <hr>
+        <br/>
         <h2>OLD NEWS FOR V17</h2>
 
         <p>
