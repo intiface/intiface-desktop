@@ -3938,10 +3938,10 @@ electron-updater@^4.3.4:
     lodash.isequal "^4.5.0"
     semver "^7.3.2"
 
-electron@^9.2.1:
-  version "9.2.1"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-9.2.1.tgz#54ef574e1af4ae967b5efa94312f1b6458d44a02"
-  integrity sha512-ZsetaQjXB8+9/EFW1FnfK4ukpkwXCxMEaiKiUZhZ0ZLFlLnFCpe0Bg4vdDf7e4boWGcnlgN1jAJpBw7w0eXuqA==
+electron@^9.3.1:
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-9.3.1.tgz#e301932c5c0537d8c9a8850d216d3ba454dbf55c"
+  integrity sha512-DScrhqBT4a54KfdF0EoipALpHmdQTn3m7SSCtbpTcEcG+UDUiXad2cOfW6DHeVH7N+CVDKDG12q2PhVJjXkFAA==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^12.0.12"
@@ -5642,7 +5642,7 @@ interpret@^1.0.0:
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
 "intiface-core-library@file:../core":
-  version "16.0.0"
+  version "19.0.0"
   dependencies:
     "@octokit/rest" "^18.0.3"
     "@octokit/types" "^5.4.0"
@@ -5655,7 +5655,7 @@ interpret@^1.0.0:
     buttplug "^0.13.1"
     codecov "^3.7.2"
     copyfiles "^2.3.0"
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-library-16.0.0-d0cf2f5b-b2ac-4026-af73-1dac61a3e512-1599801978865/node_modules/protocols"
+    intiface-protocols "file:../protocols"
     is-online "^8.4.0"
     jest "^26.4.0"
     less "^3.12.2"
@@ -5674,7 +5674,7 @@ interpret@^1.0.0:
     ws "^7.3.1"
 
 "intiface-protocols@file:../protocols":
-  version "18.0.0"
+  version "19.0.0"
   dependencies:
     protobufjs "^6.10.1"
 
