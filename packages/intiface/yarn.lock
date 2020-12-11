@@ -5605,9 +5605,9 @@ inherits@2.0.3:
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
 
 ini@^1.3.4, ini@^1.3.5, ini@~1.3.0:
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
-  integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.7.tgz#a09363e1911972ea16d7a8851005d84cf09a9a84"
+  integrity sha512-iKpRpXP+CrP2jyrxvg1kMUpXDyRUFDWurxbnVT1vQPx+Wz9uCYsMIqYuSBLV+PAaZG/d7kRLKRFc9oDMsH+mFQ==
 
 inquirer@^7.1.0:
   version "7.3.3"
@@ -5642,7 +5642,7 @@ interpret@^1.0.0:
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
 "intiface-core-library@file:../core":
-  version "16.0.0"
+  version "19.0.0"
   dependencies:
     "@octokit/rest" "^18.0.3"
     "@octokit/types" "^5.4.0"
@@ -5655,7 +5655,7 @@ interpret@^1.0.0:
     buttplug "^0.13.1"
     codecov "^3.7.2"
     copyfiles "^2.3.0"
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-library-16.0.0-d0cf2f5b-b2ac-4026-af73-1dac61a3e512-1599801978865/node_modules/protocols"
+    intiface-protocols "file:../protocols"
     is-online "^8.4.0"
     jest "^26.4.0"
     less "^3.12.2"
@@ -5674,7 +5674,7 @@ interpret@^1.0.0:
     ws "^7.3.1"
 
 "intiface-protocols@file:../protocols":
-  version "18.0.0"
+  version "19.0.0"
   dependencies:
     protobufjs "^6.10.1"
 
