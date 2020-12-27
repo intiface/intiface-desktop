@@ -10,9 +10,9 @@ export class IntifaceBackendLogger extends IntifaceLogger {
     IntifaceBackendLogger.Logger.add(new IntifaceBackendLoggerTransport(aConnector, {}));
   }
 
-  public static GetChildLogger(aLocation: string): winston.Logger {
+  public static GetChildLogger(aType: "backend" | "process" | "buttplug", aLocation: string): winston.Logger {
     const logger = IntifaceBackendLogger.Logger;
-    return logger.child({ location: aLocation });
+    return logger.child({ logType: aType, location: aLocation });
   }
 
   public static get Logger(): winston.Logger {

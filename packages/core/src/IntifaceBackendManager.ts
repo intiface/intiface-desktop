@@ -45,7 +45,7 @@ export class IntifaceBackendManager extends EventEmitter {
     aConfig: IntifaceConfigurationFileManager,
     aApplicationUpdater: IApplicationUpdater) {
     super();
-    this._logger = IntifaceBackendLogger.GetChildLogger(this.constructor.name);
+    this._logger = IntifaceBackendLogger.GetChildLogger("backend", this.constructor.name);
     this._logger.debug("Constructing Backend Manager");
     this._connector = aConnector;
     this._configManager = aConfig;

@@ -50,6 +50,10 @@
    height: 100%;
  }
 
+ .buttplug {
+   color: orange;
+ }
+
  .backend {
    color: pink;
  }

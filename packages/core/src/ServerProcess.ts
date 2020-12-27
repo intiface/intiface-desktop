@@ -32,12 +32,16 @@ export class ServerProcess extends EventEmitter {
   private _gotProcessEnded = false;
   private _serverProcess: child_process.ChildProcess | null = null;
   private _config: IntifaceConfiguration;
-  private _logger: winston.Logger;
+  private _backend_logger: winston.Logger;
+  private _process_logger: winston.Logger;
+  private _buttplug_logger: winston.Logger;
   private _msgBuffer: Buffer = Buffer.from([]);
 
   public constructor(aConfig: IntifaceConfiguration) {
     super();
-    this._logger = IntifaceBackendLogger.GetChildLogger(this.constructor.name);
+    this._backend_logger = IntifaceBackendLogger.GetChildLogger("backend", this.constructor.name);
+    this._process_logger = IntifaceBackendLogger.GetChildLogger("process", this.constructor.name);
+    this._buttplug_logger = IntifaceBackendLogger.GetChildLogger("buttplug", this.constructor.name);
     this._config = aConfig;
     process.addListener("beforeExit", this.StopServer);
   }
@@ -61,7 +65,7 @@ export class ServerProcess extends EventEmitter {
     let hasResolved = false;
     const [p, res, rej] = IntifaceUtils.MakePromise();
     const exeFile = await this.GetServerExecutablePath();
-    this._logger.info(`Running ${exeFile} with arguments ${args}`);
+    this._backend_logger.info(`Running ${exeFile} ${args.join(' ')}`);
     // Now we start up our external process.
     this._serverProcess =
       child_process.execFile(exeFile,
@@ -90,14 +94,14 @@ export class ServerProcess extends EventEmitter {
       // If we've successfully parsed a message, then consider the server
       // running.
       if (!hasResolved) {
-        this._logger.debug("Server process sent first message, continuing.");
+        this._backend_logger.debug("Server process sent first message, continuing.");
         res();
         hasResolved = true;
       }
     });
 
     this._serverProcess.on("exit", (code: number, signal: string) => {
-      this._logger.debug("Server process exited.");
+      this._backend_logger.debug("Server process exited.");
       this.emit("exit", code);
       this._serverProcess = null;
     });
@@ -105,13 +109,13 @@ export class ServerProcess extends EventEmitter {
   }
 
   public async StopServer() {
-    this._logger.debug("Stopping currently running server.");
+    this._backend_logger.debug("Stopping currently running server.");
     process.removeListener("beforeExit", this.StopServer);
     const msg = IntifaceProtocols.ServerControlMessage.create({
       stop: IntifaceProtocols.ServerControlMessage.Stop.create(),
     });
     await this.SendMessage(msg);
-    this._logger.debug("Waiting for server to go down.");
+    this._backend_logger.debug("Waiting for server to go down.");
   }
 
   protected async BuildServerArguments() {
@@ -161,8 +165,8 @@ export class ServerProcess extends EventEmitter {
       const buf = IntifaceProtocols.ServerControlMessage.encodeDelimited(aMsg).finish();
       this._serverProcess.stdin.write(buf);
     } catch (e) {
-      this._logger.error("GOT ERROR TRYING TO ENCODE MESSAGE");
-      this._logger.error(e);
+      this._backend_logger.error("GOT ERROR TRYING TO ENCODE MESSAGE");
+      this._backend_logger.error(e);
     }
 
   }
@@ -186,24 +190,49 @@ export class ServerProcess extends EventEmitter {
         const msg = IntifaceProtocols.ServerProcessMessage.decodeDelimited(current_buffer.slice(reader.pos));
         reader.pos = our_reader.pos;
         if (msg.processEnded !== null) {
-          this._logger.debug("Server process ended, notified via process message.");
+          this._backend_logger.debug("Server process ended, notified via process message.");
           this._gotProcessEnded = true;
           // Process will not send messages after this, shut down listener. This is
           // the only type of message the server currently needs to care about.
           this.StopServer();
         } else if (msg.deviceConnected !== null) {
-          this._logger.info(`Device Connected: ${msg.deviceConnected!.deviceName}`);
+          this._backend_logger.info(`Device Connected: ${msg.deviceConnected!.deviceName}`);
         } else if (msg.deviceDisconnected !== null) {
-          this._logger.info(`Device Disconnected: ${msg.deviceDisconnected!.deviceId}`);
+          this._backend_logger.info(`Device Disconnected: ${msg.deviceDisconnected!.deviceId}`);
         } else if (msg.processLog !== null) {
-          this._logger.info(`Process Log: ${msg.processLog!.message}`);
+          // This is super gross, but due to how the async portions of the
+          // system work, we can't create span fields with the right scoping. So
+          // target parsing it is.
+          let log_json = msg.processLog!.message!;
+          try {
+            let json = JSON.parse(log_json);
+            console.log(json);
+            if ("target" in json) {
+              if ((json["target"] as string).startsWith("intiface_cli::")) {
+                this._process_logger.log((json["level"] as string).toLowerCase(), json["fields"]["message"]);
+              } else if ((json["target"] as string).startsWith("buttplug::")) {
+                this._buttplug_logger.log((json["level"] as string).toLowerCase(), json["fields"]["message"]);
+              } else {
+                throw 0;
+              }
+            } else {
+              // Just print old style
+              throw 0;
+            }
+          } catch (ex) {
+            console.log(ex);
+            // If this doesn't load as JSON, just act like it's an old style
+            // process log. This allows us to keep supporting order binaries for
+            // now while we wait for people upgrade.
+            this._process_logger.info(`Process Log: ${msg.processLog!.message}`);
+          }
         }
         const newMsg = IntifaceProtocols.IntifaceBackendMessage.create({
           serverProcessMessage: msg,
         });
         this.emit("process_message", newMsg);
       } catch {
-        this._logger.error("MESSAGE PARSING HAS FALLEN OUT OF SYNC. CONTACT SUPPORT");
+        this._backend_logger.error("MESSAGE PARSING HAS FALLEN OUT OF SYNC. CONTACT SUPPORT");
         break;
       }
     }

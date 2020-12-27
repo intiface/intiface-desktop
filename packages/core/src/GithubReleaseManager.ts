@@ -42,7 +42,7 @@ export class GithubReleaseManager extends EventEmitter {
 
   public constructor(aConfig: IntifaceConfiguration) {
     super();
-    this._logger = IntifaceBackendLogger.GetChildLogger(this.constructor.name);
+    this._logger = IntifaceBackendLogger.GetChildLogger("backend", this.constructor.name);
     this._logger.debug("Constructing Github Release Manager");
     this._config = aConfig;
     this._engine = aConfig.Engine;

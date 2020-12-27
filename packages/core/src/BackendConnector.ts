@@ -13,7 +13,7 @@ export abstract class BackendConnector extends EventEmitter {
 
   protected constructor() {
     super();
-    this._logger = IntifaceBackendLogger.GetChildLogger(this.constructor.name);
+    this._logger = IntifaceBackendLogger.GetChildLogger("backend", this.constructor.name);
     IntifaceBackendLogger.AddConnectorTransport(this);
   }
 

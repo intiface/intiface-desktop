@@ -4,19 +4,17 @@ import { EventEmitter } from "events";
 export class IntifaceLogger extends EventEmitter {
   protected  _logger: winston.Logger;
 
-  protected constructor(aLogType: "frontend" | "backend" | "process", aDefaultLocation: string) {
+  protected constructor(aLogType: "frontend" | "backend" | "process" | "buttplug", aDefaultLocation: string) {
     super();
     const ButtplugLevels = {
       levels: {
-        fatal: 1,
-        error: 2,
-        warn: 3,
-        info: 4,
-        debug: 5,
-        trace: 6,
+        error: 1,
+        warn: 2,
+        info: 3,
+        debug: 4,
+        trace: 5,
       },
       colors: {
-        fatal: "gray",
         error: "red",
         warn: "yellow",
         info: "green",
