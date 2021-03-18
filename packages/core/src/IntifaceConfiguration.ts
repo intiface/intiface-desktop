@@ -1,7 +1,5 @@
 import { EventEmitter } from "events";
-import * as os from "os";
 
-export type EngineType = "csharp" | "rs";
 export type ButtplugLogLevel = "Off" | "Error" | "Warn" | "Info" | "Debug" | "Trace";
 
 export class IntifaceConfiguration extends EventEmitter {
@@ -16,7 +14,6 @@ export class IntifaceConfiguration extends EventEmitter {
   private websocketServerSecurePort: number = 12346;
   private serverLogLevel: ButtplugLogLevel = "Info";
   private proxyServerPort: number = 12347;
-  private engine: EngineType = "rs";
   private usePrereleaseEngine: boolean = false;
   private currentEngineVersion: string = "";
   private currentDeviceFileVersion: number = 0;
@@ -28,7 +25,6 @@ export class IntifaceConfiguration extends EventEmitter {
   private hasUsableEngineExecutable: boolean = false;
   private hasCertificates: boolean = false;
   private startServerOnStartup: boolean = false;
-  private installedEngineType: EngineType | null = null;
 
   // Session variables. This will be saved, but won't be reloaded from the file
   // on next start. They should really only keep the state of a session, and are
@@ -52,11 +48,6 @@ export class IntifaceConfiguration extends EventEmitter {
       // If we've saved a session variable, just ignore and continue.
       if (propName.startsWith("_")) {
         continue;
-      }
-      // Slam engine type to rust on first boot of new Intiface Desktop
-      if (propName == "engine" && 
-          (aConfigObj[propName] == "node" || !aConfigObj.hasOwnProperty("installedEngineType") || aConfigObj["installedEngineType"] === null)) {
-        aConfigObj[propName] = "rs";
       }
 
       this[propName] = aConfigObj[propName];
@@ -144,15 +135,6 @@ export class IntifaceConfiguration extends EventEmitter {
       throw new Error("Invalid network port number.");
     }
     this.proxyServerPort = aPort;
-    this.emit("update");
-  }
-
-  public get Engine(): EngineType {
-    return this.engine;
-  }
-
-  public set Engine(aEngine: EngineType) {
-    this.engine = aEngine;
     this.emit("update");
   }
 
@@ -283,17 +265,5 @@ export class IntifaceConfiguration extends EventEmitter {
 
   public set IsOnline(aIsOnline: boolean | null) {
     this._isOnline = aIsOnline;
-  }
-
-  public get InstalledEngineType(): EngineType | null {
-    return this.installedEngineType;
-  }
-
-  public set InstalledEngineType(type: EngineType | null) {
-    this.installedEngineType = type;
-    if (this.installedEngineType !== this.engine) {
-      this.hasUsableEngineExecutable = false;
-    }
-    this.emit('update');
   }
 }

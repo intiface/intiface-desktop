@@ -2,7 +2,7 @@ import Vue from "vue";
 import * as packageInfo from "../../../package.json";
 import router from "../../router";
 import UpdateDialog from "../UpdateDialog/UpdateDialog.vue";
-import { IntifaceConfiguration, FrontendConnector, EngineType } from "intiface-core-library";
+import { IntifaceConfiguration, FrontendConnector } from "intiface-core-library";
 import { Component, Prop } from "vue-property-decorator";
 
 @Component({
@@ -11,7 +11,6 @@ import { Component, Prop } from "vue-property-decorator";
   },
 })
 export default class SettingsPanel extends Vue {
-
   @Prop()
   private connector!: FrontendConnector;
   @Prop()
@@ -21,7 +20,6 @@ export default class SettingsPanel extends Vue {
   private logLevels: string[] = ["Off", "Error", "Warn", "Info", "Debug", "Trace"];
   private panelExpand: boolean[] = [];
   private panelOpen: number[] = [0, 1, 2, 3, 4];
-  private engineChoices: EngineType[] = ["rs", "csharp"];
   private factoryResetDialog: boolean = false;
   private certAcceptDialog: boolean = false;
   private internalInsecureWebsocketPort: number = 1;
@@ -48,16 +46,6 @@ export default class SettingsPanel extends Vue {
     if (this.config.DeviceFileUpdateAvailable) {
       this.dialogType.push("devicefile");
     }
-  }
-
-  private get IsRunningWindows(): boolean {
-    let platform = window.navigator.platform,
-        windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
-
-    if (windowsPlatforms.indexOf(platform) !== -1) {
-      return true;
-    }
-    return false;
   }
 
   private ForceUpdate() {

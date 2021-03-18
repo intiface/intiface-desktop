@@ -20,10 +20,6 @@
                   href="https://github.com/intiface/intiface-desktop/releases"
                 >https://github.com/intiface/intiface-desktop/releases</a>)
               </p>
-              <p v-if="IsRunningWindows">
-                <b>Intiface Engine:</b>
-                <v-select :items="engineChoices" v-model="config.Engine" dense></v-select>
-              </p>
               <div
                 v-if="config.HasUsableEngineExecutable && config.Engine === config.InstalledEngineType"
               >
@@ -48,7 +44,7 @@
                 <b>Cannot update while server is running or update checks are happening.</b>
               </v-alert>
               <v-row v-if="!(isCheckingForUpdates || connector.IsServerProcessRunning)">
-                <v-col v-show="NeedsUpdate && config.Engine === config.InstalledEngineType">
+                <v-col v-show="NeedsUpdate">
                   <update-dialog :connector="connector" :dialogType="dialogType" ref="updateDialog"></update-dialog>
                 </v-col>
                 <v-col>

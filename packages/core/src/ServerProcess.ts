@@ -9,7 +9,6 @@ import { IntifaceUtils } from "./Utils";
 import { EventEmitter } from "events";
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
 import { CertManager } from "./CertManager";
-import { ButtplugLogLevel } from "buttplug";
 import { IntifaceBackendLogger } from "./IntifaceBackendLogger";
 import * as winston from "winston";
 
@@ -121,8 +120,8 @@ export class ServerProcess extends EventEmitter {
   protected async BuildServerArguments() {
     const args: string[] = new Array<string>();
     args.push(`--servername`, `${this._config.ServerName}`);
-    // Let rust use its internal device config.
-    if (this._config.Engine != "rs") {
+    const exists = promisify(fs.exists);
+    if (await exists(IntifaceUtils.DeviceConfigFilePath)) {
       args.push(`--deviceconfig`, `${IntifaceUtils.DeviceConfigFilePath}`);
     }
     // args.push(`--userdeviceconfig `);
@@ -239,10 +238,6 @@ export class ServerProcess extends EventEmitter {
   }
 
   private async GetServerExecutablePath(): Promise<string> {
-    if (this._config.Engine !== this._config.InstalledEngineType) {
-      return Promise.reject(new Error("Wrong engine type installed. Please run 'Force Engine Download' on Settings > Versions and Updates"));
-    }
-
     const exists = promisify(fs.exists);
     const readFile = promisify(fs.readFile);
     const exePathFile = path.join(IntifaceUtils.UserConfigDirectory, "enginepath.txt");
