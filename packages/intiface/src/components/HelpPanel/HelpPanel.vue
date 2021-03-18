@@ -2,14 +2,13 @@
   <v-container>
     <h1>Help (Sorta)</h1>
     <p>At some point, there will be helpful documentation here. For now, there
-    is vague promises of future help, and recommandations for places to get help
+    is vague promises of future help, and recommendations for places to get help
     from other Intiface users.</p>
     <h3>Places to get help</h3>
     <br/>
     <ul>
       <li><a href="https://discord.buttplug.io">Buttplug Discord Chat Server</a></li>
       <li><a href="https://twitter.com/buttplugio">Buttplug Twitter Account</a> (DMs are open for support)</li>
-      <li><a href="https://metafetish.club">Metafetish Discourse Forums</a></li>
     </ul>
     <br/>
     <h3>Asking for Support</h3>
