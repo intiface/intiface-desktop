@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import ServerPanel from "./components/ServerPanel/ServerPanel.vue";
 import AboutPanel from "./components/AboutPanel/AboutPanel.vue";
+import DevicesPanel from "./components/DevicesPanel/DevicesPanel.vue";
 import SettingsPanel from "./components/SettingsPanel/SettingsPanel.vue";
 import SetupPanel from "./components/SetupPanel/SetupPanel.vue";
 import LogPanel from "./components/LogPanel/LogPanel.vue";
@@ -24,6 +25,12 @@ export default new VueRouter({
       path: "/server",
       name: "Server",
       component: ServerPanel,
+      props: true,
+    },
+    {
+      path: "/devices",
+      name: "Devices",
+      component: DevicesPanel,
       props: true,
     },
     {

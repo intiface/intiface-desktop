@@ -17,7 +17,7 @@ export default class App extends Vue {
     { title: "Server Status", icon: "cloud_circle", path: "server" },
     // TODO Actually implement these panels
     // { title: "Proxy", icon: "settings_cell", path: "proxy" },
-    // { title: "Devices", icon: "device_hub", path: "devices" },
+    { title: "Devices", icon: "device_hub", path: "devices" },
     { title: "Settings", icon: "settings", path: "settings" },
     { title: "Log", icon: "receipt", path: "log" },
     { title: "Help", icon: "help_center", path: "help" },
