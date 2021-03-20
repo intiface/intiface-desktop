@@ -38,8 +38,4 @@ export default class ServerPanel extends Vue {
       this.$emit("error", e);
     }
   }
-
-  // TODO Pipe name validator
-
-  // TODO Websocket address validator
 }
