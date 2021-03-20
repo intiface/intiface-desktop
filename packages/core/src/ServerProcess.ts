@@ -67,22 +67,10 @@ export class ServerProcess extends EventEmitter {
     this._backend_logger.info(`Running ${exeFile} ${args.join(' ')}`);
     // Now we start up our external process.
     this._serverProcess =
-      child_process.execFile(exeFile,
+      child_process.spawn(exeFile,
         args,
         {
-          encoding: "binary",
-          maxBuffer: 1024768,
           cwd: path.dirname(exeFile),
-        },
-        (error: Error, stdout: string | Buffer, stderr: string | Buffer) => {
-          if (error) {
-            rej(error);
-            this._serverProcess = null;
-            return;
-          } else if (!hasResolved) {
-            res();
-            hasResolved = true;
-          }
         });
     this._serverProcess.stdout!.addListener("data", (d: string) => {
       // We'll always get strings from stdin, but we know they've been encoded
