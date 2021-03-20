@@ -9,7 +9,7 @@
             </v-avatar>
           </v-col>
           <v-col>
-              Intiface
+            Intiface
           </v-col>
         </v-row>
       </v-toolbar>
@@ -70,7 +70,7 @@
     <v-main fill-height>
       <router-view @error="onError" :connector="connector" :config="connector.Config"></router-view>
       <v-container>
-        <v-alert v-for="errorMsg in appErrors" dismissible value="true" type="error">{{ errorMsg }}</v-alert>
+        <v-alert v-for="errorMsg in appErrors" dismissible :value="true" type="error">{{ errorMsg }}</v-alert>
       </v-container>
     </v-main>
   </v-app>
