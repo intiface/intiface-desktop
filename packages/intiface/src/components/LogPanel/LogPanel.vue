@@ -11,6 +11,7 @@
             :class="`${msg.logType} logMsg`">{{ msg.timestamp }} : {{ msg.logType }} : {{ msg.location }} : {{ msg.message }}</div>
         </div>
       </v-flex>
+      <!--
       <v-flex shrink>
         <v-layout row>
           <v-flex grow>
@@ -21,6 +22,7 @@
           </v-flex>
         </v-layout>
       </v-flex>
+      -->
     </v-layout>
   </v-container>
 </template>
