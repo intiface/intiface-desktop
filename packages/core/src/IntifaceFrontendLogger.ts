@@ -49,7 +49,7 @@ export class IntifaceFrontendLogger extends IntifaceLogger {
     // extremely hard to debug. All TransportStream instances should be added to
     // the logger but never owned by one of our loggers (i.e. don't keep an
     // IntifaceFrontendLogStorageTransport as a member of this class.)
-    const frontendTransport = new IntifaceFrontendLogStorageTransport(this._logStore, 10000, {});
+    const frontendTransport = new IntifaceFrontendLogStorageTransport(this._logStore, 250, {});
     this._logger.add(frontendTransport);
     frontendTransport.on("logged", (transport, level, msg, meta) => {
       this.emit("logged", transport, level, msg, meta);
