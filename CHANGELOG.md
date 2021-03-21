@@ -1,3 +1,12 @@
+# v20 (2021-03-20)
+
+## Bugfixes
+
+- Remove C# engine support (which was broken anyways)
+- Remove Log panel buttons (which were broken anyways)
+- Reduce number of log messages frontend panel will show
+- Fix issue with stdout buffering causing process shutdown
+
 # v19 (2020-09-13)
 
 ## Features
