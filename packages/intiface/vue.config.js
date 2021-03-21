@@ -15,6 +15,7 @@ module.exports = {
     electronBuilder: {
       nodeIntegration: true,
       builderOptions: {
+        productName: "Intiface Desktop",
         appId: "com.nonpolynomiallabs.intiface-desktop",
         copyright: "Copyright © 2020 Nonpolynomial Labs, LLC",
         artifactName: "${name}-${version}-${os}-${arch}.${ext}",
