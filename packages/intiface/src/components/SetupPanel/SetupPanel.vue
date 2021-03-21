@@ -47,22 +47,16 @@
         <!-- Setup secure cert -->
         <v-stepper-content step="3">
           <div v-if="!usingFirefox">
-            <p>Intiface has support for connecting to apps in web browsers. If you plan on using Firefox for this, you'll need to run through an extra step, so check the checkbox below.</p>
-            <p>Chrome/Edge/Brave/Safari/etc users can hit the "Continue" button to move on.</p>
+            <p>In some very specific instances, Intiface will need to be hosted over self-signed SSL. This mostly relates to those wanting to use Intiface across remote machines using web applications. If this isn't you or you don't know what we're talking about, just ignore this and hit continue.</p>
             <v-checkbox
               v-model="usingFirefox"
-              label="I plan on using Intiface web apps with Firefox."
+              label="I plan on using Intiface in a way that needs self-signed secure certificates."
             ></v-checkbox>
           </div>
           <div v-if="usingFirefox">
-            <p>Depending on how you plan on using Intiface, you may need to set up a secure certificate. This includes:</p>
-            <ul>
-              <li>Using Firefox for webapps that will access Intiface. (Chrome does not require a cert and can connect via insecure websockets.)</li>
-              <li>Using the Proxy feature of Intiface</li>
-            </ul>
-            <br />
-            <p>If either of these cases applies to you, hit the Run Cert Setup button below and you'll be taken to the Cert Setup website in your browser.</p>
-            <p>If you aren't sure if either of these cases applies to you, you can always run the Cert Server from the Settings panel of Intiface Desktop.</p>
+            <p>Depending on how you plan on using Intiface, you may need to set up a secure certificate.</p>
+            <p>If this applies to you (i.e. you know why you'd need this), hit the Run Cert Setup button below and you'll be taken to the Cert Setup website in your browser.</p>
+            <p>If you aren't sure if this applies to you, you can always run the Cert Server from the Settings panel of Intiface Desktop.</p>
             <v-card class="transparent">
               <v-card-text>
                 <v-dialog v-model="certAcceptDialog" persistent max-width="400">
@@ -71,7 +65,7 @@
                   </template>
                   <v-card>
                     <v-card-title class="headline">Certificate Acceptance</v-card-title>
-                    <v-card-text>Your certs have been generated, but you will now need to accept them in Firefox. Hit the "Launch" button below to open the webpage, or "Cancel" to quit. You can restart acceptance later in the Settings Panel if needed. Note that this will not work in Chrome, and Chrome does not require local certs.</v-card-text>
+                    <v-card-text>Your certs have been generated, but you will now need to accept them in your browser. Hit the "Launch" button below to open the webpage, or "Cancel" to quit. You can restart acceptance later in the Settings Panel if needed. Note that this may not work in Chrome, and Chrome does not require local certs.</v-card-text>
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn text @click="StartCertServer()">Launch</v-btn>
