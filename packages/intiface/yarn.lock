@@ -1237,6 +1237,11 @@
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.15.2.tgz#927997342bb9f4a5185a86e6579a0a18afc33b0a"
   integrity sha512-67ZgZpAlhIICIdfQrB5fnDvaKFcDxpKibxznfYRVAT4mQE41Dido/3Ty+E3xGBmTogc5+0Qb8tWhna+5B8z1iQ==
 
+"@types/webpack-env@^1.16.0":
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.16.0.tgz#8c0a9435dfa7b3b1be76562f3070efb3f92637b4"
+  integrity sha512-Fx+NpfOO0CpeYX2g9bkvX8O5qh9wrU1sOF4g8sft4Mu7z+qfe387YlyY8w8daDyDsKY5vUxM0yxkAYnbkRbZEw==
+
 "@types/webpack-sources@*":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@types/webpack-sources/-/webpack-sources-1.4.2.tgz#5d3d4dea04008a779a90135ff96fb5c0c9e6292c"
@@ -6067,7 +6072,7 @@ interpret@^1.0.0:
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
 "intiface-core-library@file:../core":
-  version "18.0.0"
+  version "19.0.0"
   dependencies:
     "@octokit/rest" "^18.3.5"
     "@octokit/types" "^6.12.2"
@@ -6080,7 +6085,7 @@ interpret@^1.0.0:
     axios "^0.21.1"
     codecov "^3.8.1"
     copyfiles "^2.4.1"
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-library-18.0.0-2d09786b-46bd-4c73-9179-2be36a97b65f-1616031767876/node_modules/protocols"
+    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-library-19.0.0-a10ec3a9-a5dc-4e15-9d43-75073e064b1b-1616289476980/node_modules/protocols"
     is-online "^9.0.0"
     jest "^26.6.3"
     less "^4.1.1"
@@ -6099,7 +6104,7 @@ interpret@^1.0.0:
     ws "^7.4.4"
 
 "intiface-protocols@file:../protocols":
-  version "18.0.0"
+  version "19.0.0"
   dependencies:
     protobufjs "^6.10.2"
 
