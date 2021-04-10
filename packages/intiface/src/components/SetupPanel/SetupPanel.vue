@@ -29,7 +29,7 @@
         <!-- Engine and Device File Downloads -->
         <v-stepper-content step="2">
           <div v-if="!updateFinished">
-            <p>First off, we're going to need to download an engine and device file for Intiface to run. Downloads will usually anywhere between 5-50mb, depending on the operating system you're on. Download speeds may vary, but there's a progress bar to let you know how much time is left.</p>
+            <p>We're going to need to download an engine and device file for Intiface to run. Downloads will usually anywhere between 5-50mb, depending on the operating system you're on. Download speeds may vary, but there's a progress bar to let you know how much time is left.</p>
             <update-dialog
               :connector="connector"
               dialogVerb="Install"
@@ -39,50 +39,10 @@
             ></update-dialog>
           </div>
           <div v-if="updateFinished">
-            <p>All done! Hit the button below to continue.</p>
-            <v-btn color="primary" @click="setupStep = 3">Continue</v-btn>
+            <h1>All done!</h1>
+            <p>All finished with setup! Now get out there and Intiface!</p>
+            <v-btn color="primary" @click="GoToIntiface()">Start Intiface</v-btn>
           </div>
-        </v-stepper-content>
-
-        <!-- Setup secure cert -->
-        <v-stepper-content step="3">
-          <div v-if="!usingFirefox">
-            <p>In some very specific instances, Intiface will need to be hosted over self-signed SSL. This mostly relates to those wanting to use Intiface across remote machines using web applications. If this isn't you or you don't know what we're talking about, just ignore this and hit continue.</p>
-            <v-checkbox
-              v-model="usingFirefox"
-              label="I plan on using Intiface in a way that needs self-signed secure certificates."
-            ></v-checkbox>
-          </div>
-          <div v-if="usingFirefox">
-            <p>Depending on how you plan on using Intiface, you may need to set up a secure certificate.</p>
-            <p>If this applies to you (i.e. you know why you'd need this), hit the Run Cert Setup button below and you'll be taken to the Cert Setup website in your browser.</p>
-            <p>If you aren't sure if this applies to you, you can always run the Cert Server from the Settings panel of Intiface Desktop.</p>
-            <v-card class="transparent">
-              <v-card-text>
-                <v-dialog v-model="certAcceptDialog" persistent max-width="400">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn color="primary" dark v-bind="attrs" v-on="on">Run Certificate Configuration</v-btn>
-                  </template>
-                  <v-card>
-                    <v-card-title class="headline">Certificate Acceptance</v-card-title>
-                    <v-card-text>Your certs have been generated, but you will now need to accept them in your browser. Hit the "Launch" button below to open the webpage, or "Cancel" to quit. You can restart acceptance later in the Settings Panel if needed. Note that this may not work in Chrome, and Chrome does not require local certs.</v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn text @click="StartCertServer()">Launch</v-btn>
-                      <v-btn text @click="StopCertServer()">Cancel</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-card-text>
-            </v-card>
-          </div>
-          <v-btn color="primary" @click="setupStep = 4">Continue</v-btn>
-        </v-stepper-content>
-
-        <v-stepper-content step="4">
-          <h1>All done!</h1>
-          <p>All finished with setup! Now get out there and Intiface!</p>
-          <v-btn color="primary" @click="GoToIntiface()">Start Intiface</v-btn>
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>

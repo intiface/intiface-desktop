@@ -12,18 +12,8 @@
             <v-checkbox v-model="config.UseWebsocketServerInsecure" :disabled="serverRunning"></v-checkbox>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Regular Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerInsecurePort }})</v-list-item-title>
+            <v-list-item-title>Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerInsecurePort }})</v-list-item-title>
             <v-list-item-subtitle>Used for local applications (games, movie sync, etc...), or web applications in Chrome/Firefox/Edge, etc....</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-action>
-            <v-checkbox v-model="config.UseWebsocketServerSecure" :disabled="serverRunning || !config.HasCertificates"></v-checkbox>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>SSL Websockets (on {{config.websocketServerAllInterfaces ? "[All Interfaces]" : "127.0.0.1"}}:{{ config.websocketServerSecurePort }})</v-list-item-title>
-            <v-list-item-subtitle v-if="!config.HasCertificates">Disabled because cert generation has not happened. Cert generation is available on the Setting tab.</v-list-item-subtitle>
-            <v-list-item-subtitle>Only needed in special instances, such as web applications on other machines, etc...</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>

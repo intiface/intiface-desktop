@@ -212,42 +212,6 @@ export class IntifaceBackendManager extends EventEmitter {
     }
   }
 
-  private async MaybeGenerateCert() {
-    if (await this._certManager.HasGeneratedCerts()) {
-      return;
-    }
-    await this._certManager.GenerateCerts();
-    // Use the certificate check to update the new configuration file values
-    await this.CheckForCertificates();
-    this.UpdateFrontendConfiguration();
-  }
-
-  private async GenerateCert(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-    await this.MaybeGenerateCert();
-    this._connector.SendMessage(IntifaceProtocols.IntifaceBackendMessage.create({
-      certificateGenerated: IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated.create(),
-    }));
-    this._connector.SendOk(aMsg);
-  }
-
-  private async RunCertificateAcceptanceServer(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-    await this.MaybeGenerateCert();
-    await this._certManager.RunCertAcceptanceServer(this._configManager.Config.WebsocketServerSecurePort);
-    const msg = IntifaceProtocols.IntifaceBackendMessage.create({
-      certificateAcceptanceServerRunning:
-        IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning.create({
-          insecurePort: this._certManager.InsecurePort,
-        }),
-    });
-    msg.index = aMsg.index;
-    this._connector.SendMessage(msg);
-  }
-
-  private async StopCertificateAcceptanceServer(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
-    this._certManager.StopServer();
-    this._connector.SendOk(aMsg);
-  }
-
   private async CheckForUpdates(aMsg: IntifaceProtocols.IntifaceFrontendMessage | null) {
     if (!this._configManager.Config.IsOnline) {
       this._logger.debug("Uncertain of online status, not running update check.");
@@ -347,21 +311,6 @@ export class IntifaceBackendManager extends EventEmitter {
 
     if (aMsg.updateApplication !== null) {
       await this.UpdateApplication(aMsg);
-      return;
-    }
-
-    if (aMsg.generateCertificate !== null) {
-      await this.GenerateCert(aMsg);
-      return;
-    }
-
-    if (aMsg.runCertificateAcceptanceServer !== null) {
-      await this.RunCertificateAcceptanceServer(aMsg);
-      return;
-    }
-
-    if (aMsg.stopCertificateAcceptanceServer !== null) {
-      await this.StopCertificateAcceptanceServer(aMsg);
       return;
     }
 

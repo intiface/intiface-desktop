@@ -117,20 +117,12 @@ export class ServerProcess extends EventEmitter {
     // process
     args.push(`--frontendpipe`);
     args.push(`--stayopen`);
-    if (this._config.UseWebsocketServerInsecure || this._config.UseWebsocketServerSecure) {
+    if (this._config.UseWebsocketServerInsecure) {
       if (this._config.WebsocketServerAllInterfaces) {
         args.push(`--wsallinterfaces`);
       }
       if (this._config.UseWebsocketServerInsecure) {
         args.push(`--wsinsecureport`, `${this._config.WebsocketServerInsecurePort}`);
-      }
-      if (this._config.UseWebsocketServerSecure && this._config.HasCertificates) {
-        const cg = new CertManager(IntifaceUtils.UserConfigDirectory);
-        if (await cg.HasGeneratedCerts()) {
-          args.push(`--wssecureport`, `${this._config.WebsocketServerSecurePort}`);
-          args.push(`--wscertfile`, `${cg.CertFilePath}`);
-          args.push(`--wsprivfile`, `${cg.PrivKeyFilePath}`);
-        }
       }
     }
     if (this._config.ServerLogLevel !== "Off") {
@@ -228,11 +220,7 @@ export class ServerProcess extends EventEmitter {
   private async GetServerExecutablePath(): Promise<string> {
     const exists = promisify(fs.exists);
     const readFile = promisify(fs.readFile);
-    const exePathFile = path.join(IntifaceUtils.UserConfigDirectory, "enginepath.txt");
-    if (!(await exists(exePathFile))) {
-      return Promise.reject(new Error(`Cannot find engine path file at ${exePathFile}.`));
-    }
-    const exePath = (await readFile(exePathFile, { encoding: "utf8" })).trim();
+    const exePath = path.join(IntifaceUtils.UserConfigDirectory, "engine");
     if (!(await exists(exePath))) {
       return Promise.reject(new Error(`Server executable install location ${exePath} does not exist.`));
     }

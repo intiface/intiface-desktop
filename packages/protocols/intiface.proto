@@ -107,13 +107,6 @@ message IntifaceBackendMessage {
     string error = 3;
   };
 
-  message CertificateGenerated {
-  }
-  
-  message CertificateAcceptanceServerRunning {
-    uint32 insecure_port = 1;
-  };
-
   // JSON block representing a js object for winston, for display in
   // the Frontend
   message LogMessage {
@@ -126,8 +119,6 @@ message IntifaceBackendMessage {
     Configuration configuration = 4;
     UpdatesAvailable updates_available = 5;
     DownloadProgress download_progress = 6;
-    CertificateAcceptanceServerRunning certificate_acceptance_server_running = 7;
-    CertificateGenerated certificate_generated = 8;
     ServerProcessMessage server_process_message = 9;
     LogMessage log_message = 10;
     ProcessError process_error = 11;
@@ -187,15 +178,6 @@ message IntifaceFrontendMessage {
   message UpdateApplication {
   };
 
-  message GenerateCertificate {
-  };
-
-  message RunCertificateAcceptanceServer {
-  };
-
-  message StopCertificateAcceptanceServer {
-  };
-
   message ResetIntifaceConfiguration {
   };
 
@@ -221,9 +203,6 @@ message IntifaceFrontendMessage {
     UpdateEngine update_engine = 11;
     UpdateDeviceFile update_device_file = 12;
     UpdateApplication update_application = 13;
-    GenerateCertificate generate_certificate = 14;
-    RunCertificateAcceptanceServer run_certificate_acceptance_server = 15;
-    StopCertificateAcceptanceServer stop_certificate_acceptance_server = 16;
     LogMessage log_message = 17;
     CancelUpdate cancel_update = 18;
     ResetIntifaceConfiguration reset_intiface_configuration = 19;

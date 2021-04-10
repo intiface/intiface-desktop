@@ -2509,8 +2509,6 @@ $root.IntifaceProtocols = (function() {
          * @property {IntifaceProtocols.IntifaceBackendMessage.IConfiguration|null} [configuration] IntifaceBackendMessage configuration
          * @property {IntifaceProtocols.IntifaceBackendMessage.IUpdatesAvailable|null} [updatesAvailable] IntifaceBackendMessage updatesAvailable
          * @property {IntifaceProtocols.IntifaceBackendMessage.IDownloadProgress|null} [downloadProgress] IntifaceBackendMessage downloadProgress
-         * @property {IntifaceProtocols.IntifaceBackendMessage.ICertificateAcceptanceServerRunning|null} [certificateAcceptanceServerRunning] IntifaceBackendMessage certificateAcceptanceServerRunning
-         * @property {IntifaceProtocols.IntifaceBackendMessage.ICertificateGenerated|null} [certificateGenerated] IntifaceBackendMessage certificateGenerated
          * @property {IntifaceProtocols.IServerProcessMessage|null} [serverProcessMessage] IntifaceBackendMessage serverProcessMessage
          * @property {IntifaceProtocols.IntifaceBackendMessage.ILogMessage|null} [logMessage] IntifaceBackendMessage logMessage
          * @property {IntifaceProtocols.IntifaceBackendMessage.IProcessError|null} [processError] IntifaceBackendMessage processError
@@ -2580,22 +2578,6 @@ $root.IntifaceProtocols = (function() {
         IntifaceBackendMessage.prototype.downloadProgress = null;
 
         /**
-         * IntifaceBackendMessage certificateAcceptanceServerRunning.
-         * @member {IntifaceProtocols.IntifaceBackendMessage.ICertificateAcceptanceServerRunning|null|undefined} certificateAcceptanceServerRunning
-         * @memberof IntifaceProtocols.IntifaceBackendMessage
-         * @instance
-         */
-        IntifaceBackendMessage.prototype.certificateAcceptanceServerRunning = null;
-
-        /**
-         * IntifaceBackendMessage certificateGenerated.
-         * @member {IntifaceProtocols.IntifaceBackendMessage.ICertificateGenerated|null|undefined} certificateGenerated
-         * @memberof IntifaceProtocols.IntifaceBackendMessage
-         * @instance
-         */
-        IntifaceBackendMessage.prototype.certificateGenerated = null;
-
-        /**
          * IntifaceBackendMessage serverProcessMessage.
          * @member {IntifaceProtocols.IServerProcessMessage|null|undefined} serverProcessMessage
          * @memberof IntifaceProtocols.IntifaceBackendMessage
@@ -2624,12 +2606,12 @@ $root.IntifaceProtocols = (function() {
 
         /**
          * IntifaceBackendMessage msg.
-         * @member {"ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"certificateAcceptanceServerRunning"|"certificateGenerated"|"serverProcessMessage"|"logMessage"|"processError"|undefined} msg
+         * @member {"ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"serverProcessMessage"|"logMessage"|"processError"|undefined} msg
          * @memberof IntifaceProtocols.IntifaceBackendMessage
          * @instance
          */
         Object.defineProperty(IntifaceBackendMessage.prototype, "msg", {
-            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "configuration", "updatesAvailable", "downloadProgress", "certificateAcceptanceServerRunning", "certificateGenerated", "serverProcessMessage", "logMessage", "processError"]),
+            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "configuration", "updatesAvailable", "downloadProgress", "serverProcessMessage", "logMessage", "processError"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -2669,10 +2651,6 @@ $root.IntifaceProtocols = (function() {
                 $root.IntifaceProtocols.IntifaceBackendMessage.UpdatesAvailable.encode(message.updatesAvailable, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
             if (message.downloadProgress != null && Object.hasOwnProperty.call(message, "downloadProgress"))
                 $root.IntifaceProtocols.IntifaceBackendMessage.DownloadProgress.encode(message.downloadProgress, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
-            if (message.certificateAcceptanceServerRunning != null && Object.hasOwnProperty.call(message, "certificateAcceptanceServerRunning"))
-                $root.IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning.encode(message.certificateAcceptanceServerRunning, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
-            if (message.certificateGenerated != null && Object.hasOwnProperty.call(message, "certificateGenerated"))
-                $root.IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated.encode(message.certificateGenerated, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
             if (message.serverProcessMessage != null && Object.hasOwnProperty.call(message, "serverProcessMessage"))
                 $root.IntifaceProtocols.ServerProcessMessage.encode(message.serverProcessMessage, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
             if (message.logMessage != null && Object.hasOwnProperty.call(message, "logMessage"))
@@ -2730,12 +2708,6 @@ $root.IntifaceProtocols = (function() {
                     break;
                 case 6:
                     message.downloadProgress = $root.IntifaceProtocols.IntifaceBackendMessage.DownloadProgress.decode(reader, reader.uint32());
-                    break;
-                case 7:
-                    message.certificateAcceptanceServerRunning = $root.IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning.decode(reader, reader.uint32());
-                    break;
-                case 8:
-                    message.certificateGenerated = $root.IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated.decode(reader, reader.uint32());
                     break;
                 case 9:
                     message.serverProcessMessage = $root.IntifaceProtocols.ServerProcessMessage.decode(reader, reader.uint32());
@@ -2833,26 +2805,6 @@ $root.IntifaceProtocols = (function() {
                         return "downloadProgress." + error;
                 }
             }
-            if (message.certificateAcceptanceServerRunning != null && message.hasOwnProperty("certificateAcceptanceServerRunning")) {
-                if (properties.msg === 1)
-                    return "msg: multiple values";
-                properties.msg = 1;
-                {
-                    var error = $root.IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning.verify(message.certificateAcceptanceServerRunning);
-                    if (error)
-                        return "certificateAcceptanceServerRunning." + error;
-                }
-            }
-            if (message.certificateGenerated != null && message.hasOwnProperty("certificateGenerated")) {
-                if (properties.msg === 1)
-                    return "msg: multiple values";
-                properties.msg = 1;
-                {
-                    var error = $root.IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated.verify(message.certificateGenerated);
-                    if (error)
-                        return "certificateGenerated." + error;
-                }
-            }
             if (message.serverProcessMessage != null && message.hasOwnProperty("serverProcessMessage")) {
                 if (properties.msg === 1)
                     return "msg: multiple values";
@@ -2925,16 +2877,6 @@ $root.IntifaceProtocols = (function() {
                     throw TypeError(".IntifaceProtocols.IntifaceBackendMessage.downloadProgress: object expected");
                 message.downloadProgress = $root.IntifaceProtocols.IntifaceBackendMessage.DownloadProgress.fromObject(object.downloadProgress);
             }
-            if (object.certificateAcceptanceServerRunning != null) {
-                if (typeof object.certificateAcceptanceServerRunning !== "object")
-                    throw TypeError(".IntifaceProtocols.IntifaceBackendMessage.certificateAcceptanceServerRunning: object expected");
-                message.certificateAcceptanceServerRunning = $root.IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning.fromObject(object.certificateAcceptanceServerRunning);
-            }
-            if (object.certificateGenerated != null) {
-                if (typeof object.certificateGenerated !== "object")
-                    throw TypeError(".IntifaceProtocols.IntifaceBackendMessage.certificateGenerated: object expected");
-                message.certificateGenerated = $root.IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated.fromObject(object.certificateGenerated);
-            }
             if (object.serverProcessMessage != null) {
                 if (typeof object.serverProcessMessage !== "object")
                     throw TypeError(".IntifaceProtocols.IntifaceBackendMessage.serverProcessMessage: object expected");
@@ -2994,16 +2936,6 @@ $root.IntifaceProtocols = (function() {
                 object.downloadProgress = $root.IntifaceProtocols.IntifaceBackendMessage.DownloadProgress.toObject(message.downloadProgress, options);
                 if (options.oneofs)
                     object.msg = "downloadProgress";
-            }
-            if (message.certificateAcceptanceServerRunning != null && message.hasOwnProperty("certificateAcceptanceServerRunning")) {
-                object.certificateAcceptanceServerRunning = $root.IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning.toObject(message.certificateAcceptanceServerRunning, options);
-                if (options.oneofs)
-                    object.msg = "certificateAcceptanceServerRunning";
-            }
-            if (message.certificateGenerated != null && message.hasOwnProperty("certificateGenerated")) {
-                object.certificateGenerated = $root.IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated.toObject(message.certificateGenerated, options);
-                if (options.oneofs)
-                    object.msg = "certificateGenerated";
             }
             if (message.serverProcessMessage != null && message.hasOwnProperty("serverProcessMessage")) {
                 object.serverProcessMessage = $root.IntifaceProtocols.ServerProcessMessage.toObject(message.serverProcessMessage, options);
@@ -4219,353 +4151,6 @@ $root.IntifaceProtocols = (function() {
             return DownloadProgress;
         })();
 
-        IntifaceBackendMessage.CertificateGenerated = (function() {
-
-            /**
-             * Properties of a CertificateGenerated.
-             * @memberof IntifaceProtocols.IntifaceBackendMessage
-             * @interface ICertificateGenerated
-             */
-
-            /**
-             * Constructs a new CertificateGenerated.
-             * @memberof IntifaceProtocols.IntifaceBackendMessage
-             * @classdesc Represents a CertificateGenerated.
-             * @implements ICertificateGenerated
-             * @constructor
-             * @param {IntifaceProtocols.IntifaceBackendMessage.ICertificateGenerated=} [properties] Properties to set
-             */
-            function CertificateGenerated(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * Creates a new CertificateGenerated instance using the specified properties.
-             * @function create
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated
-             * @static
-             * @param {IntifaceProtocols.IntifaceBackendMessage.ICertificateGenerated=} [properties] Properties to set
-             * @returns {IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated} CertificateGenerated instance
-             */
-            CertificateGenerated.create = function create(properties) {
-                return new CertificateGenerated(properties);
-            };
-
-            /**
-             * Encodes the specified CertificateGenerated message. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated.verify|verify} messages.
-             * @function encode
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated
-             * @static
-             * @param {IntifaceProtocols.IntifaceBackendMessage.ICertificateGenerated} message CertificateGenerated message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            CertificateGenerated.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                return writer;
-            };
-
-            /**
-             * Encodes the specified CertificateGenerated message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated
-             * @static
-             * @param {IntifaceProtocols.IntifaceBackendMessage.ICertificateGenerated} message CertificateGenerated message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            CertificateGenerated.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a CertificateGenerated message from the specified reader or buffer.
-             * @function decode
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated} CertificateGenerated
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            CertificateGenerated.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a CertificateGenerated message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated} CertificateGenerated
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            CertificateGenerated.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a CertificateGenerated message.
-             * @function verify
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            CertificateGenerated.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                return null;
-            };
-
-            /**
-             * Creates a CertificateGenerated message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated} CertificateGenerated
-             */
-            CertificateGenerated.fromObject = function fromObject(object) {
-                if (object instanceof $root.IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated)
-                    return object;
-                return new $root.IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated();
-            };
-
-            /**
-             * Creates a plain object from a CertificateGenerated message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated
-             * @static
-             * @param {IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated} message CertificateGenerated
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            CertificateGenerated.toObject = function toObject() {
-                return {};
-            };
-
-            /**
-             * Converts this CertificateGenerated to JSON.
-             * @function toJSON
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateGenerated
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            CertificateGenerated.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return CertificateGenerated;
-        })();
-
-        IntifaceBackendMessage.CertificateAcceptanceServerRunning = (function() {
-
-            /**
-             * Properties of a CertificateAcceptanceServerRunning.
-             * @memberof IntifaceProtocols.IntifaceBackendMessage
-             * @interface ICertificateAcceptanceServerRunning
-             * @property {number|null} [insecurePort] CertificateAcceptanceServerRunning insecurePort
-             */
-
-            /**
-             * Constructs a new CertificateAcceptanceServerRunning.
-             * @memberof IntifaceProtocols.IntifaceBackendMessage
-             * @classdesc Represents a CertificateAcceptanceServerRunning.
-             * @implements ICertificateAcceptanceServerRunning
-             * @constructor
-             * @param {IntifaceProtocols.IntifaceBackendMessage.ICertificateAcceptanceServerRunning=} [properties] Properties to set
-             */
-            function CertificateAcceptanceServerRunning(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * CertificateAcceptanceServerRunning insecurePort.
-             * @member {number} insecurePort
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning
-             * @instance
-             */
-            CertificateAcceptanceServerRunning.prototype.insecurePort = 0;
-
-            /**
-             * Creates a new CertificateAcceptanceServerRunning instance using the specified properties.
-             * @function create
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning
-             * @static
-             * @param {IntifaceProtocols.IntifaceBackendMessage.ICertificateAcceptanceServerRunning=} [properties] Properties to set
-             * @returns {IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning} CertificateAcceptanceServerRunning instance
-             */
-            CertificateAcceptanceServerRunning.create = function create(properties) {
-                return new CertificateAcceptanceServerRunning(properties);
-            };
-
-            /**
-             * Encodes the specified CertificateAcceptanceServerRunning message. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning.verify|verify} messages.
-             * @function encode
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning
-             * @static
-             * @param {IntifaceProtocols.IntifaceBackendMessage.ICertificateAcceptanceServerRunning} message CertificateAcceptanceServerRunning message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            CertificateAcceptanceServerRunning.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.insecurePort != null && Object.hasOwnProperty.call(message, "insecurePort"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.insecurePort);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified CertificateAcceptanceServerRunning message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning
-             * @static
-             * @param {IntifaceProtocols.IntifaceBackendMessage.ICertificateAcceptanceServerRunning} message CertificateAcceptanceServerRunning message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            CertificateAcceptanceServerRunning.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a CertificateAcceptanceServerRunning message from the specified reader or buffer.
-             * @function decode
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning} CertificateAcceptanceServerRunning
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            CertificateAcceptanceServerRunning.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.insecurePort = reader.uint32();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a CertificateAcceptanceServerRunning message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning} CertificateAcceptanceServerRunning
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            CertificateAcceptanceServerRunning.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a CertificateAcceptanceServerRunning message.
-             * @function verify
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            CertificateAcceptanceServerRunning.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.insecurePort != null && message.hasOwnProperty("insecurePort"))
-                    if (!$util.isInteger(message.insecurePort))
-                        return "insecurePort: integer expected";
-                return null;
-            };
-
-            /**
-             * Creates a CertificateAcceptanceServerRunning message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning} CertificateAcceptanceServerRunning
-             */
-            CertificateAcceptanceServerRunning.fromObject = function fromObject(object) {
-                if (object instanceof $root.IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning)
-                    return object;
-                var message = new $root.IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning();
-                if (object.insecurePort != null)
-                    message.insecurePort = object.insecurePort >>> 0;
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a CertificateAcceptanceServerRunning message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning
-             * @static
-             * @param {IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning} message CertificateAcceptanceServerRunning
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            CertificateAcceptanceServerRunning.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults)
-                    object.insecurePort = 0;
-                if (message.insecurePort != null && message.hasOwnProperty("insecurePort"))
-                    object.insecurePort = message.insecurePort;
-                return object;
-            };
-
-            /**
-             * Converts this CertificateAcceptanceServerRunning to JSON.
-             * @function toJSON
-             * @memberof IntifaceProtocols.IntifaceBackendMessage.CertificateAcceptanceServerRunning
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            CertificateAcceptanceServerRunning.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return CertificateAcceptanceServerRunning;
-        })();
-
         IntifaceBackendMessage.LogMessage = (function() {
 
             /**
@@ -4775,9 +4360,6 @@ $root.IntifaceProtocols = (function() {
          * @property {IntifaceProtocols.IntifaceFrontendMessage.IUpdateEngine|null} [updateEngine] IntifaceFrontendMessage updateEngine
          * @property {IntifaceProtocols.IntifaceFrontendMessage.IUpdateDeviceFile|null} [updateDeviceFile] IntifaceFrontendMessage updateDeviceFile
          * @property {IntifaceProtocols.IntifaceFrontendMessage.IUpdateApplication|null} [updateApplication] IntifaceFrontendMessage updateApplication
-         * @property {IntifaceProtocols.IntifaceFrontendMessage.IGenerateCertificate|null} [generateCertificate] IntifaceFrontendMessage generateCertificate
-         * @property {IntifaceProtocols.IntifaceFrontendMessage.IRunCertificateAcceptanceServer|null} [runCertificateAcceptanceServer] IntifaceFrontendMessage runCertificateAcceptanceServer
-         * @property {IntifaceProtocols.IntifaceFrontendMessage.IStopCertificateAcceptanceServer|null} [stopCertificateAcceptanceServer] IntifaceFrontendMessage stopCertificateAcceptanceServer
          * @property {IntifaceProtocols.IntifaceFrontendMessage.ILogMessage|null} [logMessage] IntifaceFrontendMessage logMessage
          * @property {IntifaceProtocols.IntifaceFrontendMessage.ICancelUpdate|null} [cancelUpdate] IntifaceFrontendMessage cancelUpdate
          * @property {IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration|null} [resetIntifaceConfiguration] IntifaceFrontendMessage resetIntifaceConfiguration
@@ -4903,30 +4485,6 @@ $root.IntifaceProtocols = (function() {
         IntifaceFrontendMessage.prototype.updateApplication = null;
 
         /**
-         * IntifaceFrontendMessage generateCertificate.
-         * @member {IntifaceProtocols.IntifaceFrontendMessage.IGenerateCertificate|null|undefined} generateCertificate
-         * @memberof IntifaceProtocols.IntifaceFrontendMessage
-         * @instance
-         */
-        IntifaceFrontendMessage.prototype.generateCertificate = null;
-
-        /**
-         * IntifaceFrontendMessage runCertificateAcceptanceServer.
-         * @member {IntifaceProtocols.IntifaceFrontendMessage.IRunCertificateAcceptanceServer|null|undefined} runCertificateAcceptanceServer
-         * @memberof IntifaceProtocols.IntifaceFrontendMessage
-         * @instance
-         */
-        IntifaceFrontendMessage.prototype.runCertificateAcceptanceServer = null;
-
-        /**
-         * IntifaceFrontendMessage stopCertificateAcceptanceServer.
-         * @member {IntifaceProtocols.IntifaceFrontendMessage.IStopCertificateAcceptanceServer|null|undefined} stopCertificateAcceptanceServer
-         * @memberof IntifaceProtocols.IntifaceFrontendMessage
-         * @instance
-         */
-        IntifaceFrontendMessage.prototype.stopCertificateAcceptanceServer = null;
-
-        /**
          * IntifaceFrontendMessage logMessage.
          * @member {IntifaceProtocols.IntifaceFrontendMessage.ILogMessage|null|undefined} logMessage
          * @memberof IntifaceProtocols.IntifaceFrontendMessage
@@ -4955,12 +4513,12 @@ $root.IntifaceProtocols = (function() {
 
         /**
          * IntifaceFrontendMessage msg.
-         * @member {"ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"generateCertificate"|"runCertificateAcceptanceServer"|"stopCertificateAcceptanceServer"|"logMessage"|"cancelUpdate"|"resetIntifaceConfiguration"|undefined} msg
+         * @member {"ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"logMessage"|"cancelUpdate"|"resetIntifaceConfiguration"|undefined} msg
          * @memberof IntifaceProtocols.IntifaceFrontendMessage
          * @instance
          */
         Object.defineProperty(IntifaceFrontendMessage.prototype, "msg", {
-            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "ready", "startProcess", "stopProcess", "startProxy", "stopProxy", "updateConfig", "checkForUpdates", "updateEngine", "updateDeviceFile", "updateApplication", "generateCertificate", "runCertificateAcceptanceServer", "stopCertificateAcceptanceServer", "logMessage", "cancelUpdate", "resetIntifaceConfiguration"]),
+            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "ready", "startProcess", "stopProcess", "startProxy", "stopProxy", "updateConfig", "checkForUpdates", "updateEngine", "updateDeviceFile", "updateApplication", "logMessage", "cancelUpdate", "resetIntifaceConfiguration"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -5014,12 +4572,6 @@ $root.IntifaceProtocols = (function() {
                 $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateDeviceFile.encode(message.updateDeviceFile, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
             if (message.updateApplication != null && Object.hasOwnProperty.call(message, "updateApplication"))
                 $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication.encode(message.updateApplication, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
-            if (message.generateCertificate != null && Object.hasOwnProperty.call(message, "generateCertificate"))
-                $root.IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate.encode(message.generateCertificate, writer.uint32(/* id 14, wireType 2 =*/114).fork()).ldelim();
-            if (message.runCertificateAcceptanceServer != null && Object.hasOwnProperty.call(message, "runCertificateAcceptanceServer"))
-                $root.IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer.encode(message.runCertificateAcceptanceServer, writer.uint32(/* id 15, wireType 2 =*/122).fork()).ldelim();
-            if (message.stopCertificateAcceptanceServer != null && Object.hasOwnProperty.call(message, "stopCertificateAcceptanceServer"))
-                $root.IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer.encode(message.stopCertificateAcceptanceServer, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
             if (message.logMessage != null && Object.hasOwnProperty.call(message, "logMessage"))
                 $root.IntifaceProtocols.IntifaceFrontendMessage.LogMessage.encode(message.logMessage, writer.uint32(/* id 17, wireType 2 =*/138).fork()).ldelim();
             if (message.cancelUpdate != null && Object.hasOwnProperty.call(message, "cancelUpdate"))
@@ -5098,15 +4650,6 @@ $root.IntifaceProtocols = (function() {
                     break;
                 case 13:
                     message.updateApplication = $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication.decode(reader, reader.uint32());
-                    break;
-                case 14:
-                    message.generateCertificate = $root.IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate.decode(reader, reader.uint32());
-                    break;
-                case 15:
-                    message.runCertificateAcceptanceServer = $root.IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer.decode(reader, reader.uint32());
-                    break;
-                case 16:
-                    message.stopCertificateAcceptanceServer = $root.IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer.decode(reader, reader.uint32());
                     break;
                 case 17:
                     message.logMessage = $root.IntifaceProtocols.IntifaceFrontendMessage.LogMessage.decode(reader, reader.uint32());
@@ -5274,36 +4817,6 @@ $root.IntifaceProtocols = (function() {
                         return "updateApplication." + error;
                 }
             }
-            if (message.generateCertificate != null && message.hasOwnProperty("generateCertificate")) {
-                if (properties.msg === 1)
-                    return "msg: multiple values";
-                properties.msg = 1;
-                {
-                    var error = $root.IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate.verify(message.generateCertificate);
-                    if (error)
-                        return "generateCertificate." + error;
-                }
-            }
-            if (message.runCertificateAcceptanceServer != null && message.hasOwnProperty("runCertificateAcceptanceServer")) {
-                if (properties.msg === 1)
-                    return "msg: multiple values";
-                properties.msg = 1;
-                {
-                    var error = $root.IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer.verify(message.runCertificateAcceptanceServer);
-                    if (error)
-                        return "runCertificateAcceptanceServer." + error;
-                }
-            }
-            if (message.stopCertificateAcceptanceServer != null && message.hasOwnProperty("stopCertificateAcceptanceServer")) {
-                if (properties.msg === 1)
-                    return "msg: multiple values";
-                properties.msg = 1;
-                {
-                    var error = $root.IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer.verify(message.stopCertificateAcceptanceServer);
-                    if (error)
-                        return "stopCertificateAcceptanceServer." + error;
-                }
-            }
             if (message.logMessage != null && message.hasOwnProperty("logMessage")) {
                 if (properties.msg === 1)
                     return "msg: multiple values";
@@ -5411,21 +4924,6 @@ $root.IntifaceProtocols = (function() {
                     throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.updateApplication: object expected");
                 message.updateApplication = $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication.fromObject(object.updateApplication);
             }
-            if (object.generateCertificate != null) {
-                if (typeof object.generateCertificate !== "object")
-                    throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.generateCertificate: object expected");
-                message.generateCertificate = $root.IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate.fromObject(object.generateCertificate);
-            }
-            if (object.runCertificateAcceptanceServer != null) {
-                if (typeof object.runCertificateAcceptanceServer !== "object")
-                    throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.runCertificateAcceptanceServer: object expected");
-                message.runCertificateAcceptanceServer = $root.IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer.fromObject(object.runCertificateAcceptanceServer);
-            }
-            if (object.stopCertificateAcceptanceServer != null) {
-                if (typeof object.stopCertificateAcceptanceServer !== "object")
-                    throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.stopCertificateAcceptanceServer: object expected");
-                message.stopCertificateAcceptanceServer = $root.IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer.fromObject(object.stopCertificateAcceptanceServer);
-            }
             if (object.logMessage != null) {
                 if (typeof object.logMessage !== "object")
                     throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.logMessage: object expected");
@@ -5520,21 +5018,6 @@ $root.IntifaceProtocols = (function() {
                 object.updateApplication = $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateApplication.toObject(message.updateApplication, options);
                 if (options.oneofs)
                     object.msg = "updateApplication";
-            }
-            if (message.generateCertificate != null && message.hasOwnProperty("generateCertificate")) {
-                object.generateCertificate = $root.IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate.toObject(message.generateCertificate, options);
-                if (options.oneofs)
-                    object.msg = "generateCertificate";
-            }
-            if (message.runCertificateAcceptanceServer != null && message.hasOwnProperty("runCertificateAcceptanceServer")) {
-                object.runCertificateAcceptanceServer = $root.IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer.toObject(message.runCertificateAcceptanceServer, options);
-                if (options.oneofs)
-                    object.msg = "runCertificateAcceptanceServer";
-            }
-            if (message.stopCertificateAcceptanceServer != null && message.hasOwnProperty("stopCertificateAcceptanceServer")) {
-                object.stopCertificateAcceptanceServer = $root.IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer.toObject(message.stopCertificateAcceptanceServer, options);
-                if (options.oneofs)
-                    object.msg = "stopCertificateAcceptanceServer";
             }
             if (message.logMessage != null && message.hasOwnProperty("logMessage")) {
                 object.logMessage = $root.IntifaceProtocols.IntifaceFrontendMessage.LogMessage.toObject(message.logMessage, options);
@@ -7537,486 +7020,6 @@ $root.IntifaceProtocols = (function() {
             };
 
             return UpdateApplication;
-        })();
-
-        IntifaceFrontendMessage.GenerateCertificate = (function() {
-
-            /**
-             * Properties of a GenerateCertificate.
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage
-             * @interface IGenerateCertificate
-             */
-
-            /**
-             * Constructs a new GenerateCertificate.
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage
-             * @classdesc Represents a GenerateCertificate.
-             * @implements IGenerateCertificate
-             * @constructor
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.IGenerateCertificate=} [properties] Properties to set
-             */
-            function GenerateCertificate(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * Creates a new GenerateCertificate instance using the specified properties.
-             * @function create
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate
-             * @static
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.IGenerateCertificate=} [properties] Properties to set
-             * @returns {IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate} GenerateCertificate instance
-             */
-            GenerateCertificate.create = function create(properties) {
-                return new GenerateCertificate(properties);
-            };
-
-            /**
-             * Encodes the specified GenerateCertificate message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate.verify|verify} messages.
-             * @function encode
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate
-             * @static
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.IGenerateCertificate} message GenerateCertificate message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            GenerateCertificate.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                return writer;
-            };
-
-            /**
-             * Encodes the specified GenerateCertificate message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate
-             * @static
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.IGenerateCertificate} message GenerateCertificate message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            GenerateCertificate.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a GenerateCertificate message from the specified reader or buffer.
-             * @function decode
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate} GenerateCertificate
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            GenerateCertificate.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a GenerateCertificate message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate} GenerateCertificate
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            GenerateCertificate.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a GenerateCertificate message.
-             * @function verify
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            GenerateCertificate.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                return null;
-            };
-
-            /**
-             * Creates a GenerateCertificate message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate} GenerateCertificate
-             */
-            GenerateCertificate.fromObject = function fromObject(object) {
-                if (object instanceof $root.IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate)
-                    return object;
-                return new $root.IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate();
-            };
-
-            /**
-             * Creates a plain object from a GenerateCertificate message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate
-             * @static
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate} message GenerateCertificate
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            GenerateCertificate.toObject = function toObject() {
-                return {};
-            };
-
-            /**
-             * Converts this GenerateCertificate to JSON.
-             * @function toJSON
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            GenerateCertificate.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return GenerateCertificate;
-        })();
-
-        IntifaceFrontendMessage.RunCertificateAcceptanceServer = (function() {
-
-            /**
-             * Properties of a RunCertificateAcceptanceServer.
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage
-             * @interface IRunCertificateAcceptanceServer
-             */
-
-            /**
-             * Constructs a new RunCertificateAcceptanceServer.
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage
-             * @classdesc Represents a RunCertificateAcceptanceServer.
-             * @implements IRunCertificateAcceptanceServer
-             * @constructor
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.IRunCertificateAcceptanceServer=} [properties] Properties to set
-             */
-            function RunCertificateAcceptanceServer(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * Creates a new RunCertificateAcceptanceServer instance using the specified properties.
-             * @function create
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer
-             * @static
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.IRunCertificateAcceptanceServer=} [properties] Properties to set
-             * @returns {IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer} RunCertificateAcceptanceServer instance
-             */
-            RunCertificateAcceptanceServer.create = function create(properties) {
-                return new RunCertificateAcceptanceServer(properties);
-            };
-
-            /**
-             * Encodes the specified RunCertificateAcceptanceServer message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer.verify|verify} messages.
-             * @function encode
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer
-             * @static
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.IRunCertificateAcceptanceServer} message RunCertificateAcceptanceServer message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RunCertificateAcceptanceServer.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                return writer;
-            };
-
-            /**
-             * Encodes the specified RunCertificateAcceptanceServer message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer
-             * @static
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.IRunCertificateAcceptanceServer} message RunCertificateAcceptanceServer message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RunCertificateAcceptanceServer.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a RunCertificateAcceptanceServer message from the specified reader or buffer.
-             * @function decode
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer} RunCertificateAcceptanceServer
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RunCertificateAcceptanceServer.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a RunCertificateAcceptanceServer message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer} RunCertificateAcceptanceServer
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RunCertificateAcceptanceServer.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a RunCertificateAcceptanceServer message.
-             * @function verify
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            RunCertificateAcceptanceServer.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                return null;
-            };
-
-            /**
-             * Creates a RunCertificateAcceptanceServer message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer} RunCertificateAcceptanceServer
-             */
-            RunCertificateAcceptanceServer.fromObject = function fromObject(object) {
-                if (object instanceof $root.IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer)
-                    return object;
-                return new $root.IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer();
-            };
-
-            /**
-             * Creates a plain object from a RunCertificateAcceptanceServer message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer
-             * @static
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer} message RunCertificateAcceptanceServer
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            RunCertificateAcceptanceServer.toObject = function toObject() {
-                return {};
-            };
-
-            /**
-             * Converts this RunCertificateAcceptanceServer to JSON.
-             * @function toJSON
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            RunCertificateAcceptanceServer.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return RunCertificateAcceptanceServer;
-        })();
-
-        IntifaceFrontendMessage.StopCertificateAcceptanceServer = (function() {
-
-            /**
-             * Properties of a StopCertificateAcceptanceServer.
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage
-             * @interface IStopCertificateAcceptanceServer
-             */
-
-            /**
-             * Constructs a new StopCertificateAcceptanceServer.
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage
-             * @classdesc Represents a StopCertificateAcceptanceServer.
-             * @implements IStopCertificateAcceptanceServer
-             * @constructor
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.IStopCertificateAcceptanceServer=} [properties] Properties to set
-             */
-            function StopCertificateAcceptanceServer(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * Creates a new StopCertificateAcceptanceServer instance using the specified properties.
-             * @function create
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer
-             * @static
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.IStopCertificateAcceptanceServer=} [properties] Properties to set
-             * @returns {IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer} StopCertificateAcceptanceServer instance
-             */
-            StopCertificateAcceptanceServer.create = function create(properties) {
-                return new StopCertificateAcceptanceServer(properties);
-            };
-
-            /**
-             * Encodes the specified StopCertificateAcceptanceServer message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer.verify|verify} messages.
-             * @function encode
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer
-             * @static
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.IStopCertificateAcceptanceServer} message StopCertificateAcceptanceServer message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            StopCertificateAcceptanceServer.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                return writer;
-            };
-
-            /**
-             * Encodes the specified StopCertificateAcceptanceServer message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer
-             * @static
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.IStopCertificateAcceptanceServer} message StopCertificateAcceptanceServer message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            StopCertificateAcceptanceServer.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a StopCertificateAcceptanceServer message from the specified reader or buffer.
-             * @function decode
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer} StopCertificateAcceptanceServer
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            StopCertificateAcceptanceServer.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a StopCertificateAcceptanceServer message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer} StopCertificateAcceptanceServer
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            StopCertificateAcceptanceServer.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a StopCertificateAcceptanceServer message.
-             * @function verify
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            StopCertificateAcceptanceServer.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                return null;
-            };
-
-            /**
-             * Creates a StopCertificateAcceptanceServer message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer} StopCertificateAcceptanceServer
-             */
-            StopCertificateAcceptanceServer.fromObject = function fromObject(object) {
-                if (object instanceof $root.IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer)
-                    return object;
-                return new $root.IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer();
-            };
-
-            /**
-             * Creates a plain object from a StopCertificateAcceptanceServer message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer
-             * @static
-             * @param {IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer} message StopCertificateAcceptanceServer
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            StopCertificateAcceptanceServer.toObject = function toObject() {
-                return {};
-            };
-
-            /**
-             * Converts this StopCertificateAcceptanceServer to JSON.
-             * @function toJSON
-             * @memberof IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            StopCertificateAcceptanceServer.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return StopCertificateAcceptanceServer;
         })();
 
         IntifaceFrontendMessage.ResetIntifaceConfiguration = (function() {

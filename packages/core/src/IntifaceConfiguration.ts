@@ -6,14 +6,10 @@ export class IntifaceConfiguration extends EventEmitter {
   private serverName: string = "Intiface Server";
   private serverMaxPingTime: number = 0;
   private useWebsocketServerInsecure: boolean = true;
-  private useWebsocketServerSecure: boolean = false;
-  private useProxyServer: boolean = false;
   // private deviceListUpdateURL: string;
   private websocketServerAllInterfaces: boolean = false;
   private websocketServerInsecurePort: number = 12345;
-  private websocketServerSecurePort: number = 12346;
   private serverLogLevel: ButtplugLogLevel = "Info";
-  private proxyServerPort: number = 12347;
   private usePrereleaseEngine: boolean = false;
   private currentEngineVersion: string = "";
   private currentDeviceFileVersion: number = 0;
@@ -84,24 +80,6 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
-  public get UseWebsocketServerSecure(): boolean {
-    return this.useWebsocketServerSecure;
-  }
-
-  public set UseWebsocketServerSecure(aShouldListen: boolean) {
-    this.useWebsocketServerSecure = aShouldListen;
-    this.emit("update");
-  }
-
-  public get UseProxyServer(): boolean {
-    return this.useProxyServer;
-  }
-
-  public set UseProxyServer(aShouldListen: boolean) {
-    this.useProxyServer = aShouldListen;
-    this.emit("update");
-  }
-
   public get WebsocketServerInsecurePort(): number {
     return this.websocketServerInsecurePort;
   }
@@ -111,30 +89,6 @@ export class IntifaceConfiguration extends EventEmitter {
       throw new Error("Invalid network port number.");
     }
     this.websocketServerInsecurePort = aPort;
-    this.emit("update");
-  }
-
-  public get WebsocketServerSecurePort(): number {
-    return this.websocketServerSecurePort;
-  }
-
-  public set WebsocketServerSecurePort(aPort: number) {
-    if (aPort < 1 || aPort > 65536) {
-      throw new Error("Invalid network port number.");
-    }
-    this.websocketServerSecurePort = aPort;
-    this.emit("update");
-  }
-
-  public get ProxyServerPort(): number {
-    return this.proxyServerPort;
-  }
-
-  public set ProxyServerPort(aPort: number) {
-    if (aPort < 1 || aPort > 65536) {
-      throw new Error("Invalid network port number.");
-    }
-    this.proxyServerPort = aPort;
     this.emit("update");
   }
 

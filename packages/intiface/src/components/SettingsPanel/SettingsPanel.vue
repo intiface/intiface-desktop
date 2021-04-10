@@ -126,22 +126,6 @@
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
-                  <v-list-item-content>
-                    <ValidationProvider
-                      v-slot="{ errors }"
-                      rules="required|numeric|min_value:1|max_value:65535"
-                    >
-                      <v-text-field
-                        data-vv-name="websocketSecurePort"
-                        :error-messages="errors.length > 0 ? errors : internalErrors"
-                        label="SSL Websocket Port"
-                        :disabled="connector.IsServerProcessRunning"
-                        v-model="SecureWebsocketPort"
-                      ></v-text-field>
-                    </ValidationProvider>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item>
                   <v-list-item-action>
                     <v-checkbox
                       v-model="config.WebsocketServerAllInterfaces"
@@ -161,33 +145,6 @@
       <v-expansion-panel>
         <v-expansion-panel-header>Other Settings</v-expansion-panel-header>
         <v-expansion-panel-content class="transparent" popout>
-          <div>
-            <v-card class="transparent">
-              <v-card-text>
-                <v-btn color="primary" @click="RunSetup()">Run Initial Setup</v-btn>
-              </v-card-text>
-            </v-card>
-          </div>
-          <div>
-            <v-card class="transparent">
-              <v-card-text>
-                <v-dialog v-model="certAcceptDialog" persistent max-width="400">
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn color="primary" dark v-bind="attrs" v-on="on">Run Certificate Configuration</v-btn>
-                  </template>
-                  <v-card>
-                    <v-card-title class="headline">Certificate Acceptance</v-card-title>
-                    <v-card-text>Your certs have been generated, but you will now need to accept them in Firefox. Hit the "Launch" button below to open the webpage, or "Cancel" to quit. Note that this will not work in Chrome, and Chrome does not require local certs.</v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn text @click="StartCertServer()">Launch</v-btn>
-                      <v-btn text @click="StopCertServer()">Cancel</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-card-text>
-            </v-card>
-          </div>
           <div>
             <v-card class="transparent">
               <v-card-text>
