@@ -21,6 +21,13 @@ export class IntifaceConfiguration extends EventEmitter {
   private hasUsableEngineExecutable: boolean = false;
   private hasCertificates: boolean = false;
   private startServerOnStartup: boolean = false;
+  private withBluetoothLE: boolean = true;
+  private withSerialPort: boolean = true;
+  private withHID: boolean = true;
+  private withLovenseHIDDongle: boolean = true;
+  private withLovenseSerialDongle: boolean = true;
+  private withLovenseConnectService: boolean = false;
+  private withXInput: boolean = true;
 
   // Session variables. This will be saved, but won't be reloaded from the file
   // on next start. They should really only keep the state of a session, and are
@@ -219,5 +226,68 @@ export class IntifaceConfiguration extends EventEmitter {
 
   public set IsOnline(aIsOnline: boolean | null) {
     this._isOnline = aIsOnline;
+  }
+
+  public get WithBluetoothLE(): boolean {
+    return this.withBluetoothLE;
+  }
+
+  public set WithBluetoothLE(aWithBluetoothLE: boolean) {
+    this.withBluetoothLE = aWithBluetoothLE;
+    this.emit("update");
+  }
+
+  public get WithHID(): boolean {
+    return this.withHID;
+  }
+
+  public set WithHID(aWithHID: boolean) {
+    this.withHID = aWithHID;
+    this.emit("update");
+  }
+
+  public get WithSerialPort(): boolean  {
+    return this.withSerialPort;
+  }
+
+  public set WithSerialPort(aWithSerialPort: boolean) {
+    this.withSerialPort = aWithSerialPort;
+    this.emit("update");
+  }
+
+  public get WithLovenseHIDDongle(): boolean {
+    return this.withLovenseHIDDongle;
+  }
+
+  public set WithLovenseHIDDongle(aWithLovenseHIDDongle: boolean) {
+    this.withLovenseHIDDongle = aWithLovenseHIDDongle;
+    this.emit("update");
+  }
+
+  public get WithLovenseSerialDongle(): boolean {
+    return this.withLovenseSerialDongle;
+  }
+
+  public set WithLovenseSerialDongle(aWithLovenseSerialDongle: boolean) {
+    this.withLovenseSerialDongle = aWithLovenseSerialDongle;
+    this.emit("update");
+  }
+
+  public get WithLovenseConnectService(): boolean {
+    return this.withLovenseConnectService;
+  }
+
+  public set WithLovenseConnectService(aWithLovenseConnectService: boolean) {
+    this.withLovenseConnectService = aWithLovenseConnectService;
+    this.emit("update");
+  }
+
+  public get WithXInput(): boolean {
+    return this.withXInput;
+  }
+
+  public set WithXInput(aWithXInput: boolean) {
+    this.withXInput = aWithXInput;
+    this.emit("update");
   }
 }

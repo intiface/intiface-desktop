@@ -64,6 +64,8 @@ export default class App extends Vue {
       }
     });
     this.logger.info("Intiface desktop application frontend mounted");
+    this.logger.info("Loaded Configuration:");
+    this.logger.info(this.config);
     this.checkSetup();
   }
 

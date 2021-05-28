@@ -132,6 +132,32 @@ export class ServerProcess extends EventEmitter {
       args.push(`--pingtime`, `${this._config.ServerMaxPingTime}`);
     }
 
+    // Opt-out services
+
+    if (!this._config.WithBluetoothLE) {
+      args.push('--without-bluetooth-le');
+    }
+    if (!this._config.WithHID) {
+      args.push('--without-hid');
+    }
+    if (!this._config.WithLovenseHIDDongle) {
+      args.push('--without-lovense-dongle-hid');
+    }
+    if (!this._config.WithLovenseSerialDongle) {
+      args.push('--without-lovense-dongle-serial');
+    }
+    if (!this._config.WithSerialPort) {
+      args.push('--without-serial');
+    }
+    if (!this._config.WithXInput) {
+      args.push('--without-xinput');
+    }
+
+    // Opt-in services
+
+    if (this._config.WithLovenseConnectService) {
+      args.push('--with-lovense-connect');
+    }
     return args;
   }
 
