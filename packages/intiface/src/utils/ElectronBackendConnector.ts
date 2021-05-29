@@ -1,4 +1,4 @@
-import { BackendConnector } from "intiface-core-library";
+import { BackendConnector } from "intiface-core-backend-library";
 import { BrowserWindow, ipcMain } from "electron";
 import { IntifaceProtocols } from "intiface-protocols";
 

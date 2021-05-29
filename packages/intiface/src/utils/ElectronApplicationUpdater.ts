@@ -1,4 +1,4 @@
-import { IApplicationUpdater, IntifaceBackendLogger } from "intiface-core-library";
+import { IApplicationUpdater, IntifaceBackendLogger } from "intiface-core-backend-library";
 import { autoUpdater } from "electron-updater";
 import { EventEmitter } from "events";
 

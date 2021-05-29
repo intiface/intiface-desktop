@@ -1,6 +1,5 @@
 import Vue from "vue";
 import router from "./router";
-import { IntifaceProtocols } from "intiface-protocols";
 import { Component, Watch, Prop } from "vue-property-decorator";
 import { FrontendConnector, IntifaceFrontendLogger, IntifaceConfiguration } from "intiface-core-library";
 import ToolbarStatusIcon from "./components/ToolbarStatusIcon/ToolbarStatusIcon.vue";

@@ -1,6 +1,5 @@
 import { FrontendConnector } from "intiface-core-library";
 import { IntifaceProtocols } from "intiface-protocols";
-import { ipcRenderer } from "electron";
 
 // The frontend side of the Frontend/Server connector pair for Electron. This
 // handles anything on the DOM end of Electron, including relaying messages to
@@ -15,13 +14,17 @@ export class ElectronFrontendConnector extends FrontendConnector {
 
   protected constructor() {
     super();
-    ipcRenderer.addListener("backend", (event: string, args: Buffer) => {
+    // Here and below, cast window to any, as we're using the contextBridge to
+    // have electron attach the api to window for us, so it won't show up easily
+    // in prototypes and I don't want to fuck with adding it to the typescript
+    // types.
+    (window as any).api.receive("backend", (args: Uint8Array) => {
       const msg = IntifaceProtocols.IntifaceBackendMessage.decode(args);
       this.ProcessMessage(msg);
     });
   }
 
   protected SendMessageInternal(aMsg: Buffer) {
-    ipcRenderer.send("frontend", aMsg);
+    (window as any).api.send("frontend", aMsg);
   }
 }

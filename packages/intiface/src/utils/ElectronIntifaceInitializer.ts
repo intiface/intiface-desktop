@@ -1,5 +1,5 @@
 import { app, BrowserWindow } from "electron";
-import { IntifaceBackendManager, IntifaceBackendLogger } from "intiface-core-library";
+import { IntifaceBackendManager, IntifaceBackendLogger } from "intiface-core-backend-library";
 import { ElectronBackendConnector } from "./ElectronBackendConnector";
 import { ElectronApplicationUpdater } from "./ElectronApplicationUpdater";
 

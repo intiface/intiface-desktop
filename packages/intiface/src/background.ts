@@ -5,6 +5,7 @@ import { app, protocol, BrowserWindow, shell } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import { SetupElectronIntifaceServer, ShutdownElectronIntifaceServer } from "./utils/ElectronIntifaceInitializer";
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+const path = require("path");
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -23,12 +24,13 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      // Use pluginOptions.nodeIntegration, leave this alone
-      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: (process.env
-        .ELECTRON_NODE_INTEGRATION as unknown) as boolean
+      // Explicitly turn off frontend node integration.
+      nodeIntegration: false,
+      enableRemoteModule: false,
+      preload: path.join(__dirname, "../src/utils/preload.js"),
     }
   });
+  
 
   win.setMenuBarVisibility(false);
 

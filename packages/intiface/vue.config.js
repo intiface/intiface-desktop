@@ -1,5 +1,8 @@
 module.exports = {
   lintOnSave: false,
+  configureWebpack: {
+    target: "web",
+  },
   chainWebpack: config => {
     config.plugin('define').tap(definitions => {
       definitions[0] = Object.assign(definitions[0], {
