@@ -17,12 +17,12 @@ module.exports = {
       builderOptions: {
         productName: "Intiface Desktop",
         appId: "com.nonpolynomiallabs.intiface-desktop",
-        copyright: "Copyright © 2020 Nonpolynomial Labs, LLC",
+        copyright: "Copyright © 2020-2021 Nonpolynomia",
         artifactName: "${name}-${version}-${os}-${arch}.${ext}",
         win: {
           "timeStampServer": "http://timestamp.comodoca.com/authenticode",
           "rfc3161TimeStampServer": "http://timestamp.comodoca.com/rfc3161",
-          "publisherName": ["Nonpolynomial Labs, LLC", "Sectigo RSA Code Signing CA"],
+          "publisherName": ["Nonpolynomial", "Sectigo RSA Code Signing CA"],
           "target": {
             "target": "nsis",
             "arch": [
