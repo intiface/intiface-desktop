@@ -8,7 +8,6 @@ import { IntifaceProtocols } from "intiface-protocols";
 import { IntifaceUtils } from "./Utils";
 import { EventEmitter } from "events";
 import { IntifaceConfiguration } from "./IntifaceConfiguration";
-import { CertManager } from "./CertManager";
 import { IntifaceBackendLogger } from "./IntifaceBackendLogger";
 import * as winston from "winston";
 

@@ -10,11 +10,7 @@
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="setupStep > 3" step="3">Setup Secure Certificate</v-stepper-step>
-
-        <v-divider></v-divider>
-
-        <v-stepper-step step="4">Finish</v-stepper-step>
+        <v-stepper-step step="3">Finish</v-stepper-step>
       </v-stepper-header>
       <v-stepper-items>
         <!-- Welcome Screen -->

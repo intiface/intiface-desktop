@@ -113,27 +113,6 @@ export abstract class FrontendConnector extends EventEmitter {
     await this.SendMessageExpectOk(msg);
   }
 
-  public async GenerateCertificate() {
-    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
-      generateCertificate: IntifaceProtocols.IntifaceFrontendMessage.GenerateCertificate.create(),
-    });
-    await this.SendMessageExpectOk(msg);
-  }
-
-  public async RunCertificateAcceptanceServer(): Promise<IntifaceProtocols.IntifaceBackendMessage> {
-    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
-      runCertificateAcceptanceServer: IntifaceProtocols.IntifaceFrontendMessage.RunCertificateAcceptanceServer.create(),
-    });
-    return await this.SendMessageExpectReturn(msg);
-  }
-
-  public async StopCertificateAcceptanceServer() {
-    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
-      stopCertificateAcceptanceServer: IntifaceProtocols.IntifaceFrontendMessage.StopCertificateAcceptanceServer.create(),
-    });
-    await this.SendMessageExpectOk(msg);
-  }
-
   public async CancelUpdate() {
     const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       cancelUpdate: IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate.create(),

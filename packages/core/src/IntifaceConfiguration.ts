@@ -19,7 +19,6 @@ export class IntifaceConfiguration extends EventEmitter {
   private engineUpdateAvailable: boolean = false;
   private applicationUpdateAvailable: boolean = false;
   private hasUsableEngineExecutable: boolean = false;
-  private hasCertificates: boolean = false;
   private startServerOnStartup: boolean = false;
   private withBluetoothLE: boolean = true;
   private withSerialPort: boolean = true;
@@ -195,15 +194,6 @@ export class IntifaceConfiguration extends EventEmitter {
 
   public set HasUsableEngineExecutable(aUpdate: boolean) {
     this.hasUsableEngineExecutable = aUpdate;
-    this.emit("update");
-  }
-
-  public get HasCertificates(): boolean {
-    return this.hasCertificates;
-  }
-
-  public set HasCertificates(aHasCerts: boolean) {
-    this.hasCertificates = aHasCerts;
     this.emit("update");
   }
 

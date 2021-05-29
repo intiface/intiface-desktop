@@ -4,7 +4,6 @@ import { ServerProcess } from "./ServerProcess";
 import { IntifaceConfigurationManager } from "./IntifaceConfigurationManager";
 import { IntifaceConfigurationFileManager } from "./IntifaceConfigurationFileManager";
 import { GithubReleaseManager } from "./GithubReleaseManager";
-import { CertManager } from "./CertManager";
 import { IntifaceUtils } from "./Utils";
 import { IApplicationUpdater } from "./IApplicationUpdater";
 import { IntifaceBackendLogger } from "./IntifaceBackendLogger";
@@ -37,7 +36,6 @@ export class IntifaceBackendManager extends EventEmitter {
   private _connector: BackendConnector;
   private _process: ServerProcess | null = null;
   private _configManager: IntifaceConfigurationManager;
-  private _certManager: CertManager;
   private _applicationUpdater: IApplicationUpdater;
   private _ghManagers: Set<GithubReleaseManager> = new Set<GithubReleaseManager>();
 
@@ -50,7 +48,6 @@ export class IntifaceBackendManager extends EventEmitter {
     this._connector = aConnector;
     this._configManager = aConfig;
     this._applicationUpdater = aApplicationUpdater;
-    this._certManager = new CertManager(IntifaceUtils.UserConfigDirectory);
     // TODO This isn't really handled if something goes wrong. We should at
     // least catch and log.
     this._connector.addListener("message", async (msg) => await this.ReceiveFrontendMessage(msg));
@@ -69,7 +66,6 @@ export class IntifaceBackendManager extends EventEmitter {
   private async Initialize() {
     // Do all of the file system update checks when we're created, before we've
     // shipped off the configuration to the frontend.
-    await this.CheckForCertificates();
     await this.CheckForEngineExecutable();
     isOnline().then((aIsOnline: boolean) => {
       this._logger.debug(`Online check: ${aIsOnline}`);
@@ -132,12 +128,6 @@ export class IntifaceBackendManager extends EventEmitter {
     this._configManager.Config.HasUsableEngineExecutable = await checkServer.CheckForUsableExecutable();
     this._configManager.Save();
     return this._configManager.Config.HasUsableEngineExecutable;
-  }
-
-  private async CheckForCertificates(): Promise<boolean> {
-    this._configManager.Config.HasCertificates = await CertManager.HasCerts();
-    this._configManager.Save();
-    return this._configManager.Config.HasCertificates;
   }
 
   private async UpdateEngine(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
