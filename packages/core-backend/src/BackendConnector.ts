@@ -1,6 +1,6 @@
 import { EventEmitter } from "events";
 import { IntifaceProtocols } from "intiface-protocols";
-import { IntifaceConfiguration } from "./IntifaceConfiguration";
+import { IntifaceConfiguration } from "intiface-core-library";
 import { IntifaceBackendLogger } from "./IntifaceBackendLogger";
 import * as winston from "winston";
 

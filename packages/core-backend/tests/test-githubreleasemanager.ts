@@ -1,4 +1,5 @@
-import { IntifaceConfiguration, GithubReleaseManager } from "../src";
+import { GithubReleaseManager } from "../src";
+import { IntifaceConfiguration } from "intiface-core-library";
 
 describe("Configuration tests", () => {
 

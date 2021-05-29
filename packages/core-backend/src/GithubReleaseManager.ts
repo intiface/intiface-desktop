@@ -8,10 +8,10 @@ import * as unzipper from "unzipper";
 import * as rimraf from "rimraf";
 import * as request from "request";
 import { promisify } from "util";
-import { IntifaceUtils } from "./Utils";
 import { EventEmitter } from "events";
-import { IntifaceConfiguration } from "./IntifaceConfiguration";
+import { IntifaceConfiguration, IntifaceUtils } from "intiface-core-library";
 import { IntifaceBackendLogger } from "./IntifaceBackendLogger";
+import { IntifaceBackendUtils } from "./Utils";
 import * as winston from "winston";
 import { ServerProcess } from "./ServerProcess";
 import axios from "axios";
@@ -77,8 +77,8 @@ export class GithubReleaseManager extends EventEmitter {
   public async DownloadLatestDeviceFileVersion(): Promise<void> {
     this._logger.debug("Downloading latest device file version");
     this._logger.debug(`Downloading device file from ${GithubReleaseManager.DEVICE_CONFIG_URL}`);
-    await this.DownloadFile(GithubReleaseManager.DEVICE_CONFIG_URL, IntifaceUtils.DeviceConfigFilePath);
-    this._logger.debug(`Stored device file to ${IntifaceUtils.DeviceConfigFilePath}`);
+    await this.DownloadFile(GithubReleaseManager.DEVICE_CONFIG_URL, IntifaceBackendUtils.DeviceConfigFilePath);
+    this._logger.debug(`Stored device file to ${IntifaceBackendUtils.DeviceConfigFilePath}`);
     const releaseInfo = await axios.get(GithubReleaseManager.DEVICE_CONFIG_VERSION_URL);
     this._config.CurrentDeviceFileVersion = parseInt(releaseInfo.data);
   }
@@ -186,7 +186,7 @@ export class GithubReleaseManager extends EventEmitter {
     this._logger.debug(`Engine URL: ${releaseUrl}`);
 
     const ext = path.extname(releaseName!);
-    const engineFile = path.join(IntifaceUtils.UserConfigDirectory, `engine_installer${ext}`);
+    const engineFile = path.join(IntifaceBackendUtils.UserConfigDirectory, `engine_installer${ext}`);
     this._logger.debug(`Downloading file to ${engineFile}`);
     await this.DownloadFile(releaseUrl, engineFile);
     this._logger.debug(`File finished downloading.`);
@@ -211,7 +211,7 @@ export class GithubReleaseManager extends EventEmitter {
       throw new Error(`Engine file path ${aEngineFile} does not exist.`);
     }
 
-    const engineDirectory = path.join(IntifaceUtils.UserConfigDirectory, "engine");
+    const engineDirectory = path.join(IntifaceBackendUtils.UserConfigDirectory, "engine");
     this._logger.debug(`Writing engine to ${engineDirectory}`);
     if (await exists(engineDirectory)) {
       const asyncrim = promisify(rimraf);

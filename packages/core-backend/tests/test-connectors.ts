@@ -1,4 +1,5 @@
-import { BackendConnector, FrontendConnector } from "../src";
+import { BackendConnector } from "../src";
+import { FrontendConnector } from "intiface-core-library";
 import { EventEmitter } from "events";
 import { IntifaceProtocols } from "intiface-protocols";
 

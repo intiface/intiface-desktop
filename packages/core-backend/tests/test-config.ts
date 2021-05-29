@@ -1,4 +1,5 @@
-import { IntifaceConfiguration, IntifaceConfigurationFileManager } from "../src";
+import { IntifaceConfiguration } from "intiface-core-library";
+import { IntifaceConfigurationFileManager } from "../src";
 import * as fs from "fs";
 import * as os from "os";
 import * as crypto from "crypto";

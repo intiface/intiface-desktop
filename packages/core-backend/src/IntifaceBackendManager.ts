@@ -1,18 +1,16 @@
 import { BackendConnector } from "./BackendConnector";
 import { IntifaceProtocols } from "intiface-protocols";
 import { ServerProcess } from "./ServerProcess";
-import { IntifaceConfigurationManager } from "./IntifaceConfigurationManager";
+import { IntifaceConfigurationManager, IntifaceUtils } from "intiface-core-library";
 import { IntifaceConfigurationFileManager } from "./IntifaceConfigurationFileManager";
 import { GithubReleaseManager } from "./GithubReleaseManager";
-import { IntifaceUtils } from "./Utils";
 import { IApplicationUpdater } from "./IApplicationUpdater";
 import { IntifaceBackendLogger } from "./IntifaceBackendLogger";
+import { IntifaceBackendUtils } from "./Utils";
 import { EventEmitter } from "events";
 import isOnline from "is-online";
-import { promisify } from "util";
 import * as winston from "winston";
 import * as rimraf from "rimraf";
-import { createGetAccessor } from "typescript";
 
 // The link between whatever our frontend is (Electron, express, etc) and our
 // IntifaceCLI server process. This will handle loading/saving our configuration
@@ -238,7 +236,7 @@ export class IntifaceBackendManager extends EventEmitter {
   }
 
   private async ResetIntifaceConfiguration() {
-    rimraf(IntifaceUtils.UserConfigDirectory, {}, (err) => {
+    rimraf(IntifaceBackendUtils.UserConfigDirectory, {}, (err) => {
       this._logger.warn("Config deleted, exiting applicaiton");
       if (err) {
         this._logger.warn(err);

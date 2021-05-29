@@ -5,10 +5,10 @@ import * as os from "os";
 import { Reader } from "protobufjs";
 import { promisify } from "util";
 import { IntifaceProtocols } from "intiface-protocols";
-import { IntifaceUtils } from "./Utils";
+import { IntifaceUtils, IntifaceConfiguration } from "intiface-core-library";
 import { EventEmitter } from "events";
-import { IntifaceConfiguration } from "./IntifaceConfiguration";
 import { IntifaceBackendLogger } from "./IntifaceBackendLogger";
+import { IntifaceBackendUtils } from "./Utils";
 import * as winston from "winston";
 
 // Handles execution and lifetime of server processes, as well as translation of
@@ -108,8 +108,8 @@ export class ServerProcess extends EventEmitter {
     const args: string[] = new Array<string>();
     args.push(`--servername`, `${this._config.ServerName}`);
     const exists = promisify(fs.exists);
-    if (await exists(IntifaceUtils.DeviceConfigFilePath)) {
-      args.push(`--deviceconfig`, `${IntifaceUtils.DeviceConfigFilePath}`);
+    if (await exists(IntifaceBackendUtils.DeviceConfigFilePath)) {
+      args.push(`--deviceconfig`, `${IntifaceBackendUtils.DeviceConfigFilePath}`);
     }
     // args.push(`--userdeviceconfig `);
     // First, we set up our incoming pipe to receive GUI info from the CLI
@@ -245,7 +245,7 @@ export class ServerProcess extends EventEmitter {
   private async GetServerExecutablePath(): Promise<string> {
     const exists = promisify(fs.exists);
     const readFile = promisify(fs.readFile);
-    const exePath = path.join(IntifaceUtils.UserConfigDirectory, "engine");
+    const exePath = path.join(IntifaceBackendUtils.UserConfigDirectory, "engine");
     if (!(await exists(exePath))) {
       return Promise.reject(new Error(`Server executable install location ${exePath} does not exist.`));
     }

@@ -1,5 +1,5 @@
-import { IntifaceConfigurationManager } from "./IntifaceConfigurationManager";
-import { IntifaceUtils } from "./Utils";
+import { IntifaceConfigurationManager, IntifaceUtils } from "intiface-core-library";
+import { IntifaceBackendUtils } from "./Utils";
 import * as fs from "fs";
 import * as path from "path";
 import { promisify } from "util";
@@ -7,7 +7,7 @@ import { promisify } from "util";
 export class IntifaceConfigurationFileManager extends IntifaceConfigurationManager {
 
   public static DEFAULT_CONFIG_FILE_NAME = "intiface.config.json";
-  public static DEFAULT_CONFIG_FILE_PATH = path.join(IntifaceUtils.UserConfigDirectory,
+  public static DEFAULT_CONFIG_FILE_PATH = path.join(IntifaceBackendUtils.UserConfigDirectory,
                                                      IntifaceConfigurationFileManager.DEFAULT_CONFIG_FILE_NAME);
 
   public static async Create(aConfigPath: string = IntifaceConfigurationFileManager.DEFAULT_CONFIG_FILE_PATH)
@@ -18,8 +18,8 @@ export class IntifaceConfigurationFileManager extends IntifaceConfigurationManag
     const mkdir = promisify(fs.mkdir);
     const access = promisify(fs.access);
 
-    if (!(await exists(IntifaceUtils.UserConfigDirectory))) {
-      await mkdir(IntifaceUtils.UserConfigDirectory);
+    if (!(await exists(IntifaceBackendUtils.UserConfigDirectory))) {
+      await mkdir(IntifaceBackendUtils.UserConfigDirectory);
     }
     // If we don't have a configuration file yet, make one now.
     if (!await exists(aConfigPath)) {
