@@ -7,6 +7,7 @@
             <v-checkbox
               v-model="config.UseWebsocketServerInsecure"
               :disabled="serverRunning"
+              readonly
             ></v-checkbox>
           </v-list-item-action>
           <v-list-item-content>

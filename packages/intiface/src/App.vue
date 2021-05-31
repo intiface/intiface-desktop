@@ -68,7 +68,9 @@
       </v-row>
     </v-app-bar>
     <v-main fill-height>
-      <router-view @error="onError" :connector="connector" :config="connector.Config"></router-view>
+      <keep-alive>
+        <router-view @error="onError" :connector="connector" :config="connector.Config"></router-view>
+      </keep-alive>
       <v-container>
         <v-alert v-for="errorMsg in appErrors" dismissible :value="true" type="error">{{ errorMsg }}</v-alert>
       </v-container>
