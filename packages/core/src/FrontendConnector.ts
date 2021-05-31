@@ -237,6 +237,8 @@ export abstract class FrontendConnector extends EventEmitter {
 
     if (aMsg.processError) {
       this._isServerProcessRunning = false;
+      this.emit("serverdisconnect");
+      console.log("Process died, emitting");
       this._devices.clear();
       this._devices_change_tracker += 1;
       this.EmitServerMessage(aMsg);
@@ -257,6 +259,8 @@ export abstract class FrontendConnector extends EventEmitter {
 
     if (aMsg.processEnded) {
       this._isServerProcessRunning = false;
+      this.emit("serverdisconnect");
+      console.log("Process ended, emitting");
       this._devices.clear();
       this._devices_change_tracker += 1;
       return;
