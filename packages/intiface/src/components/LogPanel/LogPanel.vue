@@ -1,93 +1,80 @@
 <template>
-  <v-container fluid class="fullHeight">
-    <v-layout
-      column
-      fill-height
-    >
-      <v-flex grow id="logContainer">
-        <div id="logFrame">
-          <div
-            v-for="msg in Logs"
-            :class="`${msg.logType} logMsg`">{{ msg.timestamp }} : {{ msg.logType }} : {{ msg.location }} : {{ msg.message }}</div>
-        </div>
-      </v-flex>
-      <!--
-      <v-flex shrink>
-        <v-layout row>
-          <v-flex grow>
-            <v-btn>Clear Log</v-btn>
-          </v-flex>
-          <v-flex shrink>
-            <v-btn>Save to File</v-btn>
-          </v-flex>
-        </v-layout>
-      </v-flex>
-      -->
-    </v-layout>
+  <v-container fluid pa-0 class="d-flex fill-height">
+    <v-row class="flex-column fill-height">
+      <v-col class="flex-grow-1 flex-shrink-1 overflow-auto">
+        <v-virtual-scroll :items="Logs" item-height="32" id="logContainer">
+          <template v-slot:default="{ item }">
+            <v-list-item>
+              <v-list-item-content :class="`${item.logType} logMsg`">
+                {{ item.timestamp }} : {{ item.logType }} :
+                {{ item.location }} : {{ item.message }}
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+        </v-virtual-scroll>
+      </v-col>
+      <v-col class="flex-grow-0 flex-shrink-0">
+        <v-row>
+          <v-col class="mx-6">
+            <v-btn @click="openLogDirectory()">Open Log Directory</v-btn>
+          </v-col>
+          <v-col class="d-flex mx-6 justify-end">
+            <v-btn @click="clearLog()">Clear Log</v-btn>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script lang="ts" src="./LogPanel.ts"></script>
 
 <style lang="css">
- .fullHeight {
-   height: 100%;
-   overflow: hidden;
- }
- #logContainer {
-   position: relative;
-   overflow-y: auto;
-   background: #222;
-   border-radius: 4px;
- }
 
- #logFrame {
-   padding: 10px;
-   position: absolute;
-   top: 0;
-   left: 0;
-   bottom: 0;
-   right: 0;
-   width: 100%;
-   height: 100%;
- }
+#logContainer {
+  background: #222;
+  border-radius: 4px;
+}
 
- .buttplug {
-   color: orange;
- }
+.buttplug {
+  color: orange;
+}
 
- .backend {
-   color: pink;
- }
+.backend {
+  color: pink;
+}
 
- .frontend {
-   color: forestgreen;
- }
+.frontend {
+  color: forestgreen;
+}
 
- .process {
-   color: cyan;
- }
+.process {
+  color: cyan;
+}
 
- .error {
- }
+.error {
+}
 
- .warn {
- }
+.warn {
+}
 
- .info {
- }
+.info {
+}
 
- .debug {
- }
+.debug {
+}
 
- .logMsg {
-   background: #222;
-   transition: 0.2s;
-   padding: 2px;
-   border-radius: 4px;
- }
+.logMsg {
+  background: #222;
+  transition: 0.2s;
+  padding: 2px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
- .logMsg:hover {
-   background: #555;
- }
+.logMsg:hover {
+  background: #555;
+}
 </style>

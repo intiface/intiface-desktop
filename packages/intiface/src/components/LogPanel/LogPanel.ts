@@ -14,4 +14,12 @@ export default class LogPanel extends Vue {
   private get Logs() {
     return IntifaceFrontendLogger.Logs();
   }
+
+  private clearLog() {
+
+  }
+
+  private openLogDirectory() {
+
+  }
 }
