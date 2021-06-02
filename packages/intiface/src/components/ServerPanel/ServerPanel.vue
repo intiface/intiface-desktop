@@ -22,7 +22,7 @@
       <p class="mx-2">
         <b>Status:</b>
         {{
-          connector.ClientName !== null
+          serverRunning && connector.ClientName !== null
             ? `Connected to ${connector.ClientName}`
             : "Disconnected"
         }}
