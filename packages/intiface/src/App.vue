@@ -1,5 +1,5 @@
 <template>
-  <v-app dark v-if="loaded" class="noOverflow">
+  <v-app dark v-if="loaded">
     <v-navigation-drawer v-model="drawer" v-if="showNavBar" hide-overlay stateless app width="200">
       <v-toolbar flat class="transparent">
         <v-row align="center" class="spacer" no-gutters>
@@ -86,7 +86,7 @@
 </script>
 
 <style lang="css" >
-.noOverflow {
+html {
   overflow: hidden;
 }
 </style>
