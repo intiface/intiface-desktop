@@ -1,31 +1,6 @@
 <template>
   <v-container column>
     <v-layout column>
-      <v-list subheader dense two-line class="transparent">
-        <v-list-item>
-          <v-list-item-action>
-            <v-checkbox
-              v-model="config.UseWebsocketServerInsecure"
-              :disabled="serverRunning"
-              readonly
-            ></v-checkbox>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title
-              >Websockets (on
-              {{
-                config.websocketServerAllInterfaces
-                  ? "[All Interfaces]"
-                  : "127.0.0.1"
-              }}:{{ config.websocketServerInsecurePort }})</v-list-item-title
-            >
-            <v-list-item-subtitle
-              >Used for local applications (games, movie sync, etc...), or web
-              applications in Chrome/Firefox/Edge, etc....</v-list-item-subtitle
-            >
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
       <v-flex
         v-if="
           config.HasUsableEngineExecutable &&
@@ -34,12 +9,9 @@
         "
         shrink
       >
-        <v-btn
-          outlined
-          class="my-3"
-          @click="ToggleServer()"
-          >{{ serverRunning ? serverStates[1] : serverStates[0] }}</v-btn
-        >
+        <v-btn outlined class="my-3" @click="ToggleServer()">{{
+          serverRunning ? serverStates[1] : serverStates[0]
+        }}</v-btn>
       </v-flex>
       <v-flex v-else>
         <b>New engine executable or device file required.</b>
@@ -64,6 +36,35 @@
         </ul>
       </v-flex>
       <v-flex>
+        <b>Server Connection Types:</b>
+        <v-list subheader dense two-line class="transparent">
+          <v-list-item>
+            <v-list-item-action>
+              <v-checkbox
+                v-model="config.UseWebsocketServerInsecure"
+                :disabled="serverRunning"
+                readonly
+              ></v-checkbox>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title
+                >Websockets (on
+                {{
+                  config.websocketServerAllInterfaces
+                    ? "[All Interfaces]"
+                    : "127.0.0.1"
+                }}:{{ config.websocketServerInsecurePort }}) - <b>Default, always on</b></v-list-item-title
+              >
+              <v-list-item-subtitle
+                >Used for local applications (games, movie sync, etc...), or web
+                applications in Chrome/Firefox/Edge,
+                etc....</v-list-item-subtitle
+              >
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-flex>
+      <v-flex>
         <b>Device Comm Managers:</b>
         <v-list subheader dense two-line class="transparent">
           <v-list-item>
@@ -76,7 +77,12 @@
             <v-list-item-content>
               <v-list-item-title>Bluetooth LE</v-list-item-title>
               <v-list-item-subtitle>
-                Connect to Bluetooth LE toys, including Lovense, WeVibe, Kiiroo, etc. <b>This should be off on Windows 7/8, otherwise Intiface will crash.</b>
+                Connect to Bluetooth LE toys, including Lovense, WeVibe, Kiiroo,
+                etc.
+                <b
+                  >This should be off on Windows 7/8, otherwise Intiface will
+                  crash.</b
+                >
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -88,12 +94,14 @@
               ></v-checkbox>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>XBox Compatible Gamepads (Windows Only)</v-list-item-title>
+              <v-list-item-title
+                >XBox Compatible Gamepads (Windows Only)</v-list-item-title
+              >
               <v-list-item-subtitle>
                 Connect to XBox Compatible Gamepads (Windows Only)
               </v-list-item-subtitle>
             </v-list-item-content>
-          </v-list-item>          
+          </v-list-item>
           <v-list-item>
             <v-list-item-action>
               <v-checkbox
@@ -104,7 +112,8 @@
             <v-list-item-content>
               <v-list-item-title>Lovense Connect App</v-list-item-title>
               <v-list-item-subtitle>
-                Connect to Lovense toys using the Lovense Connect Mobile App (must be on same LAN)
+                Connect to Lovense toys using the Lovense Connect Mobile App
+                (must be on same LAN)
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -118,7 +127,8 @@
             <v-list-item-content>
               <v-list-item-title>Lovense HID Dongle</v-list-item-title>
               <v-list-item-subtitle>
-                Connect to Lovense toys using the Lovense HID Dongle (white circuit board, sold after 2018)
+                Connect to Lovense toys using the Lovense HID Dongle (white
+                circuit board, sold after 2018)
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -132,7 +142,8 @@
             <v-list-item-content>
               <v-list-item-title>Lovense Serial Dongle</v-list-item-title>
               <v-list-item-subtitle>
-                Connect to Lovense toys using the Lovense Serial Dongle (black circuit board, sold before 2018)
+                Connect to Lovense toys using the Lovense Serial Dongle (black
+                circuit board, sold before 2018)
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -149,7 +160,7 @@
                 Connect to Serial Port Devices
               </v-list-item-subtitle>
             </v-list-item-content>
-          </v-list-item> 
+          </v-list-item>
           <v-list-item>
             <v-list-item-action>
               <v-checkbox
@@ -163,7 +174,7 @@
                 Connect to HID Devices
               </v-list-item-subtitle>
             </v-list-item-content>
-          </v-list-item>       
+          </v-list-item>
         </v-list>
       </v-flex>
     </v-layout>
