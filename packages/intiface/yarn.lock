@@ -5039,8 +5039,8 @@ interpret@^1.0.0:
   dependencies:
     "@octokit/rest" "^18.5.4"
     axios "^0.21.1"
-    intiface-core-library "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-backend-library-21.0.0-ec515941-f5f1-4303-8dac-1f65adea91b4-1622496181916/node_modules/core"
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-backend-library-21.0.0-ec515941-f5f1-4303-8dac-1f65adea91b4-1622496181916/node_modules/protocols"
+    intiface-core-library "file:../core"
+    intiface-protocols "file:../protocols"
     is-online "^9.0.0"
     less "^4.1.1"
     protobufjs "^6.11.2"
@@ -5054,7 +5054,7 @@ interpret@^1.0.0:
 "intiface-core-library@file:../core":
   version "21.0.0"
   dependencies:
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-library-21.0.0-fc36d00d-d634-4305-bbac-6922bc6791f9-1622496181564/node_modules/protocols"
+    intiface-protocols "file:../protocols"
     protobufjs "^6.11.2"
     winston "^3.3.3"
     winston-transport "^4.4.0"
@@ -9916,9 +9916,9 @@ write-file-atomic@^3.0.0:
     typedarray-to-buffer "^3.1.5"
 
 ws@^6.0.0, ws@^6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-6.2.1.tgz#442fdf0a47ed64f59b6a5d8ff130f4748ed524fb"
-  integrity sha512-GIyAXC2cB7LjvpgMt9EKS2ldqr0MTrORaleiOno6TweZ6r3TKtoFQWay/2PceJ3RuBasOHzXNn5Lrw1X0bEjqA==
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-6.2.2.tgz#dd5cdbd57a9979916097652d78f1cc5faea0c32e"
+  integrity sha512-zmhltoSR8u1cnDsD43TX59mzoMZsLKqUweyYBAIvTngR3shc0W6aOZylZmq/7hqyVxPdi+5Ud2QInblgyE72fw==
   dependencies:
     async-limiter "~1.0.0"
 
