@@ -64,6 +64,13 @@ export abstract class FrontendConnector extends EventEmitter {
     await this.SendMessageWithoutReturn(msg);
   }
 
+  public async OpenLogDirectory() {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      openLogDirectory: IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.create(),
+    });
+    await this.SendMessageWithoutReturn(msg);
+  }
+
   public async CheckForUpdates() {
     const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       checkForUpdates: IntifaceProtocols.IntifaceFrontendMessage.CheckForUpdates.create(),

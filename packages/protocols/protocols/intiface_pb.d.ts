@@ -1966,6 +1966,9 @@ export namespace IntifaceProtocols {
 
         /** IntifaceFrontendMessage resetIntifaceConfiguration */
         resetIntifaceConfiguration?: (IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration|null);
+
+        /** IntifaceFrontendMessage openLogDirectory */
+        openLogDirectory?: (IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory|null);
     }
 
     /** Represents an IntifaceFrontendMessage. */
@@ -2025,8 +2028,11 @@ export namespace IntifaceProtocols {
         /** IntifaceFrontendMessage resetIntifaceConfiguration. */
         public resetIntifaceConfiguration?: (IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration|null);
 
+        /** IntifaceFrontendMessage openLogDirectory. */
+        public openLogDirectory?: (IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory|null);
+
         /** IntifaceFrontendMessage msg. */
-        public msg?: ("ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"logMessage"|"cancelUpdate"|"resetIntifaceConfiguration");
+        public msg?: ("ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"logMessage"|"cancelUpdate"|"resetIntifaceConfiguration"|"openLogDirectory");
 
         /**
          * Creates a new IntifaceFrontendMessage instance using the specified properties.
@@ -3374,6 +3380,90 @@ export namespace IntifaceProtocols {
 
             /**
              * Converts this CancelUpdate to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of an OpenLogDirectory. */
+        interface IOpenLogDirectory {
+        }
+
+        /** Represents an OpenLogDirectory. */
+        class OpenLogDirectory implements IOpenLogDirectory {
+
+            /**
+             * Constructs a new OpenLogDirectory.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory);
+
+            /**
+             * Creates a new OpenLogDirectory instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns OpenLogDirectory instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory): IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory;
+
+            /**
+             * Encodes the specified OpenLogDirectory message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.verify|verify} messages.
+             * @param message OpenLogDirectory message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified OpenLogDirectory message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.verify|verify} messages.
+             * @param message OpenLogDirectory message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an OpenLogDirectory message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns OpenLogDirectory
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory;
+
+            /**
+             * Decodes an OpenLogDirectory message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns OpenLogDirectory
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory;
+
+            /**
+             * Verifies an OpenLogDirectory message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an OpenLogDirectory message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns OpenLogDirectory
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory;
+
+            /**
+             * Creates a plain object from an OpenLogDirectory message. Also converts values to other types if specified.
+             * @param message OpenLogDirectory
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this OpenLogDirectory to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };
