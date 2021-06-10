@@ -24,6 +24,9 @@ jobs:
           cd ../core
           yarn
           yarn build
+          cd ../core-backend
+          yarn
+          yarn build
           cd ../intiface
           export GH_TOKEN="$(GH_TOKEN)"
           export CSC_LINK="$(System.DefaultWorkingDirectory)\SigningCert.pfx"
@@ -63,6 +66,9 @@ jobs:
           cd ../core
           yarn
           yarn build
+          cd ../core-backend
+          yarn
+          yarn build
           cd ../intiface
           export GH_TOKEN="$(GH_TOKEN)"
           yarn
@@ -96,6 +102,9 @@ jobs:
           yarn
           yarn build
           cd ../core
+          yarn
+          yarn build
+          cd ../core-backend
           yarn
           yarn build
           cd ../intiface
