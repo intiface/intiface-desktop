@@ -5,7 +5,8 @@
         v-if="
           config.HasUsableEngineExecutable &&
           config.Engine === config.InstalledEngineType &&
-          config.currentDeviceFileVersion >= 48
+          config.currentDeviceFileVersion >= 48 &&
+          config.currentEngineVersion >= 36
         "
         shrink
       >
