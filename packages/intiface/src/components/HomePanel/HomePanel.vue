@@ -12,6 +12,11 @@
       </v-col>
     </v-row>
     <v-row>
+      <v-col>
+        Need help learning how to use Intiface Desktop? <a href="https://www.youtube.com/watch?v=_y80tqtaRX0">Have a look at our tutorial video for versions 21 and above!</a>
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col cols="10">
         <h2>NEWS FOR V21</h2>
         <p>And so the upgrades begin!</p>
