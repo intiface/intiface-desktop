@@ -16,8 +16,8 @@
       <v-flex v-else>
         <b>New engine executable or device file required.</b>
         <router-link to="settings">
-          Go to Settings Panel > Versions and Updates to update.</router-link
-        >
+          Go to Settings Panel > Versions and Updates to update.
+        </router-link>
       </v-flex>
       <p class="mx-2">
         <b>Status:</b>
@@ -53,7 +53,8 @@
                   config.websocketServerAllInterfaces
                     ? "[All Interfaces]"
                     : "127.0.0.1"
-                }}:{{ config.websocketServerInsecurePort }}) - <b>Default, always on</b></v-list-item-title
+                }}:{{ config.websocketServerInsecurePort }}) -
+                <b>Default, always on</b></v-list-item-title
               >
               <v-list-item-subtitle
                 >Used for local applications (games, movie sync, etc...), or web
@@ -76,17 +77,17 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Bluetooth LE</v-list-item-title>
-              <v-list-item-subtitle>
+              <v-list-item-subtitle class="text-wrap">
                 Connect to Bluetooth LE toys, including Lovense, WeVibe, Kiiroo,
                 etc.
-                <b
+                <b v-if="isWindows()"
                   >This should be off on Windows 7/8, otherwise Intiface will
                   crash.</b
                 >
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item>
+          <v-list-item v-if="isWindows()">
             <v-list-item-action>
               <v-checkbox
                 v-model="config.WithXInput"
@@ -94,11 +95,9 @@
               ></v-checkbox>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title
-                >XBox Compatible Gamepads (Windows Only)</v-list-item-title
-              >
-              <v-list-item-subtitle>
-                Connect to XBox Compatible Gamepads (Windows Only)
+              <v-list-item-title>XBox Compatible Gamepads</v-list-item-title>
+              <v-list-item-subtitle class="text-wrap">
+                Connect to XBox Compatible Gamepads <b>(Windows Only)</b>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -111,7 +110,7 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Lovense Connect App</v-list-item-title>
-              <v-list-item-subtitle>
+              <v-list-item-subtitle class="text-wrap">
                 Connect to Lovense toys using the Lovense Connect Mobile App
                 (must be on same LAN)
               </v-list-item-subtitle>
@@ -126,7 +125,7 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Lovense HID Dongle</v-list-item-title>
-              <v-list-item-subtitle>
+              <v-list-item-subtitle class="text-wrap">
                 Connect to Lovense toys using the Lovense HID Dongle (white
                 circuit board, sold after 2018)
               </v-list-item-subtitle>
@@ -141,7 +140,7 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Lovense Serial Dongle</v-list-item-title>
-              <v-list-item-subtitle>
+              <v-list-item-subtitle class="text-wrap">
                 Connect to Lovense toys using the Lovense Serial Dongle (black
                 circuit board, sold before 2018)
               </v-list-item-subtitle>
