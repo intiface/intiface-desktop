@@ -12,10 +12,11 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // be closed automatically when the JavaScript object is garbage collected.
 let win: BrowserWindow | null
 
-// Scheme must be registered before the app is ready
+// Scheme must be registered before the app is ready. Fetch is required in order to load WASM.
 protocol.registerSchemesAsPrivileged([
-  { scheme: 'app', privileges: { secure: true, standard: true } }
+  { scheme: 'app', privileges: { secure: true, supportFetchAPI: true, standard: true } }
 ])
+
 
 
 function createWindow() {
