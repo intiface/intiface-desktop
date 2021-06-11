@@ -27,7 +27,7 @@ function createWindow() {
       // Explicitly turn off frontend node integration.
       nodeIntegration: false,
       enableRemoteModule: false,
-      preload: path.join(__dirname, "../src/utils/preload.js"),
+      preload: path.join(__dirname, 'preload.js')
     }
   });
   
