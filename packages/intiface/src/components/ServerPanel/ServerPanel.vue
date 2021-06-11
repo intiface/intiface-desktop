@@ -4,9 +4,8 @@
       <v-flex
         v-if="
           config.HasUsableEngineExecutable &&
-          config.Engine === config.InstalledEngineType &&
-          config.currentDeviceFileVersion >= 48 &&
-          config.currentEngineVersion >= 36
+          config.CurrentDeviceFileVersion >= 48 &&
+          config.CurrentEngineVersionNumber >= 36
         "
         shrink
       >
