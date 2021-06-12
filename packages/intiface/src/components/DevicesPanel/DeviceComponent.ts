@@ -102,4 +102,12 @@ export default class DeviceComponent extends Vue {
       setTimeout(async () => await this.runOscillation(index, 0), 0);
     }
   }
+
+  private stepCount(range: number) {
+    if (range <= 100) {
+      return 1;
+    } else {
+      return Math.ceil(range * .01);
+    }
+  }
 }
