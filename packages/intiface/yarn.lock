@@ -5039,8 +5039,8 @@ interpret@^1.0.0:
   dependencies:
     "@octokit/rest" "^18.5.4"
     axios "^0.21.1"
-    intiface-core-library "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-backend-library-21.0.0-ec515941-f5f1-4303-8dac-1f65adea91b4-1622496181916/node_modules/core"
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-backend-library-21.0.0-ec515941-f5f1-4303-8dac-1f65adea91b4-1622496181916/node_modules/protocols"
+    intiface-core-library "file:../core"
+    intiface-protocols "file:../protocols"
     is-online "^9.0.0"
     less "^4.1.1"
     protobufjs "^6.11.2"
@@ -5054,7 +5054,7 @@ interpret@^1.0.0:
 "intiface-core-library@file:../core":
   version "21.0.0"
   dependencies:
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-library-21.0.0-fc36d00d-d634-4305-bbac-6922bc6791f9-1622496181564/node_modules/protocols"
+    intiface-protocols "file:../protocols"
     protobufjs "^6.11.2"
     winston "^3.3.3"
     winston-transport "^4.4.0"
@@ -7416,9 +7416,9 @@ postcss-value-parser@^4.0.2, postcss-value-parser@^4.1.0:
   integrity sha512-97DXOFbQJhk71ne5/Mt6cOu6yxsSfM0QGQyl0L25Gca4yGWEGJaig7l7gbCX623VqTBNGLRLaVUCnNkcedlRSQ==
 
 postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.27, postcss@^7.0.32, postcss@^7.0.5, postcss@^7.0.6:
-  version "7.0.35"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.35.tgz#d2be00b998f7f211d8a276974079f2e92b970e24"
-  integrity sha512-3QT8bBJeX/S5zKTTjTCIjRF3If4avAT6kqxcASlTWEtAFCb9NH0OUxNDfgZSWdP5fJnBYCMEWkIFfWeugjzYMg==
+  version "7.0.36"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.36.tgz#056f8cffa939662a8f5905950c07d5285644dfcb"
+  integrity sha512-BebJSIUMwJHRH0HAQoxN4u1CN86glsrwsW0q7T+/m44eXOUAxSNdHRkNZPYz5vVUbg17hFgOQDE7fZk7li3pZw==
   dependencies:
     chalk "^2.4.2"
     source-map "^0.6.1"
