@@ -3,7 +3,9 @@ import { Component, Prop } from "vue-property-decorator";
 import { IntifaceProtocols } from "intiface-protocols";
 import { IntifaceConfiguration, FrontendConnector } from "intiface-core-library";
 
-@Component({})
+@Component({
+  name: "ServerPanel",
+})
 export default class ServerPanel extends Vue {
 
   @Prop()

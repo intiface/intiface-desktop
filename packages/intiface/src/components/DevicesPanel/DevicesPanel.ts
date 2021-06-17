@@ -6,6 +6,7 @@ import DeviceComponent from './DeviceComponent.vue';
 import { watch } from "fs";
 
 @Component({
+  name: "DevicesPanel",
   components: {
     DeviceComponent
   },
