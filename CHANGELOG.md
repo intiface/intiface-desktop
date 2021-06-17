@@ -2,6 +2,7 @@
 
 ## Bugfixes
 
+- Fixed window title to just be "Intiface Desktop". Finally.
 - Cap device step ticks at 100
 - Make device and server panels persist
 - Device panel should connect to the port in settings, not just 12345
