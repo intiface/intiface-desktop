@@ -99,6 +99,11 @@ export class IntifaceConfiguration extends EventEmitter {
     this.emit("update");
   }
 
+  public get CurrentEngineVersionNumber(): number {
+    console.log(this.CurrentEngineVersion.substr(1));
+    return parseInt(this.CurrentEngineVersion.substr(1))
+  }
+
   public get CurrentEngineVersion(): string {
     return this.currentEngineVersion;
   }
