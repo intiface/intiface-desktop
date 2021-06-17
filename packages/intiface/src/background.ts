@@ -22,8 +22,8 @@ protocol.registerSchemesAsPrivileged([
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1024,
+    height: 768,
     webPreferences: {
       // Explicitly turn off frontend node integration.
       nodeIntegration: false,
@@ -32,8 +32,11 @@ function createWindow() {
     }
   });
   
-
+  win.setTitle("Intiface Desktop");
   win.setMenuBarVisibility(false);
+  win.on('page-title-updated', function(e) {
+    e.preventDefault()
+  });
 
   SetupElectronIntifaceServer(win).then(async () => {
     if (win === null) {
