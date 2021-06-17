@@ -26,7 +26,8 @@
         </v-card-title>
 
         <v-card-text>
-          <v-progress-linear v-model="installationProgress"></v-progress-linear>
+          <v-progress-linear v-model="installationProgress" v-if="!isApplicationUpdate"></v-progress-linear>
+          <p v-if="isApplicationUpdate">Application updates must be downloaded and installed from <a href="https://intiface.com/desktop">the Intiface Desktop website</a></p>
         </v-card-text>
 
         <v-divider></v-divider>

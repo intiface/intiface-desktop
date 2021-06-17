@@ -18,6 +18,7 @@ export default class UpdateDialog extends Vue {
   private dialogVerb: string = "Updating";
 
   private showDialog: boolean = false;
+  private isApplicationUpdate: boolean = false;
   private installationProgress: number = 0;
   private installationStep: string = "Downloading update...";
   private isDownloading: boolean = false;
@@ -38,15 +39,15 @@ export default class UpdateDialog extends Vue {
         this.dialogName = "Engine";
         await this.connector.UpdateEngine();
       }
-      if (dialogTypes.has("application")) {
-        dialogTypes.delete("application");
-        this.dialogName = "Application";
-        await this.connector.UpdateApplication();
-      }
       if (dialogTypes.has("devicefile")) {
         dialogTypes.delete("devicefile");
         this.dialogName = "Device File";
         await this.connector.UpdateDeviceFile();
+      }
+      if (dialogTypes.has("application")) {
+        dialogTypes.delete("application");
+        this.dialogName = "Application";
+        this.isApplicationUpdate = true;
       }
       if (dialogTypes.size > 0) {
         IntifaceFrontendLogger.Logger.warn(`Unused dialog types: ${Array.from(dialogTypes.values())}`);
@@ -55,7 +56,11 @@ export default class UpdateDialog extends Vue {
     } finally {
       this.connector.removeListener("progress", this.UpdateDownloadProgress);
       this.isDownloading = false;
-      this.dialogVerb = "Finished Updating";
+      if (!this.isApplicationUpdate) {
+        this.dialogVerb = "Finished Updating";
+      } else {
+        this.dialogVerb = "Application Update Required";
+      }
       this.dialogName = "";
       this.installationProgress = 0;
       // TODO Emit on download success
