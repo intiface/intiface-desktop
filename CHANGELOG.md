@@ -2,6 +2,8 @@
 
 ## Bugfixes
 
+- Remove Electron Updater for application, require going to website.
+  - Something broke in electron updater and it sucks to debug. Time for the old fashioned way.
 - Fixed window title to just be "Intiface Desktop". Finally.
 - Cap device step ticks at 100
 - Make device and server panels persist
