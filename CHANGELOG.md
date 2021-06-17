@@ -1,3 +1,21 @@
+# v21 (2021-06-09)
+
+## Features
+
+- Add Device Panel
+  - Basically a built-in version of Buttplug Playground, allows users to test devices in program
+    versus requiring website use.
+- Remove secure certificate capabilities
+  - If users want this they can run their own proxy
+- Add ability to select device comm managers
+- Add Lovense Connect Service capabilities
+- Add ability to open log directory in file explorer for support
+
+## Bugfixes
+
+- Fix issues with log panel layout.
+- Make errors pop up under main content window, but don't always reserve space for them.
+
 # v20 (2021-03-20)
 
 ## Bugfixes

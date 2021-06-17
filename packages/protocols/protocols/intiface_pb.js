@@ -4363,6 +4363,7 @@ $root.IntifaceProtocols = (function() {
          * @property {IntifaceProtocols.IntifaceFrontendMessage.ILogMessage|null} [logMessage] IntifaceFrontendMessage logMessage
          * @property {IntifaceProtocols.IntifaceFrontendMessage.ICancelUpdate|null} [cancelUpdate] IntifaceFrontendMessage cancelUpdate
          * @property {IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration|null} [resetIntifaceConfiguration] IntifaceFrontendMessage resetIntifaceConfiguration
+         * @property {IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory|null} [openLogDirectory] IntifaceFrontendMessage openLogDirectory
          */
 
         /**
@@ -4508,17 +4509,25 @@ $root.IntifaceProtocols = (function() {
          */
         IntifaceFrontendMessage.prototype.resetIntifaceConfiguration = null;
 
+        /**
+         * IntifaceFrontendMessage openLogDirectory.
+         * @member {IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory|null|undefined} openLogDirectory
+         * @memberof IntifaceProtocols.IntifaceFrontendMessage
+         * @instance
+         */
+        IntifaceFrontendMessage.prototype.openLogDirectory = null;
+
         // OneOf field names bound to virtual getters and setters
         var $oneOfFields;
 
         /**
          * IntifaceFrontendMessage msg.
-         * @member {"ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"logMessage"|"cancelUpdate"|"resetIntifaceConfiguration"|undefined} msg
+         * @member {"ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"logMessage"|"cancelUpdate"|"resetIntifaceConfiguration"|"openLogDirectory"|undefined} msg
          * @memberof IntifaceProtocols.IntifaceFrontendMessage
          * @instance
          */
         Object.defineProperty(IntifaceFrontendMessage.prototype, "msg", {
-            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "ready", "startProcess", "stopProcess", "startProxy", "stopProxy", "updateConfig", "checkForUpdates", "updateEngine", "updateDeviceFile", "updateApplication", "logMessage", "cancelUpdate", "resetIntifaceConfiguration"]),
+            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "ready", "startProcess", "stopProcess", "startProxy", "stopProxy", "updateConfig", "checkForUpdates", "updateEngine", "updateDeviceFile", "updateApplication", "logMessage", "cancelUpdate", "resetIntifaceConfiguration", "openLogDirectory"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -4578,6 +4587,8 @@ $root.IntifaceProtocols = (function() {
                 $root.IntifaceProtocols.IntifaceFrontendMessage.CancelUpdate.encode(message.cancelUpdate, writer.uint32(/* id 18, wireType 2 =*/146).fork()).ldelim();
             if (message.resetIntifaceConfiguration != null && Object.hasOwnProperty.call(message, "resetIntifaceConfiguration"))
                 $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.encode(message.resetIntifaceConfiguration, writer.uint32(/* id 19, wireType 2 =*/154).fork()).ldelim();
+            if (message.openLogDirectory != null && Object.hasOwnProperty.call(message, "openLogDirectory"))
+                $root.IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.encode(message.openLogDirectory, writer.uint32(/* id 20, wireType 2 =*/162).fork()).ldelim();
             return writer;
         };
 
@@ -4659,6 +4670,9 @@ $root.IntifaceProtocols = (function() {
                     break;
                 case 19:
                     message.resetIntifaceConfiguration = $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.decode(reader, reader.uint32());
+                    break;
+                case 20:
+                    message.openLogDirectory = $root.IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -4847,6 +4861,16 @@ $root.IntifaceProtocols = (function() {
                         return "resetIntifaceConfiguration." + error;
                 }
             }
+            if (message.openLogDirectory != null && message.hasOwnProperty("openLogDirectory")) {
+                if (properties.msg === 1)
+                    return "msg: multiple values";
+                properties.msg = 1;
+                {
+                    var error = $root.IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.verify(message.openLogDirectory);
+                    if (error)
+                        return "openLogDirectory." + error;
+                }
+            }
             return null;
         };
 
@@ -4938,6 +4962,11 @@ $root.IntifaceProtocols = (function() {
                 if (typeof object.resetIntifaceConfiguration !== "object")
                     throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.resetIntifaceConfiguration: object expected");
                 message.resetIntifaceConfiguration = $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.fromObject(object.resetIntifaceConfiguration);
+            }
+            if (object.openLogDirectory != null) {
+                if (typeof object.openLogDirectory !== "object")
+                    throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.openLogDirectory: object expected");
+                message.openLogDirectory = $root.IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.fromObject(object.openLogDirectory);
             }
             return message;
         };
@@ -5033,6 +5062,11 @@ $root.IntifaceProtocols = (function() {
                 object.resetIntifaceConfiguration = $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.toObject(message.resetIntifaceConfiguration, options);
                 if (options.oneofs)
                     object.msg = "resetIntifaceConfiguration";
+            }
+            if (message.openLogDirectory != null && message.hasOwnProperty("openLogDirectory")) {
+                object.openLogDirectory = $root.IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.toObject(message.openLogDirectory, options);
+                if (options.oneofs)
+                    object.msg = "openLogDirectory";
             }
             return object;
         };
@@ -7527,6 +7561,166 @@ $root.IntifaceProtocols = (function() {
             };
 
             return CancelUpdate;
+        })();
+
+        IntifaceFrontendMessage.OpenLogDirectory = (function() {
+
+            /**
+             * Properties of an OpenLogDirectory.
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage
+             * @interface IOpenLogDirectory
+             */
+
+            /**
+             * Constructs a new OpenLogDirectory.
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage
+             * @classdesc Represents an OpenLogDirectory.
+             * @implements IOpenLogDirectory
+             * @constructor
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory=} [properties] Properties to set
+             */
+            function OpenLogDirectory(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * Creates a new OpenLogDirectory instance using the specified properties.
+             * @function create
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory=} [properties] Properties to set
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory} OpenLogDirectory instance
+             */
+            OpenLogDirectory.create = function create(properties) {
+                return new OpenLogDirectory(properties);
+            };
+
+            /**
+             * Encodes the specified OpenLogDirectory message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.verify|verify} messages.
+             * @function encode
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory} message OpenLogDirectory message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            OpenLogDirectory.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified OpenLogDirectory message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory} message OpenLogDirectory message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            OpenLogDirectory.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes an OpenLogDirectory message from the specified reader or buffer.
+             * @function decode
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory} OpenLogDirectory
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            OpenLogDirectory.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes an OpenLogDirectory message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory} OpenLogDirectory
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            OpenLogDirectory.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies an OpenLogDirectory message.
+             * @function verify
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            OpenLogDirectory.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                return null;
+            };
+
+            /**
+             * Creates an OpenLogDirectory message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory} OpenLogDirectory
+             */
+            OpenLogDirectory.fromObject = function fromObject(object) {
+                if (object instanceof $root.IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory)
+                    return object;
+                return new $root.IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory();
+            };
+
+            /**
+             * Creates a plain object from an OpenLogDirectory message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory} message OpenLogDirectory
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            OpenLogDirectory.toObject = function toObject() {
+                return {};
+            };
+
+            /**
+             * Converts this OpenLogDirectory to JSON.
+             * @function toJSON
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            OpenLogDirectory.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return OpenLogDirectory;
         })();
 
         return IntifaceFrontendMessage;

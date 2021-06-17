@@ -190,6 +190,9 @@ message IntifaceFrontendMessage {
   message CancelUpdate {
   };
 
+  message OpenLogDirectory {    
+  };
+
   oneof msg {
     Ok ok = 2;
     Error error = 3;
@@ -206,5 +209,6 @@ message IntifaceFrontendMessage {
     LogMessage log_message = 17;
     CancelUpdate cancel_update = 18;
     ResetIntifaceConfiguration reset_intiface_configuration = 19;
+    OpenLogDirectory open_log_directory = 20;
   };
 };

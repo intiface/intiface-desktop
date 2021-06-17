@@ -38,4 +38,8 @@ export default class ServerPanel extends Vue {
       this.$emit("error", e);
     }
   }
+
+  private isWindows() {
+    return navigator.appVersion.indexOf('Windows') != -1;
+  }
 }

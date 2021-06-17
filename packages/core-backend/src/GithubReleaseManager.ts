@@ -228,6 +228,9 @@ export class GithubReleaseManager extends EventEmitter {
     if (os.platform() !== "win32") {
       await chmod(engineExecutable, 0o755);
     }
+    // TODO This won't be used by Intiface, but other programs still expect it. :(
+    const enginePathFile = path.join(IntifaceBackendUtils.UserConfigDirectory, "enginepath.txt");
+    await writeFile(enginePathFile, engineDirectory, { encoding: "utf-8" });
     // TODO Should download some sort of checksum to check against.
     // TODO Should probably emit some sort of installerFinished event?
   }

@@ -1,6 +1,7 @@
-import { BackendConnector } from "intiface-core-backend-library";
-import { BrowserWindow, ipcMain } from "electron";
+import { BackendConnector, IntifaceBackendUtils } from "intiface-core-backend-library";
+import { BrowserWindow, ipcMain, shell } from "electron";
 import { IntifaceProtocols } from "intiface-protocols";
+import * as path from "path";
 
 // The Main/Parent process side of the Frontend/Server connector pair for
 // Electron. This is the class that will handle anything that needs to happen on
@@ -13,7 +14,13 @@ export class ElectronBackendConnector extends BackendConnector {
     super();
     this._win = aWin;
     ipcMain.addListener("frontend", (event: string, arg: Buffer) => {
-      this.ProcessMessage(IntifaceProtocols.IntifaceFrontendMessage.decode(arg));
+      let msg = IntifaceProtocols.IntifaceFrontendMessage.decode(arg);
+      if (msg.openLogDirectory !== null) {
+        shell.showItemInFolder(path.join(IntifaceBackendUtils.UserConfigDirectory, "intifacelog.txt"));
+        return;
+      }
+  
+      this.ProcessMessage(msg);
     });
   }
 
