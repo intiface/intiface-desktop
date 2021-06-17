@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { ButtplugClient, ButtplugClientDevice, ButtplugWebsocketConnectorOptions } from "buttplug";
-import { FrontendConnector } from "intiface-core-library";
+import { FrontendConnector, IntifaceConfiguration } from "intiface-core-library";
 import { Component, Prop, Watch } from "vue-property-decorator";
 import DeviceComponent from './DeviceComponent.vue';
 import { watch } from "fs";
@@ -13,6 +13,8 @@ import { watch } from "fs";
 export default class DevicesPanel extends Vue {
   @Prop()
   private connector!: FrontendConnector;
+  @Prop()
+  private config!: IntifaceConfiguration;
   private client: ButtplugClient = new ButtplugClient("Intiface Desktop Device Panel");
   private devices: Array<ButtplugClientDevice> = [];
   private user_protocols: string[] = ["nobras", "tcode"];
@@ -43,7 +45,7 @@ export default class DevicesPanel extends Vue {
   private async connectAndScanForDevices() {
     this.in_use = true;
     const options = new ButtplugWebsocketConnectorOptions();
-    options.Address = "ws://localhost:12345";
+    options.Address = `ws://localhost:${this.config.WebsocketServerInsecurePort}`;
     this.client.addListener("deviceadded", (device: ButtplugClientDevice) => {
       this.devices.push(device);
     });
