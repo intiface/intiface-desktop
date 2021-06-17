@@ -1,3 +1,11 @@
+# v22 (2021-06-16)
+
+## Bugfixes
+
+- Cap device step ticks at 100
+- Make device and server panels persist
+- Device panel should connect to the port in settings, not just 12345
+
 # v21 (2021-06-09)
 
 ## Features
