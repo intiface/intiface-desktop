@@ -4,6 +4,9 @@
     <p>At some point, there will be helpful documentation here. For now, there
     is vague promises of future help, and recommendations for places to get help
     from other Intiface users.</p>
+    <h3>Tutorials</h3>
+    <br/>
+    <p><a href="https://www.youtube.com/watch?v=_y80tqtaRX0">We now have a tutorial video that goes over the basics of Intiface Desktop v21 and above.</a></p>
     <h3>Places to get help</h3>
     <br/>
     <ul>

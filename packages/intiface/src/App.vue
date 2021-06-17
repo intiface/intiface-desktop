@@ -1,5 +1,5 @@
 <template>
-  <v-app dark v-if="loaded" class="noOverflow">
+  <v-app dark v-if="loaded">
     <v-navigation-drawer v-model="drawer" v-if="showNavBar" hide-overlay stateless app width="200">
       <v-toolbar flat class="transparent">
         <v-row align="center" class="spacer" no-gutters>
@@ -67,13 +67,17 @@
         </v-col>
       </v-row>
     </v-app-bar>
-    <v-main fill-height>
-      <keep-alive>
-        <router-view @error="onError" :connector="connector" :config="connector.Config"></router-view>
-      </keep-alive>
-      <v-container>
-        <v-alert v-for="errorMsg in appErrors" dismissible :value="true" type="error">{{ errorMsg }}</v-alert>
-      </v-container>
+    <v-main class="d-flex fill-height">
+      <v-row no-gutters class="flex-column fill-height">
+        <v-col class="flex-grow-1 flex-shrink-1 overflow-auto">
+          <keep-alive include="server devices">
+            <router-view @error="onError" :connector="connector" :config="connector.Config"></router-view>
+          </keep-alive>
+        </v-col>
+        <v-col v-if="appErrors.length > 0"  class="flex-grow-0 flex-shrink-0 pa-2">
+          <v-alert v-for="errorMsg in appErrors" dismissible :value="true" type="error">{{ errorMsg }}</v-alert>
+        </v-col>
+      </v-row>
     </v-main>
   </v-app>
 </template>
@@ -82,7 +86,7 @@
 </script>
 
 <style lang="css" >
-.noOverflow {
+html {
   overflow: hidden;
 }
 </style>

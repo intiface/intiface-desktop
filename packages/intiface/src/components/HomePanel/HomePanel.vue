@@ -1,59 +1,60 @@
 <template>
   <v-container>
-    <h1>Intiface Desktop Home</h1>
-    <b>Welcome to Intiface Desktop version {{ Version }}!</b>
     <v-row>
       <v-col>
-        <h2>NEWS FOR V20</h2>
-        <p>Mostly a bugfix and cleanup release this time!</p>
-        <ul>
-          <li>
-            Fixed a huge bug where more than 1MB of logs would stop the server
-            process. This was a super common issue for long-session users
-            (looking at you, VRChat players). Should no longer happen.
-          </li>
-          <li>
-            Removed engine choices! It's Rust or nothing from here on out (and
-            has been since v19 where I broke C# anyways).
-          </li>
-          <li>
-            Otherwise, lots of small cleanup around UI that you may or may not
-            notice.
-          </li>
-        </ul>
-        <br/>
-        <p>The hope is that this release of Desktop will be the last before I
-        start working on a redesign of the application. Most people have no idea
-        what Desktop is used for (me included, sometimes), so it really needs
-        better UI, help/support/dialogs, and features (including extremely basic
-        things like doing device testing within Desktop, all the way to
-        reintegrating visual device simulators so you don't have to use hardware
-        to develop). This is currently in planning, but will hopefully have
-        updates soon!</p>
-        <p>- qDot</p>
+        <h1>Intiface Desktop Home</h1>
+        <b>Welcome to Intiface Desktop version {{ Version }}!</b>
       </v-col>
+    </v-row>
+    <v-row>
       <v-col>
-        <b>Things to do with Intiface (all links will open in web browser)</b>
+        Looking for things to use with Intiface? Check out the <a href="https://github.com/buttplugio/awesome-buttplug">Awesome Buttplug Apps/Games List!</a>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        Need help learning how to use Intiface Desktop? <a href="https://www.youtube.com/watch?v=_y80tqtaRX0">Have a look at our tutorial video for versions 21 and above!</a>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="10">
+        <h2>NEWS FOR V21</h2>
+        <p>And so the upgrades begin!</p>
+        <p>Back in v20 I promised that was going to be the last version that was
+        "just an dependency upgrade", and sure enough, now we're getting some
+        new features in to make Intiface Desktop vaguely useful for something
+        other than running the server!</p>
+        <p>New features include:</p>
         <ul>
-          <li>
-            <a href="https://playground.buttplug.world">Buttplug Playground (Hardware Control, Web)</a>
-          </li>
-          <li>
-            <a href="https://syncydink.buttplug.world">Syncydink (Movie Sync/Playback, Web)</a>
-          </li>
-          <li>
-            <a href="https://github.com/FredTungsten/ScriptPlayer">ScriptPlayer (Movie Sync/Playback, Windows Only)</a>
-          </li>
-          <li>
-            <a href="https://intiface.com/ghr">Intiface Game Haptics Router</a> 
-          </li>
-          <li>
-            <a href="https://gumroad.com/l/VibeGoesBrrr">VibeGoesBrrr VRChat Plugin</a> 
-          </li>
+          <li>You can now decide which device connection methods to use in the
+          <i>Server Status</i> panel! If you don't have a lovense dongle or xbox
+          gamepad, you can turn those off choices now.</li>
+          <li>You can now use the <a
+          href="https://lovense.buttplug.io">Lovense</a> Connect app (<a
+          href="https://play.google.com/store/apps/details?id=com.lovense.connect&hl=en_US&gl=US">Android</a>,
+          <a
+          href="https://apps.apple.com/us/app/lovense-connect/id1273067916">iOS</a>)
+          with Intiface! Just bring up Lovense Connect on your phone, then
+          select the Lovense Connect Service checkbox on the Server Status
+          screen. Note that this is opt-in. Lovense Connect is off by default,
+          as it requires us talking to Lovense's network API, so we require user
+          input to activate this feature.</li>
+          <li>You can now test devices in Intiface Desktop! Just go to the new
+          <i>Devices</i> panel, and you'll be presented with a <a
+          href="https://playground.buttplug.world">Buttplug Playground</a> style
+          interface that will allow you to connect to and control your devices.
+          The features are currently minimal, but this lets you make sure that
+          Intiface can see and control your devices before you use them with
+          other programs.</li>
+          <li>The SSL websockets option has been removed, as it was way too
+          much work to keep up, and most major browsers allow non-SSL
+          connections to localhost now. For those that need it, secure
+          connections can still be established using an outside proxy.</li>
         </ul>
         <br/>
-        <hr>
-        <br/>
+        <p>These features are just the beginning of the new UI and systems that
+        are coming to Intiface, so look for more updates soon!</p>
+        <p>- qDot</p>
       </v-col>
     </v-row>
   </v-container>

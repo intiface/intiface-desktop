@@ -64,6 +64,13 @@ export abstract class FrontendConnector extends EventEmitter {
     await this.SendMessageWithoutReturn(msg);
   }
 
+  public async OpenLogDirectory() {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      openLogDirectory: IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.create(),
+    });
+    await this.SendMessageWithoutReturn(msg);
+  }
+
   public async CheckForUpdates() {
     const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
       checkForUpdates: IntifaceProtocols.IntifaceFrontendMessage.CheckForUpdates.create(),
@@ -238,6 +245,7 @@ export abstract class FrontendConnector extends EventEmitter {
     if (aMsg.processError) {
       this._isServerProcessRunning = false;
       this.emit("serverdisconnect");
+      this._clientName = null;
       this._devices.clear();
       this._devices_change_tracker += 1;
       this.EmitServerMessage(aMsg);
@@ -259,6 +267,7 @@ export abstract class FrontendConnector extends EventEmitter {
     if (aMsg.processEnded) {
       this._isServerProcessRunning = false;
       this.emit("serverdisconnect");
+      this._clientName = null;
       this._devices.clear();
       this._devices_change_tracker += 1;
       return;

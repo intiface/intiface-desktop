@@ -78,7 +78,8 @@ export class IntifaceConfiguration extends EventEmitter {
   }
 
   public get UseWebsocketServerInsecure(): boolean {
-    return this.useWebsocketServerInsecure;
+    // TODO This needs to be always on until we get more connection methods.
+    return true; //this.useWebsocketServerInsecure;
   }
 
   public set UseWebsocketServerInsecure(aShouldListen: boolean) {
@@ -96,6 +97,11 @@ export class IntifaceConfiguration extends EventEmitter {
     }
     this.websocketServerInsecurePort = aPort;
     this.emit("update");
+  }
+
+  public get CurrentEngineVersionNumber(): number {
+    console.log(this.CurrentEngineVersion.substr(1));
+    return parseInt(this.CurrentEngineVersion.substr(1))
   }
 
   public get CurrentEngineVersion(): string {
