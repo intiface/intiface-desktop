@@ -17,7 +17,7 @@
               hide-details
               class="mx-6 my-0"
               v-model="vibrationValues[VibrateCount]"
-              step="1"
+              :step="stepCount(VibrateSteps)"
               :max="VibrateSteps"
               @change="setVibration(VibrateCount)"
               ticks="always"
@@ -36,7 +36,7 @@
               class="mx-6 my-0"
               v-model="vibrationValues[i - 1]"
               :value="vibrationValues[i - 1]"
-              step="1"
+              :step="stepCount(VibrateSteps)"
               :max="VibrateSteps"
               @change="setVibration(i - 1)"
               ticks="always"
@@ -67,7 +67,7 @@
               hide-details
               class="mx-6 my-0"
               v-model="rotationValues[RotateCount]"
-              step="1"
+              :step="stepCount(RotateSteps)"
               :min="-RotateSteps"
               :max="RotateSteps"
               @change="setRotation(RotateCount)"
@@ -86,7 +86,7 @@
               hide-details
               class="mx-6 my-0"
               v-model="rotationValues[i - 1]"
-              step="1"
+              :step="stepCount(RotateSteps)"
               :min="-RotateSteps"
               :max="RotateSteps"
               value="0"
@@ -122,6 +122,7 @@
                   persistent-hint
                   :max="LinearSteps"
                   :min="0"
+                  :step="stepCount(LinearSteps)"
                   hide-details
                   class="align-center mx-6 my-0"
                   ticks="always"

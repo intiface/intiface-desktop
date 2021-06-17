@@ -70,7 +70,7 @@
     <v-main class="d-flex fill-height">
       <v-row no-gutters class="flex-column fill-height">
         <v-col class="flex-grow-1 flex-shrink-1 overflow-auto">
-          <keep-alive include="server devices">
+          <keep-alive include="ServerPanel,DevicesPanel">
             <router-view @error="onError" :connector="connector" :config="connector.Config"></router-view>
           </keep-alive>
         </v-col>
