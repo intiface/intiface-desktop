@@ -1,3 +1,10 @@
+# v23 (2021-06-17)
+
+## Bugfixes
+
+- Fix license naming issue in config.
+- Re-enable autoupdater.
+
 # v22 (2021-06-16)
 
 ## Bugfixes
