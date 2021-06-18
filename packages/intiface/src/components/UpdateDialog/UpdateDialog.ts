@@ -48,6 +48,7 @@ export default class UpdateDialog extends Vue {
         dialogTypes.delete("application");
         this.dialogName = "Application";
         this.isApplicationUpdate = true;
+        await this.connector.UpdateApplication();
       }
       if (dialogTypes.size > 0) {
         IntifaceFrontendLogger.Logger.warn(`Unused dialog types: ${Array.from(dialogTypes.values())}`);
@@ -56,11 +57,7 @@ export default class UpdateDialog extends Vue {
     } finally {
       this.connector.removeListener("progress", this.UpdateDownloadProgress);
       this.isDownloading = false;
-      if (!this.isApplicationUpdate) {
-        this.dialogVerb = "Finished Updating";
-      } else {
-        this.dialogVerb = "Application Update Required";
-      }
+      this.dialogVerb = "Finished Updating";
       this.dialogName = "";
       this.installationProgress = 0;
       // TODO Emit on download success
