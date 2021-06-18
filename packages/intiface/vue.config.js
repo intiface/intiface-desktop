@@ -26,7 +26,8 @@ module.exports = {
         win: {
           "timeStampServer": "http://timestamp.comodoca.com/authenticode",
           "rfc3161TimeStampServer": "http://timestamp.comodoca.com/rfc3161",
-          "publisherName": ["Nonpolynomial", "Sectigo RSA Code Signing CA"],
+          // DO NOT CHANGE THIS. NEVER, EVER CHANGE THIS. IT WILL BREAK THE AUTOUPDATER.
+          "publisherName": ["Nonpolynomial Labs, LLC", "Sectigo RSA Code Signing CA"],
           "target": {
             "target": "nsis",
             "arch": [
