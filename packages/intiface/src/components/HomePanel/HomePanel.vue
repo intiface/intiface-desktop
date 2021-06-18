@@ -18,9 +18,11 @@
     </v-row>
     <v-row>
       <v-col cols="10">
-        <h2>NEWS FOR V22</h2>
-        <p>Welcome to v22, which is just v21 with some fixes for some very nasty bugs in the new
-        devices panel. That's it, really, so here's the v21 news if you hadn't seen that yet:</p>
+        <h2>NEWS FOR V23</h2>
+        <p>Welcome to v23, which is just v21 with some fixes for some very nasty bugs in the new
+        devices panel, and then fixes for the update issues in v22. What can I say, it's been a
+        rough release cycle. That's it, really, so here's the v21 news if you hadn't seen that
+        yet:</p>
         <br/>
         <p>And so the upgrades begin!</p>
         <p>Back in v20 I promised that was going to be the last version that was
