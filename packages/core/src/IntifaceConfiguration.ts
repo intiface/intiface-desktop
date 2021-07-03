@@ -100,7 +100,6 @@ export class IntifaceConfiguration extends EventEmitter {
   }
 
   public get CurrentEngineVersionNumber(): number {
-    console.log(this.CurrentEngineVersion.substr(1));
     return parseInt(this.CurrentEngineVersion.substr(1))
   }
 
