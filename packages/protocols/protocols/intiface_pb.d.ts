@@ -211,6 +211,9 @@ export namespace IntifaceProtocols {
 
         /** ServerProcessMessage deviceDisconnected */
         deviceDisconnected?: (IntifaceProtocols.ServerProcessMessage.IDeviceDisconnected|null);
+
+        /** ServerProcessMessage clientRejected */
+        clientRejected?: (IntifaceProtocols.ServerProcessMessage.IClientRejected|null);
     }
 
     /** Represents a ServerProcessMessage. */
@@ -249,8 +252,11 @@ export namespace IntifaceProtocols {
         /** ServerProcessMessage deviceDisconnected. */
         public deviceDisconnected?: (IntifaceProtocols.ServerProcessMessage.IDeviceDisconnected|null);
 
+        /** ServerProcessMessage clientRejected. */
+        public clientRejected?: (IntifaceProtocols.ServerProcessMessage.IClientRejected|null);
+
         /** ServerProcessMessage msg. */
-        public msg?: ("processStarted"|"processError"|"processEnded"|"processLog"|"buttplugLog"|"clientConnected"|"clientDisconnected"|"deviceConnected"|"deviceDisconnected");
+        public msg?: ("processStarted"|"processError"|"processEnded"|"processLog"|"buttplugLog"|"clientConnected"|"clientDisconnected"|"deviceConnected"|"deviceDisconnected"|"clientRejected");
 
         /**
          * Creates a new ServerProcessMessage instance using the specified properties.
@@ -1118,6 +1124,96 @@ export namespace IntifaceProtocols {
 
             /**
              * Converts this DeviceDisconnected to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a ClientRejected. */
+        interface IClientRejected {
+
+            /** ClientRejected clientName */
+            clientName?: (string|null);
+        }
+
+        /** Represents a ClientRejected. */
+        class ClientRejected implements IClientRejected {
+
+            /**
+             * Constructs a new ClientRejected.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.ServerProcessMessage.IClientRejected);
+
+            /** ClientRejected clientName. */
+            public clientName: string;
+
+            /**
+             * Creates a new ClientRejected instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns ClientRejected instance
+             */
+            public static create(properties?: IntifaceProtocols.ServerProcessMessage.IClientRejected): IntifaceProtocols.ServerProcessMessage.ClientRejected;
+
+            /**
+             * Encodes the specified ClientRejected message. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ClientRejected.verify|verify} messages.
+             * @param message ClientRejected message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.ServerProcessMessage.IClientRejected, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified ClientRejected message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ClientRejected.verify|verify} messages.
+             * @param message ClientRejected message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.ServerProcessMessage.IClientRejected, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a ClientRejected message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns ClientRejected
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.ServerProcessMessage.ClientRejected;
+
+            /**
+             * Decodes a ClientRejected message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns ClientRejected
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.ServerProcessMessage.ClientRejected;
+
+            /**
+             * Verifies a ClientRejected message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a ClientRejected message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns ClientRejected
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.ServerProcessMessage.ClientRejected;
+
+            /**
+             * Creates a plain object from a ClientRejected message. Also converts values to other types if specified.
+             * @param message ClientRejected
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.ServerProcessMessage.ClientRejected, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this ClientRejected to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };

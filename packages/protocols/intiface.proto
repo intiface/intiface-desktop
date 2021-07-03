@@ -57,6 +57,13 @@ message ServerProcessMessage {
     uint32 device_id = 1;
   };
   
+  // Notification that a client has tried to connect while another
+  // client was already connected.
+  message ClientRejected {
+    // Probably won't be filled in for the time being.
+    string client_name = 1;
+  };
+
   oneof msg {
     ProcessStarted process_started = 1;
     ProcessError process_error = 2;
@@ -67,6 +74,7 @@ message ServerProcessMessage {
     ClientDisconnected client_disconnected = 7;
     DeviceConnected device_connected = 8;
     DeviceDisconnected device_disconnected = 9;
+    ClientRejected client_rejected = 10;
   };
 }
 

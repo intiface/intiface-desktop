@@ -404,6 +404,7 @@ $root.IntifaceProtocols = (function() {
          * @property {IntifaceProtocols.ServerProcessMessage.IClientDisconnected|null} [clientDisconnected] ServerProcessMessage clientDisconnected
          * @property {IntifaceProtocols.ServerProcessMessage.IDeviceConnected|null} [deviceConnected] ServerProcessMessage deviceConnected
          * @property {IntifaceProtocols.ServerProcessMessage.IDeviceDisconnected|null} [deviceDisconnected] ServerProcessMessage deviceDisconnected
+         * @property {IntifaceProtocols.ServerProcessMessage.IClientRejected|null} [clientRejected] ServerProcessMessage clientRejected
          */
 
         /**
@@ -493,17 +494,25 @@ $root.IntifaceProtocols = (function() {
          */
         ServerProcessMessage.prototype.deviceDisconnected = null;
 
+        /**
+         * ServerProcessMessage clientRejected.
+         * @member {IntifaceProtocols.ServerProcessMessage.IClientRejected|null|undefined} clientRejected
+         * @memberof IntifaceProtocols.ServerProcessMessage
+         * @instance
+         */
+        ServerProcessMessage.prototype.clientRejected = null;
+
         // OneOf field names bound to virtual getters and setters
         var $oneOfFields;
 
         /**
          * ServerProcessMessage msg.
-         * @member {"processStarted"|"processError"|"processEnded"|"processLog"|"buttplugLog"|"clientConnected"|"clientDisconnected"|"deviceConnected"|"deviceDisconnected"|undefined} msg
+         * @member {"processStarted"|"processError"|"processEnded"|"processLog"|"buttplugLog"|"clientConnected"|"clientDisconnected"|"deviceConnected"|"deviceDisconnected"|"clientRejected"|undefined} msg
          * @memberof IntifaceProtocols.ServerProcessMessage
          * @instance
          */
         Object.defineProperty(ServerProcessMessage.prototype, "msg", {
-            get: $util.oneOfGetter($oneOfFields = ["processStarted", "processError", "processEnded", "processLog", "buttplugLog", "clientConnected", "clientDisconnected", "deviceConnected", "deviceDisconnected"]),
+            get: $util.oneOfGetter($oneOfFields = ["processStarted", "processError", "processEnded", "processLog", "buttplugLog", "clientConnected", "clientDisconnected", "deviceConnected", "deviceDisconnected", "clientRejected"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -549,6 +558,8 @@ $root.IntifaceProtocols = (function() {
                 $root.IntifaceProtocols.ServerProcessMessage.DeviceConnected.encode(message.deviceConnected, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
             if (message.deviceDisconnected != null && Object.hasOwnProperty.call(message, "deviceDisconnected"))
                 $root.IntifaceProtocols.ServerProcessMessage.DeviceDisconnected.encode(message.deviceDisconnected, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+            if (message.clientRejected != null && Object.hasOwnProperty.call(message, "clientRejected"))
+                $root.IntifaceProtocols.ServerProcessMessage.ClientRejected.encode(message.clientRejected, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
             return writer;
         };
 
@@ -609,6 +620,9 @@ $root.IntifaceProtocols = (function() {
                     break;
                 case 9:
                     message.deviceDisconnected = $root.IntifaceProtocols.ServerProcessMessage.DeviceDisconnected.decode(reader, reader.uint32());
+                    break;
+                case 10:
+                    message.clientRejected = $root.IntifaceProtocols.ServerProcessMessage.ClientRejected.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -734,6 +748,16 @@ $root.IntifaceProtocols = (function() {
                         return "deviceDisconnected." + error;
                 }
             }
+            if (message.clientRejected != null && message.hasOwnProperty("clientRejected")) {
+                if (properties.msg === 1)
+                    return "msg: multiple values";
+                properties.msg = 1;
+                {
+                    var error = $root.IntifaceProtocols.ServerProcessMessage.ClientRejected.verify(message.clientRejected);
+                    if (error)
+                        return "clientRejected." + error;
+                }
+            }
             return null;
         };
 
@@ -793,6 +817,11 @@ $root.IntifaceProtocols = (function() {
                 if (typeof object.deviceDisconnected !== "object")
                     throw TypeError(".IntifaceProtocols.ServerProcessMessage.deviceDisconnected: object expected");
                 message.deviceDisconnected = $root.IntifaceProtocols.ServerProcessMessage.DeviceDisconnected.fromObject(object.deviceDisconnected);
+            }
+            if (object.clientRejected != null) {
+                if (typeof object.clientRejected !== "object")
+                    throw TypeError(".IntifaceProtocols.ServerProcessMessage.clientRejected: object expected");
+                message.clientRejected = $root.IntifaceProtocols.ServerProcessMessage.ClientRejected.fromObject(object.clientRejected);
             }
             return message;
         };
@@ -854,6 +883,11 @@ $root.IntifaceProtocols = (function() {
                 object.deviceDisconnected = $root.IntifaceProtocols.ServerProcessMessage.DeviceDisconnected.toObject(message.deviceDisconnected, options);
                 if (options.oneofs)
                     object.msg = "deviceDisconnected";
+            }
+            if (message.clientRejected != null && message.hasOwnProperty("clientRejected")) {
+                object.clientRejected = $root.IntifaceProtocols.ServerProcessMessage.ClientRejected.toObject(message.clientRejected, options);
+                if (options.oneofs)
+                    object.msg = "clientRejected";
             }
             return object;
         };
@@ -2492,6 +2526,193 @@ $root.IntifaceProtocols = (function() {
             };
 
             return DeviceDisconnected;
+        })();
+
+        ServerProcessMessage.ClientRejected = (function() {
+
+            /**
+             * Properties of a ClientRejected.
+             * @memberof IntifaceProtocols.ServerProcessMessage
+             * @interface IClientRejected
+             * @property {string|null} [clientName] ClientRejected clientName
+             */
+
+            /**
+             * Constructs a new ClientRejected.
+             * @memberof IntifaceProtocols.ServerProcessMessage
+             * @classdesc Represents a ClientRejected.
+             * @implements IClientRejected
+             * @constructor
+             * @param {IntifaceProtocols.ServerProcessMessage.IClientRejected=} [properties] Properties to set
+             */
+            function ClientRejected(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * ClientRejected clientName.
+             * @member {string} clientName
+             * @memberof IntifaceProtocols.ServerProcessMessage.ClientRejected
+             * @instance
+             */
+            ClientRejected.prototype.clientName = "";
+
+            /**
+             * Creates a new ClientRejected instance using the specified properties.
+             * @function create
+             * @memberof IntifaceProtocols.ServerProcessMessage.ClientRejected
+             * @static
+             * @param {IntifaceProtocols.ServerProcessMessage.IClientRejected=} [properties] Properties to set
+             * @returns {IntifaceProtocols.ServerProcessMessage.ClientRejected} ClientRejected instance
+             */
+            ClientRejected.create = function create(properties) {
+                return new ClientRejected(properties);
+            };
+
+            /**
+             * Encodes the specified ClientRejected message. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ClientRejected.verify|verify} messages.
+             * @function encode
+             * @memberof IntifaceProtocols.ServerProcessMessage.ClientRejected
+             * @static
+             * @param {IntifaceProtocols.ServerProcessMessage.IClientRejected} message ClientRejected message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ClientRejected.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.clientName != null && Object.hasOwnProperty.call(message, "clientName"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.clientName);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified ClientRejected message, length delimited. Does not implicitly {@link IntifaceProtocols.ServerProcessMessage.ClientRejected.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof IntifaceProtocols.ServerProcessMessage.ClientRejected
+             * @static
+             * @param {IntifaceProtocols.ServerProcessMessage.IClientRejected} message ClientRejected message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ClientRejected.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a ClientRejected message from the specified reader or buffer.
+             * @function decode
+             * @memberof IntifaceProtocols.ServerProcessMessage.ClientRejected
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {IntifaceProtocols.ServerProcessMessage.ClientRejected} ClientRejected
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ClientRejected.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.ServerProcessMessage.ClientRejected();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.clientName = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a ClientRejected message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof IntifaceProtocols.ServerProcessMessage.ClientRejected
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {IntifaceProtocols.ServerProcessMessage.ClientRejected} ClientRejected
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ClientRejected.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a ClientRejected message.
+             * @function verify
+             * @memberof IntifaceProtocols.ServerProcessMessage.ClientRejected
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ClientRejected.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.clientName != null && message.hasOwnProperty("clientName"))
+                    if (!$util.isString(message.clientName))
+                        return "clientName: string expected";
+                return null;
+            };
+
+            /**
+             * Creates a ClientRejected message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof IntifaceProtocols.ServerProcessMessage.ClientRejected
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {IntifaceProtocols.ServerProcessMessage.ClientRejected} ClientRejected
+             */
+            ClientRejected.fromObject = function fromObject(object) {
+                if (object instanceof $root.IntifaceProtocols.ServerProcessMessage.ClientRejected)
+                    return object;
+                var message = new $root.IntifaceProtocols.ServerProcessMessage.ClientRejected();
+                if (object.clientName != null)
+                    message.clientName = String(object.clientName);
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a ClientRejected message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof IntifaceProtocols.ServerProcessMessage.ClientRejected
+             * @static
+             * @param {IntifaceProtocols.ServerProcessMessage.ClientRejected} message ClientRejected
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ClientRejected.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults)
+                    object.clientName = "";
+                if (message.clientName != null && message.hasOwnProperty("clientName"))
+                    object.clientName = message.clientName;
+                return object;
+            };
+
+            /**
+             * Converts this ClientRejected to JSON.
+             * @function toJSON
+             * @memberof IntifaceProtocols.ServerProcessMessage.ClientRejected
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ClientRejected.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return ClientRejected;
         })();
 
         return ServerProcessMessage;

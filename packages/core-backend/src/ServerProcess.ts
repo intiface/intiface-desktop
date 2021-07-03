@@ -230,6 +230,8 @@ export class ServerProcess extends EventEmitter {
             // now while we wait for people upgrade.
             this._process_logger.info(`Process Log: ${msg.processLog!.message}`);
           }
+        } else if (msg.clientRejected !== null) {
+          this._backend_logger.debug("Client rejected from server, raising error.");
         }
         const newMsg = IntifaceProtocols.IntifaceBackendMessage.create({
           serverProcessMessage: msg,

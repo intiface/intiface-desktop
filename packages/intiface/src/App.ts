@@ -44,6 +44,10 @@ export default class App extends Vue {
     if (WEBPACK_ELECTRON) {
       const mod = await import("./utils/ElectronFrontendConnector");
       this.connector = await mod.ElectronFrontendConnector.Create();
+      this.connector.addListener("clientrejected", async () => {
+        let clientName = this.connector!.ClientName!;
+        this.onError(`Another client tried to connect, but ${clientName} is currently connected. Please disconnect ${clientName} before connecting another client.`);
+      });
       this.loaded = true;
     } else {
       if (this.$route.query.websocket) {
@@ -77,7 +81,9 @@ export default class App extends Vue {
   }
 
   private onError(aMsg: string) {
-    this.appErrors.push(aMsg);
+    if (this.appErrors.indexOf(aMsg) === -1) {
+      this.appErrors.push(aMsg);
+    }
   }
 
   // Not actually sure what the incoming type of the router value is, and we

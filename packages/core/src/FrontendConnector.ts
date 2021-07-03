@@ -272,6 +272,10 @@ export abstract class FrontendConnector extends EventEmitter {
       this._devices_change_tracker += 1;
       return;
     }
+    
+    if (aMsg.clientRejected) {
+      this.emit("clientrejected");
+    }
 
     if (aMsg.clientConnected) {
       this._clientName = aMsg.clientConnected!.clientName!;

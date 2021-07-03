@@ -75,7 +75,7 @@
           </keep-alive>
         </v-col>
         <v-col v-if="appErrors.length > 0"  class="flex-grow-0 flex-shrink-0 pa-2">
-          <v-alert v-for="errorMsg in appErrors" dismissible :value="true" type="error">{{ errorMsg }}</v-alert>
+          <v-alert v-for="errorMsg in appErrors" dismissible :value="true" type="error" @input="appErrors.splice(appErrors.indexOf(errorMsg), 1)">{{ errorMsg }}</v-alert>
         </v-col>
       </v-row>
     </v-main>
