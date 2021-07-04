@@ -11,6 +11,8 @@ import { EventEmitter } from "events";
 import isOnline from "is-online";
 import * as winston from "winston";
 import * as rimraf from "rimraf";
+import * as fs from "fs";
+import { promisify } from "util";
 
 // The link between whatever our frontend is (Electron, express, etc) and our
 // IntifaceCLI server process. This will handle loading/saving our configuration
@@ -31,7 +33,7 @@ export class IntifaceBackendManager extends EventEmitter {
   }
 
   private _logger: winston.Logger;
-  private _connector: BackendConnector;
+  protected _connector: BackendConnector;
   private _process: ServerProcess | null = null;
   private _configManager: IntifaceConfigurationManager;
   private _applicationUpdater: IApplicationUpdater;
@@ -256,6 +258,35 @@ export class IntifaceBackendManager extends EventEmitter {
     this._connector.SendOk(aMsg);
   }
 
+  private async InitializeUserDeviceConfig(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+    const exists = promisify(fs.exists);
+    let jsonConfig;
+    if (!await exists(IntifaceBackendUtils.UserDeviceConfigFilePath)) {
+      jsonConfig = "{}";
+    } else {  
+      const readFile = promisify(fs.readFile);
+      jsonConfig = await readFile(IntifaceBackendUtils.UserDeviceConfigFilePath, { flag: "r+", encoding: "utf-8" });
+    }
+    let msg = IntifaceProtocols.IntifaceBackendMessage.create({
+      initializeUserDeviceConfig: IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig.create({ jsonDeviceConfig: jsonConfig }),
+    });
+    msg.index = aMsg.index;
+    this._connector.SendMessage(msg);
+}
+
+  private async UpdateUserDeviceConfig(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
+    const jsonConfig: string = aMsg.updateUserDeviceConfig!.jsonDeviceConfig!;
+    if (jsonConfig.length === 0) {
+      const deleteFile = promisify(fs.unlink);
+      await deleteFile(IntifaceBackendUtils.UserDeviceConfigFilePath);
+      this._connector.SendOk(aMsg);
+    } else {
+      const writeFile = promisify(fs.writeFile);
+      await writeFile(IntifaceBackendUtils.UserDeviceConfigFilePath, jsonConfig, { flag: "w+", encoding: "utf-8" });
+    }
+    this._connector.SendOk(aMsg);
+  }
+
   private async ReceiveFrontendMessage(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {
     // TODO Feels like there should be a better way to do this :c
     if (aMsg.startProcess !== null) {
@@ -314,6 +345,16 @@ export class IntifaceBackendManager extends EventEmitter {
 
     if (aMsg.resetIntifaceConfiguration !== null) {
       await this.ResetIntifaceConfiguration();
+      return;
+    }
+
+    if (aMsg.requestUserDeviceConfig !== null) {
+      await this.InitializeUserDeviceConfig(aMsg);
+      return;
+    }
+
+    if (aMsg.updateUserDeviceConfig !== null) {
+      await this.UpdateUserDeviceConfig(aMsg);
       return;
     }
 

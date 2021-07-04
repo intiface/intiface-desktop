@@ -12,6 +12,8 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 // be closed automatically when the JavaScript object is garbage collected.
 let win: BrowserWindow | null
 
+app.commandLine.appendSwitch('enable-features', 'ElectronSerialChooser');
+
 // Scheme must be registered before the app is ready. Fetch is required in order to load WASM.
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, supportFetchAPI: true, standard: true } }

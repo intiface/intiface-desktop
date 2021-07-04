@@ -111,6 +111,9 @@ export class ServerProcess extends EventEmitter {
     if (await exists(IntifaceBackendUtils.DeviceConfigFilePath)) {
       args.push(`--deviceconfig`, `${IntifaceBackendUtils.DeviceConfigFilePath}`);
     }
+    if (await exists(IntifaceBackendUtils.UserDeviceConfigFilePath)) {
+      args.push(`--userdeviceconfig`, `${IntifaceBackendUtils.UserDeviceConfigFilePath}`);
+    }
     // args.push(`--userdeviceconfig `);
     // First, we set up our incoming pipe to receive GUI info from the CLI
     // process

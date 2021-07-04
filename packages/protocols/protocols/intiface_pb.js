@@ -2733,6 +2733,8 @@ $root.IntifaceProtocols = (function() {
          * @property {IntifaceProtocols.IServerProcessMessage|null} [serverProcessMessage] IntifaceBackendMessage serverProcessMessage
          * @property {IntifaceProtocols.IntifaceBackendMessage.ILogMessage|null} [logMessage] IntifaceBackendMessage logMessage
          * @property {IntifaceProtocols.IntifaceBackendMessage.IProcessError|null} [processError] IntifaceBackendMessage processError
+         * @property {IntifaceProtocols.IntifaceBackendMessage.ISerialPortList|null} [serialPortList] IntifaceBackendMessage serialPortList
+         * @property {IntifaceProtocols.IntifaceBackendMessage.IInitializeUserDeviceConfig|null} [initializeUserDeviceConfig] IntifaceBackendMessage initializeUserDeviceConfig
          */
 
         /**
@@ -2822,17 +2824,33 @@ $root.IntifaceProtocols = (function() {
          */
         IntifaceBackendMessage.prototype.processError = null;
 
+        /**
+         * IntifaceBackendMessage serialPortList.
+         * @member {IntifaceProtocols.IntifaceBackendMessage.ISerialPortList|null|undefined} serialPortList
+         * @memberof IntifaceProtocols.IntifaceBackendMessage
+         * @instance
+         */
+        IntifaceBackendMessage.prototype.serialPortList = null;
+
+        /**
+         * IntifaceBackendMessage initializeUserDeviceConfig.
+         * @member {IntifaceProtocols.IntifaceBackendMessage.IInitializeUserDeviceConfig|null|undefined} initializeUserDeviceConfig
+         * @memberof IntifaceProtocols.IntifaceBackendMessage
+         * @instance
+         */
+        IntifaceBackendMessage.prototype.initializeUserDeviceConfig = null;
+
         // OneOf field names bound to virtual getters and setters
         var $oneOfFields;
 
         /**
          * IntifaceBackendMessage msg.
-         * @member {"ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"serverProcessMessage"|"logMessage"|"processError"|undefined} msg
+         * @member {"ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"serverProcessMessage"|"logMessage"|"processError"|"serialPortList"|"initializeUserDeviceConfig"|undefined} msg
          * @memberof IntifaceProtocols.IntifaceBackendMessage
          * @instance
          */
         Object.defineProperty(IntifaceBackendMessage.prototype, "msg", {
-            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "configuration", "updatesAvailable", "downloadProgress", "serverProcessMessage", "logMessage", "processError"]),
+            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "configuration", "updatesAvailable", "downloadProgress", "serverProcessMessage", "logMessage", "processError", "serialPortList", "initializeUserDeviceConfig"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -2878,6 +2896,10 @@ $root.IntifaceProtocols = (function() {
                 $root.IntifaceProtocols.IntifaceBackendMessage.LogMessage.encode(message.logMessage, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
             if (message.processError != null && Object.hasOwnProperty.call(message, "processError"))
                 $root.IntifaceProtocols.IntifaceBackendMessage.ProcessError.encode(message.processError, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
+            if (message.serialPortList != null && Object.hasOwnProperty.call(message, "serialPortList"))
+                $root.IntifaceProtocols.IntifaceBackendMessage.SerialPortList.encode(message.serialPortList, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
+            if (message.initializeUserDeviceConfig != null && Object.hasOwnProperty.call(message, "initializeUserDeviceConfig"))
+                $root.IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig.encode(message.initializeUserDeviceConfig, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
             return writer;
         };
 
@@ -2938,6 +2960,12 @@ $root.IntifaceProtocols = (function() {
                     break;
                 case 11:
                     message.processError = $root.IntifaceProtocols.IntifaceBackendMessage.ProcessError.decode(reader, reader.uint32());
+                    break;
+                case 12:
+                    message.serialPortList = $root.IntifaceProtocols.IntifaceBackendMessage.SerialPortList.decode(reader, reader.uint32());
+                    break;
+                case 13:
+                    message.initializeUserDeviceConfig = $root.IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -3056,6 +3084,26 @@ $root.IntifaceProtocols = (function() {
                         return "processError." + error;
                 }
             }
+            if (message.serialPortList != null && message.hasOwnProperty("serialPortList")) {
+                if (properties.msg === 1)
+                    return "msg: multiple values";
+                properties.msg = 1;
+                {
+                    var error = $root.IntifaceProtocols.IntifaceBackendMessage.SerialPortList.verify(message.serialPortList);
+                    if (error)
+                        return "serialPortList." + error;
+                }
+            }
+            if (message.initializeUserDeviceConfig != null && message.hasOwnProperty("initializeUserDeviceConfig")) {
+                if (properties.msg === 1)
+                    return "msg: multiple values";
+                properties.msg = 1;
+                {
+                    var error = $root.IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig.verify(message.initializeUserDeviceConfig);
+                    if (error)
+                        return "initializeUserDeviceConfig." + error;
+                }
+            }
             return null;
         };
 
@@ -3112,6 +3160,16 @@ $root.IntifaceProtocols = (function() {
                 if (typeof object.processError !== "object")
                     throw TypeError(".IntifaceProtocols.IntifaceBackendMessage.processError: object expected");
                 message.processError = $root.IntifaceProtocols.IntifaceBackendMessage.ProcessError.fromObject(object.processError);
+            }
+            if (object.serialPortList != null) {
+                if (typeof object.serialPortList !== "object")
+                    throw TypeError(".IntifaceProtocols.IntifaceBackendMessage.serialPortList: object expected");
+                message.serialPortList = $root.IntifaceProtocols.IntifaceBackendMessage.SerialPortList.fromObject(object.serialPortList);
+            }
+            if (object.initializeUserDeviceConfig != null) {
+                if (typeof object.initializeUserDeviceConfig !== "object")
+                    throw TypeError(".IntifaceProtocols.IntifaceBackendMessage.initializeUserDeviceConfig: object expected");
+                message.initializeUserDeviceConfig = $root.IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig.fromObject(object.initializeUserDeviceConfig);
             }
             return message;
         };
@@ -3172,6 +3230,16 @@ $root.IntifaceProtocols = (function() {
                 object.processError = $root.IntifaceProtocols.IntifaceBackendMessage.ProcessError.toObject(message.processError, options);
                 if (options.oneofs)
                     object.msg = "processError";
+            }
+            if (message.serialPortList != null && message.hasOwnProperty("serialPortList")) {
+                object.serialPortList = $root.IntifaceProtocols.IntifaceBackendMessage.SerialPortList.toObject(message.serialPortList, options);
+                if (options.oneofs)
+                    object.msg = "serialPortList";
+            }
+            if (message.initializeUserDeviceConfig != null && message.hasOwnProperty("initializeUserDeviceConfig")) {
+                object.initializeUserDeviceConfig = $root.IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig.toObject(message.initializeUserDeviceConfig, options);
+                if (options.oneofs)
+                    object.msg = "initializeUserDeviceConfig";
             }
             return object;
         };
@@ -4559,6 +4627,435 @@ $root.IntifaceProtocols = (function() {
             return LogMessage;
         })();
 
+        IntifaceBackendMessage.SerialPortList = (function() {
+
+            /**
+             * Properties of a SerialPortList.
+             * @memberof IntifaceProtocols.IntifaceBackendMessage
+             * @interface ISerialPortList
+             * @property {Array.<string>|null} [ports] SerialPortList ports
+             * @property {Array.<string>|null} [names] SerialPortList names
+             */
+
+            /**
+             * Constructs a new SerialPortList.
+             * @memberof IntifaceProtocols.IntifaceBackendMessage
+             * @classdesc Represents a SerialPortList.
+             * @implements ISerialPortList
+             * @constructor
+             * @param {IntifaceProtocols.IntifaceBackendMessage.ISerialPortList=} [properties] Properties to set
+             */
+            function SerialPortList(properties) {
+                this.ports = [];
+                this.names = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * SerialPortList ports.
+             * @member {Array.<string>} ports
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.SerialPortList
+             * @instance
+             */
+            SerialPortList.prototype.ports = $util.emptyArray;
+
+            /**
+             * SerialPortList names.
+             * @member {Array.<string>} names
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.SerialPortList
+             * @instance
+             */
+            SerialPortList.prototype.names = $util.emptyArray;
+
+            /**
+             * Creates a new SerialPortList instance using the specified properties.
+             * @function create
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.SerialPortList
+             * @static
+             * @param {IntifaceProtocols.IntifaceBackendMessage.ISerialPortList=} [properties] Properties to set
+             * @returns {IntifaceProtocols.IntifaceBackendMessage.SerialPortList} SerialPortList instance
+             */
+            SerialPortList.create = function create(properties) {
+                return new SerialPortList(properties);
+            };
+
+            /**
+             * Encodes the specified SerialPortList message. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.SerialPortList.verify|verify} messages.
+             * @function encode
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.SerialPortList
+             * @static
+             * @param {IntifaceProtocols.IntifaceBackendMessage.ISerialPortList} message SerialPortList message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            SerialPortList.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.ports != null && message.ports.length)
+                    for (var i = 0; i < message.ports.length; ++i)
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.ports[i]);
+                if (message.names != null && message.names.length)
+                    for (var i = 0; i < message.names.length; ++i)
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.names[i]);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified SerialPortList message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.SerialPortList.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.SerialPortList
+             * @static
+             * @param {IntifaceProtocols.IntifaceBackendMessage.ISerialPortList} message SerialPortList message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            SerialPortList.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a SerialPortList message from the specified reader or buffer.
+             * @function decode
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.SerialPortList
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {IntifaceProtocols.IntifaceBackendMessage.SerialPortList} SerialPortList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            SerialPortList.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceBackendMessage.SerialPortList();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        if (!(message.ports && message.ports.length))
+                            message.ports = [];
+                        message.ports.push(reader.string());
+                        break;
+                    case 2:
+                        if (!(message.names && message.names.length))
+                            message.names = [];
+                        message.names.push(reader.string());
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a SerialPortList message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.SerialPortList
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {IntifaceProtocols.IntifaceBackendMessage.SerialPortList} SerialPortList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            SerialPortList.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a SerialPortList message.
+             * @function verify
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.SerialPortList
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            SerialPortList.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.ports != null && message.hasOwnProperty("ports")) {
+                    if (!Array.isArray(message.ports))
+                        return "ports: array expected";
+                    for (var i = 0; i < message.ports.length; ++i)
+                        if (!$util.isString(message.ports[i]))
+                            return "ports: string[] expected";
+                }
+                if (message.names != null && message.hasOwnProperty("names")) {
+                    if (!Array.isArray(message.names))
+                        return "names: array expected";
+                    for (var i = 0; i < message.names.length; ++i)
+                        if (!$util.isString(message.names[i]))
+                            return "names: string[] expected";
+                }
+                return null;
+            };
+
+            /**
+             * Creates a SerialPortList message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.SerialPortList
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {IntifaceProtocols.IntifaceBackendMessage.SerialPortList} SerialPortList
+             */
+            SerialPortList.fromObject = function fromObject(object) {
+                if (object instanceof $root.IntifaceProtocols.IntifaceBackendMessage.SerialPortList)
+                    return object;
+                var message = new $root.IntifaceProtocols.IntifaceBackendMessage.SerialPortList();
+                if (object.ports) {
+                    if (!Array.isArray(object.ports))
+                        throw TypeError(".IntifaceProtocols.IntifaceBackendMessage.SerialPortList.ports: array expected");
+                    message.ports = [];
+                    for (var i = 0; i < object.ports.length; ++i)
+                        message.ports[i] = String(object.ports[i]);
+                }
+                if (object.names) {
+                    if (!Array.isArray(object.names))
+                        throw TypeError(".IntifaceProtocols.IntifaceBackendMessage.SerialPortList.names: array expected");
+                    message.names = [];
+                    for (var i = 0; i < object.names.length; ++i)
+                        message.names[i] = String(object.names[i]);
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a SerialPortList message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.SerialPortList
+             * @static
+             * @param {IntifaceProtocols.IntifaceBackendMessage.SerialPortList} message SerialPortList
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            SerialPortList.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults) {
+                    object.ports = [];
+                    object.names = [];
+                }
+                if (message.ports && message.ports.length) {
+                    object.ports = [];
+                    for (var j = 0; j < message.ports.length; ++j)
+                        object.ports[j] = message.ports[j];
+                }
+                if (message.names && message.names.length) {
+                    object.names = [];
+                    for (var j = 0; j < message.names.length; ++j)
+                        object.names[j] = message.names[j];
+                }
+                return object;
+            };
+
+            /**
+             * Converts this SerialPortList to JSON.
+             * @function toJSON
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.SerialPortList
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            SerialPortList.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return SerialPortList;
+        })();
+
+        IntifaceBackendMessage.InitializeUserDeviceConfig = (function() {
+
+            /**
+             * Properties of an InitializeUserDeviceConfig.
+             * @memberof IntifaceProtocols.IntifaceBackendMessage
+             * @interface IInitializeUserDeviceConfig
+             * @property {string|null} [jsonDeviceConfig] InitializeUserDeviceConfig jsonDeviceConfig
+             */
+
+            /**
+             * Constructs a new InitializeUserDeviceConfig.
+             * @memberof IntifaceProtocols.IntifaceBackendMessage
+             * @classdesc Represents an InitializeUserDeviceConfig.
+             * @implements IInitializeUserDeviceConfig
+             * @constructor
+             * @param {IntifaceProtocols.IntifaceBackendMessage.IInitializeUserDeviceConfig=} [properties] Properties to set
+             */
+            function InitializeUserDeviceConfig(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * InitializeUserDeviceConfig jsonDeviceConfig.
+             * @member {string} jsonDeviceConfig
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig
+             * @instance
+             */
+            InitializeUserDeviceConfig.prototype.jsonDeviceConfig = "";
+
+            /**
+             * Creates a new InitializeUserDeviceConfig instance using the specified properties.
+             * @function create
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig
+             * @static
+             * @param {IntifaceProtocols.IntifaceBackendMessage.IInitializeUserDeviceConfig=} [properties] Properties to set
+             * @returns {IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig} InitializeUserDeviceConfig instance
+             */
+            InitializeUserDeviceConfig.create = function create(properties) {
+                return new InitializeUserDeviceConfig(properties);
+            };
+
+            /**
+             * Encodes the specified InitializeUserDeviceConfig message. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig.verify|verify} messages.
+             * @function encode
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig
+             * @static
+             * @param {IntifaceProtocols.IntifaceBackendMessage.IInitializeUserDeviceConfig} message InitializeUserDeviceConfig message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            InitializeUserDeviceConfig.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.jsonDeviceConfig != null && Object.hasOwnProperty.call(message, "jsonDeviceConfig"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.jsonDeviceConfig);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified InitializeUserDeviceConfig message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig
+             * @static
+             * @param {IntifaceProtocols.IntifaceBackendMessage.IInitializeUserDeviceConfig} message InitializeUserDeviceConfig message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            InitializeUserDeviceConfig.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes an InitializeUserDeviceConfig message from the specified reader or buffer.
+             * @function decode
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig} InitializeUserDeviceConfig
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            InitializeUserDeviceConfig.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.jsonDeviceConfig = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes an InitializeUserDeviceConfig message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig} InitializeUserDeviceConfig
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            InitializeUserDeviceConfig.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies an InitializeUserDeviceConfig message.
+             * @function verify
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            InitializeUserDeviceConfig.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.jsonDeviceConfig != null && message.hasOwnProperty("jsonDeviceConfig"))
+                    if (!$util.isString(message.jsonDeviceConfig))
+                        return "jsonDeviceConfig: string expected";
+                return null;
+            };
+
+            /**
+             * Creates an InitializeUserDeviceConfig message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig} InitializeUserDeviceConfig
+             */
+            InitializeUserDeviceConfig.fromObject = function fromObject(object) {
+                if (object instanceof $root.IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig)
+                    return object;
+                var message = new $root.IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig();
+                if (object.jsonDeviceConfig != null)
+                    message.jsonDeviceConfig = String(object.jsonDeviceConfig);
+                return message;
+            };
+
+            /**
+             * Creates a plain object from an InitializeUserDeviceConfig message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig
+             * @static
+             * @param {IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig} message InitializeUserDeviceConfig
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            InitializeUserDeviceConfig.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults)
+                    object.jsonDeviceConfig = "";
+                if (message.jsonDeviceConfig != null && message.hasOwnProperty("jsonDeviceConfig"))
+                    object.jsonDeviceConfig = message.jsonDeviceConfig;
+                return object;
+            };
+
+            /**
+             * Converts this InitializeUserDeviceConfig to JSON.
+             * @function toJSON
+             * @memberof IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            InitializeUserDeviceConfig.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return InitializeUserDeviceConfig;
+        })();
+
         return IntifaceBackendMessage;
     })();
 
@@ -4585,6 +5082,9 @@ $root.IntifaceProtocols = (function() {
          * @property {IntifaceProtocols.IntifaceFrontendMessage.ICancelUpdate|null} [cancelUpdate] IntifaceFrontendMessage cancelUpdate
          * @property {IntifaceProtocols.IntifaceFrontendMessage.IResetIntifaceConfiguration|null} [resetIntifaceConfiguration] IntifaceFrontendMessage resetIntifaceConfiguration
          * @property {IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory|null} [openLogDirectory] IntifaceFrontendMessage openLogDirectory
+         * @property {IntifaceProtocols.IntifaceFrontendMessage.IRequestSerialPortList|null} [requestSerialPortList] IntifaceFrontendMessage requestSerialPortList
+         * @property {IntifaceProtocols.IntifaceFrontendMessage.IUpdateUserDeviceConfig|null} [updateUserDeviceConfig] IntifaceFrontendMessage updateUserDeviceConfig
+         * @property {IntifaceProtocols.IntifaceFrontendMessage.IRequestUserDeviceConfig|null} [requestUserDeviceConfig] IntifaceFrontendMessage requestUserDeviceConfig
          */
 
         /**
@@ -4738,17 +5238,41 @@ $root.IntifaceProtocols = (function() {
          */
         IntifaceFrontendMessage.prototype.openLogDirectory = null;
 
+        /**
+         * IntifaceFrontendMessage requestSerialPortList.
+         * @member {IntifaceProtocols.IntifaceFrontendMessage.IRequestSerialPortList|null|undefined} requestSerialPortList
+         * @memberof IntifaceProtocols.IntifaceFrontendMessage
+         * @instance
+         */
+        IntifaceFrontendMessage.prototype.requestSerialPortList = null;
+
+        /**
+         * IntifaceFrontendMessage updateUserDeviceConfig.
+         * @member {IntifaceProtocols.IntifaceFrontendMessage.IUpdateUserDeviceConfig|null|undefined} updateUserDeviceConfig
+         * @memberof IntifaceProtocols.IntifaceFrontendMessage
+         * @instance
+         */
+        IntifaceFrontendMessage.prototype.updateUserDeviceConfig = null;
+
+        /**
+         * IntifaceFrontendMessage requestUserDeviceConfig.
+         * @member {IntifaceProtocols.IntifaceFrontendMessage.IRequestUserDeviceConfig|null|undefined} requestUserDeviceConfig
+         * @memberof IntifaceProtocols.IntifaceFrontendMessage
+         * @instance
+         */
+        IntifaceFrontendMessage.prototype.requestUserDeviceConfig = null;
+
         // OneOf field names bound to virtual getters and setters
         var $oneOfFields;
 
         /**
          * IntifaceFrontendMessage msg.
-         * @member {"ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"logMessage"|"cancelUpdate"|"resetIntifaceConfiguration"|"openLogDirectory"|undefined} msg
+         * @member {"ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"logMessage"|"cancelUpdate"|"resetIntifaceConfiguration"|"openLogDirectory"|"requestSerialPortList"|"updateUserDeviceConfig"|"requestUserDeviceConfig"|undefined} msg
          * @memberof IntifaceProtocols.IntifaceFrontendMessage
          * @instance
          */
         Object.defineProperty(IntifaceFrontendMessage.prototype, "msg", {
-            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "ready", "startProcess", "stopProcess", "startProxy", "stopProxy", "updateConfig", "checkForUpdates", "updateEngine", "updateDeviceFile", "updateApplication", "logMessage", "cancelUpdate", "resetIntifaceConfiguration", "openLogDirectory"]),
+            get: $util.oneOfGetter($oneOfFields = ["ok", "error", "ready", "startProcess", "stopProcess", "startProxy", "stopProxy", "updateConfig", "checkForUpdates", "updateEngine", "updateDeviceFile", "updateApplication", "logMessage", "cancelUpdate", "resetIntifaceConfiguration", "openLogDirectory", "requestSerialPortList", "updateUserDeviceConfig", "requestUserDeviceConfig"]),
             set: $util.oneOfSetter($oneOfFields)
         });
 
@@ -4810,6 +5334,12 @@ $root.IntifaceProtocols = (function() {
                 $root.IntifaceProtocols.IntifaceFrontendMessage.ResetIntifaceConfiguration.encode(message.resetIntifaceConfiguration, writer.uint32(/* id 19, wireType 2 =*/154).fork()).ldelim();
             if (message.openLogDirectory != null && Object.hasOwnProperty.call(message, "openLogDirectory"))
                 $root.IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.encode(message.openLogDirectory, writer.uint32(/* id 20, wireType 2 =*/162).fork()).ldelim();
+            if (message.requestSerialPortList != null && Object.hasOwnProperty.call(message, "requestSerialPortList"))
+                $root.IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList.encode(message.requestSerialPortList, writer.uint32(/* id 21, wireType 2 =*/170).fork()).ldelim();
+            if (message.updateUserDeviceConfig != null && Object.hasOwnProperty.call(message, "updateUserDeviceConfig"))
+                $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig.encode(message.updateUserDeviceConfig, writer.uint32(/* id 22, wireType 2 =*/178).fork()).ldelim();
+            if (message.requestUserDeviceConfig != null && Object.hasOwnProperty.call(message, "requestUserDeviceConfig"))
+                $root.IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig.encode(message.requestUserDeviceConfig, writer.uint32(/* id 23, wireType 2 =*/186).fork()).ldelim();
             return writer;
         };
 
@@ -4894,6 +5424,15 @@ $root.IntifaceProtocols = (function() {
                     break;
                 case 20:
                     message.openLogDirectory = $root.IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.decode(reader, reader.uint32());
+                    break;
+                case 21:
+                    message.requestSerialPortList = $root.IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList.decode(reader, reader.uint32());
+                    break;
+                case 22:
+                    message.updateUserDeviceConfig = $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig.decode(reader, reader.uint32());
+                    break;
+                case 23:
+                    message.requestUserDeviceConfig = $root.IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -5092,6 +5631,36 @@ $root.IntifaceProtocols = (function() {
                         return "openLogDirectory." + error;
                 }
             }
+            if (message.requestSerialPortList != null && message.hasOwnProperty("requestSerialPortList")) {
+                if (properties.msg === 1)
+                    return "msg: multiple values";
+                properties.msg = 1;
+                {
+                    var error = $root.IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList.verify(message.requestSerialPortList);
+                    if (error)
+                        return "requestSerialPortList." + error;
+                }
+            }
+            if (message.updateUserDeviceConfig != null && message.hasOwnProperty("updateUserDeviceConfig")) {
+                if (properties.msg === 1)
+                    return "msg: multiple values";
+                properties.msg = 1;
+                {
+                    var error = $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig.verify(message.updateUserDeviceConfig);
+                    if (error)
+                        return "updateUserDeviceConfig." + error;
+                }
+            }
+            if (message.requestUserDeviceConfig != null && message.hasOwnProperty("requestUserDeviceConfig")) {
+                if (properties.msg === 1)
+                    return "msg: multiple values";
+                properties.msg = 1;
+                {
+                    var error = $root.IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig.verify(message.requestUserDeviceConfig);
+                    if (error)
+                        return "requestUserDeviceConfig." + error;
+                }
+            }
             return null;
         };
 
@@ -5188,6 +5757,21 @@ $root.IntifaceProtocols = (function() {
                 if (typeof object.openLogDirectory !== "object")
                     throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.openLogDirectory: object expected");
                 message.openLogDirectory = $root.IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.fromObject(object.openLogDirectory);
+            }
+            if (object.requestSerialPortList != null) {
+                if (typeof object.requestSerialPortList !== "object")
+                    throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.requestSerialPortList: object expected");
+                message.requestSerialPortList = $root.IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList.fromObject(object.requestSerialPortList);
+            }
+            if (object.updateUserDeviceConfig != null) {
+                if (typeof object.updateUserDeviceConfig !== "object")
+                    throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.updateUserDeviceConfig: object expected");
+                message.updateUserDeviceConfig = $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig.fromObject(object.updateUserDeviceConfig);
+            }
+            if (object.requestUserDeviceConfig != null) {
+                if (typeof object.requestUserDeviceConfig !== "object")
+                    throw TypeError(".IntifaceProtocols.IntifaceFrontendMessage.requestUserDeviceConfig: object expected");
+                message.requestUserDeviceConfig = $root.IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig.fromObject(object.requestUserDeviceConfig);
             }
             return message;
         };
@@ -5288,6 +5872,21 @@ $root.IntifaceProtocols = (function() {
                 object.openLogDirectory = $root.IntifaceProtocols.IntifaceFrontendMessage.OpenLogDirectory.toObject(message.openLogDirectory, options);
                 if (options.oneofs)
                     object.msg = "openLogDirectory";
+            }
+            if (message.requestSerialPortList != null && message.hasOwnProperty("requestSerialPortList")) {
+                object.requestSerialPortList = $root.IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList.toObject(message.requestSerialPortList, options);
+                if (options.oneofs)
+                    object.msg = "requestSerialPortList";
+            }
+            if (message.updateUserDeviceConfig != null && message.hasOwnProperty("updateUserDeviceConfig")) {
+                object.updateUserDeviceConfig = $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig.toObject(message.updateUserDeviceConfig, options);
+                if (options.oneofs)
+                    object.msg = "updateUserDeviceConfig";
+            }
+            if (message.requestUserDeviceConfig != null && message.hasOwnProperty("requestUserDeviceConfig")) {
+                object.requestUserDeviceConfig = $root.IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig.toObject(message.requestUserDeviceConfig, options);
+                if (options.oneofs)
+                    object.msg = "requestUserDeviceConfig";
             }
             return object;
         };
@@ -7942,6 +8541,513 @@ $root.IntifaceProtocols = (function() {
             };
 
             return OpenLogDirectory;
+        })();
+
+        IntifaceFrontendMessage.RequestUserDeviceConfig = (function() {
+
+            /**
+             * Properties of a RequestUserDeviceConfig.
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage
+             * @interface IRequestUserDeviceConfig
+             */
+
+            /**
+             * Constructs a new RequestUserDeviceConfig.
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage
+             * @classdesc Represents a RequestUserDeviceConfig.
+             * @implements IRequestUserDeviceConfig
+             * @constructor
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IRequestUserDeviceConfig=} [properties] Properties to set
+             */
+            function RequestUserDeviceConfig(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * Creates a new RequestUserDeviceConfig instance using the specified properties.
+             * @function create
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IRequestUserDeviceConfig=} [properties] Properties to set
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig} RequestUserDeviceConfig instance
+             */
+            RequestUserDeviceConfig.create = function create(properties) {
+                return new RequestUserDeviceConfig(properties);
+            };
+
+            /**
+             * Encodes the specified RequestUserDeviceConfig message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig.verify|verify} messages.
+             * @function encode
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IRequestUserDeviceConfig} message RequestUserDeviceConfig message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestUserDeviceConfig.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified RequestUserDeviceConfig message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IRequestUserDeviceConfig} message RequestUserDeviceConfig message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestUserDeviceConfig.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a RequestUserDeviceConfig message from the specified reader or buffer.
+             * @function decode
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig} RequestUserDeviceConfig
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestUserDeviceConfig.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a RequestUserDeviceConfig message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig} RequestUserDeviceConfig
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestUserDeviceConfig.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a RequestUserDeviceConfig message.
+             * @function verify
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RequestUserDeviceConfig.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                return null;
+            };
+
+            /**
+             * Creates a RequestUserDeviceConfig message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig} RequestUserDeviceConfig
+             */
+            RequestUserDeviceConfig.fromObject = function fromObject(object) {
+                if (object instanceof $root.IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig)
+                    return object;
+                return new $root.IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig();
+            };
+
+            /**
+             * Creates a plain object from a RequestUserDeviceConfig message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig} message RequestUserDeviceConfig
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RequestUserDeviceConfig.toObject = function toObject() {
+                return {};
+            };
+
+            /**
+             * Converts this RequestUserDeviceConfig to JSON.
+             * @function toJSON
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RequestUserDeviceConfig.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return RequestUserDeviceConfig;
+        })();
+
+        IntifaceFrontendMessage.RequestSerialPortList = (function() {
+
+            /**
+             * Properties of a RequestSerialPortList.
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage
+             * @interface IRequestSerialPortList
+             */
+
+            /**
+             * Constructs a new RequestSerialPortList.
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage
+             * @classdesc Represents a RequestSerialPortList.
+             * @implements IRequestSerialPortList
+             * @constructor
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IRequestSerialPortList=} [properties] Properties to set
+             */
+            function RequestSerialPortList(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * Creates a new RequestSerialPortList instance using the specified properties.
+             * @function create
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IRequestSerialPortList=} [properties] Properties to set
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList} RequestSerialPortList instance
+             */
+            RequestSerialPortList.create = function create(properties) {
+                return new RequestSerialPortList(properties);
+            };
+
+            /**
+             * Encodes the specified RequestSerialPortList message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList.verify|verify} messages.
+             * @function encode
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IRequestSerialPortList} message RequestSerialPortList message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestSerialPortList.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified RequestSerialPortList message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IRequestSerialPortList} message RequestSerialPortList message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestSerialPortList.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a RequestSerialPortList message from the specified reader or buffer.
+             * @function decode
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList} RequestSerialPortList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestSerialPortList.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a RequestSerialPortList message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList} RequestSerialPortList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestSerialPortList.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a RequestSerialPortList message.
+             * @function verify
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RequestSerialPortList.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                return null;
+            };
+
+            /**
+             * Creates a RequestSerialPortList message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList} RequestSerialPortList
+             */
+            RequestSerialPortList.fromObject = function fromObject(object) {
+                if (object instanceof $root.IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList)
+                    return object;
+                return new $root.IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList();
+            };
+
+            /**
+             * Creates a plain object from a RequestSerialPortList message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList} message RequestSerialPortList
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RequestSerialPortList.toObject = function toObject() {
+                return {};
+            };
+
+            /**
+             * Converts this RequestSerialPortList to JSON.
+             * @function toJSON
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RequestSerialPortList.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return RequestSerialPortList;
+        })();
+
+        IntifaceFrontendMessage.UpdateUserDeviceConfig = (function() {
+
+            /**
+             * Properties of an UpdateUserDeviceConfig.
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage
+             * @interface IUpdateUserDeviceConfig
+             * @property {string|null} [jsonDeviceConfig] UpdateUserDeviceConfig jsonDeviceConfig
+             */
+
+            /**
+             * Constructs a new UpdateUserDeviceConfig.
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage
+             * @classdesc Represents an UpdateUserDeviceConfig.
+             * @implements IUpdateUserDeviceConfig
+             * @constructor
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IUpdateUserDeviceConfig=} [properties] Properties to set
+             */
+            function UpdateUserDeviceConfig(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * UpdateUserDeviceConfig jsonDeviceConfig.
+             * @member {string} jsonDeviceConfig
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig
+             * @instance
+             */
+            UpdateUserDeviceConfig.prototype.jsonDeviceConfig = "";
+
+            /**
+             * Creates a new UpdateUserDeviceConfig instance using the specified properties.
+             * @function create
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IUpdateUserDeviceConfig=} [properties] Properties to set
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig} UpdateUserDeviceConfig instance
+             */
+            UpdateUserDeviceConfig.create = function create(properties) {
+                return new UpdateUserDeviceConfig(properties);
+            };
+
+            /**
+             * Encodes the specified UpdateUserDeviceConfig message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig.verify|verify} messages.
+             * @function encode
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IUpdateUserDeviceConfig} message UpdateUserDeviceConfig message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            UpdateUserDeviceConfig.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.jsonDeviceConfig != null && Object.hasOwnProperty.call(message, "jsonDeviceConfig"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.jsonDeviceConfig);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified UpdateUserDeviceConfig message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.IUpdateUserDeviceConfig} message UpdateUserDeviceConfig message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            UpdateUserDeviceConfig.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes an UpdateUserDeviceConfig message from the specified reader or buffer.
+             * @function decode
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig} UpdateUserDeviceConfig
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            UpdateUserDeviceConfig.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.jsonDeviceConfig = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes an UpdateUserDeviceConfig message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig} UpdateUserDeviceConfig
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            UpdateUserDeviceConfig.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies an UpdateUserDeviceConfig message.
+             * @function verify
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            UpdateUserDeviceConfig.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.jsonDeviceConfig != null && message.hasOwnProperty("jsonDeviceConfig"))
+                    if (!$util.isString(message.jsonDeviceConfig))
+                        return "jsonDeviceConfig: string expected";
+                return null;
+            };
+
+            /**
+             * Creates an UpdateUserDeviceConfig message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig} UpdateUserDeviceConfig
+             */
+            UpdateUserDeviceConfig.fromObject = function fromObject(object) {
+                if (object instanceof $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig)
+                    return object;
+                var message = new $root.IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig();
+                if (object.jsonDeviceConfig != null)
+                    message.jsonDeviceConfig = String(object.jsonDeviceConfig);
+                return message;
+            };
+
+            /**
+             * Creates a plain object from an UpdateUserDeviceConfig message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig
+             * @static
+             * @param {IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig} message UpdateUserDeviceConfig
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            UpdateUserDeviceConfig.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults)
+                    object.jsonDeviceConfig = "";
+                if (message.jsonDeviceConfig != null && message.hasOwnProperty("jsonDeviceConfig"))
+                    object.jsonDeviceConfig = message.jsonDeviceConfig;
+                return object;
+            };
+
+            /**
+             * Converts this UpdateUserDeviceConfig to JSON.
+             * @function toJSON
+             * @memberof IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            UpdateUserDeviceConfig.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return UpdateUserDeviceConfig;
         })();
 
         return IntifaceFrontendMessage;

@@ -127,6 +127,38 @@ export abstract class FrontendConnector extends EventEmitter {
     await this.SendMessageExpectOk(msg);
   }
 
+  public async RequestSerialPortList(): Promise<[string, string][]> {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      requestSerialPortList: IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList.create(),
+    });
+    let return_msg = await this.SendMessageExpectReturn(msg);
+    if (return_msg.serialPortList) {
+      let ports: [string, string][] = [];
+      for (let i = 0; i < return_msg.serialPortList!.names!.length; ++i) {
+        ports.push([return_msg!.serialPortList!.ports![i]!, return_msg!.serialPortList!.names![i]!]);
+      }
+      return ports;
+    }
+    return [];
+  }
+
+  public async RequestUserDeviceConfig(): Promise<string> {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      requestUserDeviceConfig: IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig.create(),
+    });
+    let return_msg = await this.SendMessageExpectReturn(msg);
+    return return_msg.initializeUserDeviceConfig!.jsonDeviceConfig!;
+  }
+
+  public async UpdateUserDeviceConfig(config: string) {
+    const msg = IntifaceProtocols.IntifaceFrontendMessage.create({
+      updateUserDeviceConfig: IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig.create({
+        jsonDeviceConfig: config
+      }),
+    });
+    await this.SendMessageExpectOk(msg);
+  }
+
   protected abstract SendMessageInternal(aRawMsg: Buffer): void;
 
   protected SendMessageWithoutReturn(aMsg: IntifaceProtocols.IntifaceFrontendMessage) {

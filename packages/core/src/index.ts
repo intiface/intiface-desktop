@@ -5,4 +5,5 @@ export * from "./IntifaceConfigurationEventManager";
 export * from "./IntifaceFrontendLogger";
 export * from "./IntifaceLogger";
 export * from "./Utils";
-
+export * from "./device_configuration/DeviceConfigurationManager";
+export * from "./device_configuration/SerialProtocolConfiguration";

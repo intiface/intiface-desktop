@@ -121,6 +121,15 @@ message IntifaceBackendMessage {
     string info = 1;
   };
 
+  message SerialPortList {
+    repeated string ports = 1;
+    repeated string names = 2;
+  };
+
+  message InitializeUserDeviceConfig {
+    string json_device_config = 1;
+  }
+
   oneof msg {
     Ok ok = 2;
     Error error = 3;
@@ -130,6 +139,8 @@ message IntifaceBackendMessage {
     ServerProcessMessage server_process_message = 9;
     LogMessage log_message = 10;
     ProcessError process_error = 11;
+    SerialPortList serial_port_list = 12;
+    InitializeUserDeviceConfig initialize_user_device_config = 13;
   };
 };
 
@@ -198,8 +209,18 @@ message IntifaceFrontendMessage {
   message CancelUpdate {
   };
 
-  message OpenLogDirectory {    
+  message OpenLogDirectory {
   };
+
+  message RequestUserDeviceConfig {    
+  };
+
+  message RequestSerialPortList {
+  };
+
+  message UpdateUserDeviceConfig {
+    string json_device_config = 1;
+  }
 
   oneof msg {
     Ok ok = 2;
@@ -218,5 +239,8 @@ message IntifaceFrontendMessage {
     CancelUpdate cancel_update = 18;
     ResetIntifaceConfiguration reset_intiface_configuration = 19;
     OpenLogDirectory open_log_directory = 20;
+    RequestSerialPortList request_serial_port_list = 21;
+    UpdateUserDeviceConfig update_user_device_config = 22;
+    RequestUserDeviceConfig request_user_device_config = 23;
   };
 };

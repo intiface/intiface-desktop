@@ -2,6 +2,7 @@ import * as os from "os";
 import * as path from "path";
 
 export class IntifaceBackendUtils {
+  public static USER_DEVICE_CONFIG_FILENAME = "buttplug-user-device-config.json";
   public static DEVICE_CONFIG_FILENAME = "buttplug-device-config.json";
   public static INTIFACE_CONFIG_DIRECTORY_NAME = "IntifaceDesktop";
 
@@ -18,5 +19,9 @@ export class IntifaceBackendUtils {
 
   public static get DeviceConfigFilePath(): string {
     return path.join(IntifaceBackendUtils.UserConfigDirectory, IntifaceBackendUtils.DEVICE_CONFIG_FILENAME);
+  }
+
+  public static get UserDeviceConfigFilePath(): string {
+    return path.join(IntifaceBackendUtils.UserConfigDirectory, IntifaceBackendUtils.USER_DEVICE_CONFIG_FILENAME);
   }
 }

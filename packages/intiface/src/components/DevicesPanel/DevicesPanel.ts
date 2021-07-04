@@ -1,9 +1,10 @@
 import Vue from "vue";
 import { ButtplugClient, ButtplugClientDevice, ButtplugWebsocketConnectorOptions } from "buttplug";
-import { FrontendConnector, IntifaceConfiguration } from "intiface-core-library";
+import { FrontendConnector, IntifaceConfiguration, DeviceConfigurationManager, SerialProtocolConfiguration } from "intiface-core-library";
 import { Component, Prop, Watch } from "vue-property-decorator";
 import DeviceComponent from './DeviceComponent.vue';
 import { watch } from "fs";
+import { IProtocolConfiguration } from "../../../../core/dist/device_configuration/IProtocolConfiguration";
 
 @Component({
   name: "DevicesPanel",
@@ -18,18 +19,38 @@ export default class DevicesPanel extends Vue {
   private config!: IntifaceConfiguration;
   private client: ButtplugClient = new ButtplugClient("Intiface Desktop Device Panel");
   private devices: Array<ButtplugClientDevice> = [];
-  private user_protocols: string[] = ["nobras", "tcode"];
+  private user_protocols: object[] = [{value: "nobra", text: "Nobra's Silicone Dreams"}, {value: "tcode", text: "TCode (OSR2/SR6)"}];
   private in_use = false;
-  
+  private serial_port_names: object[] = [];
+  private protocol_name: string | null = null;
+  private serial_port: string | null = null;
+  private baud_rate: number | null = null;
+  private baud_rates: number[] = [1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200];
+  private deviceManager: DeviceConfigurationManager = new DeviceConfigurationManager();
+  private device_configs: Map<string, IProtocolConfiguration[]> = new Map<string, IProtocolConfiguration[]>();
+
   private get IsDevicePanelBeingUsed() {
     return this.in_use;
   }
 
-  private mounted() {
+  private async mounted() {
+    let config = await this.connector.RequestUserDeviceConfig();
+    this.deviceManager.LoadUserConfigurationFromJson(config);
+    this.device_configs = this.deviceManager.UserConfig;
     this.connector.addListener("serverdisconnect", async () => {
       console.log("Got disconnection message");
       await this.disconnect()
     });
+    this.connector.RequestSerialPortList().then((p: [string, string][]) => {
+      this.serial_port_names = [];
+      for (let port of p) {
+        this.serial_port_names.push({
+          value: port[0],
+          text: `${port[1]} (${port[0]})`
+        })
+      }
+    });
+    this.$forceUpdate();
   }
 
   private async startServerAndScanForDevices() {
@@ -80,11 +101,27 @@ export default class DevicesPanel extends Vue {
     this.devices = [];
   }
 
-  private addUserDeviceConfig() {
-
+  private async addUserDeviceConfig() {
+    if (this.protocol_name === null || this.serial_port === null || this.baud_rate === null) {
+      this.$emit("error", "Protocol, serial port, and baud rate must be set to add a user device configuration");
+      return;
+    }
+    if (this.deviceManager.HasPort(this.serial_port)) {
+      this.$emit("error", `Serial port ${this.serial_port} is already used in another configuration. Either use a different serial port or remove the configuration using ${this.serial_port}`);
+      return;
+    }
+    this.deviceManager.AddUserConfig(this.protocol_name, new SerialProtocolConfiguration(this.serial_port, this.baud_rate, 8, 1, "N"));
+    let config = this.deviceManager.UserConfigAsJSON;
+    await this.connector.UpdateUserDeviceConfig(config);
+    this.device_configs = this.deviceManager.UserConfig;
+    this.$forceUpdate();
   }
 
-  private removeUserDeviceConfig() {
-
+  private async removeUserDeviceConfig(protocol: string, config: IProtocolConfiguration) {
+    this.deviceManager.RemoveUserConfig(protocol, config);
+    let new_config = this.deviceManager.UserConfigAsJSON;
+    await this.connector.UpdateUserDeviceConfig(new_config);
+    this.device_configs = this.deviceManager.UserConfig;
+    this.$forceUpdate();
   }
 }

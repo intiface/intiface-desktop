@@ -1249,6 +1249,12 @@ export namespace IntifaceProtocols {
 
         /** IntifaceBackendMessage processError */
         processError?: (IntifaceProtocols.IntifaceBackendMessage.IProcessError|null);
+
+        /** IntifaceBackendMessage serialPortList */
+        serialPortList?: (IntifaceProtocols.IntifaceBackendMessage.ISerialPortList|null);
+
+        /** IntifaceBackendMessage initializeUserDeviceConfig */
+        initializeUserDeviceConfig?: (IntifaceProtocols.IntifaceBackendMessage.IInitializeUserDeviceConfig|null);
     }
 
     /** Represents an IntifaceBackendMessage. */
@@ -1287,8 +1293,14 @@ export namespace IntifaceProtocols {
         /** IntifaceBackendMessage processError. */
         public processError?: (IntifaceProtocols.IntifaceBackendMessage.IProcessError|null);
 
+        /** IntifaceBackendMessage serialPortList. */
+        public serialPortList?: (IntifaceProtocols.IntifaceBackendMessage.ISerialPortList|null);
+
+        /** IntifaceBackendMessage initializeUserDeviceConfig. */
+        public initializeUserDeviceConfig?: (IntifaceProtocols.IntifaceBackendMessage.IInitializeUserDeviceConfig|null);
+
         /** IntifaceBackendMessage msg. */
-        public msg?: ("ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"serverProcessMessage"|"logMessage"|"processError");
+        public msg?: ("ok"|"error"|"configuration"|"updatesAvailable"|"downloadProgress"|"serverProcessMessage"|"logMessage"|"processError"|"serialPortList"|"initializeUserDeviceConfig");
 
         /**
          * Creates a new IntifaceBackendMessage instance using the specified properties.
@@ -2010,6 +2022,192 @@ export namespace IntifaceProtocols {
              */
             public toJSON(): { [k: string]: any };
         }
+
+        /** Properties of a SerialPortList. */
+        interface ISerialPortList {
+
+            /** SerialPortList ports */
+            ports?: (string[]|null);
+
+            /** SerialPortList names */
+            names?: (string[]|null);
+        }
+
+        /** Represents a SerialPortList. */
+        class SerialPortList implements ISerialPortList {
+
+            /**
+             * Constructs a new SerialPortList.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceBackendMessage.ISerialPortList);
+
+            /** SerialPortList ports. */
+            public ports: string[];
+
+            /** SerialPortList names. */
+            public names: string[];
+
+            /**
+             * Creates a new SerialPortList instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns SerialPortList instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceBackendMessage.ISerialPortList): IntifaceProtocols.IntifaceBackendMessage.SerialPortList;
+
+            /**
+             * Encodes the specified SerialPortList message. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.SerialPortList.verify|verify} messages.
+             * @param message SerialPortList message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceBackendMessage.ISerialPortList, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified SerialPortList message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.SerialPortList.verify|verify} messages.
+             * @param message SerialPortList message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceBackendMessage.ISerialPortList, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a SerialPortList message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns SerialPortList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceBackendMessage.SerialPortList;
+
+            /**
+             * Decodes a SerialPortList message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns SerialPortList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceBackendMessage.SerialPortList;
+
+            /**
+             * Verifies a SerialPortList message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a SerialPortList message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns SerialPortList
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceBackendMessage.SerialPortList;
+
+            /**
+             * Creates a plain object from a SerialPortList message. Also converts values to other types if specified.
+             * @param message SerialPortList
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceBackendMessage.SerialPortList, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this SerialPortList to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of an InitializeUserDeviceConfig. */
+        interface IInitializeUserDeviceConfig {
+
+            /** InitializeUserDeviceConfig jsonDeviceConfig */
+            jsonDeviceConfig?: (string|null);
+        }
+
+        /** Represents an InitializeUserDeviceConfig. */
+        class InitializeUserDeviceConfig implements IInitializeUserDeviceConfig {
+
+            /**
+             * Constructs a new InitializeUserDeviceConfig.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceBackendMessage.IInitializeUserDeviceConfig);
+
+            /** InitializeUserDeviceConfig jsonDeviceConfig. */
+            public jsonDeviceConfig: string;
+
+            /**
+             * Creates a new InitializeUserDeviceConfig instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns InitializeUserDeviceConfig instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceBackendMessage.IInitializeUserDeviceConfig): IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig;
+
+            /**
+             * Encodes the specified InitializeUserDeviceConfig message. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig.verify|verify} messages.
+             * @param message InitializeUserDeviceConfig message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceBackendMessage.IInitializeUserDeviceConfig, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified InitializeUserDeviceConfig message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig.verify|verify} messages.
+             * @param message InitializeUserDeviceConfig message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceBackendMessage.IInitializeUserDeviceConfig, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an InitializeUserDeviceConfig message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns InitializeUserDeviceConfig
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig;
+
+            /**
+             * Decodes an InitializeUserDeviceConfig message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns InitializeUserDeviceConfig
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig;
+
+            /**
+             * Verifies an InitializeUserDeviceConfig message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an InitializeUserDeviceConfig message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns InitializeUserDeviceConfig
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig;
+
+            /**
+             * Creates a plain object from an InitializeUserDeviceConfig message. Also converts values to other types if specified.
+             * @param message InitializeUserDeviceConfig
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this InitializeUserDeviceConfig to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
     }
 
     /** Properties of an IntifaceFrontendMessage. */
@@ -2065,6 +2263,15 @@ export namespace IntifaceProtocols {
 
         /** IntifaceFrontendMessage openLogDirectory */
         openLogDirectory?: (IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory|null);
+
+        /** IntifaceFrontendMessage requestSerialPortList */
+        requestSerialPortList?: (IntifaceProtocols.IntifaceFrontendMessage.IRequestSerialPortList|null);
+
+        /** IntifaceFrontendMessage updateUserDeviceConfig */
+        updateUserDeviceConfig?: (IntifaceProtocols.IntifaceFrontendMessage.IUpdateUserDeviceConfig|null);
+
+        /** IntifaceFrontendMessage requestUserDeviceConfig */
+        requestUserDeviceConfig?: (IntifaceProtocols.IntifaceFrontendMessage.IRequestUserDeviceConfig|null);
     }
 
     /** Represents an IntifaceFrontendMessage. */
@@ -2127,8 +2334,17 @@ export namespace IntifaceProtocols {
         /** IntifaceFrontendMessage openLogDirectory. */
         public openLogDirectory?: (IntifaceProtocols.IntifaceFrontendMessage.IOpenLogDirectory|null);
 
+        /** IntifaceFrontendMessage requestSerialPortList. */
+        public requestSerialPortList?: (IntifaceProtocols.IntifaceFrontendMessage.IRequestSerialPortList|null);
+
+        /** IntifaceFrontendMessage updateUserDeviceConfig. */
+        public updateUserDeviceConfig?: (IntifaceProtocols.IntifaceFrontendMessage.IUpdateUserDeviceConfig|null);
+
+        /** IntifaceFrontendMessage requestUserDeviceConfig. */
+        public requestUserDeviceConfig?: (IntifaceProtocols.IntifaceFrontendMessage.IRequestUserDeviceConfig|null);
+
         /** IntifaceFrontendMessage msg. */
-        public msg?: ("ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"logMessage"|"cancelUpdate"|"resetIntifaceConfiguration"|"openLogDirectory");
+        public msg?: ("ok"|"error"|"ready"|"startProcess"|"stopProcess"|"startProxy"|"stopProxy"|"updateConfig"|"checkForUpdates"|"updateEngine"|"updateDeviceFile"|"updateApplication"|"logMessage"|"cancelUpdate"|"resetIntifaceConfiguration"|"openLogDirectory"|"requestSerialPortList"|"updateUserDeviceConfig"|"requestUserDeviceConfig");
 
         /**
          * Creates a new IntifaceFrontendMessage instance using the specified properties.
@@ -3560,6 +3776,264 @@ export namespace IntifaceProtocols {
 
             /**
              * Converts this OpenLogDirectory to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a RequestUserDeviceConfig. */
+        interface IRequestUserDeviceConfig {
+        }
+
+        /** Represents a RequestUserDeviceConfig. */
+        class RequestUserDeviceConfig implements IRequestUserDeviceConfig {
+
+            /**
+             * Constructs a new RequestUserDeviceConfig.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceFrontendMessage.IRequestUserDeviceConfig);
+
+            /**
+             * Creates a new RequestUserDeviceConfig instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns RequestUserDeviceConfig instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceFrontendMessage.IRequestUserDeviceConfig): IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig;
+
+            /**
+             * Encodes the specified RequestUserDeviceConfig message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig.verify|verify} messages.
+             * @param message RequestUserDeviceConfig message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceFrontendMessage.IRequestUserDeviceConfig, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified RequestUserDeviceConfig message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig.verify|verify} messages.
+             * @param message RequestUserDeviceConfig message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceFrontendMessage.IRequestUserDeviceConfig, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a RequestUserDeviceConfig message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns RequestUserDeviceConfig
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig;
+
+            /**
+             * Decodes a RequestUserDeviceConfig message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns RequestUserDeviceConfig
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig;
+
+            /**
+             * Verifies a RequestUserDeviceConfig message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a RequestUserDeviceConfig message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns RequestUserDeviceConfig
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig;
+
+            /**
+             * Creates a plain object from a RequestUserDeviceConfig message. Also converts values to other types if specified.
+             * @param message RequestUserDeviceConfig
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceFrontendMessage.RequestUserDeviceConfig, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this RequestUserDeviceConfig to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a RequestSerialPortList. */
+        interface IRequestSerialPortList {
+        }
+
+        /** Represents a RequestSerialPortList. */
+        class RequestSerialPortList implements IRequestSerialPortList {
+
+            /**
+             * Constructs a new RequestSerialPortList.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceFrontendMessage.IRequestSerialPortList);
+
+            /**
+             * Creates a new RequestSerialPortList instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns RequestSerialPortList instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceFrontendMessage.IRequestSerialPortList): IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList;
+
+            /**
+             * Encodes the specified RequestSerialPortList message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList.verify|verify} messages.
+             * @param message RequestSerialPortList message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceFrontendMessage.IRequestSerialPortList, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified RequestSerialPortList message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList.verify|verify} messages.
+             * @param message RequestSerialPortList message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceFrontendMessage.IRequestSerialPortList, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a RequestSerialPortList message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns RequestSerialPortList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList;
+
+            /**
+             * Decodes a RequestSerialPortList message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns RequestSerialPortList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList;
+
+            /**
+             * Verifies a RequestSerialPortList message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a RequestSerialPortList message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns RequestSerialPortList
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList;
+
+            /**
+             * Creates a plain object from a RequestSerialPortList message. Also converts values to other types if specified.
+             * @param message RequestSerialPortList
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceFrontendMessage.RequestSerialPortList, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this RequestSerialPortList to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of an UpdateUserDeviceConfig. */
+        interface IUpdateUserDeviceConfig {
+
+            /** UpdateUserDeviceConfig jsonDeviceConfig */
+            jsonDeviceConfig?: (string|null);
+        }
+
+        /** Represents an UpdateUserDeviceConfig. */
+        class UpdateUserDeviceConfig implements IUpdateUserDeviceConfig {
+
+            /**
+             * Constructs a new UpdateUserDeviceConfig.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: IntifaceProtocols.IntifaceFrontendMessage.IUpdateUserDeviceConfig);
+
+            /** UpdateUserDeviceConfig jsonDeviceConfig. */
+            public jsonDeviceConfig: string;
+
+            /**
+             * Creates a new UpdateUserDeviceConfig instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns UpdateUserDeviceConfig instance
+             */
+            public static create(properties?: IntifaceProtocols.IntifaceFrontendMessage.IUpdateUserDeviceConfig): IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig;
+
+            /**
+             * Encodes the specified UpdateUserDeviceConfig message. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig.verify|verify} messages.
+             * @param message UpdateUserDeviceConfig message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: IntifaceProtocols.IntifaceFrontendMessage.IUpdateUserDeviceConfig, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified UpdateUserDeviceConfig message, length delimited. Does not implicitly {@link IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig.verify|verify} messages.
+             * @param message UpdateUserDeviceConfig message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: IntifaceProtocols.IntifaceFrontendMessage.IUpdateUserDeviceConfig, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an UpdateUserDeviceConfig message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns UpdateUserDeviceConfig
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig;
+
+            /**
+             * Decodes an UpdateUserDeviceConfig message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns UpdateUserDeviceConfig
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig;
+
+            /**
+             * Verifies an UpdateUserDeviceConfig message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an UpdateUserDeviceConfig message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns UpdateUserDeviceConfig
+             */
+            public static fromObject(object: { [k: string]: any }): IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig;
+
+            /**
+             * Creates a plain object from an UpdateUserDeviceConfig message. Also converts values to other types if specified.
+             * @param message UpdateUserDeviceConfig
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: IntifaceProtocols.IntifaceFrontendMessage.UpdateUserDeviceConfig, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this UpdateUserDeviceConfig to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };
