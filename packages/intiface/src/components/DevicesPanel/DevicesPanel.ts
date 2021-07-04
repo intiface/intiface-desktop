@@ -19,7 +19,7 @@ export default class DevicesPanel extends Vue {
   private config!: IntifaceConfiguration;
   private client: ButtplugClient = new ButtplugClient("Intiface Desktop Device Panel");
   private devices: Array<ButtplugClientDevice> = [];
-  private user_protocols: object[] = [{value: "nobra", text: "Nobra's Silicone Dreams"}, {value: "tcode", text: "TCode (OSR2/SR6)"}];
+  private user_protocols: object[] = [{value: "nobra", text: "Nobra's Silicone Dreams"}, {value: "tcode-v03", text: "TCode v0.3 (OSR2/SR6)"}];
   private in_use = false;
   private serial_port_names: object[] = [];
   private protocol_name: string | null = null;
