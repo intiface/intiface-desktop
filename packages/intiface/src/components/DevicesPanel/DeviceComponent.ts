@@ -1,7 +1,6 @@
 import Vue from "vue";
 import { ButtplugClientDevice, ButtplugDeviceMessageType, RotationCmd, VibrationCmd } from "buttplug";
-import { FrontendConnector } from "intiface-core-library";
-import { Component, Model, Prop, ModelSync } from "vue-property-decorator";
+import { Component, Prop, ModelSync } from "vue-property-decorator";
 
 @Component({
   components: {
