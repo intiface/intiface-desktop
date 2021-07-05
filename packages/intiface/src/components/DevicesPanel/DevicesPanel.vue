@@ -63,7 +63,7 @@
         <v-list v-for="[protocol, configs] of device_configs" v-bind:key="protocol">
           <v-list-item v-for="config of configs" v-bind:key="config.port">
             <v-row>
-              <v-col cols="10">{{ protocol }}: {{ config.port }}</v-col>
+              <v-col cols="10">{{ getProtocolName(protocol) }}: {{ config.port }}</v-col>
               <v-col class="text-end" cols="1" @click="removeUserDeviceConfig(protocol, config)"><v-icon>cancel</v-icon></v-col>
             </v-row>
           </v-list-item>

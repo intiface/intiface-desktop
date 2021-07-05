@@ -33,6 +33,15 @@ export default class DevicesPanel extends Vue {
     return this.in_use;
   }
 
+  private getProtocolName(protocol: string) {
+    for (let protocol_info of this.user_protocols) {
+      if ((protocol_info as any).value === protocol) {
+        return (protocol_info as any).text;
+      }
+    }
+    return `Unknown Protocol ${protocol}`
+  }
+
   private async mounted() {
     let config = await this.connector.RequestUserDeviceConfig();
     this.deviceManager.LoadUserConfigurationFromJson(config);
