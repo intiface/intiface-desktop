@@ -1,3 +1,11 @@
+# v24 (2021-07-05)
+
+## Features
+
+- Added user device config to devices panel
+  - Allows users to set up TCode and Nobra's serial port devices
+- Added error/warning when someone tries to connect when another client is already connected.
+
 # v23 (2021-06-17)
 
 ## Bugfixes
