@@ -5035,7 +5035,7 @@ interpret@^1.0.0:
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
 "intiface-core-backend-library@file:../core-backend":
-  version "21.0.0"
+  version "24.0.0"
   dependencies:
     "@octokit/rest" "^18.5.4"
     axios "^0.21.1"
@@ -5052,7 +5052,7 @@ interpret@^1.0.0:
     winston-transport "^4.4.0"
 
 "intiface-core-library@file:../core":
-  version "21.0.0"
+  version "24.0.0"
   dependencies:
     intiface-protocols "file:../protocols"
     protobufjs "^6.11.2"
@@ -5060,7 +5060,7 @@ interpret@^1.0.0:
     winston-transport "^4.4.0"
 
 "intiface-protocols@file:../protocols":
-  version "19.0.0"
+  version "24.0.0"
   dependencies:
     protobufjs "^6.11.2"
 
@@ -8802,9 +8802,9 @@ tapable@^1.0.0, tapable@^1.1.3:
   integrity sha512-4WK/bYZmj8xLr+HUCODHGF1ZFzsYffasLUgEiMBY4fgtltdO6B4WJtlSbPaDTLpYTcGVwM2qLnFTICEcNxs3kA==
 
 tar@^6.0.2:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.0.tgz#d1724e9bcc04b977b18d5c573b333a2207229a83"
-  integrity sha512-DUCttfhsnLCjwoDoFcI+B2iJgYa93vBnDUATYEeRx6sntCTdN01VnqsIuTlALXla/LWooNg0yEGeB+Y8WdFxGA==
+  version "6.1.3"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.3.tgz#e44b97ee7d6cc7a4c574e8b01174614538291825"
+  integrity sha512-3rUqwucgVZXTeyJyL2jqtUau8/8r54SioM1xj3AmTX3HnWQdj2AydfJ2qYYayPyIIznSplcvU9mhBb7dR2XF3w==
   dependencies:
     chownr "^2.0.0"
     fs-minipass "^2.0.0"
