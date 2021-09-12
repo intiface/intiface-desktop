@@ -100,6 +100,9 @@ export default class DevicesPanel extends Vue {
   }
 
   private async disconnect() {
+    if (!this.client.Connected) {
+      return;
+    }
     await this.client.disconnect();
     this.cleanUp();
   }
