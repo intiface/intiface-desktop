@@ -71,6 +71,26 @@ export class ServerProcess extends EventEmitter {
         {
           cwd: path.dirname(exeFile),
         });
+
+    this._serverProcess.on("error", (err) => {
+      this._backend_logger.debug(`Server process errored out: ${err}`);
+      this.emit("exit", -1);
+      this._serverProcess = null;
+    });
+
+    this._serverProcess.on("exit", (code: number, signal: string) => {
+      this._backend_logger.debug("Server process exited.");
+      this.emit("exit", code);
+      this._serverProcess = null;
+    });
+
+    this._serverProcess.on("close", (code: number) => {
+      this._backend_logger.debug("Server process closed.");
+      this.emit("exit", code);
+      this._serverProcess = null;
+    });   
+
+
     this._serverProcess.stdout!.addListener("data", (d: string) => {
       // We'll always get strings from stdin, but we know they've been encoded
       // binary on the other end, so we should just be able to change them to
@@ -86,11 +106,6 @@ export class ServerProcess extends EventEmitter {
       }
     });
 
-    this._serverProcess.on("exit", (code: number, signal: string) => {
-      this._backend_logger.debug("Server process exited.");
-      this.emit("exit", code);
-      this._serverProcess = null;
-    });
     await p;
   }
 
