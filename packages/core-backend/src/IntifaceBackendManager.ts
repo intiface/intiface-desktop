@@ -1,7 +1,7 @@
 import { BackendConnector } from "./BackendConnector";
 import { IntifaceProtocols } from "intiface-protocols";
 import { ServerProcess } from "./ServerProcess";
-import { IntifaceConfigurationManager, IntifaceUtils } from "intiface-core-library";
+import { IntifaceConfigurationManager, IntifaceUtils, DeviceConfigurationManager } from "intiface-core-library";
 import { IntifaceConfigurationFileManager } from "./IntifaceConfigurationFileManager";
 import { GithubReleaseManager } from "./GithubReleaseManager";
 import { IApplicationUpdater } from "./IApplicationUpdater";
@@ -266,6 +266,14 @@ export class IntifaceBackendManager extends EventEmitter {
     } else {  
       const readFile = promisify(fs.readFile);
       jsonConfig = await readFile(IntifaceBackendUtils.UserDeviceConfigFilePath, { flag: "r+", encoding: "utf-8" });
+      let manager = new DeviceConfigurationManager();
+      // If the file isn't valid, just delete it and start over.
+      if (!manager.IsUserConfigValid(jsonConfig)) {
+        this._logger.warn("Found invalid User Config file, deleting.");
+        const deleteFile = promisify(fs.unlink);
+        await deleteFile(IntifaceBackendUtils.UserDeviceConfigFilePath);
+        jsonConfig = "{}";
+      }
     }
     let msg = IntifaceProtocols.IntifaceBackendMessage.create({
       initializeUserDeviceConfig: IntifaceProtocols.IntifaceBackendMessage.InitializeUserDeviceConfig.create({ jsonDeviceConfig: jsonConfig }),

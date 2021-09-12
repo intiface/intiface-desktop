@@ -76,7 +76,7 @@ export class DeviceConfigurationManager {
     if (this._userConfigs.size == 0) {
       return "";
     }
-    let config_obj = { protocols: {} };
+    let config_obj = { version: 58, protocols: {} };
     for (let protocol of this._userConfigs.keys()) {
       config_obj.protocols[protocol] = {};
       config_obj.protocols[protocol]["serial"] = this._userConfigs.get(protocol)!.map((config) => config.AsObject());
@@ -87,6 +87,18 @@ export class DeviceConfigurationManager {
 
   public get UserConfig(): Map<string, IProtocolConfiguration[]> {
     return this._userConfigs;
+  }
+
+  public IsUserConfigValid(aExternalConfig: string): boolean {
+    // Very dumb test for user config validity.
+    const configObject = JSON.parse(aExternalConfig);
+    if (!("protocols" in configObject)) {
+      return false;
+    }
+    if (!("version" in configObject)) {
+      return false;
+    }
+    return true;
   }
 
   public LoadUserConfigurationFromJson(aExternalConfig: string): void {
