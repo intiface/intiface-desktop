@@ -1,3 +1,9 @@
+# v26 (2021-09-12)
+
+## Bugfixes
+
+- Remove double check for process ending, which makes it look like things always crash on shutdown.
+
 # v25 (2021-09-12)
 
 ## Features

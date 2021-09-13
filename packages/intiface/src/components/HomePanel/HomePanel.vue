@@ -24,7 +24,11 @@
     </v-row>
     <v-row>
       <v-col cols="10">
-        <h2>NEWS FOR V25</h2>
+        <h2>NEWS FOR V26</h2>
+        <p>
+          (Ignore that this jumps from 24 to 26. 25 existed for 5 minutes until I smoke tested it
+          and found a bug that snuck in due to commit orders. Oops.)
+        </p>
         <p>
           Small update this time! Mostly fixing some compatibility issues with libraries that
           Intiface uses.
