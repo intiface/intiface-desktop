@@ -1,6 +1,6 @@
 {
   "name": "intiface-core-backend-library",
-  "version": "24.0.0",
+  "version": "25.0.0",
   "description": "Desktop Intiface Application - Core Backend Library",
   "main": "dist/src/index.js",
   "scripts": {

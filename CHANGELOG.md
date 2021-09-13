@@ -1,3 +1,10 @@
+# v25 (2021-09-12)
+
+## Features
+
+- Updated system for Buttplug v5 user config file expectations
+- Added yet another warning about stopping the devices tab before connecting other things.
+
 # v24 (2021-07-05)
 
 ## Features
