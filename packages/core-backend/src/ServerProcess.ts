@@ -84,13 +84,6 @@ export class ServerProcess extends EventEmitter {
       this._serverProcess = null;
     });
 
-    this._serverProcess.on("close", (code: number) => {
-      this._backend_logger.debug("Server process closed.");
-      this.emit("exit", code);
-      this._serverProcess = null;
-    });   
-
-
     this._serverProcess.stdout!.addListener("data", (d: string) => {
       // We'll always get strings from stdin, but we know they've been encoded
       // binary on the other end, so we should just be able to change them to
