@@ -39,6 +39,15 @@
         >
       </v-col>
     </v-row>
+    <v-row v-if="IsDevicePanelBeingUsed">
+      <v-col cols="12" style="background:#444444;">
+        <p>
+          <b>IMPORTANT:</b> Hit the "Disconnect From Server" button above before trying to connect
+          other apps to Intiface Desktop!<br/> Only one app can be connected at a time, and this device panel
+          counts as an app!
+        </p>
+      </v-col>
+    </v-row>
     <v-row v-if="connector.IsServerProcessRunning && IsDevicePanelBeingUsed">
       <v-col cols="12">
         <v-tabs v-if="this.devices.length > 0">
