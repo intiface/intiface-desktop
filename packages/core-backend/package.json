@@ -24,7 +24,7 @@
   "homepage": "https://github.com/qdot/intiface-desktop#readme",
   "dependencies": {
     "@octokit/rest": "^18.5.4",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "intiface-core-library": "file:../core",
     "intiface-protocols": "file:../protocols",
     "is-online": "^9.0.0",
