@@ -24,6 +24,17 @@
     </v-row>
     <v-row>
       <v-col cols="10">
+        <h2>NEWS FOR V27</h2>
+        <p>
+          v27 is just a quick patch build to fix an issue in Electron with certificates used when
+          fetching device files. I am very much looking forward to being done with Electron.
+          Hopefully coming in v28. Unless something else breaks that requires a new release.
+        </p>
+        <p>- qDot</p>
+      </v-col>
+    </v-row>    
+    <v-row>
+      <v-col cols="10">
         <h2>NEWS FOR V26</h2>
         <p>
           (Ignore that this jumps from 24 to 26. 25 existed for 5 minutes until I smoke tested it
@@ -43,7 +54,7 @@
         </p>
         <p>- qDot</p>
       </v-col>
-    </v-row>    
+    </v-row>
     <v-row>
       <v-col cols="10">
         <h2>NEWS FOR V24</h2>

@@ -1,3 +1,9 @@
+# v27 (2021-09-30)
+
+## Bugfixes
+
+- Update to Electron 13.5.1 to fix Let's Encrypt root cert issue that stopped device file downloads.
+
 # v26 (2021-09-12)
 
 ## Bugfixes
