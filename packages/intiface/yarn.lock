@@ -4093,9 +4093,9 @@ fn.name@1.x.x:
   integrity sha512-GRnmB5gPyJpAhTQdSZTSp9uaPSvl09KoYcMQtsB9rQoOmzs9dH6ffeccH+Z+cv6P68Hu5bC6JjRh4Ah/mHSNRw==
 
 follow-redirects@^1.0.0, follow-redirects@^1.14.0:
-  version "1.14.3"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.3.tgz#6ada78118d8d24caee595595accdc0ac6abd022e"
-  integrity sha512-3MkHxknWMUtb23apkgz/83fDoe+y+qr0TdgacGIA7bew+QLBo3vdgEN2xEsuXNivpFy4CyDhBBZnNZOtalmenw==
+  version "1.14.8"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.8.tgz#016996fb9a11a100566398b1c6839337d7bfa8fc"
+  integrity sha512-1x0S9UVJHsQprFcEC/qnNzBLcIxsjAV905f/UkQxbclCsoTWlacCNOpQa/anodLl2uaEKFhfWOvM2Qg77+15zA==
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -5040,12 +5040,12 @@ interpret@^1.0.0:
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
 "intiface-core-backend-library@file:../core-backend":
-  version "26.0.0"
+  version "27.0.0"
   dependencies:
     "@octokit/rest" "^18.5.4"
     axios "^0.21.2"
-    intiface-core-library "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-backend-library-26.0.0-610df205-e8da-4305-95b4-df2cbbeb724d-1633044561997/node_modules/core"
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-backend-library-26.0.0-610df205-e8da-4305-95b4-df2cbbeb724d-1633044561997/node_modules/protocols"
+    intiface-core-library "file:../core"
+    intiface-protocols "file:../protocols"
     is-online "^9.0.0"
     less "^4.1.1"
     protobufjs "^6.11.2"
@@ -5057,15 +5057,15 @@ interpret@^1.0.0:
     winston-transport "^4.4.0"
 
 "intiface-core-library@file:../core":
-  version "26.0.0"
+  version "27.0.0"
   dependencies:
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-library-26.0.0-25bbf7b5-45b3-4d46-b5e9-5ab1a7b95c62-1633044561982/node_modules/protocols"
+    intiface-protocols "file:../protocols"
     protobufjs "^6.11.2"
     winston "^3.3.3"
     winston-transport "^4.4.0"
 
 "intiface-protocols@file:../protocols":
-  version "26.0.0"
+  version "27.0.0"
   dependencies:
     protobufjs "^6.11.2"
 
