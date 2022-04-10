@@ -5040,12 +5040,12 @@ interpret@^1.0.0:
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
 "intiface-core-backend-library@file:../core-backend":
-  version "26.0.0"
+  version "27.0.0"
   dependencies:
     "@octokit/rest" "^18.5.4"
     axios "^0.21.2"
-    intiface-core-library "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-backend-library-26.0.0-610df205-e8da-4305-95b4-df2cbbeb724d-1633044561997/node_modules/core"
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-backend-library-26.0.0-610df205-e8da-4305-95b4-df2cbbeb724d-1633044561997/node_modules/protocols"
+    intiface-core-library "file:../core"
+    intiface-protocols "file:../protocols"
     is-online "^9.0.0"
     less "^4.1.1"
     protobufjs "^6.11.2"
@@ -5057,15 +5057,15 @@ interpret@^1.0.0:
     winston-transport "^4.4.0"
 
 "intiface-core-library@file:../core":
-  version "26.0.0"
+  version "27.0.0"
   dependencies:
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-library-26.0.0-25bbf7b5-45b3-4d46-b5e9-5ab1a7b95c62-1633044561982/node_modules/protocols"
+    intiface-protocols "file:../protocols"
     protobufjs "^6.11.2"
     winston "^3.3.3"
     winston-transport "^4.4.0"
 
 "intiface-protocols@file:../protocols":
-  version "26.0.0"
+  version "27.0.0"
   dependencies:
     protobufjs "^6.11.2"
 
@@ -6185,9 +6185,9 @@ minimatch@3.0.4, minimatch@^3.0.4:
     brace-expansion "^1.1.7"
 
 minimist@^1.2.0, minimist@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
-  integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
+  integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
 minipass-collect@^1.0.2:
   version "1.0.2"
