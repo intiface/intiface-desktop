@@ -29,7 +29,7 @@
     "intiface-protocols": "file:../protocols",
     "is-online": "^9.0.0",
     "less": "^4.1.1",
-    "protobufjs": "^6.11.2",
+    "protobufjs": "^6.11.3",
     "request": "^2.88.2",
     "rimraf": "^3.0.2",
     "semver": "^7.3.5",
