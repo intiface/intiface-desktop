@@ -9,6 +9,6 @@
   },
   "license": "BSD-3-Clause",
   "dependencies": {
-    "protobufjs": "^6.11.2"
+    "protobufjs": "^6.11.3"
   }
 }
