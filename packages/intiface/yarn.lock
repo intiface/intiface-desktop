@@ -5040,12 +5040,12 @@ interpret@^1.0.0:
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
 "intiface-core-backend-library@file:../core-backend":
-  version "26.0.0"
+  version "27.0.0"
   dependencies:
     "@octokit/rest" "^18.5.4"
     axios "^0.21.2"
-    intiface-core-library "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-backend-library-26.0.0-610df205-e8da-4305-95b4-df2cbbeb724d-1633044561997/node_modules/core"
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-backend-library-26.0.0-610df205-e8da-4305-95b4-df2cbbeb724d-1633044561997/node_modules/protocols"
+    intiface-core-library "file:../core"
+    intiface-protocols "file:../protocols"
     is-online "^9.0.0"
     less "^4.1.1"
     protobufjs "^6.11.2"
@@ -5057,15 +5057,15 @@ interpret@^1.0.0:
     winston-transport "^4.4.0"
 
 "intiface-core-library@file:../core":
-  version "26.0.0"
+  version "27.0.0"
   dependencies:
-    intiface-protocols "file:../../../../AppData/Local/Yarn/Cache/v6/npm-intiface-core-library-26.0.0-25bbf7b5-45b3-4d46-b5e9-5ab1a7b95c62-1633044561982/node_modules/protocols"
+    intiface-protocols "file:../protocols"
     protobufjs "^6.11.2"
     winston "^3.3.3"
     winston-transport "^4.4.0"
 
 "intiface-protocols@file:../protocols":
-  version "26.0.0"
+  version "27.0.0"
   dependencies:
     protobufjs "^6.11.2"
 
@@ -8275,9 +8275,9 @@ shebang-regex@^3.0.0:
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
 shell-quote@^1.6.1:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.2.tgz#67a7d02c76c9da24f99d20808fcaded0e0e04be2"
-  integrity sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg==
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.3.tgz#aa40edac170445b9a431e17bb62c0b881b9c4123"
+  integrity sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw==
 
 shelljs@^0.8.3:
   version "0.8.4"
