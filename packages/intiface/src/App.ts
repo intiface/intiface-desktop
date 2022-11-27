@@ -13,7 +13,7 @@ import * as winston from "winston";
 export default class App extends Vue {
   private connector: FrontendConnector | null = null;
   private menuList = [
-    { title: "Home", icon: "home", path: "home"},
+    { title: "Intiface Central", icon: "download", path: "home"},
     { title: "Server Status", icon: "cloud_circle", path: "server" },
     // TODO Actually implement these panels
     // { title: "Proxy", icon: "settings_cell", path: "proxy" },
@@ -24,7 +24,7 @@ export default class App extends Vue {
     { title: "About", icon: "info", path: "about" },
   ];
   private config!: IntifaceConfiguration;
-  private showNavBar: boolean = true;
+  private showNavBar = true;
   private currentItem = this.menuList[0];
   private mini = true;
   private drawer = true;

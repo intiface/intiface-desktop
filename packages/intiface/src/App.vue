@@ -74,6 +74,9 @@
             <router-view @error="onError" :connector="connector" :config="connector.Config"></router-view>
           </keep-alive>
         </v-col>
+        <v-col class="flex-grow-0 flex-shrink-0 pa-2">
+          <p style="color:#FF0000;">Intiface Desktop has reached End-Of-Life, please download and install <a href="https://intiface.com/central">Intiface Central</a>.</p>
+        </v-col>
         <v-col v-if="appErrors.length > 0"  class="flex-grow-0 flex-shrink-0 pa-2">
           <v-alert v-for="errorMsg in appErrors" dismissible :value="true" type="error" @input="appErrors.splice(appErrors.indexOf(errorMsg), 1)">{{ errorMsg }}</v-alert>
         </v-col>

@@ -6,20 +6,11 @@
         <v-expansion-panel-content class="transparent" popout>
           <v-card class="transparent">
             <v-card-text>
-              <v-checkbox
-                v-model="config.CheckForUpdatesOnStart"
-                label="Check For Updates On Application Start"
-              ></v-checkbox>
               <p>
                 <b>Intiface Desktop Version:</b>
                 {{ this.Version }}
               </p>
-              <p>
-                (If updater doesn't work, latest release always available from
-                <a
-                  href="https://github.com/intiface/intiface-desktop/releases"
-                >https://github.com/intiface/intiface-desktop/releases</a>)
-              </p>
+              <p>Intiface Desktop has been deprecated, and no more updates will be provided. Please move to using <a href="https://intiface.com/central">Intiface Central</a>.</p>
               <div
                 v-if="config.HasUsableEngineExecutable && config.Engine === config.InstalledEngineType"
               >
@@ -33,7 +24,7 @@
                 </p>
               </div>
               <div v-else>
-                <b>New engine executable required. Hit "Force Engine Update" button to fix.</b>
+                <b>New engine executable required.</b>
                 <br />
               </div>
               <v-alert
