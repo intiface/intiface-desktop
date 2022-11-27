@@ -1,3 +1,7 @@
+# v28 (2022-11-26)
+
+- Intiface Desktop deprecated, please move to Intiface Central. https://intiface.com/central
+
 # v27 (2021-09-30)
 
 ## Bugfixes

@@ -1,6 +1,6 @@
 {
   "name": "intiface-desktop",
-  "version": "27.0.0",
+  "version": "28.0.0",
   "private": true,
   "author": "Nonpolynomial <kyle@nonpolynolmial.com>",
   "homepage": "https://intiface.com/desktop",
@@ -21,8 +21,8 @@
   "dependencies": {
     "buttplug": "^1.0.14",
     "electron-updater": "^4.3.9",
-    "intiface-core-library": "file:../core",
     "intiface-core-backend-library": "file:../core-backend",
+    "intiface-core-library": "file:../core",
     "intiface-protocols": "file:../protocols",
     "sass": "1.32.8",
     "sass-loader": "^10",
