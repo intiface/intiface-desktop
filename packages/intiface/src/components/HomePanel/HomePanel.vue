@@ -2,8 +2,13 @@
   <v-container>
     <v-row>
       <v-col cols="10">
+        <center>
         <h2 style="color:#FF0000;">PLEASE DOWNLOAD INTIFACE CENTRAL</h2>
         <h4 style="color:#FF0000;">Intiface Desktop has reached End-Of-Life</h4>
+        <br/>
+        <p><b>&gt;&gt;&gt; <a
+        href="https://intiface.com/central">Visit https://intiface.com/central to download and install.</a> &lt;&lt;&lt;</b></p></center>
+        <br/>
         <p><a href="https://intiface.com/central">Intiface Central</a> is now the new hub
         application for Buttplug. It contains all of the functionality of Intiface Desktop, while
         also running on Android/iOS, and is based on a platform I don't hate working on (flutter
@@ -12,15 +17,18 @@
         href="https://intiface.com/central">https://intiface.com/central</a>.</p>
         <p>You will need to download and install the new application, and manually uninstall
         Intiface Desktop.</p>
-        <br/>
         <p>Intiface Desktop is now discontinued. You can continue to use Desktop, but it will no
         longer receive device configuration or engine updates. Due to the way electron updates work,
         I cannot have Desktop update automatically to Intiface Central, so this is the best way I
-        have to get the message out to users.</p> 
-        <p>In the future, update features for Desktop may break due to missing URLs, but as long as
-        the system still has an intiface-cli-rs executable in the right place, Desktop should
-        continue to function.</p>
+        have to get the message out to users.</p>         
+        <p>In the future, update features for Desktop may break due to missing URLs. <u
+        style="color:#FF0000;">CHECK FOR UPDATES ON STARTUP IS NOW DISABLED AND WILL NOT
+        FUNCTION</u>, but you can continue to try updating via the settings panel if it brings you
+        some sort of emotional fulfillment. However, as long as the system still has an
+        intiface-cli-rs executable in the right place, Desktop should continue to install correctly
+        and function.</p>
         <p>Good night, sweet application. You basically did your job ok enough. I guess.</p>
+        <p>- qDot</p>
       </v-col>
     </v-row>    
   </v-container>
