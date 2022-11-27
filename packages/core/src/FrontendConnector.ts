@@ -216,6 +216,7 @@ export abstract class FrontendConnector extends EventEmitter {
       this.SendMessageWithoutReturn(updateConfigMsg);
     });
 
+    /*
     if (this._config.Config.CheckForUpdatesOnStart) {
       // After we've sent ready and gotten back our configuration, trigger an
       // update check in the background if we're supposed to check for updates
@@ -224,6 +225,7 @@ export abstract class FrontendConnector extends EventEmitter {
         await this.CheckForUpdates();
       });
     }
+    */
 
     if (this._config.Config.StartServerOnStartup) {
       // If we want to start the server on startup, do it from the frontend so
