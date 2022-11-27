@@ -7,9 +7,45 @@
 
 ## INTIFACE DESKTOP IS DEAD. LONG LIVE INTIFACE CENTRAL.
 
-[Intiface Central](https://intiface.com/central) is the new hub application for the [Buttplug Library](https://buttplug.io). Intiface Desktop has reached End-Of-Life and will no longer be updated.
+<center><h3><a href="https://intiface.com/central">Visit https://intiface.com/central to download and install.</a></h3></center>
 
-This version should continue to function until the the engine download URLs die, but it is only recommended if there is some reason that Intiface Central will not work. As Buttplug moves to new message specs in the future, Intiface Desktop will fail to connect with programs that use newer version of the Buttplug library.
+[Intiface Central](https://intiface.com/central) is now the new hub application for Buttplug. It
+contains all of the functionality of Intiface Desktop, while also running on Android/iOS, and is
+based on a platform I don't hate working on (flutter instead of electron/node). 
+
+Intiface Central is available for download at
+[https://intiface.com/central)](https://intiface.com/central).
+
+You will need to download and install the new application, and manually uninstall
+Intiface Desktop.
+
+**MOST PROGRAMS THAT WORK WITH INTIFACE DESKTOP SHOULD ALSO WORK WITH INTIFACE
+CENTRAL.** If they don't, contact the original author of the program or let us know via
+the methods listed below.
+
+If you need help with the upgrade, you can contact support via <a
+href="https://twitter.com/buttplugio">Twitter</a>, <a
+href="https://buttplug.zone/buttplugio">Mastodon</a>, or <a
+href="https://discord.buttplug.io">Discord</a>. If these links do not work in the future,
+check the <a href="https://buttplug.io">Buttplug.io website</a> for up-to-date contact
+instructions.
+
+<hr/>
+
+Intiface Desktop is now discontinued. You can continue to use Desktop (and may still need
+to for some older programs that used setups specific to Intiface Desktop), but it will no
+longer receive device configuration or engine updates. Due to the way electron updates work,
+I cannot have Desktop update automatically to Intiface Central, so this is the best way I
+have to get the message out to users.      
+
+In the future, update features for Desktop may break due to missing URLs. <u
+style="color:#FF0000;">CHECK FOR UPDATES ON STARTUP IS NOW DISABLED AND WILL NOT
+FUNCTION</u>, but you can continue to try updating via the settings panel if it brings you
+some sort of emotional fulfillment. However, as long as the system still has an
+intiface-cli-rs executable in the right place, Desktop should continue to install correctly
+and function.
+
+Good night, sweet application. You basically did your job ok enough. I guess.
 
 ## Old Introduction
 
