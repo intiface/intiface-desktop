@@ -49,3 +49,5 @@ dist-bundle
 
 # typedoc output
 doc/**
+
+**/.yarn/**
