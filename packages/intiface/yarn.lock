@@ -304,14 +304,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@electron/get@npm:^1.0.1":
-  version: 1.12.4
-  resolution: "@electron/get@npm:1.12.4"
+"@electron/get@npm:^1.13.0":
+  version: 1.14.1
+  resolution: "@electron/get@npm:1.14.1"
   dependencies:
     debug: ^4.1.1
     env-paths: ^2.2.0
     fs-extra: ^8.1.0
-    global-agent: ^2.0.2
+    global-agent: ^3.0.0
     global-tunnel-ng: ^2.7.1
     got: ^9.6.0
     progress: ^2.0.3
@@ -322,7 +322,7 @@ __metadata:
       optional: true
     global-tunnel-ng:
       optional: true
-  checksum: 7cdcbaec202c30fa8f57299ac4304117637ad46215b1c9fcbafbd6db8aadb64b321b67125ada6f694f877b49c11c84cd4b404fbea51b285caa5505387cea7209
+  checksum: 21fec5e82bbee8f9fa183b46e05675b137c3130c7999d3b2b34a0047d1a06ec3c76347b9bbdb9911ba9b2123697804e360a15dda9db614c0226d5d4dcc4d6d15
   languageName: node
   linkType: hard
 
@@ -990,10 +990,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^14.6.2":
-  version: 14.17.1
-  resolution: "@types/node@npm:14.17.1"
-  checksum: 81cc34ecd6e21ed723f00e55f042ccc1e1bde306122fa73aab9437584339fe1dd0c10e00ee691c99f0b9ca1ebcc9d6f0d35ca78356f7d0d580eaf3e93bd48718
+"@types/node@npm:^16.11.26":
+  version: 16.18.3
+  resolution: "@types/node@npm:16.18.3"
+  checksum: 6b8ba2ea5d842f7986e366cb9184c54d273d492784dc62e08fd5afeae938d9b61aec6e4222d2541cd18f9b1412ba361bbcb3f4204fb003608af80a2a6af959f9
   languageName: node
   linkType: hard
 
@@ -3800,13 +3800,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.6.5":
-  version: 3.13.1
-  resolution: "core-js@npm:3.13.1"
-  checksum: f020e194bac93eb54fbefd1c33931582e3408d08584d9c6829cd3428ebe8b39e1e93a3b03e8aa49f7bf731ff07ef9c76abc2e9efa128edfa2216e00620830dee
-  languageName: node
-  linkType: hard
-
 "core-util-is@npm:1.0.2":
   version: 1.0.2
   resolution: "core-util-is@npm:1.0.2"
@@ -4847,16 +4840,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron@npm:^13.5.1":
-  version: 13.5.1
-  resolution: "electron@npm:13.5.1"
+"electron@npm:^18.3.7":
+  version: 18.3.15
+  resolution: "electron@npm:18.3.15"
   dependencies:
-    "@electron/get": ^1.0.1
-    "@types/node": ^14.6.2
+    "@electron/get": ^1.13.0
+    "@types/node": ^16.11.26
     extract-zip: ^1.0.3
   bin:
     electron: cli.js
-  checksum: 1355996ebb84706ddc743ddc1748bf4ebdb2a3376122ede594fc089283a06d6132537bfec9abdba138c939dcc04011f9580241fa515cbc29824dec68f26f084c
+  checksum: d5ff1a31cb2da292e3f1141036640cabe66563425ebe5ce9784c1945aab1f2b1a6d1b474c23c753cd46af5937702ace343d4b6f9119934bc86e3c41d4dd9fa4a
   languageName: node
   linkType: hard
 
@@ -6060,7 +6053,7 @@ __metadata:
 
 "fsevents@patch:fsevents@^1.2.7#~builtin<compat/fsevents>":
   version: 1.2.13
-  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=d11327"
+  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=18f3a7"
   dependencies:
     bindings: ^1.5.0
     nan: ^2.12.1
@@ -6070,7 +6063,7 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.1#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -6245,18 +6238,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"global-agent@npm:^2.0.2":
-  version: 2.2.0
-  resolution: "global-agent@npm:2.2.0"
+"global-agent@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "global-agent@npm:3.0.0"
   dependencies:
     boolean: ^3.0.1
-    core-js: ^3.6.5
     es6-error: ^4.1.1
     matcher: ^3.0.0
     roarr: ^2.15.3
     semver: ^7.3.2
     serialize-error: ^7.0.1
-  checksum: 09627d2cfc4ae0bee187730d6301cebb80c96c2adadb403d114c5574481b388d491e9c8a6fb2b935e5c0eda886a249bf954e4095d26ca553635cc1ae6d0feb95
+  checksum: 75074d80733b4bd5386c47f5df028e798018025beac0ab310e9908c72bf5639e408203e7bca0130d5ee01b5f4abc6d34385d96a9f950ea5fe1979bb431c808f7
   languageName: node
   linkType: hard
 
@@ -7171,7 +7163,7 @@ __metadata:
 
 "intiface-core-backend-library@file:../core-backend::locator=intiface-desktop%40workspace%3A.":
   version: 27.0.0
-  resolution: "intiface-core-backend-library@file:../core-backend#../core-backend::hash=16f265&locator=intiface-desktop%40workspace%3A."
+  resolution: "intiface-core-backend-library@file:../core-backend#../core-backend::hash=428407&locator=intiface-desktop%40workspace%3A."
   dependencies:
     "@octokit/rest": ^18.5.4
     axios: ^0.21.2
@@ -7186,31 +7178,31 @@ __metadata:
     unzipper: ^0.10.11
     winston: ^3.3.3
     winston-transport: ^4.4.0
-  checksum: b43d1f446be35dc69e45bdf967ed7907e5cc71732b35607acebf6cf6074c96aecf6e4558bf295b239658a8fc1740daac3ed6b7e647e20f3476bac8a08a0ffb25
+  checksum: 7efe65e14101095a7c9b9acb05aa2a800d9bfa7f9ec2020decfe3a09ca06ab8b185942784dd35c06cbcb21ee60c96e0efbc2d9aac7e7e82453a6a09940b10c6e
   languageName: node
   linkType: hard
 
-"intiface-core-library@file:../core::locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D16f265%26locator%3Dintiface-desktop%2540workspace%253A.":
+"intiface-core-library@file:../core::locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D428407%26locator%3Dintiface-desktop%2540workspace%253A.":
   version: 27.0.0
-  resolution: "intiface-core-library@file:../core#../core::hash=ff4ffb&locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D16f265%26locator%3Dintiface-desktop%2540workspace%253A."
+  resolution: "intiface-core-library@file:../core#../core::hash=d95162&locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D428407%26locator%3Dintiface-desktop%2540workspace%253A."
   dependencies:
     intiface-protocols: "file:../protocols"
     protobufjs: ^6.11.2
     winston: ^3.3.3
     winston-transport: ^4.4.0
-  checksum: 0ef437db7eb0d232905fdf2a57b89aebf5ca53760d23f6475b09cb3ec591e472355071e41b1fd568fb36c9f84bd62ac58d9988fdc2cc2b2664b65b6f61b922c6
+  checksum: 1c8e206e386235921a21bd5ad6a2e857e29c98a3c94ce0a594579d981c01accc90bc728181b554c977c607c94d5608e7751ba03c2bf3d1d9dd108a5dd3df8893
   languageName: node
   linkType: hard
 
 "intiface-core-library@file:../core::locator=intiface-desktop%40workspace%3A.":
   version: 27.0.0
-  resolution: "intiface-core-library@file:../core#../core::hash=ff4ffb&locator=intiface-desktop%40workspace%3A."
+  resolution: "intiface-core-library@file:../core#../core::hash=d95162&locator=intiface-desktop%40workspace%3A."
   dependencies:
     intiface-protocols: "file:../protocols"
     protobufjs: ^6.11.2
     winston: ^3.3.3
     winston-transport: ^4.4.0
-  checksum: 0ef437db7eb0d232905fdf2a57b89aebf5ca53760d23f6475b09cb3ec591e472355071e41b1fd568fb36c9f84bd62ac58d9988fdc2cc2b2664b65b6f61b922c6
+  checksum: 1c8e206e386235921a21bd5ad6a2e857e29c98a3c94ce0a594579d981c01accc90bc728181b554c977c607c94d5608e7751ba03c2bf3d1d9dd108a5dd3df8893
   languageName: node
   linkType: hard
 
@@ -7229,7 +7221,7 @@ __metadata:
     "@vue/cli-service": ~4.5.13
     "@vue/eslint-config-typescript": ^7.0.0
     buttplug: ^1.0.14
-    electron: ^13.5.1
+    electron: ^18.3.7
     electron-devtools-installer: ^3.2.0
     electron-updater: ^4.3.9
     eslint: ^7.27.0
@@ -7254,39 +7246,39 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"intiface-protocols@file:../protocols::locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D16f265%26locator%3Dintiface-desktop%2540workspace%253A.":
+"intiface-protocols@file:../protocols::locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D428407%26locator%3Dintiface-desktop%2540workspace%253A.":
   version: 27.0.0
-  resolution: "intiface-protocols@file:../protocols#../protocols::hash=648a44&locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D16f265%26locator%3Dintiface-desktop%2540workspace%253A."
+  resolution: "intiface-protocols@file:../protocols#../protocols::hash=8c1a57&locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D428407%26locator%3Dintiface-desktop%2540workspace%253A."
   dependencies:
     protobufjs: ^6.11.2
-  checksum: 0861a39e9244d767a1406fd014254735f33c7e68a087f79c87dc5c14456485b74ebf95a21023dfc81b8f59feccecc36050c229147b4cf5177bad23d8f9390333
+  checksum: 4f7f233e2dc6fdb1f8621dcc4cb583dfb1885313d20b41a66ff6f8f2efef3afc61a41a4e5523aa89836a4581ddf48bc802acefe9c0cf3367c84ad1568373e218
   languageName: node
   linkType: hard
 
-"intiface-protocols@file:../protocols::locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dff4ffb%26locator%3Dintiface-core-backend-library%2540file%253A..%252Fcore-backend%2523..%252Fcore-backend%253A%253Ahash%253D16f265%2526locator%253Dintiface-desktop%252540workspace%25253A.":
+"intiface-protocols@file:../protocols::locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dd95162%26locator%3Dintiface-core-backend-library%2540file%253A..%252Fcore-backend%2523..%252Fcore-backend%253A%253Ahash%253D428407%2526locator%253Dintiface-desktop%252540workspace%25253A.":
   version: 27.0.0
-  resolution: "intiface-protocols@file:../protocols#../protocols::hash=648a44&locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dff4ffb%26locator%3Dintiface-core-backend-library%2540file%253A..%252Fcore-backend%2523..%252Fcore-backend%253A%253Ahash%253D16f265%2526locator%253Dintiface-desktop%252540workspace%25253A."
+  resolution: "intiface-protocols@file:../protocols#../protocols::hash=8c1a57&locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dd95162%26locator%3Dintiface-core-backend-library%2540file%253A..%252Fcore-backend%2523..%252Fcore-backend%253A%253Ahash%253D428407%2526locator%253Dintiface-desktop%252540workspace%25253A."
   dependencies:
     protobufjs: ^6.11.2
-  checksum: 0861a39e9244d767a1406fd014254735f33c7e68a087f79c87dc5c14456485b74ebf95a21023dfc81b8f59feccecc36050c229147b4cf5177bad23d8f9390333
+  checksum: 4f7f233e2dc6fdb1f8621dcc4cb583dfb1885313d20b41a66ff6f8f2efef3afc61a41a4e5523aa89836a4581ddf48bc802acefe9c0cf3367c84ad1568373e218
   languageName: node
   linkType: hard
 
-"intiface-protocols@file:../protocols::locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dff4ffb%26locator%3Dintiface-desktop%2540workspace%253A.":
+"intiface-protocols@file:../protocols::locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dd95162%26locator%3Dintiface-desktop%2540workspace%253A.":
   version: 27.0.0
-  resolution: "intiface-protocols@file:../protocols#../protocols::hash=648a44&locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dff4ffb%26locator%3Dintiface-desktop%2540workspace%253A."
+  resolution: "intiface-protocols@file:../protocols#../protocols::hash=8c1a57&locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dd95162%26locator%3Dintiface-desktop%2540workspace%253A."
   dependencies:
     protobufjs: ^6.11.2
-  checksum: 0861a39e9244d767a1406fd014254735f33c7e68a087f79c87dc5c14456485b74ebf95a21023dfc81b8f59feccecc36050c229147b4cf5177bad23d8f9390333
+  checksum: 4f7f233e2dc6fdb1f8621dcc4cb583dfb1885313d20b41a66ff6f8f2efef3afc61a41a4e5523aa89836a4581ddf48bc802acefe9c0cf3367c84ad1568373e218
   languageName: node
   linkType: hard
 
 "intiface-protocols@file:../protocols::locator=intiface-desktop%40workspace%3A.":
   version: 27.0.0
-  resolution: "intiface-protocols@file:../protocols#../protocols::hash=648a44&locator=intiface-desktop%40workspace%3A."
+  resolution: "intiface-protocols@file:../protocols#../protocols::hash=8c1a57&locator=intiface-desktop%40workspace%3A."
   dependencies:
     protobufjs: ^6.11.2
-  checksum: 0861a39e9244d767a1406fd014254735f33c7e68a087f79c87dc5c14456485b74ebf95a21023dfc81b8f59feccecc36050c229147b4cf5177bad23d8f9390333
+  checksum: 4f7f233e2dc6fdb1f8621dcc4cb583dfb1885313d20b41a66ff6f8f2efef3afc61a41a4e5523aa89836a4581ddf48bc802acefe9c0cf3367c84ad1568373e218
   languageName: node
   linkType: hard
 
@@ -11204,7 +11196,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.1.6#~builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#~builtin<compat/resolve>":
   version: 1.20.0
-  resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=07638b"
   dependencies:
     is-core-module: ^2.2.0
     path-parse: ^1.0.6
@@ -12992,7 +12984,7 @@ __metadata:
 
 "typescript@patch:typescript@~4#~builtin<compat/typescript>":
   version: 4.3.2
-  resolution: "typescript@patch:typescript@npm%3A4.3.2#~builtin<compat/typescript>::version=4.3.2&hash=dba6d9"
+  resolution: "typescript@patch:typescript@npm%3A4.3.2#~builtin<compat/typescript>::version=4.3.2&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
