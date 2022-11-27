@@ -1,12 +1,17 @@
-# Intiface Desktop
+# Intiface Desktop - END OF LIFE, NO LONGER UPDATED
 
 [![Patreon donate button](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://www.patreon.com/qdot)
 [![Github donate button](https://img.shields.io/badge/github-donate-ff69b4.svg)](https://www.github.com/sponsors/qdot)
-[![Discourse Forum](https://img.shields.io/badge/discourse-forum-blue.svg)](https://metafetish.club)
 [![Discord](https://img.shields.io/discord/353303527587708932.svg?logo=discord)](https://discord.buttplug.io)
 [![Twitter](https://img.shields.io/twitter/follow/buttplugio.svg?style=social&logo=twitter)](https://twitter.com/buttplugio)
 
-[![Build Status](https://dev.azure.com/nplabs/buttplug/_apis/build/status/intiface.intiface-desktop?branchName=master)](https://dev.azure.com/nplabs/buttplug/_build/latest?definitionId=5&branchName=master)
+## INTIFACE DESKTOP IS DEAD. LONG LIVE INTIFACE CENTRAL.
+
+[Intiface Central](https://intiface.com/central) is the new hub application for the [Buttplug Library](https://buttplug.io). Intiface Desktop has reached End-Of-Life and will no longer be updated.
+
+This version should continue to function until the the engine download URLs die, but it is only recommended if there is some reason that Intiface Central will not work. As Buttplug moves to new message specs in the future, Intiface Desktop will fail to connect with programs that use newer version of the Buttplug library.
+
+## Old Introduction
 
 Intiface is a set of applications and services for hosting sex toy
 connections. Where [Buttplug](https://buttplug.io) is for developers,
