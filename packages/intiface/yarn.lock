@@ -7192,25 +7192,25 @@ __metadata:
 
 "intiface-core-library@file:../core::locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D16f265%26locator%3Dintiface-desktop%2540workspace%253A.":
   version: 27.0.0
-  resolution: "intiface-core-library@file:../core#../core::hash=ff4ffb&locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D16f265%26locator%3Dintiface-desktop%2540workspace%253A."
+  resolution: "intiface-core-library@file:../core#../core::hash=1878f0&locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D16f265%26locator%3Dintiface-desktop%2540workspace%253A."
   dependencies:
     intiface-protocols: "file:../protocols"
     protobufjs: ^6.11.2
     winston: ^3.3.3
     winston-transport: ^4.4.0
-  checksum: 0ef437db7eb0d232905fdf2a57b89aebf5ca53760d23f6475b09cb3ec591e472355071e41b1fd568fb36c9f84bd62ac58d9988fdc2cc2b2664b65b6f61b922c6
+  checksum: 8f8577c56cf16a550b6900f6a55b40557f3911e555825a1a7ef4cbc13a2fb96c1e3d5cfd9c6f23220a94cc42dfad02aa4379005e8c7f9c06fb077e120ec06fc8
   languageName: node
   linkType: hard
 
 "intiface-core-library@file:../core::locator=intiface-desktop%40workspace%3A.":
   version: 27.0.0
-  resolution: "intiface-core-library@file:../core#../core::hash=ff4ffb&locator=intiface-desktop%40workspace%3A."
+  resolution: "intiface-core-library@file:../core#../core::hash=1878f0&locator=intiface-desktop%40workspace%3A."
   dependencies:
     intiface-protocols: "file:../protocols"
     protobufjs: ^6.11.2
     winston: ^3.3.3
     winston-transport: ^4.4.0
-  checksum: 0ef437db7eb0d232905fdf2a57b89aebf5ca53760d23f6475b09cb3ec591e472355071e41b1fd568fb36c9f84bd62ac58d9988fdc2cc2b2664b65b6f61b922c6
+  checksum: 8f8577c56cf16a550b6900f6a55b40557f3911e555825a1a7ef4cbc13a2fb96c1e3d5cfd9c6f23220a94cc42dfad02aa4379005e8c7f9c06fb077e120ec06fc8
   languageName: node
   linkType: hard
 
@@ -7263,18 +7263,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"intiface-protocols@file:../protocols::locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dff4ffb%26locator%3Dintiface-core-backend-library%2540file%253A..%252Fcore-backend%2523..%252Fcore-backend%253A%253Ahash%253D16f265%2526locator%253Dintiface-desktop%252540workspace%25253A.":
+"intiface-protocols@file:../protocols::locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3D1878f0%26locator%3Dintiface-core-backend-library%2540file%253A..%252Fcore-backend%2523..%252Fcore-backend%253A%253Ahash%253D16f265%2526locator%253Dintiface-desktop%252540workspace%25253A.":
   version: 27.0.0
-  resolution: "intiface-protocols@file:../protocols#../protocols::hash=648a44&locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dff4ffb%26locator%3Dintiface-core-backend-library%2540file%253A..%252Fcore-backend%2523..%252Fcore-backend%253A%253Ahash%253D16f265%2526locator%253Dintiface-desktop%252540workspace%25253A."
+  resolution: "intiface-protocols@file:../protocols#../protocols::hash=648a44&locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3D1878f0%26locator%3Dintiface-core-backend-library%2540file%253A..%252Fcore-backend%2523..%252Fcore-backend%253A%253Ahash%253D16f265%2526locator%253Dintiface-desktop%252540workspace%25253A."
   dependencies:
     protobufjs: ^6.11.2
   checksum: 0861a39e9244d767a1406fd014254735f33c7e68a087f79c87dc5c14456485b74ebf95a21023dfc81b8f59feccecc36050c229147b4cf5177bad23d8f9390333
   languageName: node
   linkType: hard
 
-"intiface-protocols@file:../protocols::locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dff4ffb%26locator%3Dintiface-desktop%2540workspace%253A.":
+"intiface-protocols@file:../protocols::locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3D1878f0%26locator%3Dintiface-desktop%2540workspace%253A.":
   version: 27.0.0
-  resolution: "intiface-protocols@file:../protocols#../protocols::hash=648a44&locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dff4ffb%26locator%3Dintiface-desktop%2540workspace%253A."
+  resolution: "intiface-protocols@file:../protocols#../protocols::hash=648a44&locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3D1878f0%26locator%3Dintiface-desktop%2540workspace%253A."
   dependencies:
     protobufjs: ^6.11.2
   checksum: 0861a39e9244d767a1406fd014254735f33c7e68a087f79c87dc5c14456485b74ebf95a21023dfc81b8f59feccecc36050c229147b4cf5177bad23d8f9390333
