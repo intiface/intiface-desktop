@@ -6060,7 +6060,7 @@ __metadata:
 
 "fsevents@patch:fsevents@^1.2.7#~builtin<compat/fsevents>":
   version: 1.2.13
-  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=d11327"
+  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#~builtin<compat/fsevents>::version=1.2.13&hash=18f3a7"
   dependencies:
     bindings: ^1.5.0
     nan: ^2.12.1
@@ -6070,7 +6070,7 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.1#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -7171,7 +7171,7 @@ __metadata:
 
 "intiface-core-backend-library@file:../core-backend::locator=intiface-desktop%40workspace%3A.":
   version: 27.0.0
-  resolution: "intiface-core-backend-library@file:../core-backend#../core-backend::hash=16f265&locator=intiface-desktop%40workspace%3A."
+  resolution: "intiface-core-backend-library@file:../core-backend#../core-backend::hash=428407&locator=intiface-desktop%40workspace%3A."
   dependencies:
     "@octokit/rest": ^18.5.4
     axios: ^0.21.2
@@ -7186,31 +7186,31 @@ __metadata:
     unzipper: ^0.10.11
     winston: ^3.3.3
     winston-transport: ^4.4.0
-  checksum: b43d1f446be35dc69e45bdf967ed7907e5cc71732b35607acebf6cf6074c96aecf6e4558bf295b239658a8fc1740daac3ed6b7e647e20f3476bac8a08a0ffb25
+  checksum: 7efe65e14101095a7c9b9acb05aa2a800d9bfa7f9ec2020decfe3a09ca06ab8b185942784dd35c06cbcb21ee60c96e0efbc2d9aac7e7e82453a6a09940b10c6e
   languageName: node
   linkType: hard
 
-"intiface-core-library@file:../core::locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D16f265%26locator%3Dintiface-desktop%2540workspace%253A.":
+"intiface-core-library@file:../core::locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D428407%26locator%3Dintiface-desktop%2540workspace%253A.":
   version: 27.0.0
-  resolution: "intiface-core-library@file:../core#../core::hash=ff4ffb&locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D16f265%26locator%3Dintiface-desktop%2540workspace%253A."
+  resolution: "intiface-core-library@file:../core#../core::hash=d95162&locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D428407%26locator%3Dintiface-desktop%2540workspace%253A."
   dependencies:
     intiface-protocols: "file:../protocols"
     protobufjs: ^6.11.2
     winston: ^3.3.3
     winston-transport: ^4.4.0
-  checksum: 0ef437db7eb0d232905fdf2a57b89aebf5ca53760d23f6475b09cb3ec591e472355071e41b1fd568fb36c9f84bd62ac58d9988fdc2cc2b2664b65b6f61b922c6
+  checksum: 1c8e206e386235921a21bd5ad6a2e857e29c98a3c94ce0a594579d981c01accc90bc728181b554c977c607c94d5608e7751ba03c2bf3d1d9dd108a5dd3df8893
   languageName: node
   linkType: hard
 
 "intiface-core-library@file:../core::locator=intiface-desktop%40workspace%3A.":
   version: 27.0.0
-  resolution: "intiface-core-library@file:../core#../core::hash=ff4ffb&locator=intiface-desktop%40workspace%3A."
+  resolution: "intiface-core-library@file:../core#../core::hash=d95162&locator=intiface-desktop%40workspace%3A."
   dependencies:
     intiface-protocols: "file:../protocols"
     protobufjs: ^6.11.2
     winston: ^3.3.3
     winston-transport: ^4.4.0
-  checksum: 0ef437db7eb0d232905fdf2a57b89aebf5ca53760d23f6475b09cb3ec591e472355071e41b1fd568fb36c9f84bd62ac58d9988fdc2cc2b2664b65b6f61b922c6
+  checksum: 1c8e206e386235921a21bd5ad6a2e857e29c98a3c94ce0a594579d981c01accc90bc728181b554c977c607c94d5608e7751ba03c2bf3d1d9dd108a5dd3df8893
   languageName: node
   linkType: hard
 
@@ -7249,44 +7249,44 @@ __metadata:
     vue-devtools: ^5.1.4
     vue-property-decorator: ^9.1.2
     vue-template-compiler: ^2.6.12
-    vuetify: ^2.5.1
+    vuetify: ^2.6.10
     vuetify-loader: ^1.7.2
   languageName: unknown
   linkType: soft
 
-"intiface-protocols@file:../protocols::locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D16f265%26locator%3Dintiface-desktop%2540workspace%253A.":
+"intiface-protocols@file:../protocols::locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D428407%26locator%3Dintiface-desktop%2540workspace%253A.":
   version: 27.0.0
-  resolution: "intiface-protocols@file:../protocols#../protocols::hash=648a44&locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D16f265%26locator%3Dintiface-desktop%2540workspace%253A."
+  resolution: "intiface-protocols@file:../protocols#../protocols::hash=8c1a57&locator=intiface-core-backend-library%40file%3A..%2Fcore-backend%23..%2Fcore-backend%3A%3Ahash%3D428407%26locator%3Dintiface-desktop%2540workspace%253A."
   dependencies:
     protobufjs: ^6.11.2
-  checksum: 0861a39e9244d767a1406fd014254735f33c7e68a087f79c87dc5c14456485b74ebf95a21023dfc81b8f59feccecc36050c229147b4cf5177bad23d8f9390333
+  checksum: 4f7f233e2dc6fdb1f8621dcc4cb583dfb1885313d20b41a66ff6f8f2efef3afc61a41a4e5523aa89836a4581ddf48bc802acefe9c0cf3367c84ad1568373e218
   languageName: node
   linkType: hard
 
-"intiface-protocols@file:../protocols::locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dff4ffb%26locator%3Dintiface-core-backend-library%2540file%253A..%252Fcore-backend%2523..%252Fcore-backend%253A%253Ahash%253D16f265%2526locator%253Dintiface-desktop%252540workspace%25253A.":
+"intiface-protocols@file:../protocols::locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dd95162%26locator%3Dintiface-core-backend-library%2540file%253A..%252Fcore-backend%2523..%252Fcore-backend%253A%253Ahash%253D428407%2526locator%253Dintiface-desktop%252540workspace%25253A.":
   version: 27.0.0
-  resolution: "intiface-protocols@file:../protocols#../protocols::hash=648a44&locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dff4ffb%26locator%3Dintiface-core-backend-library%2540file%253A..%252Fcore-backend%2523..%252Fcore-backend%253A%253Ahash%253D16f265%2526locator%253Dintiface-desktop%252540workspace%25253A."
+  resolution: "intiface-protocols@file:../protocols#../protocols::hash=8c1a57&locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dd95162%26locator%3Dintiface-core-backend-library%2540file%253A..%252Fcore-backend%2523..%252Fcore-backend%253A%253Ahash%253D428407%2526locator%253Dintiface-desktop%252540workspace%25253A."
   dependencies:
     protobufjs: ^6.11.2
-  checksum: 0861a39e9244d767a1406fd014254735f33c7e68a087f79c87dc5c14456485b74ebf95a21023dfc81b8f59feccecc36050c229147b4cf5177bad23d8f9390333
+  checksum: 4f7f233e2dc6fdb1f8621dcc4cb583dfb1885313d20b41a66ff6f8f2efef3afc61a41a4e5523aa89836a4581ddf48bc802acefe9c0cf3367c84ad1568373e218
   languageName: node
   linkType: hard
 
-"intiface-protocols@file:../protocols::locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dff4ffb%26locator%3Dintiface-desktop%2540workspace%253A.":
+"intiface-protocols@file:../protocols::locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dd95162%26locator%3Dintiface-desktop%2540workspace%253A.":
   version: 27.0.0
-  resolution: "intiface-protocols@file:../protocols#../protocols::hash=648a44&locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dff4ffb%26locator%3Dintiface-desktop%2540workspace%253A."
+  resolution: "intiface-protocols@file:../protocols#../protocols::hash=8c1a57&locator=intiface-core-library%40file%3A..%2Fcore%23..%2Fcore%3A%3Ahash%3Dd95162%26locator%3Dintiface-desktop%2540workspace%253A."
   dependencies:
     protobufjs: ^6.11.2
-  checksum: 0861a39e9244d767a1406fd014254735f33c7e68a087f79c87dc5c14456485b74ebf95a21023dfc81b8f59feccecc36050c229147b4cf5177bad23d8f9390333
+  checksum: 4f7f233e2dc6fdb1f8621dcc4cb583dfb1885313d20b41a66ff6f8f2efef3afc61a41a4e5523aa89836a4581ddf48bc802acefe9c0cf3367c84ad1568373e218
   languageName: node
   linkType: hard
 
 "intiface-protocols@file:../protocols::locator=intiface-desktop%40workspace%3A.":
   version: 27.0.0
-  resolution: "intiface-protocols@file:../protocols#../protocols::hash=648a44&locator=intiface-desktop%40workspace%3A."
+  resolution: "intiface-protocols@file:../protocols#../protocols::hash=8c1a57&locator=intiface-desktop%40workspace%3A."
   dependencies:
     protobufjs: ^6.11.2
-  checksum: 0861a39e9244d767a1406fd014254735f33c7e68a087f79c87dc5c14456485b74ebf95a21023dfc81b8f59feccecc36050c229147b4cf5177bad23d8f9390333
+  checksum: 4f7f233e2dc6fdb1f8621dcc4cb583dfb1885313d20b41a66ff6f8f2efef3afc61a41a4e5523aa89836a4581ddf48bc802acefe9c0cf3367c84ad1568373e218
   languageName: node
   linkType: hard
 
@@ -11204,7 +11204,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.1.6#~builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#~builtin<compat/resolve>":
   version: 1.20.0
-  resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=07638b"
   dependencies:
     is-core-module: ^2.2.0
     path-parse: ^1.0.6
@@ -12992,7 +12992,7 @@ __metadata:
 
 "typescript@patch:typescript@~4#~builtin<compat/typescript>":
   version: 4.3.2
-  resolution: "typescript@patch:typescript@npm%3A4.3.2#~builtin<compat/typescript>::version=4.3.2&hash=dba6d9"
+  resolution: "typescript@patch:typescript@npm%3A4.3.2#~builtin<compat/typescript>::version=4.3.2&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -13631,12 +13631,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vuetify@npm:^2.5.1":
-  version: 2.5.1
-  resolution: "vuetify@npm:2.5.1"
+"vuetify@npm:^2.6.10":
+  version: 2.6.12
+  resolution: "vuetify@npm:2.6.12"
   peerDependencies:
     vue: ^2.6.4
-  checksum: dd3e84a7c2c8ddaaec494f139a4e258444b4bb247732b063ebbbb743aa6c2056f829cbb04f70438b795e256911a46dc19c2eebb079a19276dca58c5dc723b8a2
+  checksum: 29b4b0c2af278bd8e8c455b30da635305fbe1327e6337f5c3dadc5272a2f50e3447eb653b298330f34e5b00614f34d0ef70bf74d63c35a428017beaad3a73a5c
   languageName: node
   linkType: hard
 
